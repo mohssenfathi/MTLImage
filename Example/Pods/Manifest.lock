@@ -1,0 +1,14 @@
+PODS:
+  - MTLImage (0.1.0)
+
+DEPENDENCIES:
+  - MTLImage (from `../`)
+
+EXTERNAL SOURCES:
+  MTLImage:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  MTLImage: 04fb9a649d49014fe5ce7763e51fdc594e49477a
+
+COCOAPODS: 0.39.0

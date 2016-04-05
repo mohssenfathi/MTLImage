@@ -1,0 +1,6 @@
+framework module MTLImage {
+  umbrella header "MTLImage-umbrella.h"
+
+  export *
+  module * { export * }
+}

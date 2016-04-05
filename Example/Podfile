@@ -1,0 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'MTLImage_Example' do
+  pod 'MTLImage', :path => '../'
+end
+
+target 'MTLImage_Tests' do
+  pod 'MTLImage', :path => '../'
+
+  
+end

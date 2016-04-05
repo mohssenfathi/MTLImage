@@ -1,0 +1,26 @@
+{
+  "name": "MTLImage",
+  "version": "0.1.0",
+  "summary": "GPUImage, but with Metal",
+  "description": "A work in progress...",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/MTLImage",
+  "license": "MIT",
+  "authors": {
+    "mohssenfathi": "mmohssenfathi@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/MTLImage.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resources": "Pod/Shaders/**/*",
+  "resource_bundles": {
+    "MTLImage": [
+      "Pod/Assets/*.png"
+    ]
+  }
+}
