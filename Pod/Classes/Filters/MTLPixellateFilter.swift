@@ -22,8 +22,7 @@ class MTLPixellateFilter: MTLFilter {
     
     public var dotRadius: Float = 0.5 {
         didSet {
-            if dotRadius < 0.0 { dotRadius = 0.0 }
-            if dotRadius > 1.0 { dotRadius = 1.0 }
+            clamp(&dotRadius, low: 0, high: 1)
             dirty = true
             update()
         }

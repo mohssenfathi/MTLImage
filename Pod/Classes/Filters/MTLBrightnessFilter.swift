@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Metal
 
 struct BrightnessUniforms {
     var brightness: Float = 0.5;
@@ -19,6 +20,7 @@ class MTLBrightnessFilter: MTLFilter {
     
     public var brightness: Float = 0.5 {
         didSet {
+            clamp(&brightness, low: 0, high: 1)
             dirty = true
             update()
         }

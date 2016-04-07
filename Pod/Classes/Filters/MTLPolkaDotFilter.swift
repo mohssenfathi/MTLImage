@@ -21,6 +21,7 @@ class MTLPolkaDotFilter: MTLFilter {
     
     public var dotRadius: Float = 0.0 {
         didSet {
+            clamp(&dotRadius, low: 0, high: 1)
             dirty = true
             update()
         }

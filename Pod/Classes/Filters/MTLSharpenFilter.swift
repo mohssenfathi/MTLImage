@@ -20,6 +20,7 @@ class MTLSharpenFilter: MTLFilter {
     
     public var sharpness: Float = 0.5 {
         didSet {
+            clamp(&sharpness, low: 0, high: 1)
             dirty = true
             update()
         }

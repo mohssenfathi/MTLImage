@@ -13,6 +13,7 @@ class MTLEmbossFilter: MTLConvolutionFilter {
 
     public var intensity: Float = 0.0 {
         didSet {
+            clamp(&intensity, low: 0, high: 1)
             dirty = true
             update()
         }
@@ -29,7 +30,7 @@ class MTLEmbossFilter: MTLConvolutionFilter {
         
         let intense = intensity
         uniforms.convolutionMatrix = MTLFloat3x3( one:   MTLFloat3(one: -intense * 2.0, two: -intense, three: 0.0),
-                                                  two:   MTLFloat3(one: -intense      , two: 0.0     , three: intense),
+                                                  two:   MTLFloat3(one: -intense      , two: 1.0     , three: intense),
                                                   three: MTLFloat3(one: 0.0           , two:  intense, three: intense * 2.0))
         
         uniforms.texelWidth = 100.0

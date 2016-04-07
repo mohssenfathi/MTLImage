@@ -19,6 +19,7 @@ class MTLWhiteBalanceFilter: MTLFilter {
     
     public var temperature: Float = 0.5 {
         didSet {
+            clamp(&temperature, low: 0, high: 1)
             dirty = true
             update()
         }
@@ -26,6 +27,7 @@ class MTLWhiteBalanceFilter: MTLFilter {
     
     public var tint: Float = 0.5 {
         didSet {
+            clamp(&tint, low: 0, high: 1)
             dirty = true
             update()
         }

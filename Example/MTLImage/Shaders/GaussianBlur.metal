@@ -9,9 +9,6 @@
 #include <metal_stdlib>
 using namespace metal;
 
-#include <metal_stdlib>
-using namespace metal;
-
 struct GaussianBlurUniforms {
     float blurRadius;
     float sigma;
@@ -42,18 +39,18 @@ vertex VertexInOut gaussianBlurVertex(constant float4         *position   [[ buf
     output.pos      = position[vid];
     output.texCoord = texCoords[vid];
 
-//    float2 inputTextureCoordinate = texCoords[vid];
-//    float texelWidthOffset = 0.001; //uniforms.texelWidthOffset;
-//    float texelHeightOffset = 0.001; //uniforms.texelHeightOffset;
-//    
-//    float2 firstOffset  = float2(1.3846153846 * texelWidthOffset, 1.3846153846 * texelHeightOffset);
-//    float2 secondOffset = float2(3.2307692308 * texelWidthOffset, 3.2307692308 * texelHeightOffset);
-//    
-//    output.centerTextureCoordinate        = inputTextureCoordinate;
-//    output.oneStepLeftTextureCoordinate   = inputTextureCoordinate - firstOffset;
-//    output.twoStepsLeftTextureCoordinate  = inputTextureCoordinate - secondOffset;
-//    output.oneStepRightTextureCoordinate  = inputTextureCoordinate + firstOffset;
-//    output.twoStepsRightTextureCoordinate = inputTextureCoordinate + secondOffset;
+    float2 inputTextureCoordinate = texCoords[vid];
+    float texelWidthOffset = 0.0001; //uniforms.texelWidthOffset;
+    float texelHeightOffset = 0.0001; //uniforms.texelHeightOffset;
+    
+    float2 firstOffset  = float2(1.3846153846 * texelWidthOffset, 1.3846153846 * texelHeightOffset);
+    float2 secondOffset = float2(3.2307692308 * texelWidthOffset, 3.2307692308 * texelHeightOffset);
+    
+    output.centerTextureCoordinate        = inputTextureCoordinate;
+    output.oneStepLeftTextureCoordinate   = inputTextureCoordinate - firstOffset;
+    output.twoStepsLeftTextureCoordinate  = inputTextureCoordinate - secondOffset;
+    output.oneStepRightTextureCoordinate  = inputTextureCoordinate + firstOffset;
+    output.twoStepsRightTextureCoordinate = inputTextureCoordinate + secondOffset;
 
     return output;
 }
@@ -65,9 +62,9 @@ fragment half4 gaussianBlurFragment(VertexInOut        input    [[ stage_in ]],
 {
     constexpr sampler quad_sampler;
     
-////    half4 color = tex2D.sample(quad_sampler, input.texCoord);
-////    return color;
-//    
+//    half4 color = tex2D.sample(quad_sampler, input.texCoord);
+//    return color;
+    
 //    half3 fragmentColor;
 ////    fragmentColor  = tex2D.sample(quad_sampler, input.texCoord                      ).rgb * 0.2270270270;
 ////    fragmentColor += tex2D.sample(quad_sampler, input.oneStepLeftTextureCoordinate  ).rgb * 0.3162162162;
@@ -80,18 +77,15 @@ fragment half4 gaussianBlurFragment(VertexInOut        input    [[ stage_in ]],
 //    fragmentColor += tex2D.sample(quad_sampler, input.twoStepsLeftTextureCoordinate ).rgb * half3(weights.sample(quad_sampler, input.twoStepsLeftTextureCoordinate).rrr);
 //    fragmentColor += tex2D.sample(quad_sampler, input.twoStepsRightTextureCoordinate).rgb * half3(weights.sample(quad_sampler, input.twoStepsRightTextureCoordinate).rrr);
 //
-////    half4 color = half4(1.0 / uniforms.blurRadius, 0, 0, 1);
-////    half4(input.texCoord.x - input.oneStepLeftTextureCoordinate.x * 10, 0, 0, 1);
-//
 //    return half4(fragmentColor, 1.0);
-    
+
     
     int size = weights.get_width();
     int radius = size / 2;
     
-    half4 accumColor(0, 0, 0, 0);
-    for (int j = 0; j < size; ++j) {
-        for (int i = 0; i < size; ++i) {
+    half4 accumColor(0, 0, 0, 1);
+    for (int j = 0; j < size; j++) {
+        for (int i = 0; i < size; i++) {
             float2 kernelIndex = float2(i, j);
             float2 textureIndex = float2(input.texCoord.x + (i - radius), input.texCoord.y + (j - radius));
             half4 color = tex2D.sample(quad_sampler, textureIndex).rgba;
@@ -100,7 +94,27 @@ fragment half4 gaussianBlurFragment(VertexInOut        input    [[ stage_in ]],
         }
     }
     
-    return half4(accumColor.rgb, 1);
+    return accumColor;
+}
+
+kernel void gaussianBlur(texture2d<float, access::read>  inTexture  [[texture(0)]],
+                         texture2d<float, access::write> outTexture [[texture(1)]],
+                         texture2d<float, access::read>  weights    [[texture(2)]],
+                         uint2 gid [[thread_position_in_grid]])
+{
+    int size = weights.get_width();
+    int radius = size / 2;
     
+    float4 accumColor(0, 0, 0, 0);
+    for (int j = 0; j < size; ++j) {
+        for (int i = 0; i < size; ++i) {
+            uint2 kernelIndex(i, j);
+            uint2 textureIndex(gid.x + (i - radius), gid.y + (j - radius));
+            float4 color = inTexture.read(textureIndex).rgba;
+            float4 weight = weights.read(kernelIndex).rrrr;
+            accumColor += weight * color;
+        }
+    }
     
+    outTexture.write(float4(accumColor.rgb, 1), gid);
 }

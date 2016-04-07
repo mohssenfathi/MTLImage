@@ -20,6 +20,7 @@ class MTLCrossHatchFilter: MTLFilter {
     
     public var crossHatchSpacing: Float = 0.5 {
         didSet {
+            clamp(&crossHatchSpacing, low: 0, high: 1)
             dirty = true
             update()
         }
@@ -27,6 +28,7 @@ class MTLCrossHatchFilter: MTLFilter {
     
     public var lineWidth: Float = 0.5 {
         didSet {
+            clamp(&lineWidth, low: 0, high: 1)
             dirty = true
             update()
         }
@@ -44,9 +46,9 @@ class MTLCrossHatchFilter: MTLFilter {
         if self.input == nil { return }
         
         var chs = Tools.convert(crossHatchSpacing, oldMin: 0, oldMax: 1, newMin: 0.01, newMax: 0.08)
-        if uniformsBuffer != nil {
+        if uniformsBuffer != nil && texture != nil {
             var singlePixelSpacing: Float!
-            if texture.width != 0 { singlePixelSpacing = 1.0 / Float(texture.width) }
+            if texture!.width != 0 { singlePixelSpacing = 1.0 / Float(texture!.width) }
             else                  { singlePixelSpacing = 1.0 / 2048.0               }
             if (chs < singlePixelSpacing) { chs = singlePixelSpacing }
         }

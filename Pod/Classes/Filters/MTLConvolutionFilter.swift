@@ -16,11 +16,6 @@ struct ConvolutionUniforms {
     var texelHeight: Float = 0.0
 }
 
-//MTLFloat4x4(one: MTLFloat4(one: 0.0, two: 0.0, three: 0.0, four: 0.0),
-//two: MTLFloat4(one: 0.0, two: 0.0, three: 0.0, four: 0.0),
-//three: MTLFloat4(one: 0.0, two: 0.0, three: 0.0, four: 0.0),
-//four: MTLFloat4(one: 0.0, two: 0.0, three: 0.0, four: 0.0))
-
 public
 class MTLConvolutionFilter: MTLFilter {
     

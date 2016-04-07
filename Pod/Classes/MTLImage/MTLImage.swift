@@ -10,7 +10,7 @@ import UIKit
 import Metal
 
 public protocol MTLInput {
-    var texture: MTLTexture  { get }
+    var texture: MTLTexture?  { get }
     var context: MTLContext  { get }
     var device : MTLDevice   { get }
     var targets: [MTLOutput] { get }

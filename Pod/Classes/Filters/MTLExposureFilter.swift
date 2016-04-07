@@ -18,6 +18,7 @@ class MTLExposureFilter: MTLFilter {
     
     public var exposure: Float = 0.5 {
         didSet {
+            clamp(&exposure, low: 0, high: 1)
             dirty = true
             update()
         }

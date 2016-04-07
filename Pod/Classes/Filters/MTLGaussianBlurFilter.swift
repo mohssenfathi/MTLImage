@@ -26,7 +26,7 @@ class MTLGaussianBlurFilter: MTLFilter {
     public var blurRadius: Float = 0.0 {
         willSet {
             if round(newValue) != blurRadius {
-                blurRadius = round(newValue)
+                clamp(&blurRadius, low: 0, high: 1)
                 dirty = true
                 blurWeightTexture = nil
                 update()
@@ -49,25 +49,12 @@ class MTLGaussianBlurFilter: MTLFilter {
     }
     
     override func update() {
-//        if self.input == nil { return }
-//        
-////        setupFilterForSize()
-//        
-//        jobIndex = jobIndex + 1
-//        let currentJobIndex: UInt64 = jobIndex;
-//        
-//        dispatch_async(context.processingQueue) {
-//        
-//            self.uniforms.blurRadius = Tools.convert(self.blurRadius, oldMin: 0, oldMax: 1, newMin: 1, newMax: 30)
+            self.uniforms.blurRadius = Tools.convert(self.blurRadius, oldMin: 0, oldMax: 1, newMin: 0, newMax: 5)
+            self.uniforms.sigma = self.uniforms.blurRadius/2.0
 //            self.uniforms.sigma = Tools.convert(self.sigma, oldMin: 0, oldMax: 1, newMin: 0.5, newMax: 15)
-            self.uniforms.blurRadius = 1.0
-            self.uniforms.sigma = 0.5;
+//            self.uniforms.blurRadius = 1.0
+//            self.uniforms.sigma = 0.5;
             self.uniformsBuffer = self.device.newBufferWithBytes(&self.uniforms, length: sizeof(GaussianBlurUniforms), options: .CPUCacheModeDefaultCache)
-            
-            if self.blurWeightTexture == nil {
-                self.generateBlurRadius()
-                self.secondaryTexture = self.blurWeightTexture
-            }
 //        }
     }
     
@@ -135,9 +122,12 @@ class MTLGaussianBlurFilter: MTLFilter {
     
 
     func generateBlurRadius() {
-        var radius: Float = Tools.convert(blurRadius, oldMin: 0, oldMax: 1, newMin: 1, newMax: 30)
-        var sig: Float = Tools.convert(sigma, oldMin: 0, oldMax: 1, newMin: 0.5, newMax: 15)
-        let size: Int = Int((radius * 2) + 1)
+        var radius: Float = self.uniforms.blurRadius
+        var sig: Float = self.uniforms.sigma
+        
+        if isnan(radius) || isnan(sig) { return }
+        
+        let size = Int(roundf(radius) * 2 + 1)
         
         var delta: Float = 0.0
         var expScale: Float = 0.0
@@ -148,8 +138,13 @@ class MTLGaussianBlurFilter: MTLFilter {
         }
     
 //        var weights = UnsafeMutablePointer<Float>(malloc(sizeof(Float) * size * size))
+//        var weights = [Float](count: size * size, repeatedValue: 0)
         
-        var weights = [Float](count: size * size, repeatedValue: 0)
+        var weights = [[Float]]()
+        for i in 0 ..< size {
+            weights.append([Float](count: size, repeatedValue: 0.0))
+        }
+        
         var weightSum: Float = 0.0
         var y = -radius
         
@@ -158,7 +153,8 @@ class MTLGaussianBlurFilter: MTLFilter {
             
             for i in 0 ..< size {
                 let weight = expf(((x * x + y * y) * expScale))
-                weights[j * size + i] = weight
+                weights[i][j] = weight
+//                weights[j * size + i] = weight
                 weightSum += weight
                 x += delta
             }
@@ -170,23 +166,29 @@ class MTLGaussianBlurFilter: MTLFilter {
         
         for j in 0 ..< size {
             for i in 0 ..< size {
-                weights[j * size + i] *= weightScale;
+//                weights[j * size + i] *= weightScale
+                weights[i][j] *= weightScale
             }
         }
-    
-        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(.R32Float, width: size, height: size, mipmapped: false)
         
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(.R32Float, width: size, height: size, mipmapped: false)
         blurWeightTexture = device.newTextureWithDescriptor(textureDescriptor)
-        blurWeightTexture.replaceRegion(MTLRegionMake2D(0, 0, size, size), mipmapLevel: 0, withBytes: weights, bytesPerRow: sizeof(Float)*size)
+        blurWeightTexture.replaceRegion(MTLRegionMake2D(0, 0, size, size), mipmapLevel: 0, withBytes: weights, bytesPerRow: sizeof(Float) * size)
         
     }
 
     override public var input: MTLInput? {
         didSet {
-            generateBlurRadius()
-            self.secondaryTexture = self.blurWeightTexture
             update()
         }
+    }
+    
+    override func configureCommandEncoder(commandEncoder: MTLRenderCommandEncoder) {
+        super.configureCommandEncoder(commandEncoder)
+        if blurWeightTexture == nil {
+            generateBlurRadius()
+        }
+        commandEncoder.setFragmentTexture(blurWeightTexture, atIndex: 1)
     }
 
     

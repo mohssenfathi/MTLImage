@@ -96,7 +96,7 @@ class MTLPicture: NSObject, MTLInput {
     
 //    MARK: - MTLInput
     
-    public var texture: MTLTexture {
+    public var texture: MTLTexture? {
         get {
             return self.internalTexture
         }

@@ -13,14 +13,14 @@ import MetalKit
 public
 class MTLFilter: NSObject, MTLInput, MTLOutput {
     
-    var internalTexture: MTLTexture!
-    var secondaryTexture: MTLTexture?
+    var internalTexture: MTLTexture?
     var privateInput: MTLInput!
     var pipeline: MTLRenderPipelineState!
     var dirty: Bool!
     var functionName: String!
     var vertexFunction: MTLFunction!
     var fragmentFunction: MTLFunction!
+    var kernelFunction: MTLFunction!
     
     var vertexBuffer: MTLBuffer?
     var texCoordBuffer: MTLBuffer?
@@ -52,7 +52,7 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
             if dirty == true {
                 process()
             }
-            return UIImage.imageWithTexture(texture)
+            return UIImage.imageWithTexture(texture!)
         }
     }
     
@@ -69,6 +69,7 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
         
         vertexFunction   = context.library?.newFunctionWithName(functionName + "Vertex")
         fragmentFunction = context.library?.newFunctionWithName(functionName + "Fragment")
+//        kernelFunction = context.library?.newFunctionWithName(functionName)
         
         if vertexFunction == nil {
             print("Couldn't load vertex function")
@@ -85,6 +86,7 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
         pipelineDescriptor.fragmentFunction = fragmentFunction
         
         do {
+//            pipeline = try context.device.newComputePipelineStateWithFunction(fragmentFunction)
             pipeline = try context.device?.newRenderPipelineStateWithDescriptor(pipelineDescriptor)
         } catch {
             print("Failed to create pipeline")
@@ -123,20 +125,30 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
         vertexBuffer   = device.newBufferWithBytes(kQuadVertices , length: kSzQuadVertices , options: .CPUCacheModeDefaultCache)
         texCoordBuffer = device.newBufferWithBytes(kQuadTexCoords, length: kSzQuadTexCoords, options: .CPUCacheModeDefaultCache)
     }
+
+    var semaphore = dispatch_semaphore_create(1)
     
     public func process() {
         
-        runSynchronously {
-            if self.input == nil { return }
-            
-            guard let inputTexture = self.input?.texture else {
-                print("input texture nil")
+//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+//        runAsynchronously {
+            if self.input == nil {
+//                dispatch_semaphore_signal(self.semaphore)
                 return
             }
             
-            if self.internalTexture == nil || self.internalTexture.width != inputTexture.width || self.internalTexture.height != inputTexture.height {
+            guard let inputTexture = self.input?.texture else {
+                print("input texture nil")
+//                dispatch_semaphore_signal(self.semaphore)
+                return
+            }
+            
+            if self.internalTexture == nil || self.internalTexture!.width != inputTexture.width || self.internalTexture!.height != inputTexture.height {
                 let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(inputTexture.pixelFormat, width:inputTexture.width, height: inputTexture.height, mipmapped: false)
                 self.internalTexture = self.context.device?.newTextureWithDescriptor(textureDescriptor)
+                
+                // Maybe recreate buffers
+                self.setupBuffers()
             }
             
             let renderPassDescriptor = MTLRenderPassDescriptor()
@@ -154,14 +166,59 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
             commandEncoder.setVertexBuffer(self.uniformsBuffer, offset: 0, atIndex: 2)
             
             commandEncoder.setFragmentTexture(inputTexture, atIndex: 0)
-            commandEncoder.setFragmentTexture(self.secondaryTexture, atIndex: 1)
             commandEncoder.setFragmentBuffer(self.uniformsBuffer, offset: 0, atIndex: 1)
+            configureCommandEncoder(commandEncoder)
             commandEncoder.drawPrimitives(.Triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
             commandEncoder.endEncoding()
             
             commandBuffer.commit()
+//            dispatch_semaphore_signal(self.semaphore)
             commandBuffer.waitUntilCompleted()
-        }
+//        }
+        
+        
+        
+//        guard let inputTexture = self.input?.texture else {
+//            print("input texture nil")
+//            return
+//        }
+//        
+//        if self.internalTexture == nil || self.internalTexture!.width != inputTexture.width || self.internalTexture!.height != inputTexture.height {
+//            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(inputTexture.pixelFormat, width:inputTexture.width, height: inputTexture.height, mipmapped: false)
+//            self.internalTexture = self.context.device?.newTextureWithDescriptor(textureDescriptor)
+//
+//            // Maybe recreate buffers
+//            self.setupBuffers()
+//        }
+//        
+//        let threadgroupCounts = MTLSizeMake(8, 8, 1)
+//        let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width,
+//                                       inputTexture.height / threadgroupCounts.height, 1)
+//        
+//        let commandBuffer = self.context.commandQueue.commandBuffer()
+//        let commandEncoder = commandBuffer.computeCommandEncoder()
+//        commandEncoder.setComputePipelineState(pipeline)
+//        commandEncoder.setTexture(inputTexture, atIndex: 0)
+//        commandEncoder.setTexture(internalTexture, atIndex: 1)
+//        configureCommandEncoder(commandEncoder)
+//        commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
+//        commandEncoder.endEncoding()
+//        
+//        commandBuffer.commit()
+//        commandBuffer.waitUntilCompleted()
+    }
+    
+    
+    func configureCommandEncoder(commandEncoder: MTLRenderCommandEncoder) {
+        
+    }
+    
+    
+//    MARK: - Tools
+    
+    func clamp<T: Comparable>(inout value: T, low: T, high: T) {
+        if      value < low  { value = low  }
+        else if value > high { value = high }
     }
     
     
@@ -182,7 +239,7 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     
 //    MARK: - MTLInput
     
-    public var texture: MTLTexture {
+    public var texture: MTLTexture? {
         get {
             if dirty == true {
                 process()

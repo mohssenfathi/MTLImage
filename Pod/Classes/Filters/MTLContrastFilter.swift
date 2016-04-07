@@ -19,6 +19,7 @@ class MTLContrastFilter: MTLFilter {
     
     public var contrast: Float = 0.5 {
         didSet {
+            clamp(&contrast, low: 0, high: 1)
             dirty = true
             update()
         }

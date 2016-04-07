@@ -128,6 +128,7 @@ class MTLView: UIView, MTLOutput {
         metalLayer = layer as! CAMetalLayer
         metalLayer.device = device
         metalLayer.pixelFormat = MTLPixelFormat.BGRA8Unorm
+        metalLayer.drawsAsynchronously = true
     }
     
     func setupPipeline() {
@@ -164,7 +165,7 @@ class MTLView: UIView, MTLOutput {
             let viewSize  = bounds.size
             
             let viewRatio  = Float(viewSize.width / viewSize.height)
-            let imageRatio = Float(input!.texture.width) / Float(input!.texture.height)
+            let imageRatio = Float(input!.texture!.width) / Float(input!.texture!.height)
    
             if imageRatio > viewRatio {  // Image is wider than view
                 y = (Float(viewSize.height) - (Float(viewSize.width) / imageRatio))/Float(viewSize.height)
@@ -197,28 +198,33 @@ class MTLView: UIView, MTLOutput {
     }
 
     func redraw() {
-        let drawable = metalLayer.nextDrawable()
-        let texture = drawable?.texture
+        if input?.texture == nil { return }
         
-        let renderPassDescriptor = MTLRenderPassDescriptor()
-        renderPassDescriptor.colorAttachments[0].texture = texture
-        renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0)
-        renderPassDescriptor.colorAttachments[0].storeAction = .Store
-        renderPassDescriptor.colorAttachments[0].loadAction = .Clear
-        
-        let commandBuffer = commandQueue.commandBuffer()
-        let commandEncoder = commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
-        commandEncoder.setRenderPipelineState(pipeline)
-        commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, atIndex: 0)
-        commandEncoder.setVertexBuffer(texCoordBuffer, offset: 0, atIndex: 1)
-        commandEncoder.setFragmentTexture(input?.texture, atIndex: 0)
-        commandEncoder.setFragmentBuffer(uniformsBuffer, offset: 0, atIndex: 1)
-        commandEncoder.drawPrimitives(.Triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
-     
-        commandEncoder.endEncoding()
-        
-        commandBuffer.presentDrawable(drawable!)
-        commandBuffer.commit()
+        autoreleasepool { 
+            let drawable = metalLayer.nextDrawable()
+            let texture = drawable?.texture
+            
+            let renderPassDescriptor = MTLRenderPassDescriptor()
+            renderPassDescriptor.colorAttachments[0].texture = texture
+            renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0)
+            renderPassDescriptor.colorAttachments[0].storeAction = .Store
+            renderPassDescriptor.colorAttachments[0].loadAction = .Clear
+            
+            let commandBuffer = commandQueue.commandBuffer()
+            let commandEncoder = commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
+            commandEncoder.setRenderPipelineState(pipeline)
+            commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, atIndex: 0)
+            commandEncoder.setVertexBuffer(texCoordBuffer, offset: 0, atIndex: 1)
+            commandEncoder.setFragmentTexture(input?.texture, atIndex: 0)
+            commandEncoder.setFragmentBuffer(uniformsBuffer, offset: 0, atIndex: 1)
+            commandEncoder.drawPrimitives(.Triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
+            
+            commandEncoder.endEncoding()
+            
+            commandBuffer.presentDrawable(drawable!)
+            commandBuffer.commit()
+            commandBuffer.waitUntilCompleted()
+        }
     }
     
     

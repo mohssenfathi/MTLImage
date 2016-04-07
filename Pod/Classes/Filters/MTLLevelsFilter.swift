@@ -22,6 +22,7 @@ class MTLLevelsFilter: MTLFilter {
     
     public var min: Float = 0.0 {
         didSet {
+            clamp(&min, low: 0, high: mid)
             dirty = true
             update()
         }
@@ -29,6 +30,7 @@ class MTLLevelsFilter: MTLFilter {
     
     public var mid: Float = 0.5 {
         didSet {
+            clamp(&mid, low: min, high: max)
             dirty = true
             update()
         }
@@ -36,6 +38,7 @@ class MTLLevelsFilter: MTLFilter {
     
     public var max: Float = 1.0 {
         didSet {
+            clamp(&max, low: mid, high: 1)
             dirty = true
             update()
         }
@@ -43,6 +46,7 @@ class MTLLevelsFilter: MTLFilter {
     
     public var minOut: Float = 0.0 {
         didSet {
+            clamp(&minOut, low: 0, high: maxOut)
             dirty = true
             update()
         }
@@ -50,6 +54,7 @@ class MTLLevelsFilter: MTLFilter {
     
     public var maxOut: Float = 1.0 {
         didSet {
+            clamp(&maxOut, low: minOut, high: 1)
             dirty = true
             update()
         }

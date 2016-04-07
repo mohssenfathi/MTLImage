@@ -19,8 +19,7 @@ class MTLSaturationFilter: MTLFilter {
     
     public var saturation: Float = 0.5 {
         didSet {
-            if saturation < 0.0 { saturation = 0.0 }
-            if saturation > 1.0 { saturation = 1.0 }
+            clamp(&saturation, low: 0, high: 1)
             dirty = true
             update()
         }
