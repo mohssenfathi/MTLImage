@@ -14,60 +14,43 @@ struct CrossHatchUniforms {
     float lineWidth;
 };
 
-struct VertexInOut {
-    float4 pos      [[position]];
-    float2 texCoord [[user(texturecoord)]];
-};
-
-vertex VertexInOut crossHatchVertex(constant float4             *position  [[ buffer(0) ]],
-                                    constant packed_float2      *texCoords [[ buffer(1) ]],
-                                    constant CrossHatchUniforms &uniforms  [[ buffer(2) ]],
-                                    uint                        vid        [[ vertex_id ]])
+kernel void crossHatch(texture2d<float, access::read>  inTexture  [[ texture(0) ]],
+                       texture2d<float, access::write> outTexture [[ texture(1) ]],
+                       constant CrossHatchUniforms &uniforms      [[ buffer(0) ]],
+                       uint2 gid [[thread_position_in_grid]])
 {
-    VertexInOut output;
-    
-    output.pos = position[vid];
-    output.texCoord = texCoords[vid];
-    
-    return output;
-}
-
-fragment half4 crossHatchFragment(VertexInOut     input                        [[ stage_in ]],
-                                  texture2d<half> tex2D                        [[ texture(0) ]],
-                                  constant        CrossHatchUniforms &uniforms [[ buffer(1) ]])
-{
-    
-    constexpr sampler quad_sampler;
-    half4 color = tex2D.sample(quad_sampler, input.texCoord);
-    float luminance = dot(color.rgb, half3(0.2125, 0.7154, 0.0721));
+    float4 color = inTexture.read(gid);
+    float luminance = dot(color.rgb, float3(0.2125, 0.7154, 0.0721));
     
     float crossHatchSpacing = uniforms.crossHatchSpacing;
     float lineWidth = uniforms.lineWidth;
     
-    half4 colorToDisplay = half4(1.0, 1.0, 1.0, 1.0);
-    float x = input.texCoord.x;
-    float y = input.texCoord.y;
+    float4 outColor = float4(1.0, 1.0, 1.0, 1.0);
+    
+    float2 size = float2(inTexture.get_width(), inTexture.get_height());
+    float x = gid.x/size.x;
+    float y = gid.y/size.y;
     
     if (luminance < 1.00) {
         if (fmod(x + y, crossHatchSpacing) <= lineWidth) {
-            colorToDisplay = float4(0.0, 0.0, 0.0, 1.0);
+            outColor = float4(0.0, 0.0, 0.0, 1.0);
         }
     }
     if (luminance < 0.75) {
         if (fmod(x - y, crossHatchSpacing) <= lineWidth) {
-            colorToDisplay = float4(0.0, 0.0, 0.0, 1.0);
+            outColor = float4(0.0, 0.0, 0.0, 1.0);
         }
     }
     if (luminance < 0.50) {
         if (fmod(x + y - (crossHatchSpacing / 2.0), crossHatchSpacing) <= lineWidth) {
-            colorToDisplay = float4(0.0, 0.0, 0.0, 1.0);
+            outColor = float4(0.0, 0.0, 0.0, 1.0);
         }
     }
     if (luminance < 0.3) {
         if (fmod(x - y - (crossHatchSpacing / 2.0), crossHatchSpacing) <= lineWidth) {
-            colorToDisplay = float4(0.0, 0.0, 0.0, 1.0);
+            outColor = float4(0.0, 0.0, 0.0, 1.0);
         }
     }
     
-    return colorToDisplay;
+    outTexture.write(outColor, gid);
 }

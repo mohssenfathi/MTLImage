@@ -36,8 +36,8 @@ class MTLWhiteBalanceFilter: MTLFilter {
     public init() {
         super.init(functionName: "whiteBalance")
         title = "White Balance"
-        properties = [MTLProperty(key: "temperature", title: "Temperature"),
-                      MTLProperty(key: "tint",        title: "Tint")]
+        properties = [MTLProperty(key: "temperature", title: "Temperature", type: Float()),
+                      MTLProperty(key: "tint"       , title: "Tint"       , type: Float())]
         update()
     }
     

@@ -85,4 +85,9 @@ class Tools: NSObject {
         return  retRect;
     }
     
+    public class func clamp<T: Comparable>(inout value: T, low: T, high: T) {
+        if      value < low  { value = low  }
+        else if value > high { value = high }
+    }
+    
 }

@@ -18,17 +18,27 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var tableView: UITableView!
 
+    var settingsViewController: SettingsViewController?
     var selectedFilter: MTLFilter!
     var delegate: FiltersViewControllerDelegate?
+    var filterNames = Array(MTLImage.filters.keys).sort()
+    var specialFilters: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.enabled = false
+        
+        specialFilters = ["Filter Group"]
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = "Filters"
+    }
+    
+    func handleTouchAtLocation(location: CGPoint) {
+        settingsViewController?.handleTouchAtLocation(location)
     }
     
     
@@ -44,17 +54,28 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 //    MARK: DataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MTLImage.filters.count
+        if section == 0 { return specialFilters.count }
+        return filterNames.count
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 { return "Multiple Filters" }
+        return "Single Filters"
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
         
-        cell.textLabel?.text = Array(MTLImage.filters.keys)[indexPath.row]
+        if indexPath.section == 0 {
+            cell.textLabel?.text = specialFilters[indexPath.row]
+        }
+        else {
+            cell.textLabel?.text = filterNames[indexPath.row]
+        }
         
         return cell
     }
@@ -65,12 +86,15 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        let title = Array(MTLImage.filters.keys)[indexPath.row]
-        selectedFilter = MTLImage.filters[title]
-        
-        delegate?.filtersViewControllerDidSelectFilter(self, filter: selectedFilter)
-        
-        performSegueWithIdentifier("settings", sender: self)
+        if indexPath.section == 0 {
+            
+        }
+        else {
+            let title = filterNames[indexPath.row]
+            selectedFilter = MTLImage.filters[title]
+            delegate?.filtersViewControllerDidSelectFilter(self, filter: selectedFilter)
+            performSegueWithIdentifier("settings", sender: self)
+        }
     }
     
     
@@ -83,8 +107,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "settings" {
-            let settingsViewController = segue.destinationViewController as! SettingsViewController
-            settingsViewController.filter = selectedFilter
+            settingsViewController = segue.destinationViewController as? SettingsViewController
+            settingsViewController?.filter = selectedFilter
         }
     }
 

@@ -10,7 +10,7 @@ import UIKit
 import Metal
 
 public protocol MTLInput {
-    var texture: MTLTexture?  { get }
+    var texture: MTLTexture? { get }
     var context: MTLContext  { get }
     var device : MTLDevice   { get }
     var targets: [MTLOutput] { get }
@@ -28,20 +28,26 @@ public
 class MTLImage: NSObject {
     
     public static var filters: [String: MTLFilter] = [
-        "Brightness"   : MTLBrightnessFilter(),
-        "Contrast"     : MTLContrastFilter(),
-        "Convolution"  : MTLConvolutionFilter(),
-        "Cross Hatch"  : MTLCrossHatchFilter(),
-        "Emboss"       : MTLEmbossFilter(),
-        "Exposure"     : MTLExposureFilter(),
-        "Gaussian Blur": MTLGaussianBlurFilter(),
-        "Invert"       : MTLInvertFilter(),
-        "Levels"       : MTLLevelsFilter(),
-        "Pixellate"    : MTLPixellateFilter(),
-        "Polka Dot"    : MTLPolkaDotFilter(),
-        "Saturation"   : MTLSaturationFilter(),
-        "Sharpen"      : MTLSharpenFilter(),
-        "White Balance": MTLWhiteBalanceFilter()
+        "Brightness"           : MTLBrightnessFilter(),
+        "Contrast"             : MTLContrastFilter(),
+        "Cross Hatch"          : MTLCrossHatchFilter(),
+        "Emboss"               : MTLEmbossFilter(),
+        "Exposure"             : MTLExposureFilter(),
+        "Gaussian Blur"        : MTLGaussianBlurFilter(),
+        "Haze"                 : MTLHazeFilter(),
+        "Invert"               : MTLInvertFilter(),
+        "Kuwahara"             : MTLKuwaharaFilter(),
+        "Levels"               : MTLLevelsFilter(),
+        "Pixellate"            : MTLPixellateFilter(),
+        "Polka Dot"            : MTLPolkaDotFilter(),
+        "Saturation"           : MTLSaturationFilter(),
+        "Sketch"               : MTLSketchFilter(),
+        "Sobel Edge Detection" : MTLSobelEdgeDetectionFilter(),
+        "Sharpen"              : MTLSharpenFilter(),
+        "Toon"                 : MTLToonFilter(),
+        "Vignette"             : MTLVignetteFilter(),
+        "Water"                : MTLWaterFilter(),
+        "White Balance"        : MTLWhiteBalanceFilter()
     ]
 }
 

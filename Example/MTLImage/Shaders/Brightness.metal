@@ -13,29 +13,11 @@ struct BrightnessUniforms {
     float brightness;
 };
 
-struct VertexInOut {
-    float4 pos [[position]];
-    float2 texCoord [[user(texturecoord)]];
-};
-
-vertex VertexInOut brightnessVertex(constant float4           *position  [[ buffer(0) ]],
-                                  constant packed_float2     *texCoords [[ buffer(1) ]],
-                                  constant BrightnessUniforms &uniforms  [[ buffer(2) ]],
-                                  uint                       vid        [[ vertex_id ]])
+kernel void brightness(texture2d<float, access::read>  inTexture  [[texture(0)]],
+                         texture2d<float, access::write> outTexture [[texture(1)]],
+                         constant BrightnessUniforms &uniforms      [[ buffer(0) ]],
+                         uint2 gid [[thread_position_in_grid]])
 {
-    VertexInOut output;
-    
-    output.pos = position[vid];
-    output.texCoord = texCoords[vid];
-    
-    return output;
-}
-
-fragment half4 brightnessFragment(VertexInOut    input  [[ stage_in ]],
-                                texture2d<half> tex2D  [[ texture(0) ]],
-                                constant BrightnessUniforms &uniforms [[buffer(1)]])
-{
-    constexpr sampler quad_sampler;
-    half4 color = tex2D.sample(quad_sampler, input.texCoord);
-    return half4((color.rgb + half3(uniforms.brightness)), color.a);
+    float4 color = inTexture.read(gid);
+    outTexture.write(float4((color.rgb + uniforms.brightness), color.a), gid);
 }

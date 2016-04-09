@@ -10,6 +10,11 @@ import Foundation
 
 typealias MTLFloat = Float32
 
+public struct MTLFloat2 {
+    var one  : MTLFloat
+    var two  : MTLFloat
+}
+
 public struct MTLFloat3 {
     var one  : MTLFloat
     var two  : MTLFloat
