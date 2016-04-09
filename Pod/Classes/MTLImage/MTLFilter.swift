@@ -13,34 +13,40 @@ import MetalKit
 public
 class MTLFilter: NSObject, MTLInput, MTLOutput {
     
+    private var internalTargets = [MTLOutput]()
     var internalTexture: MTLTexture?
     var privateInput: MTLInput!
-    var pipeline: MTLRenderPipelineState!
-    var dirty: Bool!
-    var functionName: String!
-    var vertexFunction: MTLFunction!
-    var fragmentFunction: MTLFunction!
+    var pipeline: MTLComputePipelineState!
     var kernelFunction: MTLFunction!
-    
     var vertexBuffer: MTLBuffer?
     var texCoordBuffer: MTLBuffer?
     var uniformsBuffer: MTLBuffer?
     
-    private var internalTargets = [MTLOutput]()
+    var dirty: Bool = true
+    var semaphore = dispatch_semaphore_create(1)
+    
     var sourcePicture: MTLPicture? {
         get {
             var inp: MTLInput? = input
             while inp != nil {
-                if let sourcePicture = input as? MTLPicture {
+                if let sourcePicture = inp as? MTLPicture {
                     return sourcePicture
+                }
+                else if let filter = inp as? MTLFilter {
+                    inp = filter.input
+                }
+                else if let filterGroup = inp as? MTLFilterGroup {
+                    inp = filterGroup.input
                 }
             }
             return nil
         }
     }
     
+    var functionName: String!
     public var title: String!
     public var properties: [MTLProperty]!
+    
     public var originalImage: UIImage? {
         get {
             return sourcePicture?.image
@@ -52,7 +58,7 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
             if dirty == true {
                 process()
             }
-            return UIImage.imageWithTexture(texture!)
+            return UIImage.imageWithTexture(texture!)!
         }
     }
     
@@ -66,33 +72,13 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     }
     
     func setupPipeline() {
-        
-        vertexFunction   = context.library?.newFunctionWithName(functionName + "Vertex")
-        fragmentFunction = context.library?.newFunctionWithName(functionName + "Fragment")
-//        kernelFunction = context.library?.newFunctionWithName(functionName)
-        
-        if vertexFunction == nil {
-            print("Couldn't load vertex function")
-            vertexFunction = context.library?.newFunctionWithName("vertex_main")
-        }
-        if fragmentFunction == nil {
-            print("Couldn't load fragment function")
-            fragmentFunction = context.library?.newFunctionWithName("fragment_main")
-        }
-        
-        let pipelineDescriptor = MTLRenderPipelineDescriptor()
-        pipelineDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormat.RGBA8Unorm
-        pipelineDescriptor.vertexFunction   = vertexFunction
-        pipelineDescriptor.fragmentFunction = fragmentFunction
+        kernelFunction = context.library?.newFunctionWithName(functionName)
         
         do {
-//            pipeline = try context.device.newComputePipelineStateWithFunction(fragmentFunction)
-            pipeline = try context.device?.newRenderPipelineStateWithDescriptor(pipelineDescriptor)
+            pipeline = try context.device.newComputePipelineStateWithFunction(kernelFunction)
         } catch {
             print("Failed to create pipeline")
         }
-        
-        dirty = true
     }
     
     func setupBuffers() {
@@ -125,91 +111,41 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
         vertexBuffer   = device.newBufferWithBytes(kQuadVertices , length: kSzQuadVertices , options: .CPUCacheModeDefaultCache)
         texCoordBuffer = device.newBufferWithBytes(kQuadTexCoords, length: kSzQuadTexCoords, options: .CPUCacheModeDefaultCache)
     }
-
-    var semaphore = dispatch_semaphore_create(1)
     
     public func process() {
+
+        guard let inputTexture = self.input?.texture else {
+            print("input texture nil")
+            return
+        }
+    
+        if self.internalTexture == nil || self.internalTexture!.width != inputTexture.width || self.internalTexture!.height != inputTexture.height {
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(inputTexture.pixelFormat, width:inputTexture.width, height: inputTexture.height, mipmapped: false)
+            self.internalTexture = self.context.device?.newTextureWithDescriptor(textureDescriptor)
+        }
         
-//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
-//        runAsynchronously {
-            if self.input == nil {
-//                dispatch_semaphore_signal(self.semaphore)
-                return
-            }
-            
-            guard let inputTexture = self.input?.texture else {
-                print("input texture nil")
-//                dispatch_semaphore_signal(self.semaphore)
-                return
-            }
-            
-            if self.internalTexture == nil || self.internalTexture!.width != inputTexture.width || self.internalTexture!.height != inputTexture.height {
-                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(inputTexture.pixelFormat, width:inputTexture.width, height: inputTexture.height, mipmapped: false)
-                self.internalTexture = self.context.device?.newTextureWithDescriptor(textureDescriptor)
-                
-                // Maybe recreate buffers
-                self.setupBuffers()
-            }
-            
-            let renderPassDescriptor = MTLRenderPassDescriptor()
-            renderPassDescriptor.colorAttachments[0].texture = self.internalTexture
-            renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0)
-            renderPassDescriptor.colorAttachments[0].storeAction = .Store
-            renderPassDescriptor.colorAttachments[0].loadAction = .Clear
-            
-            let commandBuffer = self.context.commandQueue.commandBuffer()
-            let commandEncoder = commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
-            commandEncoder.setRenderPipelineState(self.pipeline)
-            
-            commandEncoder.setVertexBuffer(self.vertexBuffer, offset: 0, atIndex: 0)
-            commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, atIndex: 1)
-            commandEncoder.setVertexBuffer(self.uniformsBuffer, offset: 0, atIndex: 2)
-            
-            commandEncoder.setFragmentTexture(inputTexture, atIndex: 0)
-            commandEncoder.setFragmentBuffer(self.uniformsBuffer, offset: 0, atIndex: 1)
-            configureCommandEncoder(commandEncoder)
-            commandEncoder.drawPrimitives(.Triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
-            commandEncoder.endEncoding()
-            
-            commandBuffer.commit()
-//            dispatch_semaphore_signal(self.semaphore)
-            commandBuffer.waitUntilCompleted()
-//        }
+        let threadgroupCounts = MTLSizeMake(8, 8, 1)
+        let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width,
+            inputTexture.height / threadgroupCounts.height, 1)
         
+        let commandBuffer = self.context.commandQueue.commandBuffer()
+        let commandEncoder = commandBuffer.computeCommandEncoder()
+        commandEncoder.setComputePipelineState(self.pipeline)
+        commandEncoder.setBuffer(self.uniformsBuffer, offset: 0, atIndex: 0)
+        commandEncoder.setTexture(inputTexture, atIndex: 0)
+        commandEncoder.setTexture(self.internalTexture, atIndex: 1)
+        self.configureCommandEncoder(commandEncoder)
+        commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
+        commandEncoder.endEncoding()
+    
+        commandBuffer.commit()
+        commandBuffer.waitUntilCompleted()
         
-        
-//        guard let inputTexture = self.input?.texture else {
-//            print("input texture nil")
-//            return
-//        }
-//        
-//        if self.internalTexture == nil || self.internalTexture!.width != inputTexture.width || self.internalTexture!.height != inputTexture.height {
-//            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(inputTexture.pixelFormat, width:inputTexture.width, height: inputTexture.height, mipmapped: false)
-//            self.internalTexture = self.context.device?.newTextureWithDescriptor(textureDescriptor)
-//
-//            // Maybe recreate buffers
-//            self.setupBuffers()
-//        }
-//        
-//        let threadgroupCounts = MTLSizeMake(8, 8, 1)
-//        let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width,
-//                                       inputTexture.height / threadgroupCounts.height, 1)
-//        
-//        let commandBuffer = self.context.commandQueue.commandBuffer()
-//        let commandEncoder = commandBuffer.computeCommandEncoder()
-//        commandEncoder.setComputePipelineState(pipeline)
-//        commandEncoder.setTexture(inputTexture, atIndex: 0)
-//        commandEncoder.setTexture(internalTexture, atIndex: 1)
-//        configureCommandEncoder(commandEncoder)
-//        commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
-//        commandEncoder.endEncoding()
-//        
-//        commandBuffer.commit()
-//        commandBuffer.waitUntilCompleted()
+        self.dirty = false
     }
     
     
-    func configureCommandEncoder(commandEncoder: MTLRenderCommandEncoder) {
+    func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
         
     }
     
@@ -231,8 +167,10 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     }
     
     func runAsynchronously(block: (()->())) {
-        dispatch_async(context.processingQueue) { 
+//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        dispatch_async(context.processingQueue) {
             block()
+//            dispatch_semaphore_signal(self.semaphore)
         }
     }
     
@@ -250,7 +188,10 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
 
     public var context: MTLContext {
         get {
-            return (self.input?.context)!
+            if self.input?.context != nil {
+                return (self.input?.context)!
+            }
+            return MTLContext()
         }
     }
     

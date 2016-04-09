@@ -12,13 +12,28 @@ import MTLImage
 class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SettingsCellDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var emptyLabel: UILabel!
     
     var filter: MTLFilter!
+    var touchProperty: MTLProperty?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = filter.title
         tableView.rowHeight = 80
+        
+        for mtlProperty: MTLProperty in filter.properties {
+            if let _ = mtlProperty.type as? CGPoint {
+                touchProperty = mtlProperty
+                break;
+            }
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.hidden  = (filter.properties.count == 0)
+        emptyLabel.hidden = (filter.properties.count != 0)
     }
     
     //    MARK: - UITableView
@@ -35,30 +50,55 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: SettingsCell = tableView.dequeueReusableCellWithIdentifier("settingsCell", forIndexPath: indexPath) as! SettingsCell
         
-        let property: MTLProperty = filter.properties[indexPath.row]
-        let value: Float = filter.valueForKey(property.key) as! Float
-        
-        cell.delegate = self
-        cell.titleLabel.text = property.title
-        cell.valueLabel.text = String(format: "%.2f", value)
-        cell.slider.value = value
-        
         return cell
+    }
+    
+    func handleTouchAtLocation(location: CGPoint) {
+        if touchProperty != nil {
+            filter.setValue(NSValue(CGPoint: location), forKey: touchProperty!.key)
+        }
     }
     
     
     //    MARK: SettingsCell Delegate
     
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let settingsCell: SettingsCell = cell as! SettingsCell
+        let property: MTLProperty = filter.properties[indexPath.row]
+        
+        settingsCell.delegate = self
+        settingsCell.titleLabel.text = property.title
+        
+        if let _ = property.type as? Float {
+            let value: Float = filter.valueForKey(property.key) as! Float
+            
+            settingsCell.spectrum = false
+            settingsCell.valueLabel.text = String(format: "%.2f", value)
+            settingsCell.slider.value = value
+        }
+        else if let _ = property.type as? UIColor {
+            settingsCell.spectrum = true
+            settingsCell.valueLabel.text = "-"
+        }
+        else if let _ = property.type as? CGPoint {
+            settingsCell.message = "Touch preview image to adjust."
+        }
+    }
+    
     func settingsCellSliderValueChanged(sender: SettingsCell, value: Float) {
         let indexPath = tableView.indexPathForCell(sender)
-        
-        
+
         let property: MTLProperty = filter.properties[(indexPath?.row)!]
         
-        
-        sender.valueLabel.text = String(format: "%.2f", value)
-        filter.setValue(value, forKey: property.key)
-        
+        if let _ = property.type as? Float {
+            sender.valueLabel.text = String(format: "%.2f", value)
+            filter.setValue(value, forKey: property.key)
+        }
+        else if let _ = property.type as? UIColor {
+            sender.valueLabel.text = "-"
+            filter.setValue(sender.currentColor(), forKey: property.key)
+        }
+
     }
     
     override func didReceiveMemoryWarning() {

@@ -21,6 +21,7 @@ class MTLPicture: NSObject, MTLInput {
     public var processingSize: CGSize! {
         didSet {
             loadTexture()
+            context.processingSize = processingSize
         }
     }
     
@@ -35,6 +36,7 @@ class MTLPicture: NSObject, MTLInput {
                 size.width = size.height * (image.size.width / image.size.height)
             }
         }
+        
         self.processingSize = size
     }
     
@@ -47,7 +49,7 @@ class MTLPicture: NSObject, MTLInput {
     
     func loadTexture() {
         var flip = false
-        if chainLength() % 2 == 0 { flip = true }
+//        if chainLength() % 2 == 0 { flip = true }
         
 //        var size = CGSize(width: CGImageGetWidth(image.CGImage), height: CGImageGetHeight(image.CGImage))
 //        if processingSize != nil {

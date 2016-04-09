@@ -10,7 +10,7 @@ import UIKit
 import MTLImage
 import Photos
 
-class MainViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FiltersViewControllerDelegate {
+class MainViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FiltersViewControllerDelegate, MTLViewDelegate {
     
     @IBOutlet weak var selectPhotoButton: UIBarButtonItem!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -18,13 +18,14 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var filtersBar: UIView!
     @IBOutlet weak var filtersContainer: UIView!
     @IBOutlet weak var filtersContainerHeight: NSLayoutConstraint!
-    
+
+    var filterGroup = MTLFilterGroup()
     var filtersViewController: FiltersViewController!
     var sourcePicture: MTLPicture!
     var canDrag: Bool = false
     var initialDragOffset: CGFloat = 0.0   // removes initial jump on drag
     var metadata: [AnyObject]?
-    
+        
     lazy var imagePickerController: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -36,16 +37,37 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let image = UIImage(named: "test")!
         
         sourcePicture = MTLPicture(image: image)
-        sourcePicture.setProcessingSize(CGSizeMake(1000, 1000), respectAspectRatio: true)
+        sourcePicture.setProcessingSize(CGSizeMake(500, 500), respectAspectRatio: true)
+ 
+        sourcePicture > filterGroup
+        filterGroup > mtlView
 
+        mtlView.delegate = self
+        
         navigationItem.title = "MTLImage"
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    
+//    MARK: - MTLView Delegate
+    
+    func mtlViewTouchesBegan(sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
+        let touch: UITouch = touches.first! as UITouch
+        let location = touch.locationInView(sender)
+        filtersViewController.handleTouchAtLocation(location)
+    }
+    
+    func mtlViewTouchesMoved(sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
+        let touch: UITouch = touches.first! as UITouch
+        let location = touch.locationInView(sender)
+        filtersViewController.handleTouchAtLocation(location)
+    }
+    
+    func mtlViewTouchesEnded(sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
         
-        sourcePicture.removeAllTargets()
-        sourcePicture > mtlView
     }
     
     
@@ -92,7 +114,9 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //    MARK: - Actions
     
     @IBAction func albumButtonPressed(sender: UIBarButtonItem) {
-        presentViewController(imagePickerController, animated: true, completion: nil)
+        presentViewController(imagePickerController, animated: true) { 
+            self.filtersViewController.navigationController?.popToRootViewControllerAnimated(false)
+        }
     }
     
     @IBAction func infoButtonPressed(sender: AnyObject) {
@@ -114,7 +138,11 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         
         sourcePicture = MTLPicture(image: image)
-        sourcePicture.setProcessingSize(CGSizeMake(1000, 1000), respectAspectRatio: true)
+        sourcePicture.setProcessingSize(CGSizeMake(500, 500), respectAspectRatio: true)
+        
+        if filtersViewController.selectedFilter != nil {
+            filtersViewController.selectedFilter.removeAllTargets()
+        }
         
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -123,14 +151,11 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //    MARK: - FiltersViewController Delegate
     
     func filtersViewControllerDidSelectFilter(sender: FiltersViewController, filter: MTLFilter) {
-        sourcePicture.removeAllTargets()
-        sourcePicture > filter
-        filter > mtlView
+        filterGroup += filter
     }
     
     func filtersViewControllerBackButtonPressed(sender: FiltersViewController) {
-        sourcePicture.removeAllTargets()
-        sourcePicture > mtlView
+        filterGroup.removeAll()
     }
     
     

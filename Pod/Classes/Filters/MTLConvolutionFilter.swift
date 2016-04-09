@@ -8,25 +8,17 @@
 
 import UIKit
 
-struct ConvolutionUniforms {
-    var convolutionMatrix: MTLFloat3x3 = MTLFloat3x3( one:   MTLFloat3(one: 0.0, two: 0.0, three: 0.0),
-                                                      two:   MTLFloat3(one: 0.0, two: 1.0, three: 0.0),
-                                                      three: MTLFloat3(one: 0.0, two: 0.0, three: 0.0))
-    var texelWidth: Float = 0.0
-    var texelHeight: Float = 0.0
-}
-
 public
 class MTLConvolutionFilter: MTLFilter {
     
-    var uniforms = ConvolutionUniforms()
+    private var convolutionMatrixTexture: MTLTexture?
     
-    public var convolutionMatrix: MTLFloat3x3 = MTLFloat3x3( one:   MTLFloat3(one: -1.0, two: 0.0, three: 1.0),
-                                                             two:   MTLFloat3(one: -2.0, two: 0.0, three: 2.0),
-                                                             three: MTLFloat3(one: -1.0, two: 0.0, three: 1.0))  {
+    public var convolutionMatrix: [[Float]] = [[0.0, 0.0, 0.0],
+                                               [0.0, 1.0, 0.0],
+                                               [0.0, 0.0, 0.0]] {
         didSet {
             dirty = true
-            update()
+            convolutionMatrixTexture = nil
         }
     }
     
@@ -38,18 +30,15 @@ class MTLConvolutionFilter: MTLFilter {
         update()
     }
     
-    override func update() {
-        if self.input == nil { return }
-        uniforms.convolutionMatrix = convolutionMatrix
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(ConvolutionUniforms), options: .CPUCacheModeDefaultCache)
+    override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
+        if convolutionMatrixTexture == nil {
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(.R32Float, width: 3, height: 3, mipmapped: false)
+            convolutionMatrixTexture = device.newTextureWithDescriptor(textureDescriptor)
+            
+            let f = Array(convolutionMatrix.flatten())
+            convolutionMatrixTexture!.replaceRegion(MTLRegionMake2D(0, 0, 3, 3), mipmapLevel: 0, withBytes: f, bytesPerRow: sizeof(Float) * 3)
+        }
+        commandEncoder.setTexture(convolutionMatrixTexture, atIndex: 2)
     }
     
-    override public var input: MTLInput? {
-        didSet {
-            if originalImage != nil {
-                uniforms.texelWidth = 0.01 // Float(1.0 / originalImage!.size.width)
-                uniforms.texelHeight = 0.01 // Float(1.0 / originalImage!.size.height)
-            }
-        }
-    }
 }

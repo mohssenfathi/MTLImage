@@ -15,7 +15,9 @@ class MTLContext: NSObject {
     var device: MTLDevice!
     var library: MTLLibrary!
     var commandQueue: MTLCommandQueue!
-    var processingQueue: dispatch_queue_t!
+    var processingSize: CGSize!
+    var processingQueue: dispatch_queue_t!    
+    var needsUpdate: Bool = true
     
     override init() {
         super.init()

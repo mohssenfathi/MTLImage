@@ -15,34 +15,20 @@ struct PixellateUniforms {
     float fractionalWidthOfPixel;
 };
 
-struct VertexInOut {
-    float4 pos [[position]];
-    float2 texCoord [[user(texturecoord)]];
-};
-
-vertex VertexInOut pixellateVertex(constant float4           *position  [[ buffer(0) ]],
-                                  constant packed_float2     *texCoords [[ buffer(1) ]],
-                                  constant PixellateUniforms &uniforms  [[ buffer(2) ]],
-                                  uint                       vid        [[ vertex_id ]])
-{
-    VertexInOut output;
-    
-    output.pos = position[vid];
-    output.texCoord = texCoords[vid];
-    
-    return output;
-}
-
-fragment half4 pixellateFragment(VertexInOut    input  [[ stage_in ]],
-                                texture2d<half> tex2D  [[ texture(0) ]],
-                                constant PixellateUniforms &uniforms [[buffer(1)]])
+kernel void pixellate(texture2d<float, access::read>  inTexture [[ texture(0) ]],
+                     texture2d<float, access::write> outTexture [[ texture(1) ]],
+                     constant PixellateUniforms &uniforms       [[ buffer(0) ]],
+                     uint2 gid [[thread_position_in_grid]])
 {
     
-    constexpr sampler quad_sampler;
-
-    float width = uniforms.fractionalWidthOfPixel * uniforms.dotRadius;
-    float2 sampleDivisor = float2(width, width / uniforms.aspectRatio);
-    float2 samplePos = input.texCoord - fmod(input.texCoord, sampleDivisor) + 0.5 * sampleDivisor;
+    float2 size = float2(inTexture.get_width(), inTexture.get_height());
+    float2 texCoord = float2(gid.x/size.x, gid.y/size.y);
+    float aspectRatio = size.y / size.x;
     
-    return tex2D.sample(quad_sampler, samplePos);
+    float width = uniforms.fractionalWidthOfPixel * uniforms.dotRadius; 
+    float2 sampleDivisor = float2(width, width / aspectRatio);
+    float2 samplePos = texCoord - fmod(texCoord, sampleDivisor) + 0.5 * sampleDivisor;
+    uint2 sp = uint2(samplePos.x * size.x, samplePos.y * size.y);
+    
+    outTexture.write(inTexture.read(sp), gid);
 }

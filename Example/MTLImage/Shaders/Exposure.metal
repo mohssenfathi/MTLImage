@@ -13,30 +13,11 @@ struct ExposureUniforms {
     float exposure;
 };
 
-struct VertexInOut {
-    float4 pos [[position]];
-    float2 texCoord [[user(texturecoord)]];
-};
-
-vertex VertexInOut exposureVertex(constant float4           *position  [[ buffer(0) ]],
-                                   constant packed_float2     *texCoords [[ buffer(1) ]],
-                                   constant ExposureUniforms &uniforms  [[ buffer(2) ]],
-                                   uint                       vid        [[ vertex_id ]])
+kernel void exposure(texture2d<float, access::read>  inTexture  [[ texture(0) ]],
+                     texture2d<float, access::write> outTexture [[ texture(1) ]],
+                     constant ExposureUniforms &uniforms        [[ buffer(0) ]],
+                     uint2 gid [[thread_position_in_grid]])
 {
-    VertexInOut output;
-    
-    output.pos = position[vid];
-    output.texCoord = texCoords[vid];
-    
-    return output;
+    float4 color = inTexture.read(gid);
+    outTexture.write(float4(color.rgb * pow(2.0, uniforms.exposure), color.a), gid);
 }
-
-fragment half4 exposureFragment(VertexInOut    input  [[ stage_in ]],
-                                 texture2d<half> tex2D  [[ texture(0) ]],
-                                 constant ExposureUniforms &uniforms [[buffer(1)]])
-{
-    constexpr sampler quad_sampler;
-    half4 color = tex2D.sample(quad_sampler, input.texCoord);
-    return half4(color.rgb * pow(2.0, uniforms.exposure), color.a);
-}
-

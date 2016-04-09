@@ -10,9 +10,10 @@ import Metal
 
 extension UIImage {
     
-    class func imageWithTexture(texture: MTLTexture) -> UIImage {
+    class func imageWithTexture(texture: MTLTexture) -> UIImage? {
         
-        assert(texture.pixelFormat != .RGBA8Unorm)
+        if texture.pixelFormat != .RGBA8Unorm { return nil }
+//        assert(texture.pixelFormat != .RGBA8Unorm)
         
         let imageSize = CGSize(width: texture.width, height: texture.height)
         let width:Int = Int(imageSize.width)
@@ -37,9 +38,11 @@ extension UIImage {
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedFirst.rawValue).union(.ByteOrder32Big)
         let renderingIntent = CGColorRenderingIntent.RenderingIntentDefault
         let imageRef = CGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpace, bitmapInfo, provider, nil, false, renderingIntent)
-
-        let image = UIImage(CGImage: imageRef!, scale: 0.0, orientation: .DownMirrored)
-                
+        
+        let image = UIImage(CGImage: imageRef!, scale: 0.0, orientation: .Up)
+        
+//        free(imageBytes)
+        
         return image;
     }
     
@@ -51,8 +54,8 @@ extension UIImage {
     
         let imageRef = self.CGImage
 
-        let width:  Int = Int(size.width) // CGImageGetWidth(imageRef) //
-        let height: Int = Int(size.height) // CGImageGetHeight(imageRef) // 
+        let width:  Int = Int(size.width)
+        let height: Int = Int(size.height)
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         
         let rawData: UnsafeMutablePointer<Void> = calloc(height * width * 4, sizeof(Int))

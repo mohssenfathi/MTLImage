@@ -22,21 +22,16 @@ class MTLEmbossFilter: MTLConvolutionFilter {
     override init() {
         super.init()
         title = "Emboss"
-        properties = [MTLProperty(key: "intensity", title: "Intensity")]
+        properties = [MTLProperty(key: "intensity", title: "Intensity", type: Float())]
     }
     
     override func update() {
         if self.input == nil { return }
         
-        let intense = intensity
-        uniforms.convolutionMatrix = MTLFloat3x3( one:   MTLFloat3(one: -intense * 2.0, two: -intense, three: 0.0),
-                                                  two:   MTLFloat3(one: -intense      , two: 1.0     , three: intense),
-                                                  three: MTLFloat3(one: 0.0           , two:  intense, three: intense * 2.0))
-        
-        uniforms.texelWidth = 100.0
-        uniforms.texelHeight = 100.0
-        
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(ConvolutionUniforms), options: .CPUCacheModeDefaultCache)
+        let intense = intensity * 1.25
+        convolutionMatrix = [[-2.0 * intense, -intense, 0.0          ],
+                             [-intense      , 1.0     , intense      ],
+                             [0.0           , intense , 2.0 * intense]];
     }
     
 }

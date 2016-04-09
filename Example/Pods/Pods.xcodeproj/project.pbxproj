@@ -16,6 +16,7 @@
 		3694F3F447F4CB82D81C54E772214BE2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		37E70B0157DF5A49C5F8B40B115C3F8E /* MTLImage-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B7701EE03B8C0128DA1544C29684FA /* MTLImage-dummy.m */; };
 		3CE5E43CED8F56EED42B209158E6A85A /* Pods-MTLImage_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BA5C0326BC77C4FAB5058519F153B12D /* Pods-MTLImage_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45211A781CB7FD8200A69BA3 /* MTLHazeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45211A771CB7FD8200A69BA3 /* MTLHazeFilter.swift */; };
 		454CED9C1CAF1B2600D67A9E /* MTLBrightnessFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CED9B1CAF1B2600D67A9E /* MTLBrightnessFilter.swift */; };
 		454CEDA01CAFE6EE00D67A9E /* MTLSharpenFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CED9F1CAFE6EE00D67A9E /* MTLSharpenFilter.swift */; };
 		454CEDA41CB08E6F00D67A9E /* MTLContrastFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDA31CB08E6F00D67A9E /* MTLContrastFilter.swift */; };
@@ -25,7 +26,14 @@
 		454CEDB91CB0D05B00D67A9E /* MTLConvolutionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDB81CB0D05B00D67A9E /* MTLConvolutionFilter.swift */; };
 		454CEDBD1CB0D93B00D67A9E /* MTLEmbossFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDBC1CB0D93B00D67A9E /* MTLEmbossFilter.swift */; };
 		454CEDBF1CB0D96B00D67A9E /* MTLTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDBE1CB0D96B00D67A9E /* MTLTypes.swift */; };
+		454D09BD1CB99B1900046DB5 /* MTLWaterFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454D09BC1CB99B1900046DB5 /* MTLWaterFilter.swift */; };
 		45B88CDC1CAF0A460092CAAF /* MTLExposureFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B88CDB1CAF0A460092CAAF /* MTLExposureFilter.swift */; };
+		45CD7BA61CB823DA00A28AD3 /* MTLSobelEdgeDetectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CD7BA51CB823DA00A28AD3 /* MTLSobelEdgeDetectionFilter.swift */; };
+		45CD7BAB1CB8275600A28AD3 /* MTLSketchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CD7BAA1CB8275600A28AD3 /* MTLSketchFilter.swift */; };
+		45CD7BB11CB8296200A28AD3 /* MTLToonFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CD7BB01CB8296200A28AD3 /* MTLToonFilter.swift */; };
+		45CD7BB51CB8368500A28AD3 /* MTLVignetteFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CD7BB41CB8368500A28AD3 /* MTLVignetteFilter.swift */; };
+		45CD7BBB1CB8622C00A28AD3 /* MTLKuwaharaFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CD7BBA1CB8622C00A28AD3 /* MTLKuwaharaFilter.swift */; };
+		45CD7BBE1CB8705000A28AD3 /* MTLFilterGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CD7BBD1CB8705000A28AD3 /* MTLFilterGroup.swift */; };
 		45FDD3A11CAEFB7800903868 /* MTLProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FDD3A01CAEFB7800903868 /* MTLProperty.swift */; };
 		45FDD3A51CAF07D100903868 /* MTLPixellateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FDD3A41CAF07D100903868 /* MTLPixellateFilter.swift */; };
 		45FE20ECC6E5464825BDECF5478418C7 /* MTLContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68F1F476E36CB63576436FAE6FE7CFC /* MTLContext.swift */; };
@@ -78,6 +86,7 @@
 		41B7701EE03B8C0128DA1544C29684FA /* MTLImage-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MTLImage-dummy.m"; sourceTree = "<group>"; };
 		43835D94F5A006AE49FD2C66FCFD1BCE /* MTLSaturationFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSaturationFilter.swift; sourceTree = "<group>"; };
 		44CADC45FAA5E034F82E20406338C3A9 /* Tools.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		45211A771CB7FD8200A69BA3 /* MTLHazeFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLHazeFilter.swift; sourceTree = "<group>"; };
 		454CED9B1CAF1B2600D67A9E /* MTLBrightnessFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLBrightnessFilter.swift; sourceTree = "<group>"; };
 		454CED9F1CAFE6EE00D67A9E /* MTLSharpenFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLSharpenFilter.swift; sourceTree = "<group>"; };
 		454CEDA31CB08E6F00D67A9E /* MTLContrastFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLContrastFilter.swift; sourceTree = "<group>"; };
@@ -87,7 +96,14 @@
 		454CEDB81CB0D05B00D67A9E /* MTLConvolutionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLConvolutionFilter.swift; sourceTree = "<group>"; };
 		454CEDBC1CB0D93B00D67A9E /* MTLEmbossFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLEmbossFilter.swift; sourceTree = "<group>"; };
 		454CEDBE1CB0D96B00D67A9E /* MTLTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLTypes.swift; sourceTree = "<group>"; };
+		454D09BC1CB99B1900046DB5 /* MTLWaterFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLWaterFilter.swift; sourceTree = "<group>"; };
 		45B88CDB1CAF0A460092CAAF /* MTLExposureFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLExposureFilter.swift; sourceTree = "<group>"; };
+		45CD7BA51CB823DA00A28AD3 /* MTLSobelEdgeDetectionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLSobelEdgeDetectionFilter.swift; sourceTree = "<group>"; };
+		45CD7BAA1CB8275600A28AD3 /* MTLSketchFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLSketchFilter.swift; sourceTree = "<group>"; };
+		45CD7BB01CB8296200A28AD3 /* MTLToonFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLToonFilter.swift; sourceTree = "<group>"; };
+		45CD7BB41CB8368500A28AD3 /* MTLVignetteFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLVignetteFilter.swift; sourceTree = "<group>"; };
+		45CD7BBA1CB8622C00A28AD3 /* MTLKuwaharaFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLKuwaharaFilter.swift; sourceTree = "<group>"; };
+		45CD7BBD1CB8705000A28AD3 /* MTLFilterGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLFilterGroup.swift; sourceTree = "<group>"; };
 		45FDD3A01CAEFB7800903868 /* MTLProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLProperty.swift; sourceTree = "<group>"; };
 		45FDD3A41CAF07D100903868 /* MTLPixellateFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLPixellateFilter.swift; sourceTree = "<group>"; };
 		4DC56C1667DCB7F0B1F0C0515ABB2FD3 /* MTLFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilter.swift; sourceTree = "<group>"; };
@@ -317,6 +333,13 @@
 				454CEDB41CB0C7D700D67A9E /* MTLLevelsFilter.swift */,
 				454CEDB81CB0D05B00D67A9E /* MTLConvolutionFilter.swift */,
 				454CEDBC1CB0D93B00D67A9E /* MTLEmbossFilter.swift */,
+				45211A771CB7FD8200A69BA3 /* MTLHazeFilter.swift */,
+				45CD7BA51CB823DA00A28AD3 /* MTLSobelEdgeDetectionFilter.swift */,
+				45CD7BAA1CB8275600A28AD3 /* MTLSketchFilter.swift */,
+				45CD7BB01CB8296200A28AD3 /* MTLToonFilter.swift */,
+				45CD7BB41CB8368500A28AD3 /* MTLVignetteFilter.swift */,
+				45CD7BBA1CB8622C00A28AD3 /* MTLKuwaharaFilter.swift */,
+				454D09BC1CB99B1900046DB5 /* MTLWaterFilter.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -332,6 +355,7 @@
 				F60220E2518056702CA94126843C1F32 /* MTLView.swift */,
 				45FDD3A01CAEFB7800903868 /* MTLProperty.swift */,
 				44CADC45FAA5E034F82E20406338C3A9 /* Tools.swift */,
+				45CD7BBD1CB8705000A28AD3 /* MTLFilterGroup.swift */,
 			);
 			path = MTLImage;
 			sourceTree = "<group>";
@@ -514,25 +538,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				454CED9C1CAF1B2600D67A9E /* MTLBrightnessFilter.swift in Sources */,
+				45CD7BB11CB8296200A28AD3 /* MTLToonFilter.swift in Sources */,
 				45FDD3A51CAF07D100903868 /* MTLPixellateFilter.swift in Sources */,
 				45FE20ECC6E5464825BDECF5478418C7 /* MTLContext.swift in Sources */,
 				20E3C3C66CED9E7437E6B350AD62B6D5 /* MTLCrossHatchFilter.swift in Sources */,
+				454D09BD1CB99B1900046DB5 /* MTLWaterFilter.swift in Sources */,
 				85C3AFCD2578F8B183DD00038B09539A /* MTLFilter.swift in Sources */,
 				454CEDA41CB08E6F00D67A9E /* MTLContrastFilter.swift in Sources */,
+				45CD7BBB1CB8622C00A28AD3 /* MTLKuwaharaFilter.swift in Sources */,
 				4ECB2C5C85F69298AEE3C0E300E8D398 /* MTLGaussianBlurFilter.swift in Sources */,
 				37E70B0157DF5A49C5F8B40B115C3F8E /* MTLImage-dummy.m in Sources */,
 				D960A0DBC0B1F7B09117ED609204E03E /* MTLImage.swift in Sources */,
 				70B528E735D7BC0C7781D82CB18D3E5E /* MTLPicture.swift in Sources */,
+				45CD7BA61CB823DA00A28AD3 /* MTLSobelEdgeDetectionFilter.swift in Sources */,
 				75B0473D5B718A16A240F6390AB8B4FF /* MTLPolkaDotFilter.swift in Sources */,
 				454CEDBF1CB0D96B00D67A9E /* MTLTypes.swift in Sources */,
 				454CEDA01CAFE6EE00D67A9E /* MTLSharpenFilter.swift in Sources */,
+				45CD7BBE1CB8705000A28AD3 /* MTLFilterGroup.swift in Sources */,
 				0AB10F0D162D71727E7539E3B1503400 /* MTLSaturationFilter.swift in Sources */,
 				A25F98D3BC76548F56F4FB6C2439512C /* MTLView.swift in Sources */,
 				454CEDB51CB0C7D700D67A9E /* MTLLevelsFilter.swift in Sources */,
+				45211A781CB7FD8200A69BA3 /* MTLHazeFilter.swift in Sources */,
 				45FDD3A11CAEFB7800903868 /* MTLProperty.swift in Sources */,
 				45B88CDC1CAF0A460092CAAF /* MTLExposureFilter.swift in Sources */,
 				9B75A726D94EBA826AAB2E2D6BFA82A9 /* Tools.swift in Sources */,
+				45CD7BAB1CB8275600A28AD3 /* MTLSketchFilter.swift in Sources */,
 				454CEDB91CB0D05B00D67A9E /* MTLConvolutionFilter.swift in Sources */,
+				45CD7BB51CB8368500A28AD3 /* MTLVignetteFilter.swift in Sources */,
 				454CEDBD1CB0D93B00D67A9E /* MTLEmbossFilter.swift in Sources */,
 				454CEDA81CB094BF00D67A9E /* MTLWhiteBalanceFilter.swift in Sources */,
 				5EF3DB2113928BA2BB5221A490E884F9 /* UIImage+MTLTexture.swift in Sources */,
