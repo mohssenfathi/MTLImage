@@ -14,14 +14,17 @@ public protocol MTLInput {
     var context: MTLContext  { get }
     var device : MTLDevice   { get }
     var targets: [MTLOutput] { get }
+    var title: String { get set }
     
     func addTarget(var target: MTLOutput)
     func removeTarget(var target: MTLOutput)
     func removeAllTargets()
+    func setNeedsUpdate()
 }
 
 public protocol MTLOutput {
     var input: MTLInput? { get set }
+    var title: String { get set }
 }
 
 public

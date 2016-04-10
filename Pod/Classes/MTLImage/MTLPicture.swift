@@ -11,17 +11,36 @@ import UIKit
 public
 class MTLPicture: NSObject, MTLInput {
 
-    public var image: UIImage!
     private var internalTargets = [MTLOutput]()
     private var internalTexture: MTLTexture!
     var internalContext: MTLContext = MTLContext()
     var pipeline: MTLComputePipelineState!
     var dirty: Bool!
     
+    var internalTitle: String!
+    public var title: String {
+        get { return internalTitle }
+        set { internalTitle = newValue }
+    }
+
+    public var image: UIImage! {
+        didSet {
+            loadTexture()
+        }
+    }
+    
     public var processingSize: CGSize! {
         didSet {
             loadTexture()
             context.processingSize = processingSize
+        }
+    }
+    
+    public func setNeedsUpdate() {
+        for target in targets {
+            if let filter = target as? MTLFilter {
+                filter.dirty = true
+            }
         }
     }
     
@@ -44,6 +63,7 @@ class MTLPicture: NSObject, MTLInput {
         super.init()
         self.image = image
         self.processingSize = image.size
+        self.title = "Picture"
         loadTexture()
     }
     

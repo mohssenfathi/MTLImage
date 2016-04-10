@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		45211A7A1CB7FE1100A69BA3 /* Haze.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45211A791CB7FE1100A69BA3 /* Haze.metal */; };
+		4546570B1CB9BB98001E421A /* FilterGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546570A1CB9BB98001E421A /* FilterGroupViewController.swift */; };
+		4546570D1CB9BE98001E421A /* AddFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546570C1CB9BE98001E421A /* AddFilterViewController.swift */; };
+		454657121CBA85B7001E421A /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 454657101CBA85B7001E421A /* Montserrat-Bold.ttf */; };
+		454657131CBA85B7001E421A /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 454657111CBA85B7001E421A /* Montserrat-Regular.ttf */; };
+		454657181CBA9638001E421A /* MTLImage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 454657161CBA9638001E421A /* MTLImage.xcdatamodeld */; };
+		4546571B1CBA9C26001E421A /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546571A1CBA9C26001E421A /* DataManager.swift */; };
 		454CED9A1CAF1AD500D67A9E /* Brightness.metal in Sources */ = {isa = PBXBuildFile; fileRef = 454CED991CAF1AD500D67A9E /* Brightness.metal */; };
 		454CED9E1CAFE4F300D67A9E /* Sharpen.metal in Sources */ = {isa = PBXBuildFile; fileRef = 454CED9D1CAFE4F300D67A9E /* Sharpen.metal */; };
 		454CEDA21CB08E3D00D67A9E /* Contrast.metal in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDA11CB08E3D00D67A9E /* Contrast.metal */; };
@@ -60,6 +66,12 @@
 		0903E9E555816E58D7C438ED /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		22918B49ADBB9962DD3EDA05 /* Pods-MTLImage_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTLImage_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		45211A791CB7FE1100A69BA3 /* Haze.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Haze.metal; sourceTree = "<group>"; };
+		4546570A1CB9BB98001E421A /* FilterGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterGroupViewController.swift; path = Filters/FilterGroupViewController.swift; sourceTree = "<group>"; };
+		4546570C1CB9BE98001E421A /* AddFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddFilterViewController.swift; path = Filters/AddFilterViewController.swift; sourceTree = "<group>"; };
+		454657101CBA85B7001E421A /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		454657111CBA85B7001E421A /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		454657171CBA9638001E421A /* MTLImage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MTLImage.xcdatamodel; sourceTree = "<group>"; };
+		4546571A1CBA9C26001E421A /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		454CED991CAF1AD500D67A9E /* Brightness.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Brightness.metal; sourceTree = "<group>"; };
 		454CED9D1CAFE4F300D67A9E /* Sharpen.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Sharpen.metal; sourceTree = "<group>"; };
 		454CEDA11CB08E3D00D67A9E /* Contrast.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Contrast.metal; sourceTree = "<group>"; };
@@ -130,10 +142,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4546570E1CBA85B7001E421A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4546570F1CBA85B7001E421A /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4546570F1CBA85B7001E421A /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				454657101CBA85B7001E421A /* Montserrat-Bold.ttf */,
+				454657111CBA85B7001E421A /* Montserrat-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		454657191CBA9BBC001E421A /* Model/Managers */ = {
+			isa = PBXGroup;
+			children = (
+				4546571A1CBA9C26001E421A /* DataManager.swift */,
+			);
+			name = Model/Managers;
+			path = "Model:Managers";
+			sourceTree = "<group>";
+		};
 		454CEDAF1CB09FA900D67A9E /* Filters */ = {
 			isa = PBXGroup;
 			children = (
 				454CEDB01CB09FB800D67A9E /* FiltersViewController.swift */,
+				4546570A1CB9BB98001E421A /* FilterGroupViewController.swift */,
+				4546570C1CB9BE98001E421A /* AddFilterViewController.swift */,
 			);
 			name = Filters;
 			sourceTree = "<group>";
@@ -228,12 +268,15 @@
 		607FACD21AFB9204008FA782 /* Example for MTLImage */ = {
 			isa = PBXGroup;
 			children = (
+				454657191CBA9BBC001E421A /* Model/Managers */,
 				45EB4FD51CAE1ECA0018936C /* Shaders */,
 				45EB4FBF1CADF49D0018936C /* Views/Controllers */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
+				454657161CBA9638001E421A /* MTLImage.xcdatamodeld */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
+				4546570E1CBA85B7001E421A /* Resources */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			name = "Example for MTLImage";
@@ -386,8 +429,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				454657121CBA85B7001E421A /* Montserrat-Bold.ttf in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				454657131CBA85B7001E421A /* Montserrat-Regular.ttf in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,6 +545,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45FDD3A31CAF077E00903868 /* Pixellate.metal in Sources */,
+				4546571B1CBA9C26001E421A /* DataManager.swift in Sources */,
 				45EB4FDF1CAE1ECA0018936C /* Shaders.metal in Sources */,
 				45EB4FC41CADF4C00018936C /* MainViewController.swift in Sources */,
 				45CD7BA41CB823AD00A28AD3 /* SobelEdgeDetection.metal in Sources */,
@@ -509,6 +555,8 @@
 				45CD7BAD1CB8279B00A28AD3 /* Sketch.metal in Sources */,
 				45EB4FD11CADFAAE0018936C /* SettingsCell.swift in Sources */,
 				45EB4FDE1CAE1ECA0018936C /* Saturation.metal in Sources */,
+				4546570D1CB9BE98001E421A /* AddFilterViewController.swift in Sources */,
+				454657181CBA9638001E421A /* MTLImage.xcdatamodeld in Sources */,
 				45EB4FDC1CAE1ECA0018936C /* GaussianBlur.metal in Sources */,
 				454CEDC41CB1496500D67A9E /* MetadataFormatter.swift in Sources */,
 				454CEDB71CB0CC3000D67A9E /* Convolution.metal in Sources */,
@@ -523,6 +571,7 @@
 				454CEDAC1CB09D3F00D67A9E /* Invert.metal in Sources */,
 				454CEDB11CB09FB800D67A9E /* FiltersViewController.swift in Sources */,
 				454D09BB1CB99AD100046DB5 /* Water.metal in Sources */,
+				4546570B1CB9BB98001E421A /* FilterGroupViewController.swift in Sources */,
 				454CEDB31CB0C53700D67A9E /* Levels.metal in Sources */,
 				45CD7BAF1CB8291D00A28AD3 /* Toon.metal in Sources */,
 				454CED9E1CAFE4F300D67A9E /* Sharpen.metal in Sources */,
@@ -743,6 +792,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		454657161CBA9638001E421A /* MTLImage.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				454657171CBA9638001E421A /* MTLImage.xcdatamodel */,
+			);
+			currentVersion = 454657171CBA9638001E421A /* MTLImage.xcdatamodel */;
+			path = MTLImage.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 607FACC81AFB9204008FA782 /* Project object */;
 }

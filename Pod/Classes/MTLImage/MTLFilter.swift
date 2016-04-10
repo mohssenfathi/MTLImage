@@ -10,6 +10,32 @@ import UIKit
 import Metal
 import MetalKit
 
+func ==(left: MTLFilter, right: MTLFilter) -> Bool {
+    if left.title != right.title { return false }
+    if left.properties.count != right.properties.count { return false }
+    
+    var leftProperty: MTLProperty
+    var rightProperty: MTLProperty
+    var leftVal: Float
+    var rightVal: Float
+    
+    // only checks float properties
+    for i in 0 ..< left.properties.count {
+        leftProperty = left.properties[i]
+        rightProperty = right.properties[i]
+        
+        if let leftVal = left.valueForKey(leftProperty.key) as? Float {
+            if let rightVal = right.valueForKey(rightProperty.key) as? Float {
+                if leftVal != rightVal { return false }
+            } else {
+                return false
+            }
+        }
+    }
+    
+    return true
+}
+
 public
 class MTLFilter: NSObject, MTLInput, MTLOutput {
     
@@ -22,7 +48,17 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     var texCoordBuffer: MTLBuffer?
     var uniformsBuffer: MTLBuffer?
     
-    var dirty: Bool = true
+    var internalTitle: String!
+    public var title: String {
+        get { return internalTitle }
+        set { internalTitle = newValue }
+    }
+    
+    var dirty: Bool = true {
+        didSet {
+            if dirty == true { setNeedsUpdate() }
+        }
+    }
     var semaphore = dispatch_semaphore_create(1)
     
     var sourcePicture: MTLPicture? {
@@ -44,7 +80,6 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     }
     
     var functionName: String!
-    public var title: String!
     public var properties: [MTLProperty]!
     
     public var originalImage: UIImage? {
@@ -69,6 +104,14 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     
     func update() {
         
+    }
+    
+    public func setNeedsUpdate() {
+        for target in targets {
+            if let filter = target as? MTLFilter {
+                filter.dirty = true
+            }
+        }
     }
     
     func setupPipeline() {
@@ -118,30 +161,32 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
             print("input texture nil")
             return
         }
-    
-        if self.internalTexture == nil || self.internalTexture!.width != inputTexture.width || self.internalTexture!.height != inputTexture.height {
-            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(inputTexture.pixelFormat, width:inputTexture.width, height: inputTexture.height, mipmapped: false)
-            self.internalTexture = self.context.device?.newTextureWithDescriptor(textureDescriptor)
-        }
         
-        let threadgroupCounts = MTLSizeMake(8, 8, 1)
-        let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width,
-            inputTexture.height / threadgroupCounts.height, 1)
-        
-        let commandBuffer = self.context.commandQueue.commandBuffer()
-        let commandEncoder = commandBuffer.computeCommandEncoder()
-        commandEncoder.setComputePipelineState(self.pipeline)
-        commandEncoder.setBuffer(self.uniformsBuffer, offset: 0, atIndex: 0)
-        commandEncoder.setTexture(inputTexture, atIndex: 0)
-        commandEncoder.setTexture(self.internalTexture, atIndex: 1)
-        self.configureCommandEncoder(commandEncoder)
-        commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
-        commandEncoder.endEncoding()
-    
-        commandBuffer.commit()
-        commandBuffer.waitUntilCompleted()
-        
-        self.dirty = false
+//        runSynchronously { 
+            if self.internalTexture == nil || self.internalTexture!.width != inputTexture.width || self.internalTexture!.height != inputTexture.height {
+                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(inputTexture.pixelFormat, width:inputTexture.width, height: inputTexture.height, mipmapped: false)
+                self.internalTexture = self.context.device?.newTextureWithDescriptor(textureDescriptor)
+            }
+            
+            let threadgroupCounts = MTLSizeMake(8, 8, 1)
+            let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width,
+                inputTexture.height / threadgroupCounts.height, 1)
+            
+            let commandBuffer = self.context.commandQueue.commandBuffer()
+            let commandEncoder = commandBuffer.computeCommandEncoder()
+            commandEncoder.setComputePipelineState(self.pipeline)
+            commandEncoder.setBuffer(self.uniformsBuffer, offset: 0, atIndex: 0)
+            commandEncoder.setTexture(inputTexture, atIndex: 0)
+            commandEncoder.setTexture(self.internalTexture, atIndex: 1)
+            self.configureCommandEncoder(commandEncoder)
+            commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
+            commandEncoder.endEncoding()
+            
+            commandBuffer.commit()
+            commandBuffer.waitUntilCompleted()
+            
+            self.dirty = false
+//        }
     }
     
     
@@ -188,8 +233,8 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
 
     public var context: MTLContext {
         get {
-            if self.input?.context != nil {
-                return (self.input?.context)!
+            if privateInput?.context != nil {
+                return (privateInput?.context)!
             }
             return MTLContext()
         }
@@ -215,7 +260,23 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     
     public func removeTarget(var target: MTLOutput) {
         target.input = nil
-//      TODO:   remove from internalTargets
+        
+        var index: Int!
+        if let filter = target as? MTLFilter {
+            for i in 0 ..< internalTargets.count {
+                if let f = internalTargets[i] as? MTLFilter {
+                    if f == filter { index = i }
+                }
+            }
+        }
+        else if let view = target as? MTLView {
+            for i in 0 ..< internalTargets.count {
+                if let v = internalTargets[i] as? MTLView { index = i }
+            }
+        }
+        
+        internalTargets.removeAtIndex(index)
+        internalTexture = nil
     }
     
     public func removeAllTargets() {

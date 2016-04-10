@@ -23,6 +23,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var delegate: FiltersViewControllerDelegate?
     var filterNames = Array(MTLImage.filters.keys).sort()
     var specialFilters: [String]!
+    var filterGroup: MTLFilterGroup!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +88,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         if indexPath.section == 0 {
-            
+            performSegueWithIdentifier("filterGroup", sender: self)
         }
         else {
             let title = filterNames[indexPath.row]
@@ -109,6 +110,10 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         if segue.identifier == "settings" {
             settingsViewController = segue.destinationViewController as? SettingsViewController
             settingsViewController?.filter = selectedFilter
+        }
+        else if segue.identifier == "filterGroup" {
+            let filterGroupViewController = segue.destinationViewController as! FilterGroupViewController
+            filterGroupViewController.filterGroup = filterGroup
         }
     }
 

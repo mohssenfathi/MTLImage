@@ -12,14 +12,31 @@ import MTLImage
 public
 class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
     
-    var filters = [MTLFilter]()
+    public var filters = [MTLFilter]()
     var internalInput: MTLInput?
     var internalTargets = [MTLOutput]()
     
+    var internalTitle: String!
+    public var title: String {
+        get { return internalTitle }
+        set { internalTitle = newValue }
+    }
+    
+    override public init() {
+        super.init()
+        title = "Filter Group"
+    }
+    
+    public func setNeedsUpdate() {
+        filters.first?.dirty = true
+    }
+    
     public func add(filter: MTLFilter) {
         if let last = filters.last {
+            last.removeAllTargets()
             last.addTarget(filter)
         } else {
+            input?.removeAllTargets() // Might not want to do this
             input?.addTarget(filter)
         }
         
@@ -34,32 +51,123 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
         assert(index < filters.count)
         
         if index == 0 {
-            filters.first?.input?.removeTarget(filters.first!)
-            filters.first?.input?.addTarget(filter)
             filter > filters.first!
+            filters.first?.input?.addTarget(filter)
+            filters.first?.input?.removeTarget(filters.first!)
         }
         else {
-            let previous = filters[index]
+            let previous = filters[index - 1]
             
             for target in previous.targets {
-                filter > target
+                filter.addTarget(target)
             }
             
             previous.removeAllTargets()
-            previous > filter
+            previous.addTarget(filter)
         }
         
         filters.insert(filter, atIndex: index)
     }
     
+    public func remove(filter: MTLFilter) {
+        let targets = filter.targets
+        let input = filter.input
+
+        filter.input?.removeTarget(filter)
+        filter.removeAllTargets()
+        
+        for target in targets {
+            input!.addTarget(target)
+        }
+
+        filters.removeObject(filter)
+        setNeedsUpdate()
+    }
+    
     public func removeAll() {
-        filters.removeAll()
+        
+        for filter in filters {
+            filter.removeAllTargets()
+        }
+        
         internalInput?.removeAllTargets()
         for target in internalTargets {
             internalInput?.addTarget(target)
         }
+        
+        filters.removeAll()
     }
     
+    public func move(fromIndex: Int, toIndex: Int) {
+        if fromIndex == toIndex { return }
+
+        swap(&filters[fromIndex], &filters[toIndex])
+        rebuildFilterChain()
+        
+//        let filter = filters[fromIndex]
+//        remove(filter)
+//        
+//        var index = toIndex
+//        index -= (toIndex > fromIndex) ? 1 : 0
+//        
+//        insert(filter, index: index)
+//        
+//        filters.last?.removeAllTargets()
+//        for target in targets {
+//            filters.last?.addTarget(target)
+//        }
+    }
+    
+    func rebuildFilterChain() {
+        if filters.count == 0 { return }
+        
+        input?.removeAllTargets()
+        for filter in filters {
+            filter.removeAllTargets()
+        }
+        
+        input?.addTarget(filters.first!)
+        for i in 1 ..< filters.count {
+            filters[i - 1].addTarget(filters[i])
+        }
+        
+        for target in targets {
+            filters.last?.addTarget(target)
+        }
+        
+        filters.first?.dirty = true
+    }
+    
+    func printFilters() {
+        var chain: String = ""
+        
+        chain += ((input?.title)! + " --> ")
+        
+        for filter in filters {
+            if filter.targets.count > 1 {
+                chain += "["
+                for target in filter.targets {
+                    chain += (target.title + ", ")
+                }
+                chain += "] --> "
+            } else {
+                chain += (targets.first!.title + " --> ")
+            }
+        }
+        
+        if targets.count > 1 {
+            chain += "["
+            for target in targets {
+                chain += (target.title + ", ")
+            }
+            chain += "]"
+        }
+        else {
+            chain += (targets.first!.title + " --> ")
+        }
+        
+        print(chain)
+    }
     
 //    MARK: - MTLInput
     

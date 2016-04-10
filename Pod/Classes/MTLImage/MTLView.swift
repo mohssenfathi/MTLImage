@@ -31,6 +31,12 @@ class MTLView: UIView, MTLOutput {
     var pipeline: MTLRenderPipelineState!
     var commandQueue: MTLCommandQueue!
     
+    var internalTitle: String!
+    public var title: String {
+        get { return internalTitle }
+        set { internalTitle = newValue }
+    }
+    
     var vertexBuffer: MTLBuffer!
     var texCoordBuffer: MTLBuffer!
     var uniformsBuffer: MTLBuffer!
@@ -71,6 +77,7 @@ class MTLView: UIView, MTLOutput {
     }
     
     func commonInit() {
+        title = "View"
         setupDevice()
         setupPipeline()
         setupBuffers()
@@ -222,10 +229,10 @@ class MTLView: UIView, MTLOutput {
     func redraw() {
         if input?.texture == nil { return }
         
-        runAsynchronously {
+        runSynchronously {
             autoreleasepool {
                 
-                dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER)
+//                dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER)
 
                 let drawable = self.metalLayer.nextDrawable()
                 let texture = drawable?.texture
@@ -249,9 +256,9 @@ class MTLView: UIView, MTLOutput {
                 
                 commandBuffer.presentDrawable(drawable!)
                 
-                commandBuffer.addCompletedHandler({ (commandBuffer) in
-                    dispatch_semaphore_signal(self.semaphore)
-                })
+//                commandBuffer.addCompletedHandler({ (commandBuffer) in
+//                    dispatch_semaphore_signal(self.semaphore)
+//                })
                 
                 commandBuffer.commit()
                 commandBuffer.waitUntilCompleted()
@@ -292,7 +299,13 @@ class MTLView: UIView, MTLOutput {
         }
         set {
             privateInput = newValue
-            setupBuffers()
+            
+            if privateInput == nil {
+                displayLink.paused = true
+            } else {
+                displayLink.paused = false
+                setupBuffers()
+            }
         }
     }
     

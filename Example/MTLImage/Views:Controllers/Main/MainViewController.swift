@@ -137,7 +137,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         
-        sourcePicture = MTLPicture(image: image)
+        sourcePicture.image = image
         sourcePicture.setProcessingSize(CGSizeMake(500, 500), respectAspectRatio: true)
         
         if filtersViewController.selectedFilter != nil {
@@ -171,6 +171,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             let navigationController = segue.destinationViewController as? UINavigationController
             filtersViewController = navigationController?.viewControllers.first as? FiltersViewController
             filtersViewController?.delegate = self
+            filtersViewController.filterGroup = filterGroup
         }
         if segue.identifier == "info" {
             let navigationController = segue.destinationViewController as? UINavigationController
