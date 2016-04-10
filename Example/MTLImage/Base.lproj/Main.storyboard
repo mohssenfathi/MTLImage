@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="woE-JT-Bip">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -55,7 +56,7 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nAR-9d-E01">
-                                <rect key="frame" x="73" y="350" width="527" height="40"/>
+                                <rect key="frame" x="75" y="350" width="450" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="VxU-LF-RoC"/>
@@ -73,10 +74,10 @@
                             <constraint firstItem="ews-1S-Xix" firstAttribute="top" secondItem="6nT-fF-Hm0" secondAttribute="bottom" id="XEd-D6-TWf"/>
                             <constraint firstAttribute="trailing" secondItem="ews-1S-Xix" secondAttribute="trailing" id="ZrH-Tl-3KT"/>
                             <constraint firstAttribute="trailing" secondItem="Dyy-kP-9wH" secondAttribute="trailing" id="bZS-gI-nDX"/>
-                            <constraint firstAttribute="trailing" secondItem="nAR-9d-E01" secondAttribute="trailing" id="k7v-B1-o4A"/>
+                            <constraint firstAttribute="trailing" secondItem="nAR-9d-E01" secondAttribute="trailing" constant="75" id="k7v-B1-o4A"/>
                             <constraint firstAttribute="trailing" secondItem="Tr3-Uf-3Nv" secondAttribute="trailing" id="mRI-o3-Z49"/>
                             <constraint firstItem="nAR-9d-E01" firstAttribute="top" secondItem="Dyy-kP-9wH" secondAttribute="bottom" id="pND-m2-mso"/>
-                            <constraint firstItem="nAR-9d-E01" firstAttribute="leading" secondItem="M8M-4x-8pj" secondAttribute="leading" constant="73" id="wgv-YM-BZD"/>
+                            <constraint firstItem="nAR-9d-E01" firstAttribute="leading" secondItem="M8M-4x-8pj" secondAttribute="leading" constant="75" id="wgv-YM-BZD"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="GlJ-fj-V95" appends="YES" id="tSZ-Ij-vCZ"/>
@@ -181,7 +182,15 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="jWv-mb-4NG"/>
+                    <navigationItem key="navigationItem" id="jWv-mb-4NG">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="y2A-mm-Lg2">
+                            <rect key="frame" x="258" y="11" width="84" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="tintColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" image="drag"/>
+                        </button>
+                    </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="kMH-TX-74A" id="gtQ-XJ-Gpe"/>
@@ -612,9 +621,10 @@
     </scenes>
     <resources>
         <image name="Album" width="32" height="25"/>
+        <image name="drag" width="30" height="15"/>
         <image name="info" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1TL-RI-Vv1"/>
+        <segue reference="l2h-FT-O4N"/>
     </inferredMetricsTieBreakers>
 </document>

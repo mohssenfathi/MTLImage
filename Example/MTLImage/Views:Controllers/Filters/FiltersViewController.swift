@@ -32,11 +32,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         specialFilters = ["Filter Group"]
     }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationItem.title = "Filters"
-    }
     
     func handleTouchAtLocation(location: CGPoint) {
         settingsViewController?.handleTouchAtLocation(location)

@@ -14,18 +14,31 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var tableView: UITableView!
     var filterGroup: MTLFilterGroup!
     var selectedFilter: MTLFilter!
+    var saveButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.title = "Filter Group"
         tableView.reloadData()
         tableView.setEditing(true, animated: false)
     }
+
     
+    func saveButtonPressed(button: UIBarButtonItem) {
+        MTLImage.save(filterGroup)
+    }
+    
+    func setupView() {
+        saveButton = UIBarButtonItem(title: "Save", style: .Done, target: self, action: #selector(FilterGroupViewController.saveButtonPressed(_:)))
+        saveButton.enabled = false
+        navigationItem.rightBarButtonItem = saveButton
+        
+        navigationItem.title = filterGroup.title
+    }
     
     //    MARK: - UITableView
     //    MARK: DataSource
@@ -60,6 +73,8 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let cell = tableView.cellForRowAtIndexPath(indexPath)
+        
+        saveButton.enabled = true
         
         if cell?.reuseIdentifier == "addCell" {
             performSegueWithIdentifier("addFilter", sender: self)

@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
-  s.resources = 'Pod/Shaders/**/*'
+  s.resources = 'Pod/Classes/MTLImage/CoreData/**/*'
   s.resource_bundles = {
     'MTLImage' => ['Pod/Assets/*.png']
   }

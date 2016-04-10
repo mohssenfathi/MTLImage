@@ -17,24 +17,24 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MTL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2sA-cz-UwZ">
-                    <rect key="frame" x="123.5" y="152" width="230.5" height="132"/>
-                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="108"/>
+                    <rect key="frame" x="149.5" y="170" width="181.5" height="104"/>
+                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="85"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IMAGE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0R-Ik-tBr">
-                    <rect key="frame" x="127.5" y="253.5" width="226.5" height="80.5"/>
-                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="66"/>
+                    <rect key="frame" x="153" y="251" width="178.5" height="63.5"/>
+                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="52"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="2sA-cz-UwZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-1.5" id="9Ty-yD-as9"/>
-                <constraint firstItem="g0R-Ik-tBr" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="53.5" id="X3C-GN-Ix8"/>
-                <constraint firstItem="2sA-cz-UwZ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-22" id="adR-Sv-8Xp"/>
-                <constraint firstItem="g0R-Ik-tBr" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kOw-Wh-0fH"/>
+                <constraint firstItem="2sA-cz-UwZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="0.25" id="9Ty-yD-as9"/>
+                <constraint firstItem="g0R-Ik-tBr" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="42.75" id="X3C-GN-Ix8"/>
+                <constraint firstItem="2sA-cz-UwZ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-18" id="adR-Sv-8Xp"/>
+                <constraint firstItem="g0R-Ik-tBr" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="2.25" id="kOw-Wh-0fH"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

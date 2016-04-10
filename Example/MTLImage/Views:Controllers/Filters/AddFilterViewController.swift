@@ -21,6 +21,8 @@ class AddFilterViewController: UIViewController, UITableViewDataSource, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.title = "Add Filter"
     }
 
     @IBAction func closeButtonPressed(sender: AnyObject) {

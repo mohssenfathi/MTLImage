@@ -30,6 +30,11 @@ class MTLView: UIView, MTLOutput {
     var fragmentFunction: MTLFunction!
     var pipeline: MTLRenderPipelineState!
     var commandQueue: MTLCommandQueue!
+    var vertexBuffer: MTLBuffer!
+    var texCoordBuffer: MTLBuffer!
+    var uniformsBuffer: MTLBuffer!
+    var renderPassDescriptor: MTLRenderPassDescriptor!
+    var semaphore = dispatch_semaphore_create(3)
     
     var internalTitle: String!
     public var title: String {
@@ -37,13 +42,11 @@ class MTLView: UIView, MTLOutput {
         set { internalTitle = newValue }
     }
     
-    var vertexBuffer: MTLBuffer!
-    var texCoordBuffer: MTLBuffer!
-    var uniformsBuffer: MTLBuffer!
-    
-    var renderPassDescriptor: MTLRenderPassDescriptor!
-    
-    var semaphore = dispatch_semaphore_create(3)
+    private var privateIdentifier: String = NSUUID().UUIDString
+    public var identifier: String! {
+        get { return privateIdentifier     }
+        set { privateIdentifier = newValue }
+    }
     
     public var frameRate: Int = 60 {
         didSet {
@@ -77,7 +80,7 @@ class MTLView: UIView, MTLOutput {
     }
     
     func commonInit() {
-        title = "View"
+        title = "MTLView"
         setupDevice()
         setupPipeline()
         setupBuffers()
@@ -85,7 +88,7 @@ class MTLView: UIView, MTLOutput {
     
     override public func didMoveToSuperview() {
         if superview != nil {
-            displayLink = CADisplayLink(target: self, selector: "update:")
+            displayLink = CADisplayLink(target: self, selector: #selector(MTLView.update(_:)))
             displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
         } else {
             displayLink.invalidate()

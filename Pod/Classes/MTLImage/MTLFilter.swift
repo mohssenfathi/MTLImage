@@ -11,29 +11,7 @@ import Metal
 import MetalKit
 
 func ==(left: MTLFilter, right: MTLFilter) -> Bool {
-    if left.title != right.title { return false }
-    if left.properties.count != right.properties.count { return false }
-    
-    var leftProperty: MTLProperty
-    var rightProperty: MTLProperty
-    var leftVal: Float
-    var rightVal: Float
-    
-    // only checks float properties
-    for i in 0 ..< left.properties.count {
-        leftProperty = left.properties[i]
-        rightProperty = right.properties[i]
-        
-        if let leftVal = left.valueForKey(leftProperty.key) as? Float {
-            if let rightVal = right.valueForKey(rightProperty.key) as? Float {
-                if leftVal != rightVal { return false }
-            } else {
-                return false
-            }
-        }
-    }
-    
-    return true
+    return left.identifier == right.identifier
 }
 
 public
@@ -47,11 +25,23 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     var vertexBuffer: MTLBuffer?
     var texCoordBuffer: MTLBuffer?
     var uniformsBuffer: MTLBuffer?
+    var index: Int = 0
+    
+    public init(functionName: String) {
+        super.init()
+        self.functionName = functionName
+    }
     
     var internalTitle: String!
     public var title: String {
         get { return internalTitle }
         set { internalTitle = newValue }
+    }
+    
+    private var privateIdentifier: String = NSUUID().UUIDString
+    public var identifier: String! {
+        get { return privateIdentifier     }
+        set { privateIdentifier = newValue }
     }
     
     var dirty: Bool = true {
@@ -95,11 +85,6 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
             }
             return UIImage.imageWithTexture(texture!)!
         }
-    }
-    
-    public init(functionName: String) {
-        super.init()
-        self.functionName = functionName
     }
     
     func update() {
@@ -252,14 +237,17 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
         }
     }
     
-    public func addTarget(var target: MTLOutput) {
-        internalTargets.append(target)
-        target.input = self
+    public func addTarget(target: MTLOutput) {
+        var t = target
+        internalTargets.append(t)
+        t.input = self
         sourcePicture?.loadTexture()
     }
     
-    public func removeTarget(var target: MTLOutput) {
-        target.input = nil
+    public func removeTarget(target: MTLOutput) {
+        var t = target
+
+        t.input = nil
         
         var index: Int!
         if let filter = target as? MTLFilter {
@@ -269,9 +257,9 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
                 }
             }
         }
-        else if let view = target as? MTLView {
+        else if t is MTLView {
             for i in 0 ..< internalTargets.count {
-                if let v = internalTargets[i] as? MTLView { index = i }
+                if internalTargets[i] is MTLView { index = i }
             }
         }
         
