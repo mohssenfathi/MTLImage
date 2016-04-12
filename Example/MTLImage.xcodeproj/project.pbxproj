@@ -7,40 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		45211A7A1CB7FE1100A69BA3 /* Haze.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45211A791CB7FE1100A69BA3 /* Haze.metal */; };
 		4546570B1CB9BB98001E421A /* FilterGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546570A1CB9BB98001E421A /* FilterGroupViewController.swift */; };
 		4546570D1CB9BE98001E421A /* AddFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546570C1CB9BE98001E421A /* AddFilterViewController.swift */; };
 		454657121CBA85B7001E421A /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 454657101CBA85B7001E421A /* Montserrat-Bold.ttf */; };
 		454657131CBA85B7001E421A /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 454657111CBA85B7001E421A /* Montserrat-Regular.ttf */; };
-		454CED9A1CAF1AD500D67A9E /* Brightness.metal in Sources */ = {isa = PBXBuildFile; fileRef = 454CED991CAF1AD500D67A9E /* Brightness.metal */; };
-		454CED9E1CAFE4F300D67A9E /* Sharpen.metal in Sources */ = {isa = PBXBuildFile; fileRef = 454CED9D1CAFE4F300D67A9E /* Sharpen.metal */; };
-		454CEDA21CB08E3D00D67A9E /* Contrast.metal in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDA11CB08E3D00D67A9E /* Contrast.metal */; };
-		454CEDA61CB0916000D67A9E /* WhiteBalance.metal in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDA51CB0916000D67A9E /* WhiteBalance.metal */; };
-		454CEDAC1CB09D3F00D67A9E /* Invert.metal in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDAB1CB09D3F00D67A9E /* Invert.metal */; };
 		454CEDB11CB09FB800D67A9E /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDB01CB09FB800D67A9E /* FiltersViewController.swift */; };
-		454CEDB31CB0C53700D67A9E /* Levels.metal in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDB21CB0C53700D67A9E /* Levels.metal */; };
-		454CEDB71CB0CC3000D67A9E /* Convolution.metal in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDB61CB0CC3000D67A9E /* Convolution.metal */; };
 		454CEDC21CB1470600D67A9E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDC11CB1470600D67A9E /* InfoViewController.swift */; };
 		454CEDC41CB1496500D67A9E /* MetadataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDC31CB1496500D67A9E /* MetadataFormatter.swift */; };
-		454D09BB1CB99AD100046DB5 /* Water.metal in Sources */ = {isa = PBXBuildFile; fileRef = 454D09BA1CB99AD100046DB5 /* Water.metal */; };
-		45B88CDE1CAF0A830092CAAF /* Exposure.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45B88CDD1CAF0A830092CAAF /* Exposure.metal */; };
-		45CD7BA41CB823AD00A28AD3 /* SobelEdgeDetection.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45CD7BA31CB823AD00A28AD3 /* SobelEdgeDetection.metal */; };
-		45CD7BAD1CB8279B00A28AD3 /* Sketch.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45CD7BAC1CB8279B00A28AD3 /* Sketch.metal */; };
-		45CD7BAF1CB8291D00A28AD3 /* Toon.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45CD7BAE1CB8291D00A28AD3 /* Toon.metal */; };
-		45CD7BB31CB8365400A28AD3 /* Vignette.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45CD7BB21CB8365400A28AD3 /* Vignette.metal */; };
-		45CD7BB91CB861F900A28AD3 /* Kuwahara.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45CD7BB81CB861F900A28AD3 /* Kuwahara.metal */; };
 		45EB4FC41CADF4C00018936C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EB4FC31CADF4C00018936C /* MainViewController.swift */; };
 		45EB4FC81CADF75F0018936C /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BE9F871C9226010014593F /* Metal.framework */; };
 		45EB4FCA1CADF7640018936C /* MTLImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EB4FC91CADF7640018936C /* MTLImage.framework */; };
 		45EB4FCC1CADF76C0018936C /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EB4FCB1CADF76C0018936C /* MetalKit.framework */; };
 		45EB4FCF1CADF8CD0018936C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EB4FCE1CADF8CD0018936C /* SettingsViewController.swift */; };
 		45EB4FD11CADFAAE0018936C /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EB4FD01CADFAAE0018936C /* SettingsCell.swift */; };
-		45EB4FDB1CAE1ECA0018936C /* CrossHatch.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45EB4FD61CAE1ECA0018936C /* CrossHatch.metal */; };
-		45EB4FDC1CAE1ECA0018936C /* GaussianBlur.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45EB4FD71CAE1ECA0018936C /* GaussianBlur.metal */; };
-		45EB4FDD1CAE1ECA0018936C /* PolkaDot.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45EB4FD81CAE1ECA0018936C /* PolkaDot.metal */; };
-		45EB4FDE1CAE1ECA0018936C /* Saturation.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45EB4FD91CAE1ECA0018936C /* Saturation.metal */; };
-		45EB4FDF1CAE1ECA0018936C /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45EB4FDA1CAE1ECA0018936C /* Shaders.metal */; };
-		45FDD3A31CAF077E00903868 /* Pixellate.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45FDD3A21CAF077E00903868 /* Pixellate.metal */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
@@ -63,40 +42,19 @@
 /* Begin PBXFileReference section */
 		0903E9E555816E58D7C438ED /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		22918B49ADBB9962DD3EDA05 /* Pods-MTLImage_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTLImage_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		45211A791CB7FE1100A69BA3 /* Haze.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Haze.metal; sourceTree = "<group>"; };
 		4546570A1CB9BB98001E421A /* FilterGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterGroupViewController.swift; path = Filters/FilterGroupViewController.swift; sourceTree = "<group>"; };
 		4546570C1CB9BE98001E421A /* AddFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddFilterViewController.swift; path = Filters/AddFilterViewController.swift; sourceTree = "<group>"; };
 		454657101CBA85B7001E421A /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		454657111CBA85B7001E421A /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
-		454CED991CAF1AD500D67A9E /* Brightness.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Brightness.metal; sourceTree = "<group>"; };
-		454CED9D1CAFE4F300D67A9E /* Sharpen.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Sharpen.metal; sourceTree = "<group>"; };
-		454CEDA11CB08E3D00D67A9E /* Contrast.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Contrast.metal; sourceTree = "<group>"; };
-		454CEDA51CB0916000D67A9E /* WhiteBalance.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = WhiteBalance.metal; sourceTree = "<group>"; };
-		454CEDAB1CB09D3F00D67A9E /* Invert.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Invert.metal; sourceTree = "<group>"; };
 		454CEDB01CB09FB800D67A9E /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FiltersViewController.swift; path = Filters/FiltersViewController.swift; sourceTree = "<group>"; };
-		454CEDB21CB0C53700D67A9E /* Levels.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Levels.metal; sourceTree = "<group>"; };
-		454CEDB61CB0CC3000D67A9E /* Convolution.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Convolution.metal; sourceTree = "<group>"; };
 		454CEDC11CB1470600D67A9E /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = Info/InfoViewController.swift; sourceTree = "<group>"; };
 		454CEDC31CB1496500D67A9E /* MetadataFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetadataFormatter.swift; path = Info/MetadataFormatter.swift; sourceTree = "<group>"; };
-		454D09BA1CB99AD100046DB5 /* Water.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Water.metal; sourceTree = "<group>"; };
-		45B88CDD1CAF0A830092CAAF /* Exposure.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Exposure.metal; sourceTree = "<group>"; };
 		45BE9F871C9226010014593F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
-		45CD7BA31CB823AD00A28AD3 /* SobelEdgeDetection.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = SobelEdgeDetection.metal; sourceTree = "<group>"; };
-		45CD7BAC1CB8279B00A28AD3 /* Sketch.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Sketch.metal; sourceTree = "<group>"; };
-		45CD7BAE1CB8291D00A28AD3 /* Toon.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Toon.metal; sourceTree = "<group>"; };
-		45CD7BB21CB8365400A28AD3 /* Vignette.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Vignette.metal; sourceTree = "<group>"; };
-		45CD7BB81CB861F900A28AD3 /* Kuwahara.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Kuwahara.metal; sourceTree = "<group>"; };
 		45EB4FC31CADF4C00018936C /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Main/MainViewController.swift; sourceTree = "<group>"; };
 		45EB4FC91CADF7640018936C /* MTLImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MTLImage.framework; path = "../../../../Developer/Xcode/DerivedData/MTLImage-dlzobbsaleuujzhenaykjwcrxpyr/Build/Products/Debug-iphoneos/MTLImage.framework"; sourceTree = "<group>"; };
 		45EB4FCB1CADF76C0018936C /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		45EB4FCE1CADF8CD0018936C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		45EB4FD01CADFAAE0018936C /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
-		45EB4FD61CAE1ECA0018936C /* CrossHatch.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = CrossHatch.metal; sourceTree = "<group>"; };
-		45EB4FD71CAE1ECA0018936C /* GaussianBlur.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = GaussianBlur.metal; sourceTree = "<group>"; };
-		45EB4FD81CAE1ECA0018936C /* PolkaDot.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PolkaDot.metal; sourceTree = "<group>"; };
-		45EB4FD91CAE1ECA0018936C /* Saturation.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Saturation.metal; sourceTree = "<group>"; };
-		45EB4FDA1CAE1ECA0018936C /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
-		45FDD3A21CAF077E00903868 /* Pixellate.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Pixellate.metal; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* MTLImage_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MTLImage_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -203,34 +161,6 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		45EB4FD51CAE1ECA0018936C /* Shaders */ = {
-			isa = PBXGroup;
-			children = (
-				454CED991CAF1AD500D67A9E /* Brightness.metal */,
-				454CEDA11CB08E3D00D67A9E /* Contrast.metal */,
-				45EB4FD61CAE1ECA0018936C /* CrossHatch.metal */,
-				45B88CDD1CAF0A830092CAAF /* Exposure.metal */,
-				45EB4FD71CAE1ECA0018936C /* GaussianBlur.metal */,
-				45EB4FD81CAE1ECA0018936C /* PolkaDot.metal */,
-				45FDD3A21CAF077E00903868 /* Pixellate.metal */,
-				45EB4FD91CAE1ECA0018936C /* Saturation.metal */,
-				454CED9D1CAFE4F300D67A9E /* Sharpen.metal */,
-				454CEDA51CB0916000D67A9E /* WhiteBalance.metal */,
-				454CEDAB1CB09D3F00D67A9E /* Invert.metal */,
-				454CEDB21CB0C53700D67A9E /* Levels.metal */,
-				454CEDB61CB0CC3000D67A9E /* Convolution.metal */,
-				45CD7BAC1CB8279B00A28AD3 /* Sketch.metal */,
-				45CD7BAE1CB8291D00A28AD3 /* Toon.metal */,
-				45EB4FDA1CAE1ECA0018936C /* Shaders.metal */,
-				45211A791CB7FE1100A69BA3 /* Haze.metal */,
-				45CD7BA31CB823AD00A28AD3 /* SobelEdgeDetection.metal */,
-				45CD7BB21CB8365400A28AD3 /* Vignette.metal */,
-				45CD7BB81CB861F900A28AD3 /* Kuwahara.metal */,
-				454D09BA1CB99AD100046DB5 /* Water.metal */,
-			);
-			path = Shaders;
-			sourceTree = "<group>";
-		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -255,7 +185,6 @@
 		607FACD21AFB9204008FA782 /* Example for MTLImage */ = {
 			isa = PBXGroup;
 			children = (
-				45EB4FD51CAE1ECA0018936C /* Shaders */,
 				45EB4FBF1CADF49D0018936C /* Views/Controllers */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -339,6 +268,7 @@
 				607FACCE1AFB9204008FA782 /* Resources */,
 				399B5FD6A68CA54F03D79C5D /* Embed Pods Frameworks */,
 				6E48ECA7E5EE53AAE2264371 /* Copy Pods Resources */,
+				454EA1641CBB469E00E02207 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -446,6 +376,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		454EA1641CBB469E00E02207 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 1708752460039d1fc7e688ff721b55eb26b04b23 62f7fe52af399a97c44854566d8410ebf09baddeeb41c54a2959cf630a867823";
+		};
 		47EAF0A46C58E63AB7E012B7 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -528,36 +471,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45FDD3A31CAF077E00903868 /* Pixellate.metal in Sources */,
-				45EB4FDF1CAE1ECA0018936C /* Shaders.metal in Sources */,
 				45EB4FC41CADF4C00018936C /* MainViewController.swift in Sources */,
-				45CD7BA41CB823AD00A28AD3 /* SobelEdgeDetection.metal in Sources */,
-				45EB4FDD1CAE1ECA0018936C /* PolkaDot.metal in Sources */,
-				45EB4FDB1CAE1ECA0018936C /* CrossHatch.metal in Sources */,
-				45211A7A1CB7FE1100A69BA3 /* Haze.metal in Sources */,
-				45CD7BAD1CB8279B00A28AD3 /* Sketch.metal in Sources */,
 				45EB4FD11CADFAAE0018936C /* SettingsCell.swift in Sources */,
-				45EB4FDE1CAE1ECA0018936C /* Saturation.metal in Sources */,
 				4546570D1CB9BE98001E421A /* AddFilterViewController.swift in Sources */,
-				45EB4FDC1CAE1ECA0018936C /* GaussianBlur.metal in Sources */,
 				454CEDC41CB1496500D67A9E /* MetadataFormatter.swift in Sources */,
-				454CEDB71CB0CC3000D67A9E /* Convolution.metal in Sources */,
-				454CED9A1CAF1AD500D67A9E /* Brightness.metal in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				454CEDA61CB0916000D67A9E /* WhiteBalance.metal in Sources */,
 				45EB4FCF1CADF8CD0018936C /* SettingsViewController.swift in Sources */,
-				45CD7BB31CB8365400A28AD3 /* Vignette.metal in Sources */,
-				45B88CDE1CAF0A830092CAAF /* Exposure.metal in Sources */,
 				454CEDC21CB1470600D67A9E /* InfoViewController.swift in Sources */,
-				454CEDA21CB08E3D00D67A9E /* Contrast.metal in Sources */,
-				454CEDAC1CB09D3F00D67A9E /* Invert.metal in Sources */,
 				454CEDB11CB09FB800D67A9E /* FiltersViewController.swift in Sources */,
-				454D09BB1CB99AD100046DB5 /* Water.metal in Sources */,
 				4546570B1CB9BB98001E421A /* FilterGroupViewController.swift in Sources */,
-				454CEDB31CB0C53700D67A9E /* Levels.metal in Sources */,
-				45CD7BAF1CB8291D00A28AD3 /* Toon.metal in Sources */,
-				454CED9E1CAFE4F300D67A9E /* Sharpen.metal in Sources */,
-				45CD7BB91CB861F900A28AD3 /* Kuwahara.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

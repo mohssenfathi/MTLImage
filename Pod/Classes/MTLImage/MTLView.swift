@@ -29,7 +29,9 @@ class MTLView: UIView, MTLOutput {
     var vertexFunction: MTLFunction!
     var fragmentFunction: MTLFunction!
     var pipeline: MTLRenderPipelineState!
-    var commandQueue: MTLCommandQueue!
+    lazy var commandQueue: MTLCommandQueue! = {
+        return self.device.newCommandQueue()
+    }()
     var vertexBuffer: MTLBuffer!
     var texCoordBuffer: MTLBuffer!
     var uniformsBuffer: MTLBuffer!
@@ -163,7 +165,7 @@ class MTLView: UIView, MTLOutput {
     }
     
     func setupPipeline() {
-        library = device.newDefaultLibrary()
+        library = context.library
         vertexFunction   = library.newFunctionWithName("vertex_main")
         fragmentFunction = library.newFunctionWithName("fragment_main")
         
@@ -177,8 +179,6 @@ class MTLView: UIView, MTLOutput {
         } catch {
             print("Failed to create pipeline")
         }
-        
-        commandQueue = device.newCommandQueue()
     }
     
     func setupBuffers() {
@@ -290,6 +290,9 @@ class MTLView: UIView, MTLOutput {
     
     var context: MTLContext! {
         get {
+            if input?.context == nil {
+                return MTLContext()
+            }
             return input?.context
         }
     }

@@ -18,10 +18,13 @@
   },
   "requires_arc": true,
   "source_files": "Pod/Classes/**/*",
-  "resources": "Pod/Classes/MTLImage/CoreData/**/*",
+  "resources": [
+    "Pod/Classes/CoreData/**/*.xcdatamodeld",
+    "Pod/Classes/**/*.metallib"
+  ],
   "resource_bundles": {
     "MTLImage": [
-      "Pod/Assets/*.png"
+      "Pod/Assets/**/*"
     ]
   }
 }

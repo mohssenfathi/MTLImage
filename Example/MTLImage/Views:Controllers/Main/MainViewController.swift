@@ -18,14 +18,17 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var filtersBar: UIView!
     @IBOutlet weak var filtersContainer: UIView!
     @IBOutlet weak var filtersContainerHeight: NSLayoutConstraint!
+    @IBOutlet var infoButton: UIBarButtonItem!
+    @IBOutlet var libraryButton: UIBarButtonItem!
 
     var filterGroup = MTLFilterGroup()
     var filtersViewController: FiltersViewController!
     var sourcePicture: MTLPicture!
+    var camera: MTLCamera = MTLCamera()
     var canDrag: Bool = false
     var initialDragOffset: CGFloat = 0.0   // removes initial jump on drag
     var metadata: [AnyObject]?
-        
+    
     lazy var imagePickerController: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -36,13 +39,17 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.viewDidLoad()
         let image = UIImage(named: "test")!
         
+        self.navigationItem.leftBarButtonItem = nil
+        
+        
         sourcePicture = MTLPicture(image: image)
         sourcePicture.setProcessingSize(CGSizeMake(500, 500), respectAspectRatio: true)
- 
-        sourcePicture > filterGroup
-        filterGroup > mtlView
-
         mtlView.delegate = self
+        
+//        sourcePicture > filterGroup
+//        filterGroup > mtlView
+        
+        camera > mtlView
         
         navigationItem.title = "MTLImage"
     }
@@ -123,6 +130,14 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
     }
     
+    @IBAction func segmentedControlValueChanged(sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            navigationItem.rightBarButtonItem = libraryButton
+        }
+        else {
+            navigationItem.rightBarButtonItem = nil
+        }
+    }
     
 //    MARK: - Image Picker Delegate
     
@@ -136,6 +151,8 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        navigationItem.leftBarButtonItem = infoButton
         
         sourcePicture.image = image
         sourcePicture.setProcessingSize(CGSizeMake(500, 500), respectAspectRatio: true)
@@ -158,6 +175,15 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         filterGroup.removeAll()
     }
     
+    func filtersViewControllerDidSelectFilterGroup(sender: FiltersViewController, filterGroup: MTLFilterGroup) {
+        sourcePicture.removeAllTargets()
+        filterGroup.removeAllTargets()
+        
+        self.filterGroup = filterGroup
+        
+        sourcePicture > filterGroup
+        filterGroup > mtlView
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

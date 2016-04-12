@@ -32,6 +32,10 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
         title = "Filter Group"
     }
     
+    func save() {
+        MTLDataManager.sharedManager.save(self, completion: nil)
+    }
+    
     public func setNeedsUpdate() {
         filters.first?.dirty = true
     }

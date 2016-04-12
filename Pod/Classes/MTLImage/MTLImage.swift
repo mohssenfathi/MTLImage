@@ -7,7 +7,9 @@
 //
 
 import UIKit
+#if !(TARGET_IPHONE_SIMULATOR)
 import Metal
+#endif
 
 public protocol MTLInput {
     var texture: MTLTexture? { get }
@@ -55,8 +57,16 @@ class MTLImage: NSObject {
         "White Balance"        : MTLWhiteBalanceFilter()
     ]
     
-    public class func save(filterGroup: MTLFilterGroup) {
-        MTLDataManager.sharedManager.save(filterGroup)
+    public class func save(filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
+        MTLDataManager.sharedManager.save(filterGroup, completion: completion)
+    }
+    
+    public class func remove(filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
+        MTLDataManager.sharedManager.remove(filterGroup, completion: completion)
+    }
+    
+    public class func savedFilterGroups() -> [MTLFilterGroup] {
+        return MTLDataManager.sharedManager.savedFilterGroups()
     }
 }
 

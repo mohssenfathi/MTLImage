@@ -15,6 +15,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     var filterGroup: MTLFilterGroup!
     var selectedFilter: MTLFilter!
     var saveButton: UIBarButtonItem!
+    var isNewFilter: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +28,52 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.setEditing(true, animated: false)
     }
 
-    
     func saveButtonPressed(button: UIBarButtonItem) {
-        MTLImage.save(filterGroup)
+        if isNewFilter {
+            showRenameAlert({ 
+                MTLImage.save(self.filterGroup, completion: { (success) in
+                    if success == true {
+                        self.saveButton.enabled = false
+                    }
+                })
+            })
+        } else {
+            MTLImage.save(self.filterGroup, completion: { (success) in
+                if success == true {
+                    self.saveButton.enabled = false
+                }
+            })
+        }
+    }
+    
+    func showRenameAlert(completion: (() -> ())?) {
+        let alert = UIAlertController(title: "Name this filter group", message: nil, preferredStyle: .Alert)
+        
+        alert.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = self.filterGroup.title
+        }
+        
+        let doneAction = UIAlertAction(title: "Done", style: .Default) { (action) in
+            let textField = alert.textFields?.first!
+            if textField!.text == nil || textField!.text == "" { return }
+            self.filterGroup.title = textField!.text!
+            self.navigationItem.title = textField?.text
+            self.isNewFilter = false
+            self.dismissViewControllerAnimated(true, completion: nil)
+            completion?()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action) in
+            MTLImage.save(self.filterGroup, completion: { (success) in
+                self.dismissViewControllerAnimated(true, completion: nil)
+                completion?()
+            })
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(doneAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     func setupView() {
@@ -105,6 +149,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         if editingStyle == .Delete {
             filterGroup.remove(filterGroup.filters[indexPath.row])
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            saveButton.enabled = true
         }
     }
     

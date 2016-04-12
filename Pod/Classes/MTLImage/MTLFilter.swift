@@ -70,7 +70,7 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     }
     
     var functionName: String!
-    public var properties: [MTLProperty]!
+    public var properties = [MTLProperty]()
     
     public var originalImage: UIImage? {
         get {
@@ -101,6 +101,10 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     
     func setupPipeline() {
         kernelFunction = context.library?.newFunctionWithName(functionName)
+        if kernelFunction == nil {
+            print("Failed to load kernel function")
+            return
+        }
         
         do {
             pipeline = try context.device.newComputePipelineStateWithFunction(kernelFunction)
@@ -116,7 +120,6 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
         
         let kCntQuadVertices = kCntQuadTexCoords;
         let kSzQuadVertices  = kCntQuadVertices * sizeof(float4);
-        
         
         let kQuadVertices: [float4] = [
             float4(-1.0, -1.0, 0.0, 1.0),
@@ -141,46 +144,44 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     }
     
     public func process() {
-
+        
         guard let inputTexture = self.input?.texture else {
             print("input texture nil")
             return
         }
         
-//        runSynchronously { 
-            if self.internalTexture == nil || self.internalTexture!.width != inputTexture.width || self.internalTexture!.height != inputTexture.height {
-                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(inputTexture.pixelFormat, width:inputTexture.width, height: inputTexture.height, mipmapped: false)
-                self.internalTexture = self.context.device?.newTextureWithDescriptor(textureDescriptor)
-            }
-            
-            let threadgroupCounts = MTLSizeMake(8, 8, 1)
-            let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width,
-                inputTexture.height / threadgroupCounts.height, 1)
-            
-            let commandBuffer = self.context.commandQueue.commandBuffer()
-            let commandEncoder = commandBuffer.computeCommandEncoder()
-            commandEncoder.setComputePipelineState(self.pipeline)
-            commandEncoder.setBuffer(self.uniformsBuffer, offset: 0, atIndex: 0)
-            commandEncoder.setTexture(inputTexture, atIndex: 0)
-            commandEncoder.setTexture(self.internalTexture, atIndex: 1)
-            self.configureCommandEncoder(commandEncoder)
-            commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
-            commandEncoder.endEncoding()
-            
-            commandBuffer.commit()
-            commandBuffer.waitUntilCompleted()
-            
-            self.dirty = false
-//        }
+        //        runSynchronously {
+        if self.internalTexture == nil || self.internalTexture!.width != inputTexture.width || self.internalTexture!.height != inputTexture.height {
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(inputTexture.pixelFormat, width:inputTexture.width, height: inputTexture.height, mipmapped: false)
+            self.internalTexture = self.context.device?.newTextureWithDescriptor(textureDescriptor)
+        }
+        
+        let threadgroupCounts = MTLSizeMake(8, 8, 1)
+        let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width,
+                                       inputTexture.height / threadgroupCounts.height, 1)
+        
+        let commandBuffer = self.context.commandQueue.commandBuffer()
+        let commandEncoder = commandBuffer.computeCommandEncoder()
+        commandEncoder.setComputePipelineState(self.pipeline)
+        commandEncoder.setBuffer(self.uniformsBuffer, offset: 0, atIndex: 0)
+        commandEncoder.setTexture(inputTexture, atIndex: 0)
+        commandEncoder.setTexture(self.internalTexture, atIndex: 1)
+        self.configureCommandEncoder(commandEncoder)
+        commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
+        commandEncoder.endEncoding()
+        
+        commandBuffer.commit()
+        commandBuffer.waitUntilCompleted()
+        
+        self.dirty = false
+        //        }
     }
-    
     
     func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
         
     }
     
-    
-//    MARK: - Tools
+    //    MARK: - Tools
     
     func clamp<T: Comparable>(inout value: T, low: T, high: T) {
         if      value < low  { value = low  }
@@ -188,24 +189,24 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     }
     
     
-//    MARK: - Queues
+    //    MARK: - Queues
     
     func runSynchronously(block: (()->())) {
-        dispatch_sync(context.processingQueue) { 
+        dispatch_sync(context.processingQueue) {
             block()
         }
     }
     
     func runAsynchronously(block: (()->())) {
-//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        //        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
         dispatch_async(context.processingQueue) {
             block()
-//            dispatch_semaphore_signal(self.semaphore)
+            //            dispatch_semaphore_signal(self.semaphore)
         }
     }
     
     
-//    MARK: - MTLInput
+    //    MARK: - MTLInput
     
     public var texture: MTLTexture? {
         get {
@@ -215,7 +216,7 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
             return internalTexture
         }
     }
-
+    
     public var context: MTLContext {
         get {
             if privateInput?.context != nil {
@@ -246,7 +247,7 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     
     public func removeTarget(target: MTLOutput) {
         var t = target
-
+        
         t.input = nil
         
         var index: Int!
@@ -275,7 +276,7 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     }
     
     
-//    MARK: - MTLOutput
+    //    MARK: - MTLOutput
     
     public var input: MTLInput? {
         get {

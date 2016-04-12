@@ -3,10 +3,12 @@ use_frameworks!
 
 target 'MTLImage_Example' do
   pod 'MTLImage', :path => '../'
+  pod 'Fabric'
+  pod 'Crashlytics'
 end
 
 target 'MTLImage_Tests' do
   pod 'MTLImage', :path => '../'
-
-  
+  pod 'Fabric'
+  pod 'Crashlytics'
 end

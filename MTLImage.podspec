@@ -32,9 +32,9 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
-  s.resources = 'Pod/Classes/MTLImage/CoreData/**/*'
+  s.resources = ['Pod/Classes/CoreData/**/*.xcdatamodeld', 'Pod/Classes/**/*.metallib']
   s.resource_bundles = {
-    'MTLImage' => ['Pod/Assets/*.png']
+    'MTLImage' => ['Pod/Assets/**/*']
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'

@@ -1,7 +1,12 @@
 PODS:
+  - Crashlytics (3.7.0):
+    - Fabric (~> 1.6.3)
+  - Fabric (1.6.7)
   - MTLImage (0.1.0)
 
 DEPENDENCIES:
+  - Crashlytics
+  - Fabric
   - MTLImage (from `../`)
 
 EXTERNAL SOURCES:
@@ -9,6 +14,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  MTLImage: ab9da17c8bf103ea00848d0750334e5820ca5c3c
+  Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
+  Fabric: caf7580c725e64db144f610ac65cd60956911dc7
+  MTLImage: 1f53ddaeb8c7feb058603cc412580749ed958d23
 
 COCOAPODS: 0.39.0
