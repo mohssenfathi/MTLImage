@@ -51,12 +51,15 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     }
     var semaphore = dispatch_semaphore_create(1)
     
-    var sourcePicture: MTLPicture? {
+    var source: MTLInput? {
         get {
             var inp: MTLInput? = input
             while inp != nil {
                 if let sourcePicture = inp as? MTLPicture {
                     return sourcePicture
+                }
+                if let camera = inp as? MTLCamera {
+                    return camera
                 }
                 else if let filter = inp as? MTLFilter {
                     inp = filter.input
@@ -74,7 +77,10 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     
     public var originalImage: UIImage? {
         get {
-            return sourcePicture?.image
+            if let picture = source as? MTLPicture {
+                return picture.image
+            }
+            return nil
         }
     }
     
@@ -111,36 +117,6 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
         } catch {
             print("Failed to create pipeline")
         }
-    }
-    
-    func setupBuffers() {
-        
-        let kCntQuadTexCoords = 6;
-        let kSzQuadTexCoords  = kCntQuadTexCoords * sizeof(float2);
-        
-        let kCntQuadVertices = kCntQuadTexCoords;
-        let kSzQuadVertices  = kCntQuadVertices * sizeof(float4);
-        
-        let kQuadVertices: [float4] = [
-            float4(-1.0, -1.0, 0.0, 1.0),
-            float4( 1.0, -1.0, 0.0, 1.0),
-            float4(-1.0,  1.0, 0.0, 1.0),
-            
-            float4( 1.0, -1.0, 0.0, 1.0),
-            float4(-1.0,  1.0, 0.0, 1.0),
-            float4( 1.0,  1.0, 0.0, 1.0) ]
-        
-        let kQuadTexCoords: [float2] = [
-            float2(0.0, 0.0),
-            float2(1.0, 0.0),
-            float2(0.0, 1.0),
-            
-            float2(1.0, 0.0),
-            float2(0.0, 1.0),
-            float2(1.0, 1.0) ]
-        
-        vertexBuffer   = device.newBufferWithBytes(kQuadVertices , length: kSzQuadVertices , options: .CPUCacheModeDefaultCache)
-        texCoordBuffer = device.newBufferWithBytes(kQuadTexCoords, length: kSzQuadTexCoords, options: .CPUCacheModeDefaultCache)
     }
     
     public func process() {
@@ -242,7 +218,9 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
         var t = target
         internalTargets.append(t)
         t.input = self
-        sourcePicture?.loadTexture()
+        if let picture = source as? MTLPicture {
+            picture.loadTexture()
+        }
     }
     
     public func removeTarget(target: MTLOutput) {
@@ -286,7 +264,6 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
             privateInput = newValue
             if newValue != nil {
                 setupPipeline()
-                setupBuffers()
                 update()
             }
         }

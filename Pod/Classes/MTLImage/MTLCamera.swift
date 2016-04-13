@@ -14,11 +14,14 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     
     private var internalTargets = [MTLOutput]()
     private var internalTexture: MTLTexture!
+    private var videoTexture: MTLTexture!
     var internalContext: MTLContext = MTLContext()
     var pipeline: MTLComputePipelineState!
-    var dirty: Bool!
+    var kernelFunction: MTLFunction!
+    var dirty: Bool = true
     
     var session: AVCaptureSession!
+    var captureDevice: AVCaptureDevice!
     var dataOutput: AVCaptureVideoDataOutput!
     var dataOutputQueue: dispatch_queue_t!
     var deviceInput: AVCaptureDeviceInput!
@@ -28,22 +31,62 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         super.init()
         self.title = "MTLCamera"
         setupAVDevice()
+        setupPipeline()
     }
     
-//    public override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        commonInit()
-//    }
-//    
-//    public required init?(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//        commonInit()
-//    }
-//    
-//    func commonInit() {
-////        self.processingSize = image.size
-//        self.title = "MTLCamera"
-//    }
+    public func startRunning() {
+        session.startRunning()
+    }
+    
+    public func stopRunning() {
+        session.stopRunning()
+    }
+    
+    public var orientation: AVCaptureVideoOrientation = .Portrait {
+        didSet {
+            if let connection = dataOutput.connectionWithMediaType(AVMediaTypeVideo) {
+                connection.videoOrientation = orientation
+            }
+        }
+    }
+    
+    public var capturePosition: AVCaptureDevicePosition = .Back {
+        didSet {
+            if captureDevice.position == capturePosition { return }
+            if session == nil { return }
+            
+            session.beginConfiguration()
+            
+            session.removeInput(deviceInput)  // maybe check if has input first
+            
+            for device: AVCaptureDevice in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! [AVCaptureDevice] {
+                if device.position == capturePosition {
+                    captureDevice = device as! AVCaptureDevice
+                    break
+                }
+            }
+            
+            if captureDevice == nil {
+                captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+            }
+            
+            try! deviceInput = AVCaptureDeviceInput(device: captureDevice)
+            if session.canAddInput(deviceInput) {
+                session.addInput(deviceInput)
+            }
+            
+            let connection = dataOutput.connectionWithMediaType(AVMediaTypeVideo)
+            connection.videoOrientation = .Portrait
+            
+            // Set flag later to mirror preview when in .Front
+            
+            session.commitConfiguration()
+        }
+    }
+    
+    public func flipCamera() {
+        capturePosition = (capturePosition == .Front) ? .Back : .Front
+    }
     
     func setupAVDevice() {
         
@@ -51,23 +94,45 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         
         session = AVCaptureSession()
         session.sessionPreset = AVCaptureSessionPresetPhoto
-        let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        
+        for device: AVCaptureDevice in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! [AVCaptureDevice] {
+            if device.position == capturePosition {
+                captureDevice = device as! AVCaptureDevice
+                break
+            }
+        }
+        if captureDevice == nil {
+            captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        }
+        
         try! deviceInput = AVCaptureDeviceInput(device: captureDevice)
         if session.canAddInput(deviceInput) {
             session.addInput(deviceInput)
         }
         
         dataOutput = AVCaptureVideoDataOutput()
-//        dataOutput.videoSettings = [NSNumber(unsignedInt: kCMPixelFormat_32BGRA) : kCVPixelBufferPixelFormatTypeKey]
+        dataOutput.videoSettings = [String(kCVPixelBufferPixelFormatTypeKey) : NSNumber(unsignedInt: kCMPixelFormat_32BGRA)]
         dataOutput.alwaysDiscardsLateVideoFrames = true
         dataOutputQueue = dispatch_queue_create("VideoDataOutputQueue", DISPATCH_QUEUE_SERIAL)
         dataOutput.setSampleBufferDelegate(self, queue: dataOutputQueue)
         if session.canAddOutput(dataOutput) {
             session.addOutput(dataOutput)
         }
-        dataOutput.connectionWithMediaType(AVMediaTypeVideo).enabled = true
         
-        session.startRunning()
+        let connection = dataOutput.connectionWithMediaType(AVMediaTypeVideo)
+        connection.enabled = true
+        connection.videoOrientation = .Portrait
+
+        session.commitConfiguration()
+    }
+    
+    func setupPipeline() {
+        kernelFunction = context.library?.newFunctionWithName("camera")
+        do {
+            pipeline = try context.device.newComputePipelineStateWithFunction(kernelFunction)
+        } catch {
+            print("Failed to create pipeline")
+        }
     }
     
     
@@ -76,65 +141,14 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     public func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
         
         let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-        
-        // Y: luma
-        
-        var yTextureRef : Unmanaged<CVMetalTextureRef>?
-        
-        let yWidth = CVPixelBufferGetWidthOfPlane(pixelBuffer!, 0);
-        let yHeight = CVPixelBufferGetHeightOfPlane(pixelBuffer!, 0);
-        
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
-                                                  textureCache!.takeUnretainedValue(),
-                                                  pixelBuffer!,
-                                                  nil,
-                                                  MTLPixelFormat.R8Unorm,
-                                                  yWidth, yHeight, 0,
-                                                  &yTextureRef)
-        
-        // CbCr: CB and CR are the blue-difference and red-difference chroma components /
-        
-        var cbcrTextureRef : Unmanaged<CVMetalTextureRef>?
-        
-        let cbcrWidth = CVPixelBufferGetWidthOfPlane(pixelBuffer!, 1);
-        let cbcrHeight = CVPixelBufferGetHeightOfPlane(pixelBuffer!, 1);
-        
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
-                                                  textureCache!.takeUnretainedValue(),
-                                                  pixelBuffer!,
-                                                  nil,
-                                                  MTLPixelFormat.RG8Unorm,
-                                                  cbcrWidth, cbcrHeight, 1,
-                                                  &cbcrTextureRef)
-        
-        
-        let yTexture = CVMetalTextureGetTexture((yTextureRef?.takeUnretainedValue())!)
-        internalTexture = CVMetalTextureGetTexture((cbcrTextureRef?.takeUnretainedValue())!)
-        
-//        self.metalView.addTextures(yTexture: yTexture!, cbcrTexture: cbcrTexture!)
-        
-        yTextureRef?.release()
-        cbcrTextureRef?.release()
-        
-//        internalTexture = texture(CMSampleBufferGetImageBuffer(sampleBuffer)!)
-    }
-    
-    func texture(imageBuffer: CVImageBuffer) -> MTLTexture? {
-
-        let width  = CVPixelBufferGetWidthOfPlane(imageBuffer, 1);
-        let height = CVPixelBufferGetHeightOfPlane(imageBuffer, 1);
-        let pixelFormat = MTLPixelFormat.R8Unorm
-        
-        var texture: Unmanaged<CVMetalTextureRef>?
-        let status = CVMetalTextureCacheCreateTextureFromImage(nil, textureCache!.takeUnretainedValue(), imageBuffer, nil, pixelFormat, width, height, 0, &texture)
-        
-        var metalTexture: MTLTexture?
-        if status == kCVReturnSuccess {
-            metalTexture = CVMetalTextureGetTexture((texture?.takeUnretainedValue())!);
-            texture?.release()
-        }
-        
-        return metalTexture
+        var textureRef : Unmanaged<CVMetalTextureRef>?
+        let width = CVPixelBufferGetWidth(pixelBuffer!);
+        let height = CVPixelBufferGetHeight(pixelBuffer!);
+        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache!.takeUnretainedValue(), pixelBuffer!, nil, .BGRA8Unorm, width, height, 0, &textureRef);
+        internalTexture = CVMetalTextureGetTexture((textureRef?.takeUnretainedValue())!)
+//        videoTexture = CVMetalTextureGetTexture((textureRef?.takeUnretainedValue())!)
+        textureRef?.release()
+        setNeedsUpdate()
     }
     
     var internalTitle: String!
@@ -151,7 +165,6 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     
     public var processingSize: CGSize! {
         didSet {
-            loadTexture()
             context.processingSize = processingSize
         }
     }
@@ -160,12 +173,14 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         for target in targets {
             if let filter = target as? MTLFilter {
                 filter.dirty = true
+            } else if let filterGroup = target as? MTLFilterGroup {
+                filterGroup.setNeedsUpdate()
             }
         }
     }
     
     public func setProcessingSize(processingSize: CGSize, respectAspectRatio: Bool) {
-        var size = processingSize
+        let size = processingSize
         if respectAspectRatio == true {
             if size.width > size.height {
 //                size.height = size.width / (image.size.width / image.size.height)
@@ -176,11 +191,6 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         }
         
         self.processingSize = size
-    }
-    
-    func loadTexture() {
-        let flip = false
-//        self.internalTexture = image.texture(device, flip: flip, size: processingSize)
     }
     
     func chainLength() -> Int {
@@ -199,21 +209,48 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         } else { return 1 }
         
         return c
-        
-        //        var c = count
-        //        if let input = target as? MTLInput {
-        //            for t in input.targets {
-        //                c = c + length(target, count: c)
-        //            }
-        //        }
-        //        return c
     }
+    
+    
+    //    MARK: - Processing
+    
+    public func process() {
+        
+        if videoTexture == nil { return }
+        if internalTexture == nil || internalTexture!.width != videoTexture.width || internalTexture!.height != videoTexture.height {
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(videoTexture.pixelFormat, width:videoTexture.width, height: videoTexture.height, mipmapped: false)
+            internalTexture = context.device?.newTextureWithDescriptor(textureDescriptor)
+        }
+        
+        let threadgroupCounts = MTLSizeMake(16, 16, 1)
+        let threadgroups = MTLSizeMake(videoTexture.width / threadgroupCounts.width,
+                                       videoTexture.height / threadgroupCounts.height, 1)
+        
+        let commandBuffer = context.commandQueue.commandBuffer()
+        commandBuffer.addCompletedHandler { (commandBuffer) in
+            self.dirty = false
+        }
+        
+        let commandEncoder = commandBuffer.computeCommandEncoder()
+        commandEncoder.setComputePipelineState(pipeline)
+        
+        commandEncoder.setTexture(videoTexture, atIndex: 0)
+        commandEncoder.setTexture(internalTexture, atIndex: 1)
+        commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
+        commandEncoder.endEncoding()
+        
+        commandBuffer.commit()
+        commandBuffer.waitUntilCompleted()
+    }
+    
     
     //    MARK: - MTLInput
     
     public var texture: MTLTexture? {
         get {
-            return self.internalTexture
+            // Enable if you want to do some processing before passing on the texture (currently not working)
+//            if dirty == true { process() }
+            return internalTexture
         }
     }
     
@@ -239,8 +276,8 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     public func addTarget(target: MTLOutput) {
         var t = target
         internalTargets.append(t)
-        loadTexture()
         t.input = self
+        startRunning()
     }
     
     public func removeTarget(target: MTLOutput) {
@@ -254,6 +291,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         //            target.input = nil
         //        }
         internalTargets.removeAll()
+        stopRunning()
     }
 
 }

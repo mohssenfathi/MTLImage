@@ -190,7 +190,10 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
     
     public var texture: MTLTexture? {
         get {
-            return filters.last?.texture
+            if filters.count > 0 {
+                return filters.last?.texture
+            }
+            return input?.texture
         }
     }
     
@@ -214,7 +217,11 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
     
     public func addTarget(target: MTLOutput) {
         internalTargets.append(target)
-        filters.last?.addTarget(target)
+        if filters.count > 0 {
+            filters.last!.addTarget(target)
+        } else {
+            input?.addTarget(target)
+        }
     }
     
     public func removeTarget(target: MTLOutput) {

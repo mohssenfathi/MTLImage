@@ -22,25 +22,19 @@ class MTLContext: NSObject {
     override init() {
         super.init()
         
-        let destructor: dispatch_block_t = dispatch_block_create(DISPATCH_BLOCK_BARRIER) {
-            
-        }
-        
         device = MTLCreateSystemDefaultDevice()
         if (device != nil && device.supportsFeatureSet(.iOS_GPUFamily1_v1)) {
-            do {
-                let bundle = NSBundle(forClass: MTLImage.classForCoder())
+            self.library = self.device.newDefaultLibrary()
+            
+//                Uncomment this once all shaders are compiled
+//            do {
+//                let bundle = NSBundle(forClass: MTLImage.classForCoder())
 //                let path = bundle.pathForResource("default", ofType: "metallib")
-//                let libData = NSData.dataWithContentsOfMappedFile(path!)
-//                let data: dispatch_data_t = dispatch_data_create((libData?.bytes)!, (libData?.length)!, processingQueue, destructor)
-//                try self.library = self.device.newLibraryWithData(data)
-                
-                let path = bundle.pathForResource("default", ofType: "metallib")
-                try self.library = self.device.newLibraryWithFile(path!)
-            } catch {
-                print("Couldn't load precompiled metallib")
-                self.library = self.device.newDefaultLibrary()
-            }
+////                try self.library = self.device.newLibraryWithFile(path!)
+//            } catch {
+//                print("Couldn't load precompiled metallib")
+//                self.library = self.device.newDefaultLibrary()
+//            }
             
             self.commandQueue = self.device.newCommandQueue()
             self.processingQueue = dispatch_queue_create("MTLImageProcessQueue", DISPATCH_QUEUE_SERIAL);

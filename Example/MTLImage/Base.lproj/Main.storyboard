@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Main View Controller-->
@@ -85,13 +86,21 @@
                     </view>
                     <navigationItem key="navigationItem" id="Sde-mZ-TRs">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" image="info" id="gE5-7P-TH6">
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="infoButtonPressed:" destination="JNq-Hf-rXT" id="4GE-0v-ahS"/>
-                                <segue destination="dTW-lV-fE3" kind="presentation" identifier="info" id="Wqy-UD-M4h"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem image="info" id="gE5-7P-TH6">
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="infoButtonPressed:" destination="JNq-Hf-rXT" id="4GE-0v-ahS"/>
+                                    <segue destination="dTW-lV-fE3" kind="presentation" identifier="info" id="Wqy-UD-M4h"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="flip" id="avm-uL-JiS">
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="flipButtonPressed:" destination="JNq-Hf-rXT" id="21c-tV-ap4"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="NnG-zy-I2N">
                             <rect key="frame" x="238.5" y="7" width="123" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -99,6 +108,7 @@
                                 <segment title="Photo"/>
                                 <segment title="Camera"/>
                             </segments>
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="segmentedControlValueChanged:" destination="JNq-Hf-rXT" eventType="valueChanged" id="goF-M8-nOW"/>
                             </connections>
@@ -114,6 +124,7 @@
                         <outlet property="filtersBar" destination="nAR-9d-E01" id="c84-4t-IpD"/>
                         <outlet property="filtersContainer" destination="Tr3-Uf-3Nv" id="rhd-BS-jkK"/>
                         <outlet property="filtersContainerHeight" destination="cJ8-37-Zhr" id="kRy-iy-cSD"/>
+                        <outlet property="flipButton" destination="avm-uL-JiS" id="VdS-pY-wS2"/>
                         <outlet property="infoButton" destination="gE5-7P-TH6" id="PcE-em-iC2"/>
                         <outlet property="libraryButton" destination="pAI-Nu-B7g" id="QVz-sb-F4t"/>
                         <outlet property="mtlView" destination="pGn-3a-1Pv" id="thX-fl-qoa"/>
@@ -672,6 +683,7 @@
     <resources>
         <image name="Album" width="32" height="25"/>
         <image name="drag" width="30" height="15"/>
+        <image name="flip" width="26" height="20"/>
         <image name="info" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>

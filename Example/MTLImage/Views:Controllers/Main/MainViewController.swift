@@ -20,11 +20,13 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var filtersContainerHeight: NSLayoutConstraint!
     @IBOutlet var infoButton: UIBarButtonItem!
     @IBOutlet var libraryButton: UIBarButtonItem!
-
+    @IBOutlet var flipButton: UIBarButtonItem!
+    
     var filterGroup = MTLFilterGroup()
     var filtersViewController: FiltersViewController!
     var sourcePicture: MTLPicture!
     var camera: MTLCamera = MTLCamera()
+    var currentInput: MTLInput!
     var canDrag: Bool = false
     var initialDragOffset: CGFloat = 0.0   // removes initial jump on drag
     var metadata: [AnyObject]?
@@ -39,17 +41,15 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.viewDidLoad()
         let image = UIImage(named: "test")!
         
-        self.navigationItem.leftBarButtonItem = nil
-        
+        self.navigationItem.leftBarButtonItems = nil
         
         sourcePicture = MTLPicture(image: image)
         sourcePicture.setProcessingSize(CGSizeMake(500, 500), respectAspectRatio: true)
         mtlView.delegate = self
+        currentInput = sourcePicture
         
-//        sourcePicture > filterGroup
-//        filterGroup > mtlView
-        
-        camera > mtlView
+        currentInput > filterGroup
+        filterGroup > mtlView
         
         navigationItem.title = "MTLImage"
     }
@@ -130,13 +130,28 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
     }
     
+    @IBAction func flipButtonPressed(sender: UIBarButtonItem) {
+        camera.flipCamera()
+    }
+    
     @IBAction func segmentedControlValueChanged(sender: UISegmentedControl) {
+        
+        currentInput.removeAllTargets()
+        filterGroup.removeAllTargets()
+        
         if sender.selectedSegmentIndex == 0 {
             navigationItem.rightBarButtonItem = libraryButton
+            currentInput = sourcePicture
         }
         else {
             navigationItem.rightBarButtonItem = nil
+            navigationItem.leftBarButtonItem  = flipButton
+            currentInput = camera
         }
+        
+        currentInput > filterGroup
+        filterGroup > mtlView
+        currentInput.setNeedsUpdate()
     }
     
 //    MARK: - Image Picker Delegate
@@ -148,7 +163,6 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         MetadataFormatter.sharedFormatter.formatMetadata(asset, completion: { (metadata) in
             self.metadata = metadata
         })
-        
         
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         
@@ -176,12 +190,12 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     func filtersViewControllerDidSelectFilterGroup(sender: FiltersViewController, filterGroup: MTLFilterGroup) {
-        sourcePicture.removeAllTargets()
+        currentInput.removeAllTargets()
         filterGroup.removeAllTargets()
         
         self.filterGroup = filterGroup
         
-        sourcePicture > filterGroup
+        currentInput > filterGroup
         filterGroup > mtlView
     }
     
