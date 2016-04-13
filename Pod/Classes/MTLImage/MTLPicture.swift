@@ -22,6 +22,12 @@ class MTLPicture: NSObject, MTLInput {
         get { return internalTitle }
         set { internalTitle = newValue }
     }
+    
+    private var privateIdentifier: String = NSUUID().UUIDString
+    public var identifier: String! {
+        get { return privateIdentifier     }
+        set { privateIdentifier = newValue }
+    }
 
     public var image: UIImage! {
         didSet {
@@ -63,12 +69,12 @@ class MTLPicture: NSObject, MTLInput {
         super.init()
         self.image = image
         self.processingSize = image.size
-        self.title = "Picture"
+        self.title = "MTLPicture"
         loadTexture()
     }
     
     func loadTexture() {
-        var flip = false
+        let flip = false
 //        if chainLength() % 2 == 0 { flip = true }
         
 //        var size = CGSize(width: CGImageGetWidth(image.CGImage), height: CGImageGetHeight(image.CGImage))
@@ -143,14 +149,16 @@ class MTLPicture: NSObject, MTLInput {
     }
     
     
-    public func addTarget(var target: MTLOutput) {
-        internalTargets.append(target)
+    public func addTarget(target: MTLOutput) {
+        var t = target
+        internalTargets.append(t)
         loadTexture()
-        target.input = self
+        t.input = self
     }
     
-    public func removeTarget(var target: MTLOutput) {
-        target.input = nil
+    public func removeTarget(target: MTLOutput) {
+        var t = target
+        t.input = nil
 //      TODO:   remove from internalTargets
     }
     

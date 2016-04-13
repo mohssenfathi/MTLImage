@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MTLImage
 
 public
 class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
@@ -22,13 +21,29 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
         set { internalTitle = newValue }
     }
     
+    private var privateIdentifier: String = NSUUID().UUIDString
+    public var identifier: String! {
+        get { return privateIdentifier     }
+        set { privateIdentifier = newValue }
+    }
+    
     override public init() {
         super.init()
         title = "Filter Group"
     }
     
+    func save() {
+        MTLDataManager.sharedManager.save(self, completion: nil)
+    }
+    
     public func setNeedsUpdate() {
         filters.first?.dirty = true
+    }
+    
+    func updateFilterIndexes() {
+        for i in 0 ..< filters.count {
+            filters[i].index = i
+        }
     }
     
     public func add(filter: MTLFilter) {
@@ -45,6 +60,7 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
         }
         
         filters.append(filter)
+        updateFilterIndexes()
     }
     
     public func insert(filter: MTLFilter, index: Int) {
@@ -67,6 +83,7 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
         }
         
         filters.insert(filter, atIndex: index)
+        updateFilterIndexes()
     }
     
     public func remove(filter: MTLFilter) {
@@ -173,7 +190,10 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
     
     public var texture: MTLTexture? {
         get {
-            return filters.last?.texture
+            if filters.count > 0 {
+                return filters.last?.texture
+            }
+            return input?.texture
         }
     }
     
@@ -195,12 +215,16 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
         }
     }
     
-    public func addTarget(var target: MTLOutput) {
+    public func addTarget(target: MTLOutput) {
         internalTargets.append(target)
-        filters.last?.addTarget(target)
+        if filters.count > 0 {
+            filters.last!.addTarget(target)
+        } else {
+            input?.addTarget(target)
+        }
     }
     
-    public func removeTarget(var target: MTLOutput) {
+    public func removeTarget(target: MTLOutput) {
         // TODO: remove from internal targets
         filters.last?.removeTarget(target)
     }

@@ -1,0 +1,25 @@
+//
+//  MTLPropertyRecord+CoreDataProperties.swift
+//  Pods
+//
+//  Created by Mohssen Fathi on 4/10/16.
+//
+//
+//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
+//  to delete and recreate this implementation file for your updated model.
+//
+
+import Foundation
+import CoreData
+
+extension MTLPropertyRecord {
+
+    @NSManaged var defaultValue: NSNumber?
+    @NSManaged var key: String?
+    @NSManaged var maximumValue: NSNumber?
+    @NSManaged var minimumValue: NSNumber?
+    @NSManaged var title: String?
+    @NSManaged var type: String?
+    @NSManaged var host: MTLFilterRecord?
+
+}

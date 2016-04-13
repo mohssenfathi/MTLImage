@@ -20,13 +20,13 @@ class MTLGaussianBlurFilter: MTLFilter {
     var blurWeightTexture: MTLTexture!
     
     public var blurRadius: Float = 0.0 {
-        willSet {
-            if round(newValue) != blurRadius {
+        didSet {
+//            if round(newValue) != blurRadius {
                 clamp(&blurRadius, low: 0, high: 1)
                 dirty = true
                 blurWeightTexture = nil
                 update()
-            }
+//            }
         }
     }
     
@@ -57,8 +57,8 @@ class MTLGaussianBlurFilter: MTLFilter {
     
 
     func generateBlurRadius() {
-        var radius: Float = self.uniforms.blurRadius
-        var sig: Float = self.uniforms.sigma
+        let radius: Float = self.uniforms.blurRadius
+        let sig: Float = self.uniforms.sigma
         
         if isnan(radius) || isnan(sig) { return }
         

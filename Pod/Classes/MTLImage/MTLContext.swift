@@ -22,10 +22,26 @@ class MTLContext: NSObject {
     override init() {
         super.init()
         
-        self.device = MTLCreateSystemDefaultDevice()
-        self.library = self.device.newDefaultLibrary()
-        self.commandQueue = self.device.newCommandQueue()
-        self.processingQueue = dispatch_queue_create("MTLImageProcessQueue", DISPATCH_QUEUE_SERIAL);
+        device = MTLCreateSystemDefaultDevice()
+        if (device != nil && device.supportsFeatureSet(.iOS_GPUFamily1_v1)) {
+            self.library = self.device.newDefaultLibrary()
+            
+//                Uncomment this once all shaders are compiled
+//            do {
+//                let bundle = NSBundle(forClass: MTLImage.classForCoder())
+//                let path = bundle.pathForResource("default", ofType: "metallib")
+////                try self.library = self.device.newLibraryWithFile(path!)
+//            } catch {
+//                print("Couldn't load precompiled metallib")
+//                self.library = self.device.newDefaultLibrary()
+//            }
+            
+            self.commandQueue = self.device.newCommandQueue()
+            self.processingQueue = dispatch_queue_create("MTLImageProcessQueue", DISPATCH_QUEUE_SERIAL);
+        } else {
+            print("Device does not support metal")
+        }
+        
     }
     
 }

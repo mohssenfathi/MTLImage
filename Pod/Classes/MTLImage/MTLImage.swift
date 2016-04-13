@@ -7,7 +7,9 @@
 //
 
 import UIKit
+#if !(TARGET_IPHONE_SIMULATOR)
 import Metal
+#endif
 
 public protocol MTLInput {
     var texture: MTLTexture? { get }
@@ -15,9 +17,10 @@ public protocol MTLInput {
     var device : MTLDevice   { get }
     var targets: [MTLOutput] { get }
     var title: String { get set }
+    var identifier: String! { get set }
     
-    func addTarget(var target: MTLOutput)
-    func removeTarget(var target: MTLOutput)
+    func addTarget(target: MTLOutput)
+    func removeTarget(target: MTLOutput)
     func removeAllTargets()
     func setNeedsUpdate()
 }
@@ -25,6 +28,7 @@ public protocol MTLInput {
 public protocol MTLOutput {
     var input: MTLInput? { get set }
     var title: String { get set }
+    var identifier: String! { get set }
 }
 
 public
@@ -52,6 +56,18 @@ class MTLImage: NSObject {
         "Water"                : MTLWaterFilter(),
         "White Balance"        : MTLWhiteBalanceFilter()
     ]
+    
+    public class func save(filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
+        MTLDataManager.sharedManager.save(filterGroup, completion: completion)
+    }
+    
+    public class func remove(filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
+        MTLDataManager.sharedManager.remove(filterGroup, completion: completion)
+    }
+    
+    public class func savedFilterGroups() -> [MTLFilterGroup] {
+        return MTLDataManager.sharedManager.savedFilterGroups()
+    }
 }
 
 public func + (left: MTLInput, right: MTLOutput) {

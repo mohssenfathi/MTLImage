@@ -14,18 +14,75 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var tableView: UITableView!
     var filterGroup: MTLFilterGroup!
     var selectedFilter: MTLFilter!
+    var saveButton: UIBarButtonItem!
+    var isNewFilter: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.title = "Filter Group"
         tableView.reloadData()
         tableView.setEditing(true, animated: false)
     }
+
+    func saveButtonPressed(button: UIBarButtonItem) {
+        if isNewFilter {
+            showRenameAlert({ 
+                MTLImage.save(self.filterGroup, completion: { (success) in
+                    if success == true {
+                        self.saveButton.enabled = false
+                    }
+                })
+            })
+        } else {
+            MTLImage.save(self.filterGroup, completion: { (success) in
+                if success == true {
+                    self.saveButton.enabled = false
+                }
+            })
+        }
+    }
     
+    func showRenameAlert(completion: (() -> ())?) {
+        let alert = UIAlertController(title: "Name this filter group", message: nil, preferredStyle: .Alert)
+        
+        alert.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = self.filterGroup.title
+        }
+        
+        let doneAction = UIAlertAction(title: "Done", style: .Default) { (action) in
+            let textField = alert.textFields?.first!
+            if textField!.text == nil || textField!.text == "" { return }
+            self.filterGroup.title = textField!.text!
+            self.navigationItem.title = textField?.text
+            self.isNewFilter = false
+            self.dismissViewControllerAnimated(true, completion: nil)
+            completion?()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action) in
+            MTLImage.save(self.filterGroup, completion: { (success) in
+                self.dismissViewControllerAnimated(true, completion: nil)
+                completion?()
+            })
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(doneAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func setupView() {
+        saveButton = UIBarButtonItem(title: "Save", style: .Done, target: self, action: #selector(FilterGroupViewController.saveButtonPressed(_:)))
+        saveButton.enabled = false
+        navigationItem.rightBarButtonItem = saveButton
+        
+        navigationItem.title = filterGroup.title
+    }
     
     //    MARK: - UITableView
     //    MARK: DataSource
@@ -61,6 +118,8 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         
+        saveButton.enabled = true
+        
         if cell?.reuseIdentifier == "addCell" {
             performSegueWithIdentifier("addFilter", sender: self)
         }
@@ -90,6 +149,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         if editingStyle == .Delete {
             filterGroup.remove(filterGroup.filters[indexPath.row])
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            saveButton.enabled = true
         }
     }
     

@@ -13,14 +13,18 @@
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "8.0",
+    "tvos": "9.0"
   },
   "requires_arc": true,
   "source_files": "Pod/Classes/**/*",
-  "resources": "Pod/Shaders/**/*",
+  "resources": [
+    "Pod/Classes/CoreData/**/*.xcdatamodeld",
+    "Pod/Classes/**/*.metallib"
+  ],
   "resource_bundles": {
     "MTLImage": [
-      "Pod/Assets/*.png"
+      "Pod/Assets/**/*"
     ]
   }
 }
