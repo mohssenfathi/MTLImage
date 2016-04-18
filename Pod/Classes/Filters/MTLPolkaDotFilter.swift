@@ -28,7 +28,7 @@ class MTLPolkaDotFilter: MTLFilter {
     public init() {
         super.init(functionName: "polkaDot")
         title = "Polka Dot"
-        properties = [MTLProperty(key: "dotRadius", title: "Dot Radius", type: Float())]
+        properties = [MTLProperty(key: "dotRadius", title: "Dot Radius")]
         update()
     }
     

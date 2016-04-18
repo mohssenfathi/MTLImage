@@ -20,6 +20,7 @@ extension MTLPropertyRecord {
     @NSManaged var minimumValue: NSNumber?
     @NSManaged var title: String?
     @NSManaged var type: String?
+    @NSManaged var propertyType: NSNumber?
     @NSManaged var host: MTLFilterRecord?
 
 }

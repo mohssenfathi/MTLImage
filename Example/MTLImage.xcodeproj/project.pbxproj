@@ -14,6 +14,8 @@
 		454CEDB11CB09FB800D67A9E /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDB01CB09FB800D67A9E /* FiltersViewController.swift */; };
 		454CEDC21CB1470600D67A9E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDC11CB1470600D67A9E /* InfoViewController.swift */; };
 		454CEDC41CB1496500D67A9E /* MetadataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDC31CB1496500D67A9E /* MetadataFormatter.swift */; };
+		45A6167D1CBF424B00C000C7 /* SelectiveHSL.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45A6167C1CBF424B00C000C7 /* SelectiveHSL.metal */; };
+		45A616811CBFD9BA00C000C7 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A616801CBFD9BA00C000C7 /* PickerCell.swift */; };
 		45AF767A1CBE780000724A9D /* Brightness.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AF76641CBE780000724A9D /* Brightness.metal */; };
 		45AF767B1CBE780000724A9D /* Camera.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AF76651CBE780000724A9D /* Camera.metal */; };
 		45AF767C1CBE780000724A9D /* Contrast.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AF76661CBE780000724A9D /* Contrast.metal */; };
@@ -36,6 +38,8 @@
 		45AF768D1CBE780000724A9D /* Vignette.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AF76771CBE780000724A9D /* Vignette.metal */; };
 		45AF768E1CBE780000724A9D /* Water.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AF76781CBE780000724A9D /* Water.metal */; };
 		45AF768F1CBE780000724A9D /* WhiteBalance.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AF76791CBE780000724A9D /* WhiteBalance.metal */; };
+		45C903041CC276B100271D31 /* Mask.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45C903031CC276B100271D31 /* Mask.metal */; };
+		45C903081CC50FCF00271D31 /* Blend.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45C903071CC50FCF00271D31 /* Blend.metal */; };
 		45EB4FC41CADF4C00018936C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EB4FC31CADF4C00018936C /* MainViewController.swift */; };
 		45EB4FC81CADF75F0018936C /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BE9F871C9226010014593F /* Metal.framework */; };
 		45EB4FCA1CADF7640018936C /* MTLImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EB4FC91CADF7640018936C /* MTLImage.framework */; };
@@ -71,6 +75,8 @@
 		454CEDB01CB09FB800D67A9E /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FiltersViewController.swift; path = Filters/FiltersViewController.swift; sourceTree = "<group>"; };
 		454CEDC11CB1470600D67A9E /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = Info/InfoViewController.swift; sourceTree = "<group>"; };
 		454CEDC31CB1496500D67A9E /* MetadataFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetadataFormatter.swift; path = Info/MetadataFormatter.swift; sourceTree = "<group>"; };
+		45A6167C1CBF424B00C000C7 /* SelectiveHSL.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = SelectiveHSL.metal; sourceTree = "<group>"; };
+		45A616801CBFD9BA00C000C7 /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		45AF76641CBE780000724A9D /* Brightness.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Brightness.metal; sourceTree = "<group>"; };
 		45AF76651CBE780000724A9D /* Camera.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Camera.metal; sourceTree = "<group>"; };
 		45AF76661CBE780000724A9D /* Contrast.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Contrast.metal; sourceTree = "<group>"; };
@@ -94,6 +100,8 @@
 		45AF76781CBE780000724A9D /* Water.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Water.metal; sourceTree = "<group>"; };
 		45AF76791CBE780000724A9D /* WhiteBalance.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = WhiteBalance.metal; sourceTree = "<group>"; };
 		45BE9F871C9226010014593F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		45C903031CC276B100271D31 /* Mask.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Mask.metal; sourceTree = "<group>"; };
+		45C903071CC50FCF00271D31 /* Blend.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Blend.metal; sourceTree = "<group>"; };
 		45EB4FC31CADF4C00018936C /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Main/MainViewController.swift; sourceTree = "<group>"; };
 		45EB4FC91CADF7640018936C /* MTLImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MTLImage.framework; path = "../../../../Developer/Xcode/DerivedData/MTLImage-dlzobbsaleuujzhenaykjwcrxpyr/Build/Products/Debug-iphoneos/MTLImage.framework"; sourceTree = "<group>"; };
 		45EB4FCB1CADF76C0018936C /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
@@ -201,6 +209,9 @@
 				45AF76771CBE780000724A9D /* Vignette.metal */,
 				45AF76781CBE780000724A9D /* Water.metal */,
 				45AF76791CBE780000724A9D /* WhiteBalance.metal */,
+				45A6167C1CBF424B00C000C7 /* SelectiveHSL.metal */,
+				45C903031CC276B100271D31 /* Mask.metal */,
+				45C903071CC50FCF00271D31 /* Blend.metal */,
 			);
 			name = Shaders;
 			path = MTLImage/Shaders;
@@ -232,6 +243,7 @@
 			children = (
 				45EB4FCE1CADF8CD0018936C /* SettingsViewController.swift */,
 				45EB4FD01CADFAAE0018936C /* SettingsCell.swift */,
+				45A616801CBFD9BA00C000C7 /* PickerCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -547,9 +559,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				45EB4FC41CADF4C00018936C /* MainViewController.swift in Sources */,
+				45A6167D1CBF424B00C000C7 /* SelectiveHSL.metal in Sources */,
 				45AF767D1CBE780000724A9D /* Convolution.metal in Sources */,
 				45AF76871CBE780000724A9D /* PolkaDot.metal in Sources */,
 				45AF76881CBE780000724A9D /* Saturation.metal in Sources */,
+				45C903081CC50FCF00271D31 /* Blend.metal in Sources */,
+				45C903041CC276B100271D31 /* Mask.metal in Sources */,
 				45EB4FD11CADFAAE0018936C /* SettingsCell.swift in Sources */,
 				4546570D1CB9BE98001E421A /* AddFilterViewController.swift in Sources */,
 				454CEDC41CB1496500D67A9E /* MetadataFormatter.swift in Sources */,
@@ -574,6 +589,7 @@
 				45AF76891CBE780000724A9D /* Sharpen.metal in Sources */,
 				45AF768D1CBE780000724A9D /* Vignette.metal in Sources */,
 				4546570B1CB9BB98001E421A /* FilterGroupViewController.swift in Sources */,
+				45A616811CBFD9BA00C000C7 /* PickerCell.swift in Sources */,
 				45AF767F1CBE780000724A9D /* DefaultShaders.metal in Sources */,
 				45AF76811CBE780000724A9D /* GaussianBlur.metal in Sources */,
 				45AF768C1CBE780000724A9D /* Toon.metal in Sources */,

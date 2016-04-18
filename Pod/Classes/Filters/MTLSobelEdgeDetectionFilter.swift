@@ -28,7 +28,7 @@ class MTLSobelEdgeDetectionFilter: MTLFilter {
     public init() {
         super.init(functionName: "sobelEdgeDetection")
         title = "Sobel Edge Detection"
-        properties = [MTLProperty(key: "edgeStrength", title: "Edge Strength", type: Float())]
+        properties = [MTLProperty(key: "edgeStrength", title: "Edge Strength")]
         update()
     }
     

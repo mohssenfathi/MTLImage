@@ -37,8 +37,8 @@ class MTLCrossHatchFilter: MTLFilter {
     public init() {
         super.init(functionName: "crossHatch")
         title = "Cross Hatch"
-        properties = [ MTLProperty(key: "crossHatchSpacing", title: "Cross Hatch Spacing", type: Float()),
-                       MTLProperty(key: "lineWidth"        , title: "Line Width"         , type: Float())]
+        properties = [ MTLProperty(key: "crossHatchSpacing", title: "Cross Hatch Spacing"),
+                       MTLProperty(key: "lineWidth"        , title: "Line Width"         )]
         update()
     }
     

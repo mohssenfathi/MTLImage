@@ -63,11 +63,11 @@ class MTLLevelsFilter: MTLFilter {
     public init() {
         super.init(functionName: "levels")
         title = "Levels"
-        properties = [MTLProperty(key: "min"   , title: "Minimum"       , type: Float()),
-                      MTLProperty(key: "mid"   , title: "Middle"        , type: Float()),
-                      MTLProperty(key: "max"   , title: "Maximum"       , type: Float()),
-                      MTLProperty(key: "minOut", title: "Minimum Output", type: Float()),
-                      MTLProperty(key: "maxOut", title: "Maximum Output", type: Float())]
+        properties = [MTLProperty(key: "min"   , title: "Minimum"       ),
+                      MTLProperty(key: "mid"   , title: "Middle"        ),
+                      MTLProperty(key: "max"   , title: "Maximum"       ),
+                      MTLProperty(key: "minOut", title: "Minimum Output"),
+                      MTLProperty(key: "maxOut", title: "Maximum Output")]
         update()
     }
     

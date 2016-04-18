@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class MTLDataManager: NSObject {
-
+    
     static let sharedManager = MTLDataManager()
     
     override init() {
@@ -72,7 +72,7 @@ class MTLDataManager: NSObject {
         return nil
     }
     
-//    MARK: - Filter -> Record
+    //    MARK: - Filter -> Record
     
     func updateFilterGroupRecord(filterGroupRecord: MTLFilterGroupRecord, filterGroup: MTLFilterGroup) {
         filterGroupRecord.title = filterGroup.title
@@ -131,6 +131,19 @@ class MTLDataManager: NSObject {
         propertyRecord.maximumValue = NSNumber(float: property.maximumValue)
         propertyRecord.defaultValue = NSNumber(float: property.defaultValue)
         
+        var propertyType = 0
+        switch property.propertyType! {
+        case .Value: propertyType = 0
+            break
+        case .Point: propertyType = 1
+            break
+        case .Color: propertyType = 2
+            break
+        case .Selection: propertyType = 3
+            break
+        }
+        propertyRecord.propertyType = NSNumber(integer: propertyType)
+        
         var typeString = ""
         if      property.type is Float   { typeString = "Float" }
         else if property.type is Int     { typeString = "Int" }
@@ -174,7 +187,7 @@ class MTLDataManager: NSObject {
     }
     
     func property(propertyRecord: MTLPropertyRecord) -> MTLProperty {
-
+        
         var type: Any!
         if propertyRecord.type != nil {
             switch propertyRecord.type! {
@@ -199,7 +212,22 @@ class MTLDataManager: NSObject {
             }
         }
         
-        let property = MTLProperty(key: propertyRecord.key!, title: propertyRecord.title!, type: type)
+        var propertyType: MTLPropertyType = .Value
+        if propertyRecord.propertyType != nil {
+            switch (propertyRecord.propertyType?.integerValue)! {
+            case 0: propertyType = .Value
+                break
+            case 1: propertyType = .Point
+                break
+            case 2: propertyType = .Color
+                break
+            case 3: propertyType = .Selection
+                break
+            default: break
+            }
+        }
+        
+        let property = MTLProperty(key: propertyRecord.key!, title: propertyRecord.title!, type: type, propertyType: propertyType)
         
         property.minimumValue = (propertyRecord.minimumValue?.floatValue)!
         property.maximumValue = (propertyRecord.maximumValue?.floatValue)!
@@ -261,5 +289,5 @@ class MTLDataManager: NSObject {
             }
         }
     }
-
+    
 }

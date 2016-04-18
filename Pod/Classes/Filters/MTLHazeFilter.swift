@@ -37,8 +37,8 @@ class MTLHazeFilter: MTLFilter {
     public init() {
         super.init(functionName: "haze")
         title = "Haze"
-        properties = [MTLProperty(key: "distance", title: "Distance", type: Float()),
-                      MTLProperty(key: "slope"   , title: "Slope"   , type: Float())]
+        properties = [MTLProperty(key: "distance", title: "Distance"),
+                      MTLProperty(key: "slope"   , title: "Slope"   )]
         update()
     }
     

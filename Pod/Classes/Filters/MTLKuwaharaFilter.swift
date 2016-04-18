@@ -28,7 +28,7 @@ class MTLKuwaharaFilter: MTLFilter {
     public init() {
         super.init(functionName: "kuwahara")
         title = "Kuwahara"
-        properties = [MTLProperty(key: "radius", title: "Radius", type: Float())]
+        properties = [MTLProperty(key: "radius", title: "Radius")]
         update()
     }
     

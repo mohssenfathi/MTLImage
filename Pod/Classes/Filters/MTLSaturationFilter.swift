@@ -28,7 +28,7 @@ class MTLSaturationFilter: MTLFilter {
     public init() {
         super.init(functionName: "saturation")
         title = "Saturation"
-        properties = [MTLProperty(key: "saturation", title: "Saturation", type: Float())]
+        properties = [MTLProperty(key: "saturation", title: "Saturation")]
         
         update()
     }

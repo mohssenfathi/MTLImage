@@ -12,6 +12,7 @@ import MTLImage
 class FilterGroupViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddFilterViewControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    var settingsViewController: SettingsViewController?
     var filterGroup: MTLFilterGroup!
     var selectedFilter: MTLFilter!
     var saveButton: UIBarButtonItem!
@@ -44,6 +45,10 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             })
         }
+    }
+    
+    func handleTouchAtLocation(location: CGPoint) {
+        settingsViewController?.handleTouchAtLocation(location)
     }
     
     func showRenameAlert(completion: (() -> ())?) {
@@ -183,8 +188,8 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "settings" {
-            let settingsViewController = segue.destinationViewController as! SettingsViewController
-            settingsViewController.filter = selectedFilter
+            settingsViewController = segue.destinationViewController as? SettingsViewController
+            settingsViewController?.filter = selectedFilter
         }
         else if segue.identifier == "addFilter" {
             let navigationController = segue.destinationViewController as! UINavigationController

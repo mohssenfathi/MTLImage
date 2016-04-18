@@ -27,7 +27,7 @@ class MTLExposureFilter: MTLFilter {
     public init() {
         super.init(functionName: "exposure")
         title = "Exposure"
-        properties = [MTLProperty(key: "exposure", title: "Exposure", type: Float())]
+        properties = [MTLProperty(key: "exposure", title: "Exposure")]
         update()
     }
     

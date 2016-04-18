@@ -26,5 +26,18 @@
     "MTLImage": [
       "Pod/Assets/**/*"
     ]
-  }
+  },
+  "default_subspecs": "Core",
+  "subspecs": [
+    {
+      "name": "Core"
+    },
+    {
+      "name": "FaceDetection",
+      "xcconfig": {
+        "OTHER_CFLAGS": "$(inherited) -MTLIMAGE_FACE_DETECTION"
+      },
+      "libraries": "c++"
+    }
+  ]
 }

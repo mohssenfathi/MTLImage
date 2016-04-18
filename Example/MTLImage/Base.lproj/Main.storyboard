@@ -359,6 +359,62 @@
                                             <outlet property="valueLabel" destination="CDm-Ol-Hs8" id="fnv-Iw-8Qi"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="resetCell" id="a2c-Nf-2jm">
+                                        <rect key="frame" x="0.0" y="152" width="600" height="58"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a2c-Nf-2jm" id="Niu-c6-iSV">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="57.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RESET" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ksb-9D-XUa">
+                                                    <rect key="frame" x="274" y="18" width="52" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Ksb-9D-XUa" firstAttribute="centerX" secondItem="Niu-c6-iSV" secondAttribute="centerX" id="ezC-D3-yd1"/>
+                                                <constraint firstItem="Ksb-9D-XUa" firstAttribute="centerY" secondItem="Niu-c6-iSV" secondAttribute="centerY" id="oQs-2D-qPI"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="pickerCell" rowHeight="100" id="KaT-uA-ijF" customClass="PickerCell" customModule="MTLImage_Example" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="210" width="600" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KaT-uA-ijF" id="nPU-Fd-Orc">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DX4-lC-NuG" userLabel="Picker">
+                                                    <rect key="frame" x="28" y="37" width="564" height="62.5"/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="KaT-uA-ijF" id="ZD5-tP-asb"/>
+                                                        <outlet property="delegate" destination="KaT-uA-ijF" id="vtu-Ff-fU0"/>
+                                                    </connections>
+                                                </pickerView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5B4-gI-9xR">
+                                                    <rect key="frame" x="28" y="16" width="564" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="5B4-gI-9xR" firstAttribute="leading" secondItem="nPU-Fd-Orc" secondAttribute="leadingMargin" constant="20" id="6p8-fp-1oC"/>
+                                                <constraint firstItem="5B4-gI-9xR" firstAttribute="trailing" secondItem="nPU-Fd-Orc" secondAttribute="trailingMargin" id="D7l-39-VDu"/>
+                                                <constraint firstItem="DX4-lC-NuG" firstAttribute="trailing" secondItem="nPU-Fd-Orc" secondAttribute="trailingMargin" id="Mte-QB-wa1"/>
+                                                <constraint firstItem="DX4-lC-NuG" firstAttribute="leading" secondItem="nPU-Fd-Orc" secondAttribute="leadingMargin" constant="20" id="SxP-Yu-NRK"/>
+                                                <constraint firstItem="DX4-lC-NuG" firstAttribute="bottom" secondItem="nPU-Fd-Orc" secondAttribute="bottom" id="VPM-wy-lRa"/>
+                                                <constraint firstItem="DX4-lC-NuG" firstAttribute="top" secondItem="5B4-gI-9xR" secondAttribute="bottom" id="aKw-8d-elw"/>
+                                                <constraint firstItem="5B4-gI-9xR" firstAttribute="top" secondItem="nPU-Fd-Orc" secondAttribute="topMargin" constant="8" id="lmm-to-Ml6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="picker" destination="DX4-lC-NuG" id="nF1-pX-JPZ"/>
+                                            <outlet property="titleLabel" destination="5B4-gI-9xR" id="Jb3-jN-65O"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="EaC-cO-6I0" id="Iyv-cd-4b1"/>

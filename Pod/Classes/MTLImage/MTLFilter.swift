@@ -18,8 +18,8 @@ public
 class MTLFilter: NSObject, MTLInput, MTLOutput {
     
     private var internalTargets = [MTLOutput]()
-    var internalTexture: MTLTexture?
-    var privateInput: MTLInput!
+    private var internalTexture: MTLTexture?
+    var internalInputs = [MTLInput]()
     var pipeline: MTLComputePipelineState!
     var kernelFunction: MTLFunction!
     var vertexBuffer: MTLBuffer?
@@ -72,6 +72,25 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
         }
     }
     
+    var outputView: MTLView? {
+        get {
+            // This only checks first target for now. Do DFS later
+            var out: MTLOutput? = targets.first
+            while out != nil {
+                if let filter = out as? MTLFilter {
+                    out = filter.targets.first
+                }
+                else if let filterGroup = out as? MTLFilterGroup {
+                    out = filterGroup.targets.first
+                }
+                else if let mtlView = out as? MTLView {
+                    return mtlView
+                }
+            }
+            return nil
+        }
+    }
+    
     var functionName: String!
     public var properties = [MTLProperty]()
     
@@ -94,6 +113,10 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     }
     
     func update() {
+        
+    }
+    
+    public func reset() {
         
     }
     
@@ -195,8 +218,8 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     
     public var context: MTLContext {
         get {
-            if privateInput?.context != nil {
-                return (privateInput?.context)!
+            if internalInputs.first?.context != nil {
+                return (internalInputs.first?.context)!
             }
             return MTLContext()
         }
@@ -258,11 +281,11 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
     
     public var input: MTLInput? {
         get {
-            return self.privateInput
+            return self.internalInputs.first
         }
         set {
-            privateInput = newValue
             if newValue != nil {
+                internalInputs.append(newValue!)
                 setupPipeline()
                 update()
             }

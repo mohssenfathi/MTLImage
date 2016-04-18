@@ -18,6 +18,7 @@
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="maximumValue" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="minimumValue" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="propertyType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="host" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MTLFilterRecord" inverseName="properties" inverseEntity="MTLFilterRecord" syncable="YES"/>
@@ -25,6 +26,6 @@
     <elements>
         <element name="MTLFilterGroupRecord" positionX="-315" positionY="-27" width="128" height="88"/>
         <element name="MTLFilterRecord" positionX="-137" positionY="-46" width="128" height="133"/>
-        <element name="MTLPropertyRecord" positionX="36" positionY="-81" width="128" height="148"/>
+        <element name="MTLPropertyRecord" positionX="36" positionY="-81" width="128" height="165"/>
     </elements>
 </model>

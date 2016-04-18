@@ -59,12 +59,12 @@ class MTLWaterFilter: MTLFilter {
     public init() {
         super.init(functionName: "water")
         title = "Water"
-        properties = [MTLProperty(key: "speed",     title: "Speed", type: Float()),
-                      MTLProperty(key: "frequency", title: "Frequency", type: Float()),
-                      MTLProperty(key: "intensity", title: "Intensity", type: Float()),
-                      MTLProperty(key: "emboss",    title: "Enboss", type: Float()),
-                      MTLProperty(key: "delta",     title: "Delta", type: Float()),
-                      MTLProperty(key: "intence",   title: "Intence", type: Float())]
+        properties = [MTLProperty(key: "speed",     title: "Speed"    ),
+                      MTLProperty(key: "frequency", title: "Frequency"),
+                      MTLProperty(key: "intensity", title: "Intensity"),
+                      MTLProperty(key: "emboss",    title: "Enboss"   ),
+                      MTLProperty(key: "delta",     title: "Delta"    ),
+                      MTLProperty(key: "intence",   title: "Intence"  )]
         update()
     }
     

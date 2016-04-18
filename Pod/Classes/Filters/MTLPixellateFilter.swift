@@ -31,7 +31,7 @@ class MTLPixellateFilter: MTLFilter {
     public init() {
         super.init(functionName: "pixellate")
         title = "Pixellate"
-        properties = [MTLProperty(key: "dotRadius", title: "Dot Radius", type: Float())]
+        properties = [MTLProperty(key: "dotRadius", title: "Dot Radius")]
         update()
     }
     

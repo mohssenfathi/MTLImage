@@ -61,7 +61,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             
             for device: AVCaptureDevice in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! [AVCaptureDevice] {
                 if device.position == capturePosition {
-                    captureDevice = device as! AVCaptureDevice
+                    captureDevice = device 
                     break
                 }
             }
@@ -97,7 +97,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         
         for device: AVCaptureDevice in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! [AVCaptureDevice] {
             if device.position == capturePosition {
-                captureDevice = device as! AVCaptureDevice
+                captureDevice = device 
                 break
             }
         }

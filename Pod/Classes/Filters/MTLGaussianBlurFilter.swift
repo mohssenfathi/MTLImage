@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MetalPerformanceShaders
 
 struct GaussianBlurUniforms {
     var blurRadius: Float = 1.0
@@ -40,19 +41,19 @@ class MTLGaussianBlurFilter: MTLFilter {
     public init() {
         super.init(functionName: "gaussianBlur")
         title = "Gaussian Blur"
-        properties = [ MTLProperty(key: "blurRadius", title: "Blur Radius", type: Float()),
-                       MTLProperty(key: "sigma"     , title: "Sigma"      , type: Float()) ]
+        properties = [ MTLProperty(key: "blurRadius", title: "Blur Radius"),
+                       MTLProperty(key: "sigma"     , title: "Sigma"      )]
     }
     
     override func update() {
         super.update()
-            self.uniforms.blurRadius = Tools.convert(self.blurRadius, oldMin: 0, oldMax: 1, newMin: 0, newMax: 25)
-            self.uniforms.sigma = self.uniforms.blurRadius/2.0
+    
+        self.uniforms.blurRadius = Tools.convert(self.blurRadius, oldMin: 0, oldMax: 1, newMin: 0, newMax: 25)
+        self.uniforms.sigma = self.uniforms.blurRadius/2.0
 //            self.uniforms.sigma = Tools.convert(self.sigma, oldMin: 0, oldMax: 1, newMin: 0.5, newMax: 15)
 //            self.uniforms.blurRadius = 1.0
 //            self.uniforms.sigma = 0.5;
-            self.uniformsBuffer = self.device.newBufferWithBytes(&self.uniforms, length: sizeof(GaussianBlurUniforms), options: .CPUCacheModeDefaultCache)
-//        }
+        self.uniformsBuffer = self.device.newBufferWithBytes(&self.uniforms, length: sizeof(GaussianBlurUniforms), options: .CPUCacheModeDefaultCache)
     }
     
 

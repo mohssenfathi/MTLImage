@@ -24,8 +24,9 @@ public
 class MTLVignetteFilter: MTLFilter {
 
     var uniforms = VignetteUniforms()
+    private var viewSize: CGSize?
     
-    public var center: CGPoint = CGPointZero {
+    public var center: CGPoint = CGPointMake(-1, -1) {
         didSet {
             dirty = true
             update()
@@ -58,10 +59,10 @@ class MTLVignetteFilter: MTLFilter {
     public init() {
         super.init(functionName: "vignette")
         title = "Vignette"
-        properties = [MTLProperty(key: "center", title: "Center", type: CGPoint()),
-                      MTLProperty(key: "color" , title: "Color" , type: UIColor()),
-                      MTLProperty(key: "start" , title: "Start" , type: Float()),
-                      MTLProperty(key: "end"   , title: "End"   , type: Float())]
+        properties = [MTLProperty(key: "center", title: "Center", type: CGPoint(), propertyType: .Point),
+                      MTLProperty(key: "color" , title: "Color" , type: UIColor(), propertyType: .Color),
+                      MTLProperty(key: "start" , title: "Start" ),
+                      MTLProperty(key: "end"   , title: "End"   )]
         update()
     }
     
@@ -79,9 +80,16 @@ class MTLVignetteFilter: MTLFilter {
             uniforms.b = Float(components[2])
         }
         
-//        TODO: Scale here, not in shader
-        uniforms.x = Float(center.x)
-        uniforms.y = Float(center.y)
+        if viewSize != nil {
+            uniforms.x = Float(center.x/viewSize!.width)
+            uniforms.y = Float(center.y/viewSize!.height)
+        } else {
+            uniforms.x = 0.5
+            uniforms.y = 0.5
+            if let mtlView = outputView {
+                viewSize = mtlView.frame.size
+            }
+        }
         
         uniforms.start = start
         uniforms.end   = end

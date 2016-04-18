@@ -36,8 +36,8 @@ class MTLToonFilter: MTLFilter {
     public init() {
         super.init(functionName: "toon")
         title = "Toon"
-        properties = [MTLProperty(key: "threshold", title: "Threshold", type: Float()),
-                      MTLProperty(key: "quantizationLevels", title: "Quantization Levels", type: Float())]
+        properties = [MTLProperty(key: "threshold"         , title: "Threshold"          ),
+                      MTLProperty(key: "quantizationLevels", title: "Quantization Levels")]
         update()
     }
     

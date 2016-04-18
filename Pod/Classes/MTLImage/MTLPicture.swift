@@ -148,12 +148,20 @@ class MTLPicture: NSObject, MTLInput {
         }
     }
     
-    
     public func addTarget(target: MTLOutput) {
         var t = target
         internalTargets.append(t)
         loadTexture()
         t.input = self
+    }
+    
+    public func addTarget(target: MTLOutput, index: Int) {
+//        var t = target
+//        internalTargets.append(t)
+//        t.input = self
+//        if let picture = source as? MTLPicture {
+//            picture.loadTexture()
+//        }
     }
     
     public func removeTarget(target: MTLOutput) {

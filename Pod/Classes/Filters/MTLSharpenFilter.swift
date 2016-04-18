@@ -27,7 +27,7 @@ class MTLSharpenFilter: MTLFilter {
     public init() {
         super.init(functionName: "sharpen")
         title = "Sharpen"
-        properties = [MTLProperty(key: "sharpness", title: "Sharpness", type: Float())]
+        properties = [MTLProperty(key: "sharpness", title: "Sharpness")]
         update()
     }
     

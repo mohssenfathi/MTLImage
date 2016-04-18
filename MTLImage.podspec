@@ -21,11 +21,9 @@ Pod::Spec.new do |s|
                        DESC
 
   s.homepage         = "https://github.com/<GITHUB_USERNAME>/MTLImage"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "mohssenfathi" => "mmohssenfathi@gmail.com" }
   s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/MTLImage.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
   s.tvos.deployment_target = '9.0'
@@ -37,7 +35,22 @@ Pod::Spec.new do |s|
     'MTLImage' => ['Pod/Assets/**/*']
   }
 
+# Unused for now
+  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+
+    s.default_subspec = 'Core'
+
+    s.subspec 'Core' do |core|
+      # Basic version, without FaceDetection and maybe some others later
+    end
+
+    s.subspec 'FaceDetection' do |fd|
+      fd.xcconfig   =  { 'OTHER_CFLAGS' => '$(inherited) -MTLIMAGE_FACE_DETECTION' }
+      fd.library = 'c++'
+#     fd.vendored_frameworks = "Pod/Classes/FaceDetection/opencv2.framework"
+#     fd.frameworks = 'Accelerate', 'libc++'
+    end
 end

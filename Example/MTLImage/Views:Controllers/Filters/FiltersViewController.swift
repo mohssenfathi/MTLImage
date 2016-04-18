@@ -21,6 +21,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var editButton: UIBarButtonItem!
     
     var settingsViewController: SettingsViewController?
+    var filterGroupViewController: FilterGroupViewController?
     var selectedFilter: MTLFilter!
     var delegate: FiltersViewControllerDelegate?
     var filterNames = Array(MTLImage.filters.keys).sort()
@@ -43,6 +44,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func handleTouchAtLocation(location: CGPoint) {
         settingsViewController?.handleTouchAtLocation(location)
+        filterGroupViewController?.handleTouchAtLocation(location)
     }
     
     @IBAction func editButtonPressed(sender: UIBarButtonItem) {
@@ -181,9 +183,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             settingsViewController?.filter = selectedFilter
         }
         else if segue.identifier == "filterGroup" {
-            let filterGroupViewController = segue.destinationViewController as! FilterGroupViewController
-            filterGroupViewController.filterGroup = filterGroup
-            filterGroupViewController.isNewFilter = newFilterSeleced
+            filterGroupViewController = segue.destinationViewController as? FilterGroupViewController
+            filterGroupViewController?.filterGroup = filterGroup
+            filterGroupViewController?.isNewFilter = newFilterSeleced
         }
     }
 

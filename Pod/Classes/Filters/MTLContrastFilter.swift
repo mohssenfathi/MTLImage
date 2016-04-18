@@ -27,7 +27,7 @@ class MTLContrastFilter: MTLFilter {
     public init() {
         super.init(functionName: "contrast")
         title = "Contrast"
-        properties = [MTLProperty(key: "contrast", title: "Contrast", type: Float())]
+        properties = [MTLProperty(key: "contrast", title: "Contrast")]
         update()
     }
     

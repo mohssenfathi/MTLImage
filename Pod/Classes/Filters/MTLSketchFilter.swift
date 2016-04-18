@@ -27,7 +27,7 @@ class MTLSketchFilter: MTLFilter {
     public init() {
         super.init(functionName: "sketch")
         title = "Sketch"
-        properties = [MTLProperty(key: "intensity", title: "Intensity", type: Float())]
+        properties = [MTLProperty(key: "intensity", title: "Intensity")]
         update()
     }
     

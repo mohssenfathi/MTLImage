@@ -9,7 +9,7 @@
 import UIKit
 import MTLImage
 
-class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SettingsCellDelegate {
+class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SettingsCellDelegate, PickerCellDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyLabel: UILabel!
@@ -20,7 +20,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = filter.title
-        tableView.rowHeight = 80
+        tableView.estimatedRowHeight = 80
         
         for mtlProperty: MTLProperty in filter.properties {
             if let _ = mtlProperty.type as? CGPoint {
@@ -44,11 +44,26 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filter.properties.count
+        return filter.properties.count + 1
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == filter.properties.count { return 80.0 }
+        if cellIdentifier(filter.properties[indexPath.row].propertyType) == "pickerCell" {
+            return 150.0
+        }
+        return 80.0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: SettingsCell = tableView.dequeueReusableCellWithIdentifier("settingsCell", forIndexPath: indexPath) as! SettingsCell
+        var identifier: String!
+        if indexPath.row == filter.properties.count {
+            identifier = "resetCell"
+        } else {
+            identifier = cellIdentifier(filter.properties[indexPath.row].propertyType)
+        }
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath)
         
         return cell
     }
@@ -59,31 +74,53 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    
-    //    MARK: SettingsCell Delegate
+    func cellIdentifier(propertyType: MTLPropertyType) -> String {
+        if propertyType == .Selection { return "pickerCell" }
+        return "settingsCell"
+    }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let settingsCell: SettingsCell = cell as! SettingsCell
-        let property: MTLProperty = filter.properties[indexPath.row]
         
-        settingsCell.delegate = self
-        settingsCell.titleLabel.text = property.title
-        
-        if let _ = property.type as? Float {
-            let value: Float = filter.valueForKey(property.key) as! Float
+        if cell.reuseIdentifier == "settingsCell" {
+            let settingsCell: SettingsCell = cell as! SettingsCell
+            let property: MTLProperty = filter.properties[indexPath.row]
             
-            settingsCell.spectrum = false
-            settingsCell.valueLabel.text = String(format: "%.2f", value)
-            settingsCell.slider.value = value
+            settingsCell.delegate = self
+            settingsCell.titleLabel.text = property.title
+            
+            if let _ = property.type as? Float {
+                let value: Float = filter.valueForKey(property.key) as! Float
+                
+                settingsCell.spectrum = false
+                settingsCell.valueLabel.text = String(format: "%.2f", value)
+                settingsCell.slider.value = value
+            }
+            else if let _ = property.type as? UIColor {
+                settingsCell.spectrum = true
+                settingsCell.valueLabel.text = "-"
+            }
+            else if let _ = property.type as? CGPoint {
+                settingsCell.message = "Touch preview image to adjust."
+            }
         }
-        else if let _ = property.type as? UIColor {
-            settingsCell.spectrum = true
-            settingsCell.valueLabel.text = "-"
-        }
-        else if let _ = property.type as? CGPoint {
-            settingsCell.message = "Touch preview image to adjust."
+        else if cell.reuseIdentifier == "pickerCell" {
+            let pickerCell: PickerCell = cell as! PickerCell
+            pickerCell.titleLabel.text = filter.properties[indexPath.row].title
+            pickerCell.selectionItems  = filter.properties[indexPath.row].selectionItems!
+            pickerCell.delegate = self
         }
     }
+    
+//    MARK: Delegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if indexPath.row == filter.properties.count {
+            filter.reset()
+        }
+    }
+    
+    // MARK: SettingsCell Delegate
     
     func settingsCellSliderValueChanged(sender: SettingsCell, value: Float) {
         let indexPath = tableView.indexPathForCell(sender)
@@ -100,6 +137,15 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
 
     }
+    
+    // MARK: PickerCell Delegate
+    
+    func pickerCellDidSelectItem(sender: PickerCell, index: Int) {
+        let indexPath = tableView.indexPathForCell(sender)
+        let property: MTLProperty = filter.properties[(indexPath?.row)!]
+        filter.setValue(index, forKey: property.key)
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

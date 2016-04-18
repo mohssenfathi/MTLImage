@@ -9,18 +9,44 @@
 import UIKit
 
 public
+protocol Numeric {
+    func -(left: Self, right: Self) -> Self
+    func +(left: Self, right: Self) -> Self
+    func *(left: Self, right: Self) -> Self
+    func /(left: Self, right: Self) -> Self
+    func %(left: Self, right: Self) -> Self
+    prefix func -(value: Self) -> Self
+//    func fabs(left: Self, right: Self) -> Self
+    init(_ f: Float)
+}
+
+extension Double : Numeric {}
+extension Float  : Numeric {}
+extension Int    : Numeric {}
+extension Int8   : Numeric {}
+extension Int16  : Numeric {}
+extension Int32  : Numeric {}
+extension Int64  : Numeric {}
+extension CGFloat: Numeric {}
+//extension UInt   : Numeric {}
+//extension UInt8  : Numeric {}
+//extension UInt16 : Numeric {}
+//extension UInt32 : Numeric {}
+//extension UInt64 : Numeric {}
+
+public
 class Tools: NSObject {
 
-    public class func normalize(value: Float, min: Float, max: Float) -> Float {
-        return Tools.convert(value, oldMin: min, oldMax: max, newMin: 0, newMax: 1)
+    public class func normalize<T where T: Numeric, T: Comparable>(value: T, min: T, max: T) -> T {
+        return Tools.convert(value, oldMin: min, oldMax: max, newMin: T(0), newMax: T(1))
     }
     
-    public class func convert(value: Float, oldMin: Float, oldMax: Float, newMin: Float, newMax: Float) -> Float {
+    public class func convert<T where T: Numeric, T: Comparable>(value: T, oldMin: T, oldMax: T, newMin: T, newMax: T) -> T {
         let normalizedValue = (value - oldMin)/(oldMax - oldMin);
         return newMin + (normalizedValue * (newMax - newMin))
     }
     
-    public class func convert(value: Float, oldMin: Float, oldMid: Float, oldMax: Float, newMin: Float, newMid: Float, newMax: Float) -> Float {
+    public class func convert<T where T:Numeric, T:Comparable>(value: T, oldMin: T, oldMid: T, oldMax: T, newMin: T, newMid: T, newMax: T) -> T {
         if (oldMin < oldMax && value < oldMid) {
             return Tools.convert(value, oldMin: oldMin, oldMax: oldMid, newMin: newMin, newMax: newMid)
         }
@@ -29,29 +55,33 @@ class Tools: NSObject {
         }
     }
     
-    private class func convert(value: Float, oldMin: Float, oldMax: Float, newMin: Float, newMid: Float, newMax: Float) -> Float {
+    private class func convert<T where T:Numeric, T: Equatable, T: Comparable>(value: T, oldMin: T, oldMax: T, newMin: T, newMid: T, newMax: T) -> T {
         if (newMid == newMin || newMid == newMax) {
             return Tools.convert(value, oldMin: oldMin, oldMax: oldMax, newMin: newMin, newMax: newMax)
         }
         
         let normalizedValue = (value - oldMin)/(oldMax - oldMin);
-        if normalizedValue < 0.5 {
+        if normalizedValue < T(0.5) {
             let adjustedMax = (newMid - newMin) + newMid;
-            return Tools.convert(value, oldMin: 0, oldMax: 1, newMin: newMin, newMax: adjustedMax)
+            return Tools.convert(value, oldMin: T(0), oldMax: T(1), newMin: newMin, newMax: adjustedMax)
         }
         else {
             let adjustedMin = newMid - (newMax - newMid);
-            return Tools.convert(value, oldMin: 0, oldMax: 1, newMin: adjustedMin, newMax: newMax)
+            return Tools.convert(value, oldMin: T(0), oldMax: T(1), newMin: adjustedMin, newMax: newMax)
         }
     }
     
-    private class func convert(value: Float, oldMin: Float, oldMid: Float, oldMax: Float, newMin: Float, newMax: Float) -> Float {
-        var newMid = (newMax - fabs(newMin))/2;
-        if oldMid == oldMin { newMid = newMin }
-        if oldMid == oldMax { newMid = newMax }
-        return Tools.convert(value, oldMin: oldMin, oldMid: oldMid, oldMax: oldMax, newMin: newMin, newMid: newMid, newMax: newMax)
-    }
+//    private class func convert<T where T: Numeric, T: Equatable, T: Comparable>(value: T, oldMin: T, oldMid: T, oldMax: T, newMin: T, newMax: T) -> T {
+//        var newMid = (newMax - tabs(newMin))/2;
+//        if oldMid == oldMin { newMid = newMin }
+//        if oldMid == oldMax { newMid = newMax }
+//        return Tools.convert(value, oldMin: oldMin, oldMid: oldMid, oldMax: oldMax, newMin: newMin, newMid: newMid, newMax: newMax)
+//    }
     
+    private class func tabs<T where T: Numeric, T: Comparable>(x: T) -> T {
+        if x < T(0) { return -x }
+        else        { return  x }
+    }
     
     public class func imageFrame(imageSize: CGSize, rect: CGRect) -> CGRect {
         

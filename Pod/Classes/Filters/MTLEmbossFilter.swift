@@ -22,7 +22,7 @@ class MTLEmbossFilter: MTLConvolutionFilter {
     override init() {
         super.init()
         title = "Emboss"
-        properties = [MTLProperty(key: "intensity", title: "Intensity", type: Float())]
+        properties = [MTLProperty(key: "intensity", title: "Intensity")]
     }
     
     override func update() {

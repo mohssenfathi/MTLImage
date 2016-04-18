@@ -25,6 +25,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var filterGroup = MTLFilterGroup()
     var filtersViewController: FiltersViewController!
     var sourcePicture: MTLPicture!
+    var secondSourcePicture: MTLPicture!
     var camera: MTLCamera = MTLCamera()
     var currentInput: MTLInput!
     var canDrag: Bool = false
@@ -44,7 +45,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.navigationItem.leftBarButtonItems = nil
         
         sourcePicture = MTLPicture(image: image)
-        sourcePicture.setProcessingSize(CGSizeMake(500, 500), respectAspectRatio: true)
+        sourcePicture.setProcessingSize(CGSizeMake(1000, 1000), respectAspectRatio: true)
         mtlView.delegate = self
         currentInput = sourcePicture
         
@@ -70,7 +71,9 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func mtlViewTouchesMoved(sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
         let touch: UITouch = touches.first! as UITouch
         let location = touch.locationInView(sender)
+        print(location)
         filtersViewController.handleTouchAtLocation(location)
+        
     }
     
     func mtlViewTouchesEnded(sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
@@ -168,12 +171,19 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         navigationItem.leftBarButtonItem = infoButton
         
+        sourcePicture.removeAllTargets()
         sourcePicture.image = image
         sourcePicture.setProcessingSize(CGSizeMake(500, 500), respectAspectRatio: true)
+        filterGroup.removeAll()
+        filterGroup.removeAllTargets()
         
         if filtersViewController.selectedFilter != nil {
-            filtersViewController.selectedFilter.removeAllTargets()
+            filterGroup.add(filtersViewController.selectedFilter)
         }
+        
+        sourcePicture > filterGroup
+        filterGroup > mtlView
+        
         
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -182,6 +192,10 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //    MARK: - FiltersViewController Delegate
     
     func filtersViewControllerDidSelectFilter(sender: FiltersViewController, filter: MTLFilter) {
+        if filter.title == "Blend" {
+            secondSourcePicture = MTLPicture(image: UIImage(named: "test2")!)
+            secondSourcePicture.addTarget(filter)
+        }
         filterGroup += filter
     }
     
@@ -210,7 +224,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         if segue.identifier == "filters" {
             let navigationController = segue.destinationViewController as? UINavigationController
             filtersViewController = navigationController?.viewControllers.first as? FiltersViewController
-            filtersViewController?.delegate = self
+            filtersViewController.delegate = self
             filtersViewController.filterGroup = filterGroup
         }
         if segue.identifier == "info" {

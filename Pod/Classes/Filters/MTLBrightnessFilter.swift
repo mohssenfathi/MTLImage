@@ -29,7 +29,7 @@ class MTLBrightnessFilter: MTLFilter {
     public init() {
         super.init(functionName: "brightness")
         title = "Brightness"
-        properties = [MTLProperty(key: "brightness", title: "Brightness", type: Float())]
+        properties = [MTLProperty(key: "brightness", title: "Brightness")]
         update()
     }
     
