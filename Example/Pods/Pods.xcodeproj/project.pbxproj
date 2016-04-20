@@ -29,7 +29,9 @@
 		3CD0FA598D239B23C99AC5C252037090 /* MTLPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E655A4A7DE4FD3328F7800194DAB3B /* MTLPicture.swift */; };
 		3CE5E43CED8F56EED42B209158E6A85A /* Pods-MTLImage_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BA5C0326BC77C4FAB5058519F153B12D /* Pods-MTLImage_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3FF3EC58D414E4662657F6C7C1C5FF94 /* Toon.metal in Sources */ = {isa = PBXBuildFile; fileRef = 57774F640110BB2ADE8D3A56DDBA822F /* Toon.metal */; };
+		450D69B41CC7E90200F42E3F /* MTLWatercolorFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450D69B31CC7E90200F42E3F /* MTLWatercolorFilter.swift */; };
 		45357033520F961E5DD26FF0B21EFA99 /* MTLImage-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DD32901A1A361E5D90A01017DA9833BE /* MTLImage-dummy.m */; };
+		4586CDED1CC6942F00009A25 /* MTLOilPaintFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4586CDEC1CC6942F00009A25 /* MTLOilPaintFilter.swift */; };
 		45C903021CC2769A00271D31 /* MTLMaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C903011CC2769A00271D31 /* MTLMaskFilter.swift */; };
 		45C903061CC480F900271D31 /* MTLBlendFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C903051CC480F900271D31 /* MTLBlendFilter.swift */; };
 		45C9E9F21CC1DA1D00271D31 /* FaceDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C9E9F01CC1DA1D00271D31 /* FaceDetector.h */; };
@@ -149,6 +151,8 @@
 		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		41CE65CAD3DDE6C7FD5D29EA6F4AE803 /* MTLGaussianBlurFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLGaussianBlurFilter.swift; sourceTree = "<group>"; };
 		41EA7C03DB410B5B4D171CC6299CFCF2 /* Levels.metal */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.metal; path = Levels.metal; sourceTree = "<group>"; };
+		450D69B31CC7E90200F42E3F /* MTLWatercolorFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLWatercolorFilter.swift; sourceTree = "<group>"; };
+		4586CDEC1CC6942F00009A25 /* MTLOilPaintFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLOilPaintFilter.swift; sourceTree = "<group>"; };
 		45C903011CC2769A00271D31 /* MTLMaskFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLMaskFilter.swift; sourceTree = "<group>"; };
 		45C903051CC480F900271D31 /* MTLBlendFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLBlendFilter.swift; sourceTree = "<group>"; };
 		45C9E9F01CC1DA1D00271D31 /* FaceDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceDetector.h; sourceTree = "<group>"; };
@@ -607,6 +611,8 @@
 				C836941CCA1A0F6D3A0C1D366023BA57 /* MTLWhiteBalanceFilter.swift */,
 				45C903011CC2769A00271D31 /* MTLMaskFilter.swift */,
 				45C903051CC480F900271D31 /* MTLBlendFilter.swift */,
+				4586CDEC1CC6942F00009A25 /* MTLOilPaintFilter.swift */,
+				450D69B31CC7E90200F42E3F /* MTLWatercolorFilter.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -801,11 +807,13 @@
 				2A6B1AEC5D3DE2D5859AD82F37BC1C40 /* CrossHatch.metal in Sources */,
 				99EBF4D14C50D3BC3E54E508BFEC93FE /* default.metallib in Sources */,
 				B5EB9D5498F97A59DADB65109CCCAEE2 /* DefaultShaders.metal in Sources */,
+				450D69B41CC7E90200F42E3F /* MTLWatercolorFilter.swift in Sources */,
 				8413E9B931FF4E42F89FBF54C004EAC8 /* Exposure.metal in Sources */,
 				F11689C466F1425243FF3F53CDE9891B /* GaussianBlur.metal in Sources */,
 				52D59B4C979EF519004B90C546411E0B /* Haze.metal in Sources */,
 				5E0D1BD23F1FF18ED2FDD81DFFC82C8A /* Invert.metal in Sources */,
 				E0CCA9F3DCD473C115D350141A7CE826 /* Kuwahara.metal in Sources */,
+				4586CDED1CC6942F00009A25 /* MTLOilPaintFilter.swift in Sources */,
 				45C9E9F31CC1DA1D00271D31 /* FaceDetector.m in Sources */,
 				CE3450A87DF686A0E60323AD462FF03C /* Levels.metal in Sources */,
 				8759899E7F95BBDF65AE85D97DBDE8C8 /* Makefile in Sources */,

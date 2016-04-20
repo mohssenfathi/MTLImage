@@ -56,6 +56,7 @@ class MTLImage: NSObject {
         "Toon"                 : MTLToonFilter(),
         "Vignette"             : MTLVignetteFilter(),
         "Water"                : MTLWaterFilter(),
+//        "Watercolor"           : MTLWatercolorFilter(),
         "White Balance"        : MTLWhiteBalanceFilter()
     ]
     

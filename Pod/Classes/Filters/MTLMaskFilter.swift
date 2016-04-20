@@ -79,10 +79,10 @@ class MTLMaskFilter: MTLFilter {
             
             let dx = fabs(lx - cx)
             let dy = fabs(ly - cy)
-            let dy2 = 2 * dy
-            let dydx2 = (dy2 - (2 * dx))
+//            let dy2 = 2 * dy
+//            let dydx2 = (dy2 - (2 * dx))
             let m = dy/dx
-            let b = ly - m * lx
+//            let b = ly - m * lx
 
             let xDir: CGFloat = cx > lx ? 1.0 : -1.0
             let yDir: CGFloat = cy > ly ? 1.0 : -1.0

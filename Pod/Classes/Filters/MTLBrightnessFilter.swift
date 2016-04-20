@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Metal
 
 struct BrightnessUniforms {
     var brightness: Float = 0.5;

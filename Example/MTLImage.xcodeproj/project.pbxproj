@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		450D69B21CC7E8F400F42E3F /* Watercolor.metal in Sources */ = {isa = PBXBuildFile; fileRef = 450D69B11CC7E8F400F42E3F /* Watercolor.metal */; };
 		4546570B1CB9BB98001E421A /* FilterGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546570A1CB9BB98001E421A /* FilterGroupViewController.swift */; };
 		4546570D1CB9BE98001E421A /* AddFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546570C1CB9BE98001E421A /* AddFilterViewController.swift */; };
 		454657121CBA85B7001E421A /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 454657101CBA85B7001E421A /* Montserrat-Bold.ttf */; };
@@ -14,6 +15,7 @@
 		454CEDB11CB09FB800D67A9E /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDB01CB09FB800D67A9E /* FiltersViewController.swift */; };
 		454CEDC21CB1470600D67A9E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDC11CB1470600D67A9E /* InfoViewController.swift */; };
 		454CEDC41CB1496500D67A9E /* MetadataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDC31CB1496500D67A9E /* MetadataFormatter.swift */; };
+		4586CDEF1CC6947E00009A25 /* OilPaint.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4586CDEE1CC6947E00009A25 /* OilPaint.metal */; };
 		45A6167D1CBF424B00C000C7 /* SelectiveHSL.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45A6167C1CBF424B00C000C7 /* SelectiveHSL.metal */; };
 		45A616811CBFD9BA00C000C7 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A616801CBFD9BA00C000C7 /* PickerCell.swift */; };
 		45AF767A1CBE780000724A9D /* Brightness.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AF76641CBE780000724A9D /* Brightness.metal */; };
@@ -68,6 +70,7 @@
 /* Begin PBXFileReference section */
 		0903E9E555816E58D7C438ED /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		22918B49ADBB9962DD3EDA05 /* Pods-MTLImage_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTLImage_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		450D69B11CC7E8F400F42E3F /* Watercolor.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Watercolor.metal; sourceTree = "<group>"; };
 		4546570A1CB9BB98001E421A /* FilterGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterGroupViewController.swift; path = Filters/FilterGroupViewController.swift; sourceTree = "<group>"; };
 		4546570C1CB9BE98001E421A /* AddFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddFilterViewController.swift; path = Filters/AddFilterViewController.swift; sourceTree = "<group>"; };
 		454657101CBA85B7001E421A /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
@@ -75,6 +78,7 @@
 		454CEDB01CB09FB800D67A9E /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FiltersViewController.swift; path = Filters/FiltersViewController.swift; sourceTree = "<group>"; };
 		454CEDC11CB1470600D67A9E /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = Info/InfoViewController.swift; sourceTree = "<group>"; };
 		454CEDC31CB1496500D67A9E /* MetadataFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetadataFormatter.swift; path = Info/MetadataFormatter.swift; sourceTree = "<group>"; };
+		4586CDEE1CC6947E00009A25 /* OilPaint.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = OilPaint.metal; sourceTree = "<group>"; };
 		45A6167C1CBF424B00C000C7 /* SelectiveHSL.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = SelectiveHSL.metal; sourceTree = "<group>"; };
 		45A616801CBFD9BA00C000C7 /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		45AF76641CBE780000724A9D /* Brightness.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Brightness.metal; sourceTree = "<group>"; };
@@ -212,6 +216,8 @@
 				45A6167C1CBF424B00C000C7 /* SelectiveHSL.metal */,
 				45C903031CC276B100271D31 /* Mask.metal */,
 				45C903071CC50FCF00271D31 /* Blend.metal */,
+				4586CDEE1CC6947E00009A25 /* OilPaint.metal */,
+				450D69B11CC7E8F400F42E3F /* Watercolor.metal */,
 			);
 			name = Shaders;
 			path = MTLImage/Shaders;
@@ -581,8 +587,10 @@
 				454CEDC21CB1470600D67A9E /* InfoViewController.swift in Sources */,
 				45AF76851CBE780000724A9D /* Levels.metal in Sources */,
 				45AF76801CBE780000724A9D /* Exposure.metal in Sources */,
+				4586CDEF1CC6947E00009A25 /* OilPaint.metal in Sources */,
 				45AF767C1CBE780000724A9D /* Contrast.metal in Sources */,
 				45AF767E1CBE780000724A9D /* CrossHatch.metal in Sources */,
+				450D69B21CC7E8F400F42E3F /* Watercolor.metal in Sources */,
 				454CEDB11CB09FB800D67A9E /* FiltersViewController.swift in Sources */,
 				45AF768B1CBE780000724A9D /* SobelEdgeDetection.metal in Sources */,
 				45AF76861CBE780000724A9D /* Pixellate.metal in Sources */,
