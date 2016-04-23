@@ -192,10 +192,6 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //    MARK: - FiltersViewController Delegate
     
     func filtersViewControllerDidSelectFilter(sender: FiltersViewController, filter: MTLFilter) {
-        if filter.title == "Blend" {
-            secondSourcePicture = MTLPicture(image: UIImage(named: "test2")!)
-            secondSourcePicture.addTarget(filter)
-        }
         filterGroup += filter
     }
     

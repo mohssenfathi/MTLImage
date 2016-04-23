@@ -141,15 +141,19 @@ class MTLDataManager: NSObject {
             break
         case .Selection: propertyType = 3
             break
+        case .Image: propertyType = 4
+            break
         }
+        
         propertyRecord.propertyType = NSNumber(integer: propertyType)
         
         var typeString = ""
-        if      property.type is Float   { typeString = "Float" }
-        else if property.type is Int     { typeString = "Int" }
+        if      property.type is Float   { typeString = "Float"   }
+        else if property.type is Int     { typeString = "Int"     }
         else if property.type is CGPoint { typeString = "CGPoint" }
-        else if property.type is Bool    { typeString = "Bool" }
+        else if property.type is Bool    { typeString = "Bool"    }
         else if property.type is UIColor { typeString = "UIColor" }
+        else if property.type is UIImage { typeString = "UIImage" }
         propertyRecord.type = typeString
         
         return propertyRecord
@@ -165,14 +169,19 @@ class MTLDataManager: NSObject {
         
         let filterRecords = filterGroupRecord.filters?.array as! [MTLFilterRecord]
         for filterRecord: MTLFilterRecord in filterRecords {
-            filterGroup.add(filter(filterRecord))
+            guard let filter = filter(filterRecord) else { continue }
+            filterGroup.add(filter)
         }
         
         return filterGroup
     }
     
-    func filter(filterRecord: MTLFilterRecord) -> MTLFilter {
-        let filter = MTLImage.filters[filterRecord.title!]!
+    func filter(filterRecord: MTLFilterRecord) -> MTLFilter? {
+                
+        guard let filter = try! MTLImage.filter(filterRecord.title!) else {
+            return nil
+        }
+        
         filter.title = filterRecord.title!
         filter.index = (filterRecord.index?.integerValue)!
         filter.identifier = filterRecord.identifier!

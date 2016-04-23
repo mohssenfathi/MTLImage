@@ -27,13 +27,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MTLImage/AppDelegate.swift"
-            timestampString = "482865584.206538"
+            filePath = "../Pod/Classes/MTLImage/MTLView.swift"
+            timestampString = "483065549.06125"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
+            landmarkName = "setupPipeline()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

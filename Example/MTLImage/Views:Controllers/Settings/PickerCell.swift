@@ -16,12 +16,15 @@ class PickerCell: UITableViewCell, UIPickerViewDataSource, UIPickerViewDelegate 
 
     @IBOutlet var picker: UIPickerView!
     @IBOutlet var titleLabel: UILabel!
-    var selectionItems = [Int : String]()
+    var selectionItems = [Int : String]() {
+        didSet {
+            picker.reloadAllComponents()
+        }
+    }
     var delegate: PickerCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

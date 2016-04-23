@@ -119,5 +119,4 @@ class Tools: NSObject {
         if      value < low  { value = low  }
         else if value > high { value = high }
     }
-    
 }

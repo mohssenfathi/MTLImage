@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>MTLImage-MTLImage.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>MTLImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,17 +27,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>60A5B0CA9F517B64892739380B724ECF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>6C18550FA86F4274240112F060D3C87E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D4A093E5C13EA3D89A35CFDD0A10B152</key>
+		<key>7642D413C0D95B96CFA6B25ED19A9BD7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

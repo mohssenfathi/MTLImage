@@ -30,10 +30,10 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
-  s.resources = ['Pod/Classes/CoreData/**/*.xcdatamodeld', 'Pod/Classes/**/*.metallib']
-  s.resource_bundles = {
-    'MTLImage' => ['Pod/Assets/**/*']
-  }
+  s.resources = ['Pod/Classes/CoreData/**/*.xcdatamodeld', 'Pod/Classes/**/*.metallib', 'Pod/Assets/**/*.xcassets']
+#s.resource_bundles = {
+#   'MTLImage' => ['Pod/Assets/**/*']
+# }
 
 # Unused for now
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
@@ -49,8 +49,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'FaceDetection' do |fd|
       fd.xcconfig   =  { 'OTHER_CFLAGS' => '$(inherited) -MTLIMAGE_FACE_DETECTION' }
-      fd.library = 'c++'
-#     fd.vendored_frameworks = "Pod/Classes/FaceDetection/opencv2.framework"
+#     fd.library = 'c++'
 #     fd.frameworks = 'Accelerate', 'libc++'
     end
 end

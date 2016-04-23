@@ -60,6 +60,14 @@ class MTLLevelsFilter: MTLFilter {
         }
     }
     
+    public override func reset() {
+        min = 0.0
+        mid = 0.5
+        max = 1.0
+        minOut = 0.0
+        maxOut = 1.0
+    }
+    
     public init() {
         super.init(functionName: "levels")
         title = "Levels"

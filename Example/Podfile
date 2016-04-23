@@ -6,7 +6,6 @@ target 'MTLImage_Example' do
   pod 'MTLImage/FaceDetection', :path => '../'
   pod 'Fabric'
   pod 'Crashlytics'
-  #pod 'OpenCV’
 end
 
 target 'MTLImage_Tests' do

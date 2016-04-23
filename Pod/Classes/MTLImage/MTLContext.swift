@@ -9,6 +9,9 @@
 import UIKit
 import Metal
 
+// Set to true to use compiled shaders
+let useMetalib = true
+
 public
 class MTLContext: NSObject {
 
@@ -24,17 +27,20 @@ class MTLContext: NSObject {
         
         device = MTLCreateSystemDefaultDevice()
         if (device != nil && device.supportsFeatureSet(.iOS_GPUFamily1_v1)) {
-            self.library = self.device.newDefaultLibrary()
-            
-//                Uncomment this once all shaders are compiled
-//            do {
-//                let bundle = NSBundle(forClass: MTLImage.classForCoder())
-//                let path = bundle.pathForResource("default", ofType: "metallib")
-////                try self.library = self.device.newLibraryWithFile(path!)
-//            } catch {
-//                print("Couldn't load precompiled metallib")
-//                self.library = self.device.newDefaultLibrary()
-//            }
+
+            if useMetalib {
+                do {
+                    let bundle = NSBundle(forClass: MTLImage.classForCoder())
+                    let path = bundle.pathForResource("default", ofType: "metallib")
+                    try self.library = self.device.newLibraryWithFile(path!)
+                } catch {
+                    print("Couldn't load precompiled metallib")
+                    self.library = self.device.newDefaultLibrary()
+                }
+            }
+            else {
+              self.library = self.device.newDefaultLibrary()
+            }
             
             self.commandQueue = self.device.newCommandQueue()
             self.processingQueue = dispatch_queue_create("MTLImageProcessQueue", DISPATCH_QUEUE_SERIAL);

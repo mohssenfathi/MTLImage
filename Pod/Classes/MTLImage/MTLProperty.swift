@@ -14,6 +14,7 @@ enum MTLPropertyType {
     case Point
     case Color
     case Selection
+    case Image
 }
 
 public

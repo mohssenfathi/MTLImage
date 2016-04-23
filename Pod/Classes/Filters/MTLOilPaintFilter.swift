@@ -28,7 +28,7 @@ class MTLOilPaintFilter: MTLFilter {
     public init() {
         super.init(functionName: "oilPaint")
         title = "Oil Paint"
-        properties = []
+        properties = [MTLProperty(key: "wobble", title: "Wobble")]
         update()
     }
     

@@ -26,7 +26,7 @@ class MTLVignetteFilter: MTLFilter {
     var uniforms = VignetteUniforms()
     private var viewSize: CGSize?
     
-    public var center: CGPoint = CGPointMake(-1, -1) {
+    public var center: CGPoint = CGPointMake(0.5, 0.5) {
         didSet {
             dirty = true
             update()
@@ -54,6 +54,14 @@ class MTLVignetteFilter: MTLFilter {
             dirty = true
             update()
         }
+    }
+    
+    public override func reset() {
+        viewSize = nil
+        center = CGPoint(x: -1, y: -1)
+        color = UIColor.blackColor()
+        start = 0.25
+        end = 0.7
     }
     
     public init() {
@@ -95,13 +103,5 @@ class MTLVignetteFilter: MTLFilter {
         uniforms.end   = end
         
         uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(VignetteUniforms), options: .CPUCacheModeDefaultCache)
-    }
-    
-    override public var input: MTLInput? {
-        didSet {
-//            if CGPointEqualToPoint(center, CGPointZero) && input?.texture != nil {
-//                center = CGPointMake(CGFloat(input!.texture!.width/2), CGFloat(input!.texture!.height/2))
-//            }
-        }
     }
 }

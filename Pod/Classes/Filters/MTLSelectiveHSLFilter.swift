@@ -81,6 +81,7 @@ class MTLSelectiveHSLFilter: MTLFilter {
     }
     
     override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
+        super.configureCommandEncoder(commandEncoder)
         if dirty == true {
             loadColorAdjustmentTexture()
         }

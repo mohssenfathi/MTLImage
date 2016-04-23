@@ -21,18 +21,17 @@ struct VignetteUniforms {
     float end;
 };
 
-kernel void vignette(texture2d<float, access::read>  inTexture [[ texture(0) ]],
-                 texture2d<float, access::write> outTexture    [[ texture(1) ]],
-                 constant VignetteUniforms &uniforms           [[ buffer(0) ]],
-                 uint2 gid [[thread_position_in_grid]])
+kernel void vignette(texture2d<float, access::read>  inTexture  [[ texture(0) ]],
+                     texture2d<float, access::write> outTexture [[ texture(1) ]],
+                     constant VignetteUniforms &uniforms        [[ buffer(0)  ]],
+                     uint2 gid [[thread_position_in_grid]])
 {
  
     float4 color = inTexture.read(gid);
     float2 size = float2(inTexture.get_width(), inTexture.get_height());
-    float aspectRatio = size.y / size.x;
-    float2 texCoord = float2(gid.x/size.x, gid.y/size.y);
-    float2 center = float2(uniforms.x/size.x/aspectRatio, uniforms.y/size.y/aspectRatio);
-    float d = distance(texCoord, center);
+    float2 point = float2(gid.x/size.x, gid.y/size.y);
+    float2 center = float2(uniforms.x, uniforms.y);
+    float d = distance(point, center);
     float percent = smoothstep(uniforms.start, uniforms.end, d);
     float3 vignetteColor = float3(uniforms.r, uniforms.g, uniforms.b);
 

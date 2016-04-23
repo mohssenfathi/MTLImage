@@ -10,106 +10,103 @@
 using namespace metal;
 
 struct WatercolorUniforms {
-    
+    float distortion;
+    float edgeDarkening;
+    float turbulance;
 };
 
-float3 WC_HSLToRGB(float3 hsl);
-float3 WC_RGBToHSL(float3 color);
-float WC_HueToRGB(float f1, float f2, float hue);
+float intensity(float3 color);
+float average(float3 color);
+float4 darken  (float4 base, float4 overlay);
+float4 multiply(float4 base, float4 overlay);
+float3 RGBToHSL(float3 color);
+float3 HSLToRGB(float3 hsl);
+float  HueToRGB(float f1, float f2, float hue);
+float  cnoise(float2 P);
 
-kernel void watercolor(texture2d<float, access::read>  inTexture  [[texture(0)]],
-                       texture2d<float, access::write> outTexture [[texture(1)]],
-                       constant WatercolorUniforms &uniforms      [[ buffer(0) ]],
-                       uint2 gid                                  [[thread_position_in_grid]])
+kernel void watercolor(texture2d<float, access::read>  inTexture     [[texture(0)]],
+                       texture2d<float, access::write> outTexture    [[texture(1)]],
+                       texture2d<float, access::read>  paperTexture  [[texture(2)]],
+                       texture2d<float, access::read>  paperTexture2 [[texture(3)]],
+                       constant WatercolorUniforms &uniforms         [[ buffer(0) ]],
+                       uint2 gid                                     [[thread_position_in_grid]])
 {
-    float4 color = inTexture.read(gid);
-    float3 hsl = WC_RGBToHSL(color.rgb);
     
-    if      (hsl.b > 0.95) hsl.b = 0.95;
-    else if (hsl.b > 0.75) hsl.b = 0.75;
-    else if (hsl.b > 0.50) hsl.b = 0.50;
-    else if (hsl.b > 0.25) hsl.b = 0.25;
-    else                   hsl.b = 0.00;
+
+    float2 textureSize = float2(inTexture.get_width(), inTexture.get_height());
+    float2 paperSize   = float2(paperTexture.get_width(), paperTexture.get_height());
+    float2 paper2Size  = float2(paperTexture2.get_width(), paperTexture2.get_height());
+    float2 texCoord  = float2(gid) / textureSize;
+    uint2  paperGid  = uint2(texCoord * paperSize);
+    uint2  paperGid2 = uint2(texCoord * paper2Size);
+
+//    Distortion
+    uint2 distortionGid = gid + uint(1.0 - average(paperTexture.read(paperGid).rgb) * 10);
+    float4 color = inTexture.read(distortionGid);
     
-    color.rgb = WC_HSLToRGB(hsl);
+//    paperGid = gid + uint2(paperTexture.read(paperGid).xy) * uint(uniforms.distortion);
+//    float4 color = inTexture.read(paperGid);
+  
+    float3 hsl = RGBToHSL(color.rgb);
+    
+//    Cell Shading
+    float divisions = 8.0;
+    hsl.z = (int(hsl.z * divisions))/divisions + 0.1;
+    
+    color.rgb = HSLToRGB(hsl);
+
+    
+//    Edge Darkening
+    float bottomLeftIntensity  = inTexture.read(uint2(gid.x - 1, gid.y - 1)).r;
+    float topRightIntensity    = inTexture.read(uint2(gid.x + 1, gid.y + 1)).r;
+    float topLeftIntensity     = inTexture.read(uint2(gid.x - 1, gid.y + 1)).r;
+    float bottomRightIntensity = inTexture.read(uint2(gid.x + 1, gid.y - 1)).r;
+    float leftIntensity        = inTexture.read(uint2(gid.x - 1, gid.y + 0)).r;
+    float rightIntensity       = inTexture.read(uint2(gid.x + 1, gid.y + 0)).r;
+    float bottomIntensity      = inTexture.read(uint2(gid.x + 0, gid.y - 1)).r;
+    float topIntensity         = inTexture.read(uint2(gid.x + 0, gid.y + 1)).r;
+    
+    float h = -topLeftIntensity - 2.0 * topIntensity - topRightIntensity + bottomLeftIntensity + 2.0 * bottomIntensity + bottomRightIntensity;
+    float v = -bottomLeftIntensity - 2.0 * leftIntensity - topLeftIntensity + bottomRightIntensity + 2.0 * rightIntensity + topRightIntensity;
+    
+    float magnitude = 1.0 - length(float2(h, v)) * uniforms.edgeDarkening * 2.0;
+    if (magnitude < 0.5) //color = mix(color, magnitude, 0.25);
+        color = float4(float3(magnitude), 1.0);
+    
+    
+//    Turbulence flow / pigment dispersion
+    
+    float  n1 = (cnoise(float2(gid) * 0.2) + 1.0) / 2.0;
+    float4 colorStart  = float4(1, 1, 1, 1);
+    float4 colorFinish = float4(0, 0, 0, 1);
+    float4 perlinNoise = colorStart + (colorFinish - colorStart) * n1;
+    
+    float I = intensity(perlinNoise.rgb);
+    float d = 1 + uniforms.turbulance * (I - 0.5);
+    if (average(color.rgb) < 0.95) {
+        color = color * (1.0 - (1.0 - color) * (d - 1.0));
+    }
+    
+    I = intensity(paperTexture2.read(paperGid2).rgb);
+    d = 1 + uniforms.turbulance * (I - 0.5);
+    if (average(color.rgb) < 0.95) {
+        color = color * (1.0 - (1.0 - color) * (d - 1.0));
+    }
+    
+//    overlay()
+    
+//    Paper Texture
+    float4 paperColor = paperTexture.read(paperGid);
+    if (average(color.rgb) > 0.9) color = darken(  color, paperColor);
+    else                          color = multiply(color, paperColor);
+    
     outTexture.write(color, gid);
 }
 
-float3 WC_RGBToHSL(float3 color) {
-    float3 hsl; // init to 0 to avoid warnings ? (and reverse if + remove first part)
-    
-    float fmin = min(min(color.r, color.g), color.b);    //Min. value of RGB
-    float fmax = max(max(color.r, color.g), color.b);    //Max. value of RGB
-    float delta = fmax - fmin;             //Delta RGB value
-    
-    hsl.z = (fmax + fmin) / 2.0; // Luminance
-    
-    if (delta == 0.0)		//This is a gray, no chroma...
-    {
-        hsl.x = 0.0;	// Hue
-        hsl.y = 0.0;	// Saturation
-    }
-    else                                    //Chromatic data...
-    {
-        if (hsl.z < 0.5)
-            hsl.y = delta / (fmax + fmin); // Saturation
-        else
-            hsl.y = delta / (2.0 - fmax - fmin); // Saturation
-        
-        float deltaR = (((fmax - color.r) / 6.0) + (delta / 2.0)) / delta;
-        float deltaG = (((fmax - color.g) / 6.0) + (delta / 2.0)) / delta;
-        float deltaB = (((fmax - color.b) / 6.0) + (delta / 2.0)) / delta;
-        
-        if (color.r == fmax )
-            hsl.x = deltaB - deltaG; // Hue
-        else if (color.g == fmax)
-            hsl.x = (1.0 / 3.0) + deltaR - deltaB; // Hue
-        else if (color.b == fmax)
-            hsl.x = (2.0 / 3.0) + deltaG - deltaR; // Hue
-        
-        if (hsl.x < 0.0)
-            hsl.x += 1.0; // Hue
-        else if (hsl.x > 1.0)
-            hsl.x -= 1.0; // Hue
-    }
-    
-    return hsl;
+float average(float3 color) {
+    return (color.r + color.g + color.b)/3.0;
 }
 
-float3 WC_HSLToRGB(float3 hsl) {
-    float3 rgb;
-    
-    if (hsl.y == 0.0)
-        rgb = float3(hsl.z); // Luminance
-    else {
-        float f2;
-        
-        if (hsl.z < 0.5) f2 = hsl.z * (1.0 + hsl.y);
-        else             f2 = (hsl.z + hsl.y) - (hsl.y * hsl.z);
-        
-        float f1 = 2.0 * hsl.z - f2;
-        
-        rgb.r = WC_HueToRGB(f1, f2, hsl.x + (1.0/3.0));
-        rgb.g = WC_HueToRGB(f1, f2, hsl.x);
-        rgb.b = WC_HueToRGB(f1, f2, hsl.x - (1.0/3.0));
-    }
-    
-    return rgb;
-}
-
-float WC_HueToRGB(float f1, float f2, float hue) {
-    if (hue < 0.0)
-        hue += 1.0;
-    else if (hue > 1.0)
-        hue -= 1.0;
-    float res;
-    if ((6.0 * hue) < 1.0)
-        res = f1 + (f2 - f1) * 6.0 * hue;
-    else if ((2.0 * hue) < 1.0)
-        res = f2;
-    else if ((3.0 * hue) < 2.0)
-        res = f1 + (f2 - f1) * ((2.0 / 3.0) - hue) * 6.0;
-    else
-        res = f1;
-    return res;
+float intensity(float3 color) {
+    return sqrt( 0.299 * (color.r * color.r) + 0.587 * (color.g * color.g) + 0.114 * (color.b * color.b));
 }

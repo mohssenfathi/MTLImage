@@ -9,7 +9,8 @@
 import UIKit
 import MTLImage
 
-class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SettingsCellDelegate, PickerCellDelegate {
+class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,
+SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyLabel: UILabel!
@@ -50,7 +51,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == filter.properties.count { return 80.0 }
         if cellIdentifier(filter.properties[indexPath.row].propertyType) == "pickerCell" {
-            return 150.0
+            return 200.0
         }
         return 80.0
     }
@@ -76,6 +77,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func cellIdentifier(propertyType: MTLPropertyType) -> String {
         if propertyType == .Selection { return "pickerCell" }
+        else if propertyType == .Image { return "imageCell" }
         return "settingsCell"
     }
     
@@ -88,18 +90,18 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             settingsCell.delegate = self
             settingsCell.titleLabel.text = property.title
             
-            if let _ = property.type as? Float {
+            if property.propertyType == .Value {
                 let value: Float = filter.valueForKey(property.key) as! Float
                 
                 settingsCell.spectrum = false
                 settingsCell.valueLabel.text = String(format: "%.2f", value)
                 settingsCell.slider.value = value
             }
-            else if let _ = property.type as? UIColor {
+            else if property.propertyType == .Color {
                 settingsCell.spectrum = true
                 settingsCell.valueLabel.text = "-"
             }
-            else if let _ = property.type as? CGPoint {
+            else if property.propertyType == .Point {
                 settingsCell.message = "Touch preview image to adjust."
             }
         }
@@ -115,8 +117,17 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        if indexPath.row == filter.properties.count {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        
+        if cell?.reuseIdentifier == "resetCell" {
             filter.reset()
+        }
+        else if cell?.reuseIdentifier == "imageCell" {
+            let navigationController = parentViewController as! UINavigationController
+//            let mainViewController = navigationController?.parentViewController as? MainViewController
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            navigationController.presentViewController(imagePicker, animated: true, completion: nil)
         }
     }
     
@@ -146,6 +157,19 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         filter.setValue(index, forKey: property.key)
     }
     
+    
+//    MARK: ImagePickerController Delegate
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        for property in filter.properties {
+            if property.propertyType == .Image {
+                filter.setValue(image, forKey: property.key)
+                dismissViewControllerAnimated(true, completion: nil)
+                return
+            }
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

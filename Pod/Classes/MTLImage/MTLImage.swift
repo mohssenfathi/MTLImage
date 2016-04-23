@@ -34,31 +34,66 @@ public protocol MTLOutput {
 public
 class MTLImage: NSObject {
     
-    public static var filters: [String: MTLFilter] = [
-        "Brightness"           : MTLBrightnessFilter(),
-        "Contrast"             : MTLContrastFilter(),
-        "Cross Hatch"          : MTLCrossHatchFilter(),
-        "Emboss"               : MTLEmbossFilter(),
-        "Exposure"             : MTLExposureFilter(),
-        "Gaussian Blur"        : MTLGaussianBlurFilter(),
-        "Haze"                 : MTLHazeFilter(),
-        "Invert"               : MTLInvertFilter(),
-        "Kuwahara"             : MTLKuwaharaFilter(),
-        "Levels"               : MTLLevelsFilter(),
-        "Mask"                 : MTLMaskFilter(),
-        "Pixellate"            : MTLPixellateFilter(),
-        "Polka Dot"            : MTLPolkaDotFilter(),
-        "Saturation"           : MTLSaturationFilter(),
-        "Selective HSL"        : MTLSelectiveHSLFilter(),
-        "Sketch"               : MTLSketchFilter(),
-        "Sobel Edge Detection" : MTLSobelEdgeDetectionFilter(),
-        "Sharpen"              : MTLSharpenFilter(),
-        "Toon"                 : MTLToonFilter(),
-        "Vignette"             : MTLVignetteFilter(),
-        "Water"                : MTLWaterFilter(),
-//        "Watercolor"           : MTLWatercolorFilter(),
-        "White Balance"        : MTLWhiteBalanceFilter()
+    public static var filters: [String] = [
+         "Blend",
+         "Brightness",
+         "Contrast",
+         "Cross Hatch",
+         "Distortion",
+         "Emboss",
+         "Exposure",
+         "Gaussian Blur",
+         "Haze",
+         "Invert",
+         "Kuwahara",
+         "Levels",
+         "Mask",
+         "Perlin Noise",
+         "Pixellate",
+         "Polka Dot",
+         "Saturation",
+         "Selective HSL",
+         "Sketch",
+         "Sobel Edge Detection",
+         "Sharpen",
+         "Toon",
+         "Vignette",
+         "Water",
+         "Watercolor",
+         "White Balance"
     ]
+    
+    public class func filter(name: String) throws -> MTLFilter? {
+        switch name.lowercaseString {
+            case "blend"                : return MTLBlendFilter()
+            case "brightness"           : return MTLBrightnessFilter()
+            case "contrast"             : return MTLContrastFilter()
+            case "cross hatch"          : return MTLCrossHatchFilter()
+            case "distortion"           : return MTLDistortionFilter()
+            case "emboss"               : return MTLEmbossFilter()
+            case "exposure"             : return MTLExposureFilter()
+            case "gaussian blur"        : return MTLGaussianBlurFilter()
+            case "haze"                 : return MTLHazeFilter()
+            case "invert"               : return MTLInvertFilter()
+            case "kuwahara"             : return MTLKuwaharaFilter()
+            case "levels"               : return MTLLevelsFilter()
+            case "mask"                 : return MTLMaskFilter()
+            case "perlin noise"         : return MTLPerlinNoiseFilter()
+            case "pixellate"            : return MTLPixellateFilter()
+            case "polka dot"            : return MTLPolkaDotFilter()
+            case "saturation"           : return MTLSaturationFilter()
+            case "selective hsl"        : return MTLSelectiveHSLFilter()
+            case "sketch"               : return MTLSketchFilter()
+            case "sobel edge detection" : return MTLSobelEdgeDetectionFilter()
+            case "sharpen"              : return MTLSharpenFilter()
+            case "toon"                 : return MTLToonFilter()
+            case "vignette"             : return MTLVignetteFilter()
+            case "water"                : return MTLWaterFilter()
+            case "watercolor"           : return MTLWatercolorFilter()
+            case "white balance"        : return MTLWhiteBalanceFilter()
+            default:                      throw  MTLError.InvalidFilterName
+        }
+    }
     
     public class func save(filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
         MTLDataManager.sharedManager.save(filterGroup, completion: completion)
@@ -79,4 +114,8 @@ public func + (left: MTLInput, right: MTLOutput) {
 
 public func > (left: MTLInput, right: MTLOutput) {
     left.addTarget(right)
+}
+
+enum MTLError: ErrorType {
+    case InvalidFilterName
 }

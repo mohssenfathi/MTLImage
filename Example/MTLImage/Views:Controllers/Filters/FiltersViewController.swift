@@ -24,7 +24,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var filterGroupViewController: FilterGroupViewController?
     var selectedFilter: MTLFilter!
     var delegate: FiltersViewControllerDelegate?
-    var filterNames = Array(MTLImage.filters.keys).sort()
+    var filterNames = Array(MTLImage.filters).sort()
     var savedFilterGroups: [MTLFilterGroup]!
     var filterGroup: MTLFilterGroup!
     var newFilterSeleced: Bool!
@@ -125,7 +125,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         else {
             let title = filterNames[indexPath.row]
-            selectedFilter = MTLImage.filters[title]
+            selectedFilter = try! MTLImage.filter(title)
             delegate?.filtersViewControllerDidSelectFilter(self, filter: selectedFilter)
             performSegueWithIdentifier("settings", sender: self)
         }

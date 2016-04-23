@@ -20,13 +20,9 @@
   "source_files": "Pod/Classes/**/*",
   "resources": [
     "Pod/Classes/CoreData/**/*.xcdatamodeld",
-    "Pod/Classes/**/*.metallib"
+    "Pod/Classes/**/*.metallib",
+    "Pod/Assets/**/*.xcassets"
   ],
-  "resource_bundles": {
-    "MTLImage": [
-      "Pod/Assets/**/*"
-    ]
-  },
   "default_subspecs": "Core",
   "subspecs": [
     {
@@ -36,8 +32,7 @@
       "name": "FaceDetection",
       "xcconfig": {
         "OTHER_CFLAGS": "$(inherited) -MTLIMAGE_FACE_DETECTION"
-      },
-      "libraries": "c++"
+      }
     }
   ]
 }

@@ -17,7 +17,7 @@ class AddFilterViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBOutlet weak var tableView: UITableView!
     var delegate: AddFilterViewControllerDelegate?
-    var filterNames = Array(MTLImage.filters.keys).sort()
+    var filterNames = Array(MTLImage.filters).sort()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class AddFilterViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let title = filterNames[indexPath.row]
-        delegate?.addFilterViewControllerDidSelectFilter(self, filter: MTLImage.filters[title]!)
+        delegate?.addFilterViewControllerDidSelectFilter(self, filter: try! MTLImage.filter(title)!)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
