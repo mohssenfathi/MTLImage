@@ -18,7 +18,6 @@ extension UIImage {
         if size == CGSizeZero {
             scaledImage = self
         } else {
-            let aspectRatio = self.size.width / self.size.height
             let scalingFactor = size.width / self.size.width > size.height / self.size.height ? size.width / self.size.width : size.height / self.size.height
             let newSize = CGSize(width: self.size.width * scalingFactor,
                                  height: self.size.height * scalingFactor)

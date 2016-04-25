@@ -7,7 +7,7 @@
 //
 
 import UIKit
-#if !(TARGET_IPHONE_SIMULATOR)
+#if !(TARGET_OS_SIMULATOR)
 import Metal
 #endif
 
@@ -47,6 +47,7 @@ class MTLImage: NSObject {
          "Invert",
          "Kuwahara",
          "Levels",
+         "Luminance Threshold",
          "Mask",
          "Perlin Noise",
          "Pixellate",
@@ -77,6 +78,7 @@ class MTLImage: NSObject {
             case "invert"               : return MTLInvertFilter()
             case "kuwahara"             : return MTLKuwaharaFilter()
             case "levels"               : return MTLLevelsFilter()
+//            case "luminance threshold"  : return MTLLuminanceThresholdFilter()
             case "mask"                 : return MTLMaskFilter()
             case "perlin noise"         : return MTLPerlinNoiseFilter()
             case "pixellate"            : return MTLPixellateFilter()

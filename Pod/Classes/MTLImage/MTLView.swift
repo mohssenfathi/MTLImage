@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Metal
+
 import MetalKit
 
 public

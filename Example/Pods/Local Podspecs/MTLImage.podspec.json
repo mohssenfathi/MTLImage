@@ -13,8 +13,11 @@
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "8.0",
+    "ios": "0.0",
     "tvos": "9.0"
+  },
+  "tvos": {
+    "exclude_files": "Pod/Classes/MTLImage/MTLCamera.swift"
   },
   "requires_arc": true,
   "source_files": "Pod/Classes/**/*",

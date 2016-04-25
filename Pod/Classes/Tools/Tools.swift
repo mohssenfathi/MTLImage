@@ -16,7 +16,6 @@ protocol Numeric {
     func /(left: Self, right: Self) -> Self
     func %(left: Self, right: Self) -> Self
     prefix func -(value: Self) -> Self
-//    func fabs(left: Self, right: Self) -> Self
     init(_ f: Float)
 }
 
@@ -28,11 +27,6 @@ extension Int16  : Numeric {}
 extension Int32  : Numeric {}
 extension Int64  : Numeric {}
 extension CGFloat: Numeric {}
-//extension UInt   : Numeric {}
-//extension UInt8  : Numeric {}
-//extension UInt16 : Numeric {}
-//extension UInt32 : Numeric {}
-//extension UInt64 : Numeric {}
 
 public
 class Tools: NSObject {

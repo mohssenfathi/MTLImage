@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MetalPerformanceShaders
 
 struct GaussianBlurUniforms {
     var blurRadius: Float = 1.0

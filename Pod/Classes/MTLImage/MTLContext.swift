@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Metal
 
 // Set to true to use compiled shaders
 let useMetalib = true
@@ -26,7 +25,20 @@ class MTLContext: NSObject {
         super.init()
         
         device = MTLCreateSystemDefaultDevice()
-        if (device != nil && device.supportsFeatureSet(.iOS_GPUFamily1_v1)) {
+        if (device != nil) {
+            #if os(tvOS)
+                if !device.supportsFeatureSet(.TVOS_GPUFamily1_v1) {
+                    self.library = self.device.newDefaultLibrary()
+                    return
+                }
+            #endif
+            
+            #if os(iOS)
+                if !device.supportsFeatureSet(.iOS_GPUFamily1_v1) {
+                    self.library = self.device.newDefaultLibrary()
+                    return
+                }
+            #endif
 
             if useMetalib {
                 do {

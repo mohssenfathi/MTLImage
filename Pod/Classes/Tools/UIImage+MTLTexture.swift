@@ -6,7 +6,9 @@
 //
 //
 
+#if !(TARGET_OS_SIMULATOR)
 import Metal
+#endif
 
 extension UIImage {
     

@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Metal
-import MetalKit
 
 func ==(left: MTLFilter, right: MTLFilter) -> Bool {
     return left.identifier == right.identifier
@@ -49,23 +47,26 @@ class MTLFilter: NSObject, MTLInput, MTLOutput {
             if dirty == true { setNeedsUpdate() }
         }
     }
+    
     var semaphore = dispatch_semaphore_create(1)
     
     var source: MTLInput? {
         get {
             var inp: MTLInput? = input
             while inp != nil {
+
                 if let sourcePicture = inp as? MTLPicture {
                     return sourcePicture
                 }
-                if let camera = inp as? MTLCamera {
-                    return camera
-                }
-                else if let filter = inp as? MTLFilter {
-                    inp = filter.input
-                }
-                else if let filterGroup = inp as? MTLFilterGroup {
-                    inp = filterGroup.input
+                
+                #if !os(tvOS)
+                    if let camera = inp as? MTLCamera {
+                        return camera
+                    }
+                #endif
+                    
+                if inp is MTLOutput {
+                    inp = (inp as? MTLOutput)?.input
                 }
             }
             return nil
