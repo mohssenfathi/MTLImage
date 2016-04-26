@@ -44,6 +44,7 @@ class MTLImage: NSObject {
          "Exposure",
          "Gaussian Blur",
          "Haze",
+         "Histogram",
          "Invert",
          "Kuwahara",
          "Levels",
@@ -75,6 +76,7 @@ class MTLImage: NSObject {
             case "exposure"             : return MTLExposureFilter()
             case "gaussian blur"        : return MTLGaussianBlurFilter()
             case "haze"                 : return MTLHazeFilter()
+            case "histogram"            : return MTLHistogramFilter()
             case "invert"               : return MTLInvertFilter()
             case "kuwahara"             : return MTLKuwaharaFilter()
             case "levels"               : return MTLLevelsFilter()

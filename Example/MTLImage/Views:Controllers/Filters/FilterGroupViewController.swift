@@ -82,7 +82,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func setupView() {
-        saveButton = UIBarButtonItem(title: "Save", style: .Done, target: self, action: #selector(FilterGroupViewController.saveButtonPressed(_:)))
+        saveButton = UIBarButtonItem(title: "Save", style: .Done, target: self, action: "saveButtonPressed")
         saveButton.enabled = false
         navigationItem.rightBarButtonItem = saveButton
         
@@ -146,7 +146,23 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     
 //    MARK: - AddFilterViewController Delegate
     
+    var histogramView: UIView?
+    
     func addFilterViewControllerDidSelectFilter(sender: AddFilterViewController, filter: MTLFilter) {
+    
+        if histogramView == nil {
+            if filter is MTLHistogramFilter {
+                let histogram = filter as! MTLHistogramFilter
+                if histogram.histogramView != nil {
+                    histogramView = histogram.histogramView
+                    let window = UIApplication.sharedApplication().keyWindow!
+                    histogramView!.center = CGPointMake(view.frame.size.width/2, 200)
+                    window.addSubview(histogramView!)
+                }
+            }
+        }
+        
+        
         filterGroup += filter
     }
     

@@ -58,6 +58,7 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		64CAA0D01F941D036905A2BE /* Pods_MTLImage_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7347B532F3528C2F4FD4AF9A /* Pods_MTLImage_Tests.framework */; };
 		8ECC16F7722472D178FA5A02 /* Pods_MTLImage_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 871EBBAE8164B11EE221ED10 /* Pods_MTLImage_Example.framework */; };
+		B25CD49C1CCEDF2300B1BEAF /* Histogram.metal in Sources */ = {isa = PBXBuildFile; fileRef = B25CD49B1CCEDF2300B1BEAF /* Histogram.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,7 @@
 		871EBBAE8164B11EE221ED10 /* Pods_MTLImage_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTLImage_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C2A6AA4FC9C0883A0B65FE0 /* Pods-MTLImage_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTLImage_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.release.xcconfig"; sourceTree = "<group>"; };
 		AC47396FAE6BD573A0F872C2 /* Pods-PlaygroundExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaygroundExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlaygroundExample/Pods-PlaygroundExample.debug.xcconfig"; sourceTree = "<group>"; };
+		B25CD49B1CCEDF2300B1BEAF /* Histogram.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Histogram.metal; sourceTree = "<group>"; };
 		DAA4A2AD3767161549A131DA /* Pods-MTLImage_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTLImage_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MTLImage_Tests/Pods-MTLImage_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		EAFC10F7D2B0183A3F3DFE1B /* Pods_PlaygroundExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlaygroundExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0919CE9720B8EBFBFBB870A /* Pods-MTLImage_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTLImage_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MTLImage_Tests/Pods-MTLImage_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				453F7F721CCDCE8100AF0BDC /* Watercolor.metal */,
 				453F7F731CCDCE8100AF0BDC /* WhiteBalance.metal */,
 				453F7F921CCDCE9100AF0BDC /* LuminanceThreshold.metal */,
+				B25CD49B1CCEDF2300B1BEAF /* Histogram.metal */,
 			);
 			name = Shaders;
 			path = "Views:Controllers/Shaders";
@@ -420,6 +423,7 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = P83X3BG446;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -591,6 +595,7 @@
 				453F7F7F1CCDCE8100AF0BDC /* Haze.metal in Sources */,
 				453F7F911CCDCE8100AF0BDC /* WhiteBalance.metal in Sources */,
 				453F7F7E1CCDCE8100AF0BDC /* GaussianBlur.metal in Sources */,
+				B25CD49C1CCEDF2300B1BEAF /* Histogram.metal in Sources */,
 				45EB4FD11CADFAAE0018936C /* SettingsCell.swift in Sources */,
 				453F7F901CCDCE8100AF0BDC /* Watercolor.metal in Sources */,
 				4546570D1CB9BE98001E421A /* AddFilterViewController.swift in Sources */,
@@ -748,12 +753,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MTLImage/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -763,12 +770,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MTLImage/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

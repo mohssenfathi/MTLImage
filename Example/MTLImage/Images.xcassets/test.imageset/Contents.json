@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "teapot.png",
+      "filename" : "frog1-1.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "teapot-1.png",
+      "filename" : "frog1.jpg",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "teapot-2.png",
+      "filename" : "frog1-2.jpg",
       "scale" : "3x"
     }
   ],

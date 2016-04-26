@@ -17,10 +17,10 @@ struct LuminanceThresholdUniforms {
     float threshold;
 };
 
-kernel void luminanceThreshold(texture2d<float, access::read>  inTexture  [[texture(0)]],
-                       texture2d<float, access::write> outTexture [[texture(1)]],
-                       constant LuminanceThresholdUniforms &uniforms      [[ buffer(0) ]],
-                       uint2 gid [[thread_position_in_grid]])
+kernel void luminanceThreshold(texture2d<float, access::read>  inTexture     [[texture(0)]],
+                               texture2d<float, access::write> outTexture    [[texture(1)]],
+                               constant LuminanceThresholdUniforms &uniforms [[ buffer(0) ]],
+                               uint2 gid                                     [[thread_position_in_grid]])
 {
     Constants c;
     

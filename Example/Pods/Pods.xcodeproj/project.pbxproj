@@ -54,6 +54,7 @@
 		A129EDBCE367670830AB1DB683BF6D1F /* MTLFilterGroupRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F239B1EF4D4AC0D6EA801D04DC549F /* MTLFilterGroupRecord.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		A8416ECBAC9DF4F2152B6062F99618C9 /* MTLSaturationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6234CE89536C7AA93858CEF27FA2F9 /* MTLSaturationFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		B16274D181A665A26DED9FB44FD83621 /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F0729C39EE74DA216617AA67B36D00 /* MTLFilterGroupRecord+CoreDataProperties.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		B25CD49E1CCEDF7100B1BEAF /* MTLHistogramFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CD49D1CCEDF7100B1BEAF /* MTLHistogramFilter.swift */; };
 		B55182CE7ACD82E4A1E92214CC8B879A /* MTLBlendFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435211658016B79657C47DE60269175C /* MTLBlendFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		C4A68008D311109310F0525272CA074F /* MTLSelectiveHSLFilter1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F5F32267FED15C292417D9C173B1B6 /* MTLSelectiveHSLFilter1.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D4140BE761FC9EC198FEEC17133DEFAF /* MTLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC56B210A22D705EA50E556F0962D24F /* MTLFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -144,6 +145,7 @@
 		A802F22FD0C43AB64A000F101336B1FF /* images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		A8F00A22AD9EAB104F13731323A4BACD /* Pods-MTLImage_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MTLImage_Example.release.xcconfig"; sourceTree = "<group>"; };
 		B0F5F32267FED15C292417D9C173B1B6 /* MTLSelectiveHSLFilter1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSelectiveHSLFilter1.swift; sourceTree = "<group>"; };
+		B25CD49D1CCEDF7100B1BEAF /* MTLHistogramFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLHistogramFilter.swift; sourceTree = "<group>"; };
 		B2DB7AFEBF1D52D88222F0E2F7F1BE01 /* MTLFilterRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilterRecord.swift; sourceTree = "<group>"; };
 		B622F35B2F03C8068791A8434247E43B /* MTLLuminanceThresholdFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLLuminanceThresholdFilter.swift; sourceTree = "<group>"; };
 		B66705766F70A098A2D9A035B1EEB307 /* Pods-MTLImage_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MTLImage_Example-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 				824BC1ADB4475F2A0CB63E22AE85819F /* MTLWatercolorFilter.swift */,
 				21B2C5F32F0C30D004F08AF95D043CD7 /* MTLWaterFilter.swift */,
 				80D9C544E3472188B08327BCFC62668B /* MTLWhiteBalanceFilter.swift */,
+				B25CD49D1CCEDF7100B1BEAF /* MTLHistogramFilter.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				9E2215994B368EE0996421E6879E48F4 /* MTLLuminanceThresholdFilter.swift in Sources */,
 				08B6A93166B1AA4854E7A4C18C01D8EA /* MTLMaskFilter.swift in Sources */,
 				E310B4F8BB9E06AA3B8E1051A8C7509C /* MTLOilPaintFilter.swift in Sources */,
+				B25CD49E1CCEDF7100B1BEAF /* MTLHistogramFilter.swift in Sources */,
 				5C6A9892000B2F2B43AFC43C5F112B23 /* MTLPerlinNoiseFilter.swift in Sources */,
 				5162494C3E8AAE23716635D9F40A1D43 /* MTLPicture.swift in Sources */,
 				76EC1071F30C3656B5C14C7E0BD0E331 /* MTLPixellateFilter.swift in Sources */,

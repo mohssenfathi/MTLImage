@@ -92,7 +92,7 @@ class MTLView: UIView, MTLOutput {
     
     override public func didMoveToSuperview() {
         if superview != nil {
-            displayLink = CADisplayLink(target: self, selector: #selector(MTLView.update(_:)))
+            displayLink = CADisplayLink(target: self, selector: "update:")
             displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
         } else {
             displayLink.invalidate()

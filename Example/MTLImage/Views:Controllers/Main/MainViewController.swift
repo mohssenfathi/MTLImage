@@ -190,7 +190,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     
 //    MARK: - FiltersViewController Delegate
-    
+        
     func filtersViewControllerDidSelectFilter(sender: FiltersViewController, filter: MTLFilter) {
         filterGroup += filter
     }
