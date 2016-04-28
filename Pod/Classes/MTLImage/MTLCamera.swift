@@ -171,11 +171,20 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     
     public func setNeedsUpdate() {
         for target in targets {
-            if let filter = target as? MTLFilter {
-                filter.dirty = true
-            } else if let filterGroup = target as? MTLFilterGroup {
-                filterGroup.setNeedsUpdate()
+            
+        }
+    }
+    
+    public var needsUpdate: Bool {
+        set {
+            for target in targets {
+                if var inp = target as? MTLInput {
+                    inp.needsUpdate = newValue
+                }
             }
+        }
+        get {
+            return dirty
         }
     }
     

@@ -38,7 +38,6 @@ class MTLView: UIView, MTLOutput {
     var texCoordBuffer: MTLBuffer!
     var uniformsBuffer: MTLBuffer!
     var renderPassDescriptor: MTLRenderPassDescriptor!
-    var semaphore = dispatch_semaphore_create(3)
     
     var internalTitle: String!
     public var title: String {
@@ -92,7 +91,7 @@ class MTLView: UIView, MTLOutput {
     
     override public func didMoveToSuperview() {
         if superview != nil {
-            displayLink = CADisplayLink(target: self, selector: "update:")
+            displayLink = CADisplayLink(target: self, selector: #selector(MTLView.update(_:)))
             displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
         } else {
             displayLink.invalidate()
@@ -130,6 +129,7 @@ class MTLView: UIView, MTLOutput {
     
     
     func update(displayLink: CADisplayLink) {
+        
         self.redraw()
     }
     
@@ -234,11 +234,11 @@ class MTLView: UIView, MTLOutput {
     func redraw() {
         if input?.texture == nil { return }
         
-        runSynchronously {
+//        runSynchronously {
+    dispatch_async(context.processingQueue) {
             autoreleasepool {
+//                dispatch_semaphore_wait(self.context.semaphore, DISPATCH_TIME_FOREVER)
                 
-//                dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER)
-
                 let drawable = self.metalLayer.nextDrawable()
                 let texture = drawable?.texture
                 
@@ -262,13 +262,14 @@ class MTLView: UIView, MTLOutput {
                 commandBuffer.presentDrawable(drawable!)
                 
 //                commandBuffer.addCompletedHandler({ (commandBuffer) in
-//                    dispatch_semaphore_signal(self.semaphore)
+//                    dispatch_semaphore_signal(self.context.semaphore)
 //                })
                 
                 commandBuffer.commit()
                 commandBuffer.waitUntilCompleted()
             }
         }
+        
     }
     
     
@@ -281,12 +282,11 @@ class MTLView: UIView, MTLOutput {
     }
     
     func runAsynchronously(block: (()->())) {
-//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
         dispatch_async(context.processingQueue) {
             block()
-//            dispatch_semaphore_signal(self.semaphore)
+            dispatch_semaphore_signal(self.context.semaphore)
         }
-        
+        dispatch_semaphore_wait(self.context.semaphore, DISPATCH_TIME_FOREVER)
     }
     
     

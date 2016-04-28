@@ -154,7 +154,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         currentInput > filterGroup
         filterGroup > mtlView
-        currentInput.setNeedsUpdate()
+        currentInput.needsUpdate = true
     }
     
 //    MARK: - Image Picker Delegate

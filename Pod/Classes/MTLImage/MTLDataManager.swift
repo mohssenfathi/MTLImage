@@ -15,7 +15,7 @@ class MTLDataManager: NSObject {
     
     override init() {
         super.init()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "modelChanged:", name: NSManagedObjectContextObjectsDidChangeNotification, object: managedObjectContext)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MTLDataManager.modelChanged(_:)), name: NSManagedObjectContextObjectsDidChangeNotification, object: managedObjectContext)
         reloadSavedRecords()
     }
     

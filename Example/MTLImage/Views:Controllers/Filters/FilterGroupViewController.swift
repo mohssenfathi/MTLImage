@@ -82,7 +82,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func setupView() {
-        saveButton = UIBarButtonItem(title: "Save", style: .Done, target: self, action: "saveButtonPressed")
+        saveButton = UIBarButtonItem(title: "Save", style: .Done, target: self, action: #selector(FilterGroupViewController.saveButtonPressed(_:)))
         saveButton.enabled = false
         navigationItem.rightBarButtonItem = saveButton
         

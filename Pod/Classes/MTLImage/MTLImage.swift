@@ -18,11 +18,11 @@ public protocol MTLInput {
     var targets: [MTLOutput] { get }
     var title: String { get set }
     var identifier: String! { get set }
+    var needsUpdate: Bool { get set }
     
     func addTarget(target: MTLOutput)
     func removeTarget(target: MTLOutput)
     func removeAllTargets()
-    func setNeedsUpdate()
 }
 
 public protocol MTLOutput {
@@ -80,7 +80,7 @@ class MTLImage: NSObject {
             case "invert"               : return MTLInvertFilter()
             case "kuwahara"             : return MTLKuwaharaFilter()
             case "levels"               : return MTLLevelsFilter()
-//            case "luminance threshold"  : return MTLLuminanceThresholdFilter()
+            case "luminance threshold"  : return MTLLuminanceThresholdFilter()
             case "mask"                 : return MTLMaskFilter()
             case "perlin noise"         : return MTLPerlinNoiseFilter()
             case "pixellate"            : return MTLPixellateFilter()

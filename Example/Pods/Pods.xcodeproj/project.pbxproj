@@ -1,1067 +1,4078 @@
-// !$*UTF8*$!
-{
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
-
-/* Begin PBXBuildFile section */
-		08B6A93166B1AA4854E7A4C18C01D8EA /* MTLMaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF496456F2C155C18400484D547B961D /* MTLMaskFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		0A4952A8A92A02DBDFC0AC26A48AF772 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		0B0D2B663AD82C5BB8CF575FF5B6A282 /* MTLWatercolorFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824BC1ADB4475F2A0CB63E22AE85819F /* MTLWatercolorFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		0F9B7D68DE98F02F70B53E6F15F26786 /* Pods-MTLImage_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1337DAFF61C581D87CBE52D9A9C0CDE6 /* Pods-MTLImage_Tests-dummy.m */; };
-		1965BC0EA2EE3C0C4CC44A6A349EE5E5 /* MTLPolkaDotFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D83C7F54014D4AB2EAB5EA5D254769 /* MTLPolkaDotFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		21C014554A786ABD883B80E6489DC41F /* MTLSobelEdgeDetectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF7FAA7ED9B0F12D343C2621CBDF0D4 /* MTLSobelEdgeDetectionFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		21E7D45FC662A6F2E7EDCDFDC3D9A049 /* MTLFilterRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338968EB07C6FD4A39B79559BFCB4760 /* MTLFilterRecord+CoreDataProperties.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		228483D1F9D545637E31E3FF35F65841 /* MTLPropertyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759638663BC4B4BEB67E0454A0FD400E /* MTLPropertyRecord.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		23334977F46FDB51EA06A32024492043 /* MTLTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF813F68992AE4A53786964C4847711F /* MTLTypes.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		2C0D0E2ADC7A1BB82134DFE55FD2034D /* MTLDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EE4F29F5F555BFE6AE598E7074EE01 /* MTLDataManager.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		2C1302B2743F707E949F08D23D701501 /* MTLLevelsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F914DE4EB54538037098A6CF5D19F2 /* MTLLevelsFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		315BD7C20D9A09E8E60C4BA1644C53F8 /* MTLSharpenFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FE9EF78FF7AC74B653B057A45A95ED /* MTLSharpenFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		3174281D2E629474CC93E4BE00931E33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		3694F3F447F4CB82D81C54E772214BE2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		387A544A3F30233E0E2740D125FB08BF /* MTLInvertFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5DB7DCC74D74F9BBDCE6EFF3D5170C /* MTLInvertFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		38974BC49D6DAC4BB9796A951A571FEA /* UIImage+MTLTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1B1A744BCEC48DBD549FF964A7950 /* UIImage+MTLTexture.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		3A552AF067A7A65D2BC4EC981E2D74D5 /* MTLPropertyRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810D609333C6B2A61DCCBB56997F342 /* MTLPropertyRecord+CoreDataProperties.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		3CA94B277BC7F461400CC0DD78194499 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A802F22FD0C43AB64A000F101336B1FF /* images.xcassets */; };
-		3CE5E43CED8F56EED42B209158E6A85A /* Pods-MTLImage_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BA5C0326BC77C4FAB5058519F153B12D /* Pods-MTLImage_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		47AE3EFDE3B8C83E246F59F983813BB4 /* MTLBrightnessFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BE1EE11025780B456EC4057DA2A188 /* MTLBrightnessFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		4AA1C8C305C6B566F87E1478D706DBC8 /* MTLImage-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DD32901A1A361E5D90A01017DA9833BE /* MTLImage-dummy.m */; };
-		4C04D285C8454EC3C140FA5572A4975B /* MTLSketchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531339332488603A5D0ADDD8E4775369 /* MTLSketchFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		4CE494EC535427FF30B3FFD833D69DEB /* MTLWaterFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B2C5F32F0C30D004F08AF95D043CD7 /* MTLWaterFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		4F4E9635268C4B58356575F0AD354A4B /* MTLCrossHatchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B4B4102232FF8A61658CB9FA65323E /* MTLCrossHatchFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		5162494C3E8AAE23716635D9F40A1D43 /* MTLPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7FAE3376D1B18EFF2448711F0604D1 /* MTLPicture.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		55F0D2E706D62346A12A92E1C3E6EC35 /* MTLDistortionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F106251A1C529F698D845956445CCDAA /* MTLDistortionFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		5C6A9892000B2F2B43AFC43C5F112B23 /* MTLPerlinNoiseFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004ADC77C7E22E031771790E9A1EBC98 /* MTLPerlinNoiseFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		5D2F837340CC32AF2960FE076A6B9A1E /* MTLFilterRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DB7AFEBF1D52D88222F0E2F7F1BE01 /* MTLFilterRecord.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		5DB7A2E3DA04BC0AA563CB5B435FB9A8 /* MTLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9694FC585CCEECBC0571AF39EA0E1F /* MTLImage.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		61271A33160924C379F26374DFDF9864 /* MTLCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDBF8F15CB947C87CB55800484466EB /* MTLCamera.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		62D28A6FC715B83C04AEC4C872936EB2 /* UIImage+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D21EE4B6C988D963BC71A09A274C3D /* UIImage+Scale.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		6408F5368F164B91059929A64FB58259 /* MTLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBA98D2EE382D2A9779D6E9A7DA62E0 /* MTLView.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		6F1AD64D504E963B6E39C1CCAEC50BB4 /* MTLGaussianBlurFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A34FD3007C9428E9F8B1AE899D87606 /* MTLGaussianBlurFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		76669D70A144659F695CF641DC502F2D /* MTLEmbossFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70CE9E4CDE3628552C76515F7418CD1 /* MTLEmbossFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		76EC1071F30C3656B5C14C7E0BD0E331 /* MTLPixellateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1657A5E4FE471214AB112B9AAE559BE /* MTLPixellateFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		7A7B146FF8E06E71DBFD34CB12972DA4 /* MTLSelectiveHSLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775300368EBB74CFB6F045D78CCBAA37 /* MTLSelectiveHSLFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		8BAA8C8928671C6CCA241C93765E0C9C /* MTLProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3754AC59A9D4898E645596F0261D0CE8 /* MTLProperty.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		8BD8B0D36668F34DB439399E7984D1F4 /* MTLKuwaharaFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5600646FB6854452D1569619510086B1 /* MTLKuwaharaFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		8EC113E122273C1B7B51D78046DFA63C /* MTLExposureFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15440598492BB28877D29AB461BBC7 /* MTLExposureFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		9A22D8C147842C8614699EDFF4D94AD1 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678761FB19595CBDB8600F3001F66239 /* Tools.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		9A3A0383326B47B907C6C6B4685535EF /* MTLContrastFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BC39267EC389EF93626CCAEEDD7AE4 /* MTLContrastFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		9C464BD61340E0A7B4A1B99827F391A8 /* MTLFilterGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A888A27A350F953FE6903FD48A6E3 /* MTLFilterGroup.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		9D4839BA543F7AE42E8872EBA046FAE7 /* Pods-MTLImage_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B825C029516AC3A225926C6BFBC3103 /* Pods-MTLImage_Example-dummy.m */; };
-		9E2215994B368EE0996421E6879E48F4 /* MTLLuminanceThresholdFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B622F35B2F03C8068791A8434247E43B /* MTLLuminanceThresholdFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		A129EDBCE367670830AB1DB683BF6D1F /* MTLFilterGroupRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F239B1EF4D4AC0D6EA801D04DC549F /* MTLFilterGroupRecord.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		A8416ECBAC9DF4F2152B6062F99618C9 /* MTLSaturationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6234CE89536C7AA93858CEF27FA2F9 /* MTLSaturationFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		B16274D181A665A26DED9FB44FD83621 /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F0729C39EE74DA216617AA67B36D00 /* MTLFilterGroupRecord+CoreDataProperties.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		B25CD49E1CCEDF7100B1BEAF /* MTLHistogramFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CD49D1CCEDF7100B1BEAF /* MTLHistogramFilter.swift */; };
-		B55182CE7ACD82E4A1E92214CC8B879A /* MTLBlendFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435211658016B79657C47DE60269175C /* MTLBlendFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		C4A68008D311109310F0525272CA074F /* MTLSelectiveHSLFilter1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F5F32267FED15C292417D9C173B1B6 /* MTLSelectiveHSLFilter1.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		D4140BE761FC9EC198FEEC17133DEFAF /* MTLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC56B210A22D705EA50E556F0962D24F /* MTLFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		D9D4EF070A8F8A60562004633FE4C8D4 /* MTLImage-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A7D36269A93C28113935F629F321DE3D /* MTLImage-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E056C99C70D840CB96E607702A6AFEFA /* Pods-MTLImage_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 990567AE9031D7C8ADEEC6E93140DF00 /* Pods-MTLImage_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E0E5F7A588E37F15253A54E9D2796DF7 /* MTLConvolutionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E394716099D9F424FB0A5451AEA15977 /* MTLConvolutionFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		E310B4F8BB9E06AA3B8E1051A8C7509C /* MTLOilPaintFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155CADAF61B7EDD7F55E4F8E0B89B391 /* MTLOilPaintFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		E34E2D83618224222AC4F5878DE32B18 /* MTLContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C58B1E12C34B0CEC56AF5F84E2E972 /* MTLContext.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		E497FA13391DC0C39F76CA1BF7279E4A /* MTLVignetteFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A38BCCE9AD5CA21F8F1F9CB8230B894 /* MTLVignetteFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		E71F290F9170B1D27D291F76C5C6B9DA /* MTLWhiteBalanceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D9C544E3472188B08327BCFC62668B /* MTLWhiteBalanceFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		EDE7FC080C3288CB4D5707DE08EE9575 /* MTLImage.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = F50B806E4D48DC8E3F50D5E788903434 /* MTLImage.xcdatamodeld */; };
-		F35E2398563405DD2970EBB9814098E3 /* MTLHazeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09481AB1CE2786C0DBE2635F5EAFE79D /* MTLHazeFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		FCC03D5FF02F3F43AE52618A1E9BE2F3 /* MTLToonFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BD84DD1C6E1A669349EB828DD293EE /* MTLToonFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		678DEA03E2C9017D09FD5C19C1737A04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 236F6885D7DA46D89F15B759D75DE78D;
-			remoteInfo = MTLImage;
-		};
-		6C39C0FE89A9749BE69952B829DE2494 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 236F6885D7DA46D89F15B759D75DE78D;
-			remoteInfo = MTLImage;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXFileReference section */
-		004ADC77C7E22E031771790E9A1EBC98 /* MTLPerlinNoiseFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPerlinNoiseFilter.swift; sourceTree = "<group>"; };
-		047F9957BA392358BA8DD90550C23CAF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		09481AB1CE2786C0DBE2635F5EAFE79D /* MTLHazeFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHazeFilter.swift; sourceTree = "<group>"; };
-		0C073BB2FC315075B9DE90C24FE2C52B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = iOS/Crashlytics.framework; sourceTree = "<group>"; };
-		1337DAFF61C581D87CBE52D9A9C0CDE6 /* Pods-MTLImage_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MTLImage_Tests-dummy.m"; sourceTree = "<group>"; };
-		13B05026F098DDDD4775C9B8024E1E87 /* MTLImage.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = MTLImage.modulemap; sourceTree = "<group>"; };
-		13EE4F29F5F555BFE6AE598E7074EE01 /* MTLDataManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLDataManager.swift; sourceTree = "<group>"; };
-		155CADAF61B7EDD7F55E4F8E0B89B391 /* MTLOilPaintFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLOilPaintFilter.swift; sourceTree = "<group>"; };
-		17F914DE4EB54538037098A6CF5D19F2 /* MTLLevelsFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLLevelsFilter.swift; sourceTree = "<group>"; };
-		1DF1B1A744BCEC48DBD549FF964A7950 /* UIImage+MTLTexture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+MTLTexture.swift"; sourceTree = "<group>"; };
-		21B2C5F32F0C30D004F08AF95D043CD7 /* MTLWaterFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLWaterFilter.swift; sourceTree = "<group>"; };
-		22D8BAEC594D5A75040BC51C31CE8D65 /* Pods-MTLImage_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MTLImage_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		338968EB07C6FD4A39B79559BFCB4760 /* MTLFilterRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "MTLFilterRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		33D83C7F54014D4AB2EAB5EA5D254769 /* MTLPolkaDotFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPolkaDotFilter.swift; sourceTree = "<group>"; };
-		3754AC59A9D4898E645596F0261D0CE8 /* MTLProperty.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLProperty.swift; sourceTree = "<group>"; };
-		37F1BC789075C8CA5AE76D7FAC515758 /* MTLColorSelectionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLColorSelectionFilter.swift; sourceTree = "<group>"; };
-		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		435211658016B79657C47DE60269175C /* MTLBlendFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLBlendFilter.swift; sourceTree = "<group>"; };
-		4A359BA6959CE02390503D75B4664044 /* MTLImage.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = MTLImage.xcdatamodel; sourceTree = "<group>"; };
-		4A38BCCE9AD5CA21F8F1F9CB8230B894 /* MTLVignetteFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLVignetteFilter.swift; sourceTree = "<group>"; };
-		4F48A5EDD0F214912E9AD6A6E452B83D /* MTLImage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MTLImage.xcconfig; sourceTree = "<group>"; };
-		512BBF0D23718643382CCE4F33594357 /* Pods-MTLImage_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MTLImage_Example-resources.sh"; sourceTree = "<group>"; };
-		513A7C4599BEB890CABCCFEDAA9F6F1A /* Pods-MTLImage_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MTLImage_Tests-resources.sh"; sourceTree = "<group>"; };
-		531339332488603A5D0ADDD8E4775369 /* MTLSketchFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSketchFilter.swift; sourceTree = "<group>"; };
-		5600646FB6854452D1569619510086B1 /* MTLKuwaharaFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLKuwaharaFilter.swift; sourceTree = "<group>"; };
-		5A34FD3007C9428E9F8B1AE899D87606 /* MTLGaussianBlurFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLGaussianBlurFilter.swift; sourceTree = "<group>"; };
-		63F63CEAEDBE19A6C275EA08CF59C0F3 /* Pods-MTLImage_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MTLImage_Tests.modulemap"; sourceTree = "<group>"; };
-		678761FB19595CBDB8600F3001F66239 /* Tools.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
-		67FE9EF78FF7AC74B653B057A45A95ED /* MTLSharpenFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSharpenFilter.swift; sourceTree = "<group>"; };
-		69D21EE4B6C988D963BC71A09A274C3D /* UIImage+Scale.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+Scale.swift"; sourceTree = "<group>"; };
-		6EE0F01CBFACD1410D54CFE1787E2462 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6F5DB7DCC74D74F9BBDCE6EFF3D5170C /* MTLInvertFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLInvertFilter.swift; sourceTree = "<group>"; };
-		759638663BC4B4BEB67E0454A0FD400E /* MTLPropertyRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPropertyRecord.swift; sourceTree = "<group>"; };
-		775300368EBB74CFB6F045D78CCBAA37 /* MTLSelectiveHSLFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSelectiveHSLFilter.swift; sourceTree = "<group>"; };
-		7C6234CE89536C7AA93858CEF27FA2F9 /* MTLSaturationFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSaturationFilter.swift; sourceTree = "<group>"; };
-		7CDBF8F15CB947C87CB55800484466EB /* MTLCamera.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCamera.swift; sourceTree = "<group>"; };
-		7F436608614BB0CD48E472A46B5954A4 /* Pods-MTLImage_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MTLImage_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		80D9C544E3472188B08327BCFC62668B /* MTLWhiteBalanceFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLWhiteBalanceFilter.swift; sourceTree = "<group>"; };
-		81FFD9B1B4F4729BBA51C6486956A117 /* MTLImage-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MTLImage-prefix.pch"; sourceTree = "<group>"; };
-		824BC1ADB4475F2A0CB63E22AE85819F /* MTLWatercolorFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLWatercolorFilter.swift; sourceTree = "<group>"; };
-		8981A29B7546A8424543D0257DFC84C6 /* MTLImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MTLImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B825C029516AC3A225926C6BFBC3103 /* Pods-MTLImage_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MTLImage_Example-dummy.m"; sourceTree = "<group>"; };
-		8E7FAE3376D1B18EFF2448711F0604D1 /* MTLPicture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPicture.swift; sourceTree = "<group>"; };
-		96D2E03E55CE847077265B9B2888354F /* Pods_MTLImage_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTLImage_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		97DD4849DC630E390D73CAEC8AA8934B /* contents */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = contents; sourceTree = "<group>"; };
-		98BD84DD1C6E1A669349EB828DD293EE /* MTLToonFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLToonFilter.swift; sourceTree = "<group>"; };
-		990567AE9031D7C8ADEEC6E93140DF00 /* Pods-MTLImage_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MTLImage_Example-umbrella.h"; sourceTree = "<group>"; };
-		9AF7FAA7ED9B0F12D343C2621CBDF0D4 /* MTLSobelEdgeDetectionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSobelEdgeDetectionFilter.swift; sourceTree = "<group>"; };
-		A03E1F85E9DE25C5195F856D96C01188 /* Pods_MTLImage_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTLImage_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1B4B4102232FF8A61658CB9FA65323E /* MTLCrossHatchFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCrossHatchFilter.swift; sourceTree = "<group>"; };
-		A2BC39267EC389EF93626CCAEEDD7AE4 /* MTLContrastFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLContrastFilter.swift; sourceTree = "<group>"; };
-		A4F239B1EF4D4AC0D6EA801D04DC549F /* MTLFilterGroupRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilterGroupRecord.swift; sourceTree = "<group>"; };
-		A5BE1EE11025780B456EC4057DA2A188 /* MTLBrightnessFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLBrightnessFilter.swift; sourceTree = "<group>"; };
-		A7D36269A93C28113935F629F321DE3D /* MTLImage-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MTLImage-umbrella.h"; sourceTree = "<group>"; };
-		A802F22FD0C43AB64A000F101336B1FF /* images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
-		A8F00A22AD9EAB104F13731323A4BACD /* Pods-MTLImage_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MTLImage_Example.release.xcconfig"; sourceTree = "<group>"; };
-		B0F5F32267FED15C292417D9C173B1B6 /* MTLSelectiveHSLFilter1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSelectiveHSLFilter1.swift; sourceTree = "<group>"; };
-		B25CD49D1CCEDF7100B1BEAF /* MTLHistogramFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLHistogramFilter.swift; sourceTree = "<group>"; };
-		B2DB7AFEBF1D52D88222F0E2F7F1BE01 /* MTLFilterRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilterRecord.swift; sourceTree = "<group>"; };
-		B622F35B2F03C8068791A8434247E43B /* MTLLuminanceThresholdFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLLuminanceThresholdFilter.swift; sourceTree = "<group>"; };
-		B66705766F70A098A2D9A035B1EEB307 /* Pods-MTLImage_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MTLImage_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		B70CE9E4CDE3628552C76515F7418CD1 /* MTLEmbossFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLEmbossFilter.swift; sourceTree = "<group>"; };
-		BA5C0326BC77C4FAB5058519F153B12D /* Pods-MTLImage_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MTLImage_Tests-umbrella.h"; sourceTree = "<group>"; };
-		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		BCBA98D2EE382D2A9779D6E9A7DA62E0 /* MTLView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLView.swift; sourceTree = "<group>"; };
-		BF496456F2C155C18400484D547B961D /* MTLMaskFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLMaskFilter.swift; sourceTree = "<group>"; };
-		BF813F68992AE4A53786964C4847711F /* MTLTypes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLTypes.swift; sourceTree = "<group>"; };
-		C6C58B1E12C34B0CEC56AF5F84E2E972 /* MTLContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLContext.swift; sourceTree = "<group>"; };
-		C810D609333C6B2A61DCCBB56997F342 /* MTLPropertyRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "MTLPropertyRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		CC56B210A22D705EA50E556F0962D24F /* MTLFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilter.swift; sourceTree = "<group>"; };
-		CF9694FC585CCEECBC0571AF39EA0E1F /* MTLImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLImage.swift; sourceTree = "<group>"; };
-		D0F0729C39EE74DA216617AA67B36D00 /* MTLFilterGroupRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "MTLFilterGroupRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		D421F630D61FC84ED86D4D297494B18B /* Pods-MTLImage_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MTLImage_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		D42C03076B250D79E6163C87E49C945B /* Pods-MTLImage_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MTLImage_Example-frameworks.sh"; sourceTree = "<group>"; };
-		D535DE3FC1EE294E4A9E0A729FB78099 /* Pods-MTLImage_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MTLImage_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		DBF0C469D368387D4305D6FBC0D45DBE /* Pods-MTLImage_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MTLImage_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		DD32901A1A361E5D90A01017DA9833BE /* MTLImage-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MTLImage-dummy.m"; sourceTree = "<group>"; };
-		DF56A257BB834FA685F096CB9FD477F2 /* Pods-MTLImage_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MTLImage_Example.modulemap"; sourceTree = "<group>"; };
-		E10E9297698842E3A3F6229C42E37F93 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E1B6F2CE97837747A137B7F9EC710EF8 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = iOS/Fabric.framework; sourceTree = "<group>"; };
-		E394716099D9F424FB0A5451AEA15977 /* MTLConvolutionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLConvolutionFilter.swift; sourceTree = "<group>"; };
-		EE1A888A27A350F953FE6903FD48A6E3 /* MTLFilterGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilterGroup.swift; sourceTree = "<group>"; };
-		F106251A1C529F698D845956445CCDAA /* MTLDistortionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLDistortionFilter.swift; sourceTree = "<group>"; };
-		F1657A5E4FE471214AB112B9AAE559BE /* MTLPixellateFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPixellateFilter.swift; sourceTree = "<group>"; };
-		F33056EE9C473BE561F43602A2603A77 /* Pods-MTLImage_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MTLImage_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		F88670808863AF79C7367E682F0F377A /* Pods-MTLImage_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MTLImage_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		FE15440598492BB28877D29AB461BBC7 /* MTLExposureFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLExposureFilter.swift; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		415AD551CD0EF3AE8EE6C7D9AF199DE5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3694F3F447F4CB82D81C54E772214BE2 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B47244BAB510491A0B5BA1C1F9FFCE0D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3174281D2E629474CC93E4BE00931E33 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B71FC316E255EC3A7A607DF6A4651AAB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0A4952A8A92A02DBDFC0AC26A48AF772 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		0FBADD4C4C312933525779355B4A728B /* Crashlytics */ = {
-			isa = PBXGroup;
-			children = (
-				5AF2ED3E1B1DF375ACFB148B356F91A5 /* Frameworks */,
-			);
-			path = Crashlytics;
-			sourceTree = "<group>";
-		};
-		1E2EDF11EC9B071E070E97630C1ABAA3 /* MTLImage.xcdatamodeld */ = {
-			isa = PBXGroup;
-			children = (
-				BD41A04C96D758526B1CA11D609621E7 /* MTLImage.xcdatamodel */,
-			);
-			path = MTLImage.xcdatamodeld;
-			sourceTree = "<group>";
-		};
-		23F124B36981587A4F2E341B8AEC8517 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E1B6F2CE97837747A137B7F9EC710EF8 /* Fabric.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		37C4B8B773C36E500DB2C5260D19AF5C /* MTLImage */ = {
-			isa = PBXGroup;
-			children = (
-				6D722B910E61047D065EBD92F92539F4 /* Pod */,
-				A961BE57C6639F2E090E9B50C276831C /* Resources */,
-				E2A885D9FDFF57240B101DFE7E3306C1 /* Support Files */,
-			);
-			name = MTLImage;
-			path = ../..;
-			sourceTree = "<group>";
-		};
-		4C01CE7C97A1F4AA2AA6283DCBF4679A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0FBADD4C4C312933525779355B4A728B /* Crashlytics */,
-				BD8B321ABCC17A2AA08C4077E26ECA81 /* Fabric */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		51A0C5F3A3BB98B76D333341C08ECD42 /* Pods-MTLImage_Example */ = {
-			isa = PBXGroup;
-			children = (
-				E10E9297698842E3A3F6229C42E37F93 /* Info.plist */,
-				DF56A257BB834FA685F096CB9FD477F2 /* Pods-MTLImage_Example.modulemap */,
-				F33056EE9C473BE561F43602A2603A77 /* Pods-MTLImage_Example-acknowledgements.markdown */,
-				B66705766F70A098A2D9A035B1EEB307 /* Pods-MTLImage_Example-acknowledgements.plist */,
-				8B825C029516AC3A225926C6BFBC3103 /* Pods-MTLImage_Example-dummy.m */,
-				D42C03076B250D79E6163C87E49C945B /* Pods-MTLImage_Example-frameworks.sh */,
-				512BBF0D23718643382CCE4F33594357 /* Pods-MTLImage_Example-resources.sh */,
-				990567AE9031D7C8ADEEC6E93140DF00 /* Pods-MTLImage_Example-umbrella.h */,
-				22D8BAEC594D5A75040BC51C31CE8D65 /* Pods-MTLImage_Example.debug.xcconfig */,
-				A8F00A22AD9EAB104F13731323A4BACD /* Pods-MTLImage_Example.release.xcconfig */,
-			);
-			name = "Pods-MTLImage_Example";
-			path = "Target Support Files/Pods-MTLImage_Example";
-			sourceTree = "<group>";
-		};
-		5AF2ED3E1B1DF375ACFB148B356F91A5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0C073BB2FC315075B9DE90C24FE2C52B /* Crashlytics.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		623305E7A4EFA3A80A023D159115F37B /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				DB9212B338033CAB78958A29E2F3DC03 /* CoreData */,
-				E9DA1FC7E8456CD10A319D2229B561D4 /* Filters */,
-				97887D73D67E4C77C0B9C5FC1BB9A2F0 /* MTLImage */,
-				E50AB02A8FBA954D5672BE11255A79B8 /* Tools */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		6D722B910E61047D065EBD92F92539F4 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				623305E7A4EFA3A80A023D159115F37B /* Classes */,
-			);
-			path = Pod;
-			sourceTree = "<group>";
-		};
-		78D47DD14AE93AF4B725A5477679A38D /* FilterGroupRecord */ = {
-			isa = PBXGroup;
-			children = (
-				A4F239B1EF4D4AC0D6EA801D04DC549F /* MTLFilterGroupRecord.swift */,
-				D0F0729C39EE74DA216617AA67B36D00 /* MTLFilterGroupRecord+CoreDataProperties.swift */,
-			);
-			path = FilterGroupRecord;
-			sourceTree = "<group>";
-		};
-		7DB346D0F39D3F0E887471402A8071AB = {
-			isa = PBXGroup;
-			children = (
-				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
-				A7FE421865775FA663AE33FB109AA882 /* Development Pods */,
-				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				4C01CE7C97A1F4AA2AA6283DCBF4679A /* Pods */,
-				DA0A0C2CDCD0A31AA3F37B444C718F0E /* Products */,
-				A027D9F65891A07607F70F8A22B0B3BA /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		97887D73D67E4C77C0B9C5FC1BB9A2F0 /* MTLImage */ = {
-			isa = PBXGroup;
-			children = (
-				7CDBF8F15CB947C87CB55800484466EB /* MTLCamera.swift */,
-				C6C58B1E12C34B0CEC56AF5F84E2E972 /* MTLContext.swift */,
-				13EE4F29F5F555BFE6AE598E7074EE01 /* MTLDataManager.swift */,
-				CC56B210A22D705EA50E556F0962D24F /* MTLFilter.swift */,
-				EE1A888A27A350F953FE6903FD48A6E3 /* MTLFilterGroup.swift */,
-				CF9694FC585CCEECBC0571AF39EA0E1F /* MTLImage.swift */,
-				8E7FAE3376D1B18EFF2448711F0604D1 /* MTLPicture.swift */,
-				3754AC59A9D4898E645596F0261D0CE8 /* MTLProperty.swift */,
-				BF813F68992AE4A53786964C4847711F /* MTLTypes.swift */,
-				BCBA98D2EE382D2A9779D6E9A7DA62E0 /* MTLView.swift */,
-			);
-			path = MTLImage;
-			sourceTree = "<group>";
-		};
-		A027D9F65891A07607F70F8A22B0B3BA /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				51A0C5F3A3BB98B76D333341C08ECD42 /* Pods-MTLImage_Example */,
-				B4BB48D33630B002A5C0BBE6BC94339D /* Pods-MTLImage_Tests */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		A7FE421865775FA663AE33FB109AA882 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				37C4B8B773C36E500DB2C5260D19AF5C /* MTLImage */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
-		A961BE57C6639F2E090E9B50C276831C /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				D62C320B67E50ED6037EBF9415C657CF /* Pod */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		B4BB48D33630B002A5C0BBE6BC94339D /* Pods-MTLImage_Tests */ = {
-			isa = PBXGroup;
-			children = (
-				6EE0F01CBFACD1410D54CFE1787E2462 /* Info.plist */,
-				63F63CEAEDBE19A6C275EA08CF59C0F3 /* Pods-MTLImage_Tests.modulemap */,
-				D421F630D61FC84ED86D4D297494B18B /* Pods-MTLImage_Tests-acknowledgements.markdown */,
-				D535DE3FC1EE294E4A9E0A729FB78099 /* Pods-MTLImage_Tests-acknowledgements.plist */,
-				1337DAFF61C581D87CBE52D9A9C0CDE6 /* Pods-MTLImage_Tests-dummy.m */,
-				DBF0C469D368387D4305D6FBC0D45DBE /* Pods-MTLImage_Tests-frameworks.sh */,
-				513A7C4599BEB890CABCCFEDAA9F6F1A /* Pods-MTLImage_Tests-resources.sh */,
-				BA5C0326BC77C4FAB5058519F153B12D /* Pods-MTLImage_Tests-umbrella.h */,
-				F88670808863AF79C7367E682F0F377A /* Pods-MTLImage_Tests.debug.xcconfig */,
-				7F436608614BB0CD48E472A46B5954A4 /* Pods-MTLImage_Tests.release.xcconfig */,
-			);
-			name = "Pods-MTLImage_Tests";
-			path = "Target Support Files/Pods-MTLImage_Tests";
-			sourceTree = "<group>";
-		};
-		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BD41A04C96D758526B1CA11D609621E7 /* MTLImage.xcdatamodel */ = {
-			isa = PBXGroup;
-			children = (
-				97DD4849DC630E390D73CAEC8AA8934B /* contents */,
-			);
-			path = MTLImage.xcdatamodel;
-			sourceTree = "<group>";
-		};
-		BD8B321ABCC17A2AA08C4077E26ECA81 /* Fabric */ = {
-			isa = PBXGroup;
-			children = (
-				23F124B36981587A4F2E341B8AEC8517 /* Frameworks */,
-			);
-			path = Fabric;
-			sourceTree = "<group>";
-		};
-		BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		C2C16B2AE64E83C996D5EA9DB0F69898 /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				F50B806E4D48DC8E3F50D5E788903434 /* MTLImage.xcdatamodeld */,
-			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
-		D62C320B67E50ED6037EBF9415C657CF /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				E0EC624B079EF0998AD24A3F4DD42084 /* Assets */,
-				EE9A533E5FA7DC38CAE0D3B2CF29E0B1 /* Classes */,
-			);
-			path = Pod;
-			sourceTree = "<group>";
-		};
-		DA0A0C2CDCD0A31AA3F37B444C718F0E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8981A29B7546A8424543D0257DFC84C6 /* MTLImage.framework */,
-				96D2E03E55CE847077265B9B2888354F /* Pods_MTLImage_Example.framework */,
-				A03E1F85E9DE25C5195F856D96C01188 /* Pods_MTLImage_Tests.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		DB9212B338033CAB78958A29E2F3DC03 /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				78D47DD14AE93AF4B725A5477679A38D /* FilterGroupRecord */,
-				F044F9068486B3B9841D77BE24BF1E1E /* FilterRecord */,
-				1E2EDF11EC9B071E070E97630C1ABAA3 /* MTLImage.xcdatamodeld */,
-				DD1902A8240F6C77E56AF72AC7B070C2 /* PropertyRecord */,
-			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
-		DD1902A8240F6C77E56AF72AC7B070C2 /* PropertyRecord */ = {
-			isa = PBXGroup;
-			children = (
-				759638663BC4B4BEB67E0454A0FD400E /* MTLPropertyRecord.swift */,
-				C810D609333C6B2A61DCCBB56997F342 /* MTLPropertyRecord+CoreDataProperties.swift */,
-			);
-			path = PropertyRecord;
-			sourceTree = "<group>";
-		};
-		E0EC624B079EF0998AD24A3F4DD42084 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				A802F22FD0C43AB64A000F101336B1FF /* images.xcassets */,
-			);
-			path = Assets;
-			sourceTree = "<group>";
-		};
-		E2A885D9FDFF57240B101DFE7E3306C1 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				047F9957BA392358BA8DD90550C23CAF /* Info.plist */,
-				13B05026F098DDDD4775C9B8024E1E87 /* MTLImage.modulemap */,
-				4F48A5EDD0F214912E9AD6A6E452B83D /* MTLImage.xcconfig */,
-				DD32901A1A361E5D90A01017DA9833BE /* MTLImage-dummy.m */,
-				81FFD9B1B4F4729BBA51C6486956A117 /* MTLImage-prefix.pch */,
-				A7D36269A93C28113935F629F321DE3D /* MTLImage-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/MTLImage";
-			sourceTree = "<group>";
-		};
-		E50AB02A8FBA954D5672BE11255A79B8 /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				678761FB19595CBDB8600F3001F66239 /* Tools.swift */,
-				1DF1B1A744BCEC48DBD549FF964A7950 /* UIImage+MTLTexture.swift */,
-				69D21EE4B6C988D963BC71A09A274C3D /* UIImage+Scale.swift */,
-			);
-			path = Tools;
-			sourceTree = "<group>";
-		};
-		E9DA1FC7E8456CD10A319D2229B561D4 /* Filters */ = {
-			isa = PBXGroup;
-			children = (
-				435211658016B79657C47DE60269175C /* MTLBlendFilter.swift */,
-				A5BE1EE11025780B456EC4057DA2A188 /* MTLBrightnessFilter.swift */,
-				37F1BC789075C8CA5AE76D7FAC515758 /* MTLColorSelectionFilter.swift */,
-				A2BC39267EC389EF93626CCAEEDD7AE4 /* MTLContrastFilter.swift */,
-				E394716099D9F424FB0A5451AEA15977 /* MTLConvolutionFilter.swift */,
-				A1B4B4102232FF8A61658CB9FA65323E /* MTLCrossHatchFilter.swift */,
-				F106251A1C529F698D845956445CCDAA /* MTLDistortionFilter.swift */,
-				B70CE9E4CDE3628552C76515F7418CD1 /* MTLEmbossFilter.swift */,
-				FE15440598492BB28877D29AB461BBC7 /* MTLExposureFilter.swift */,
-				5A34FD3007C9428E9F8B1AE899D87606 /* MTLGaussianBlurFilter.swift */,
-				09481AB1CE2786C0DBE2635F5EAFE79D /* MTLHazeFilter.swift */,
-				6F5DB7DCC74D74F9BBDCE6EFF3D5170C /* MTLInvertFilter.swift */,
-				5600646FB6854452D1569619510086B1 /* MTLKuwaharaFilter.swift */,
-				17F914DE4EB54538037098A6CF5D19F2 /* MTLLevelsFilter.swift */,
-				B622F35B2F03C8068791A8434247E43B /* MTLLuminanceThresholdFilter.swift */,
-				BF496456F2C155C18400484D547B961D /* MTLMaskFilter.swift */,
-				155CADAF61B7EDD7F55E4F8E0B89B391 /* MTLOilPaintFilter.swift */,
-				004ADC77C7E22E031771790E9A1EBC98 /* MTLPerlinNoiseFilter.swift */,
-				F1657A5E4FE471214AB112B9AAE559BE /* MTLPixellateFilter.swift */,
-				33D83C7F54014D4AB2EAB5EA5D254769 /* MTLPolkaDotFilter.swift */,
-				7C6234CE89536C7AA93858CEF27FA2F9 /* MTLSaturationFilter.swift */,
-				775300368EBB74CFB6F045D78CCBAA37 /* MTLSelectiveHSLFilter.swift */,
-				B0F5F32267FED15C292417D9C173B1B6 /* MTLSelectiveHSLFilter1.swift */,
-				67FE9EF78FF7AC74B653B057A45A95ED /* MTLSharpenFilter.swift */,
-				531339332488603A5D0ADDD8E4775369 /* MTLSketchFilter.swift */,
-				9AF7FAA7ED9B0F12D343C2621CBDF0D4 /* MTLSobelEdgeDetectionFilter.swift */,
-				98BD84DD1C6E1A669349EB828DD293EE /* MTLToonFilter.swift */,
-				4A38BCCE9AD5CA21F8F1F9CB8230B894 /* MTLVignetteFilter.swift */,
-				824BC1ADB4475F2A0CB63E22AE85819F /* MTLWatercolorFilter.swift */,
-				21B2C5F32F0C30D004F08AF95D043CD7 /* MTLWaterFilter.swift */,
-				80D9C544E3472188B08327BCFC62668B /* MTLWhiteBalanceFilter.swift */,
-				B25CD49D1CCEDF7100B1BEAF /* MTLHistogramFilter.swift */,
-			);
-			path = Filters;
-			sourceTree = "<group>";
-		};
-		EE9A533E5FA7DC38CAE0D3B2CF29E0B1 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				C2C16B2AE64E83C996D5EA9DB0F69898 /* CoreData */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		F044F9068486B3B9841D77BE24BF1E1E /* FilterRecord */ = {
-			isa = PBXGroup;
-			children = (
-				B2DB7AFEBF1D52D88222F0E2F7F1BE01 /* MTLFilterRecord.swift */,
-				338968EB07C6FD4A39B79559BFCB4760 /* MTLFilterRecord+CoreDataProperties.swift */,
-			);
-			path = FilterRecord;
-			sourceTree = "<group>";
-		};
-/* End PBXGroup section */
-
-/* Begin PBXHeadersBuildPhase section */
-		28E4B7D6FFE33EA82E39125C6241861C /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D9D4EF070A8F8A60562004633FE4C8D4 /* MTLImage-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7B3B900697AA286A6EEF8AF89743E554 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E056C99C70D840CB96E607702A6AFEFA /* Pods-MTLImage_Example-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E518FFC6628186EFBBFDF39F55A94F96 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3CE5E43CED8F56EED42B209158E6A85A /* Pods-MTLImage_Tests-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
-/* Begin PBXNativeTarget section */
-		236F6885D7DA46D89F15B759D75DE78D /* MTLImage */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AF27202C54D956047305CB92964656AB /* Build configuration list for PBXNativeTarget "MTLImage" */;
-			buildPhases = (
-				F4606F0E7DCA0638746A6C0233137339 /* Sources */,
-				B71FC316E255EC3A7A607DF6A4651AAB /* Frameworks */,
-				BD67642C0F5AB427DA4BCEC014400940 /* Resources */,
-				28E4B7D6FFE33EA82E39125C6241861C /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = MTLImage;
-			productName = MTLImage;
-			productReference = 8981A29B7546A8424543D0257DFC84C6 /* MTLImage.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		42A29EC7FBE2DD72BE14842D6D1A7C17 /* Pods-MTLImage_Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F49A5D92D8768E2B8ACE6B9F2B033D8E /* Build configuration list for PBXNativeTarget "Pods-MTLImage_Tests" */;
-			buildPhases = (
-				0A6CD68AAB7D805F37B526945930D8A7 /* Sources */,
-				B47244BAB510491A0B5BA1C1F9FFCE0D /* Frameworks */,
-				E518FFC6628186EFBBFDF39F55A94F96 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				28ED49397A64B0057F19A3EDB50F9982 /* PBXTargetDependency */,
-			);
-			name = "Pods-MTLImage_Tests";
-			productName = "Pods-MTLImage_Tests";
-			productReference = A03E1F85E9DE25C5195F856D96C01188 /* Pods_MTLImage_Tests.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		6C18550FA86F4274240112F060D3C87E /* Pods-MTLImage_Example */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2D401C154C91A71A0DD3F70728177909 /* Build configuration list for PBXNativeTarget "Pods-MTLImage_Example" */;
-			buildPhases = (
-				63FD0771AD886CA4667D2C4A89588FF7 /* Sources */,
-				415AD551CD0EF3AE8EE6C7D9AF199DE5 /* Frameworks */,
-				7B3B900697AA286A6EEF8AF89743E554 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1235DEB9D63CB0D2B372C959C66E1F4A /* PBXTargetDependency */,
-			);
-			name = "Pods-MTLImage_Example";
-			productName = "Pods-MTLImage_Example";
-			productReference = 96D2E03E55CE847077265B9B2888354F /* Pods_MTLImage_Example.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
-			};
-			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-			);
-			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = DA0A0C2CDCD0A31AA3F37B444C718F0E /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				236F6885D7DA46D89F15B759D75DE78D /* MTLImage */,
-				6C18550FA86F4274240112F060D3C87E /* Pods-MTLImage_Example */,
-				42A29EC7FBE2DD72BE14842D6D1A7C17 /* Pods-MTLImage_Tests */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		BD67642C0F5AB427DA4BCEC014400940 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3CA94B277BC7F461400CC0DD78194499 /* images.xcassets in Resources */,
-				EDE7FC080C3288CB4D5707DE08EE9575 /* MTLImage.xcdatamodeld in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		0A6CD68AAB7D805F37B526945930D8A7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0F9B7D68DE98F02F70B53E6F15F26786 /* Pods-MTLImage_Tests-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		63FD0771AD886CA4667D2C4A89588FF7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9D4839BA543F7AE42E8872EBA046FAE7 /* Pods-MTLImage_Example-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F4606F0E7DCA0638746A6C0233137339 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B55182CE7ACD82E4A1E92214CC8B879A /* MTLBlendFilter.swift in Sources */,
-				47AE3EFDE3B8C83E246F59F983813BB4 /* MTLBrightnessFilter.swift in Sources */,
-				61271A33160924C379F26374DFDF9864 /* MTLCamera.swift in Sources */,
-				E34E2D83618224222AC4F5878DE32B18 /* MTLContext.swift in Sources */,
-				9A3A0383326B47B907C6C6B4685535EF /* MTLContrastFilter.swift in Sources */,
-				E0E5F7A588E37F15253A54E9D2796DF7 /* MTLConvolutionFilter.swift in Sources */,
-				4F4E9635268C4B58356575F0AD354A4B /* MTLCrossHatchFilter.swift in Sources */,
-				2C0D0E2ADC7A1BB82134DFE55FD2034D /* MTLDataManager.swift in Sources */,
-				55F0D2E706D62346A12A92E1C3E6EC35 /* MTLDistortionFilter.swift in Sources */,
-				76669D70A144659F695CF641DC502F2D /* MTLEmbossFilter.swift in Sources */,
-				8EC113E122273C1B7B51D78046DFA63C /* MTLExposureFilter.swift in Sources */,
-				D4140BE761FC9EC198FEEC17133DEFAF /* MTLFilter.swift in Sources */,
-				9C464BD61340E0A7B4A1B99827F391A8 /* MTLFilterGroup.swift in Sources */,
-				B16274D181A665A26DED9FB44FD83621 /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */,
-				A129EDBCE367670830AB1DB683BF6D1F /* MTLFilterGroupRecord.swift in Sources */,
-				21E7D45FC662A6F2E7EDCDFDC3D9A049 /* MTLFilterRecord+CoreDataProperties.swift in Sources */,
-				5D2F837340CC32AF2960FE076A6B9A1E /* MTLFilterRecord.swift in Sources */,
-				6F1AD64D504E963B6E39C1CCAEC50BB4 /* MTLGaussianBlurFilter.swift in Sources */,
-				F35E2398563405DD2970EBB9814098E3 /* MTLHazeFilter.swift in Sources */,
-				4AA1C8C305C6B566F87E1478D706DBC8 /* MTLImage-dummy.m in Sources */,
-				5DB7A2E3DA04BC0AA563CB5B435FB9A8 /* MTLImage.swift in Sources */,
-				387A544A3F30233E0E2740D125FB08BF /* MTLInvertFilter.swift in Sources */,
-				8BD8B0D36668F34DB439399E7984D1F4 /* MTLKuwaharaFilter.swift in Sources */,
-				2C1302B2743F707E949F08D23D701501 /* MTLLevelsFilter.swift in Sources */,
-				9E2215994B368EE0996421E6879E48F4 /* MTLLuminanceThresholdFilter.swift in Sources */,
-				08B6A93166B1AA4854E7A4C18C01D8EA /* MTLMaskFilter.swift in Sources */,
-				E310B4F8BB9E06AA3B8E1051A8C7509C /* MTLOilPaintFilter.swift in Sources */,
-				B25CD49E1CCEDF7100B1BEAF /* MTLHistogramFilter.swift in Sources */,
-				5C6A9892000B2F2B43AFC43C5F112B23 /* MTLPerlinNoiseFilter.swift in Sources */,
-				5162494C3E8AAE23716635D9F40A1D43 /* MTLPicture.swift in Sources */,
-				76EC1071F30C3656B5C14C7E0BD0E331 /* MTLPixellateFilter.swift in Sources */,
-				1965BC0EA2EE3C0C4CC44A6A349EE5E5 /* MTLPolkaDotFilter.swift in Sources */,
-				8BAA8C8928671C6CCA241C93765E0C9C /* MTLProperty.swift in Sources */,
-				3A552AF067A7A65D2BC4EC981E2D74D5 /* MTLPropertyRecord+CoreDataProperties.swift in Sources */,
-				228483D1F9D545637E31E3FF35F65841 /* MTLPropertyRecord.swift in Sources */,
-				A8416ECBAC9DF4F2152B6062F99618C9 /* MTLSaturationFilter.swift in Sources */,
-				7A7B146FF8E06E71DBFD34CB12972DA4 /* MTLSelectiveHSLFilter.swift in Sources */,
-				C4A68008D311109310F0525272CA074F /* MTLSelectiveHSLFilter1.swift in Sources */,
-				315BD7C20D9A09E8E60C4BA1644C53F8 /* MTLSharpenFilter.swift in Sources */,
-				4C04D285C8454EC3C140FA5572A4975B /* MTLSketchFilter.swift in Sources */,
-				21C014554A786ABD883B80E6489DC41F /* MTLSobelEdgeDetectionFilter.swift in Sources */,
-				FCC03D5FF02F3F43AE52618A1E9BE2F3 /* MTLToonFilter.swift in Sources */,
-				23334977F46FDB51EA06A32024492043 /* MTLTypes.swift in Sources */,
-				6408F5368F164B91059929A64FB58259 /* MTLView.swift in Sources */,
-				E497FA13391DC0C39F76CA1BF7279E4A /* MTLVignetteFilter.swift in Sources */,
-				0B0D2B663AD82C5BB8CF575FF5B6A282 /* MTLWatercolorFilter.swift in Sources */,
-				4CE494EC535427FF30B3FFD833D69DEB /* MTLWaterFilter.swift in Sources */,
-				E71F290F9170B1D27D291F76C5C6B9DA /* MTLWhiteBalanceFilter.swift in Sources */,
-				9A22D8C147842C8614699EDFF4D94AD1 /* Tools.swift in Sources */,
-				38974BC49D6DAC4BB9796A951A571FEA /* UIImage+MTLTexture.swift in Sources */,
-				62D28A6FC715B83C04AEC4C872936EB2 /* UIImage+Scale.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		1235DEB9D63CB0D2B372C959C66E1F4A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = MTLImage;
-			target = 236F6885D7DA46D89F15B759D75DE78D /* MTLImage */;
-			targetProxy = 678DEA03E2C9017D09FD5C19C1737A04 /* PBXContainerItemProxy */;
-		};
-		28ED49397A64B0057F19A3EDB50F9982 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = MTLImage;
-			target = 236F6885D7DA46D89F15B759D75DE78D /* MTLImage */;
-			targetProxy = 6C39C0FE89A9749BE69952B829DE2494 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin XCBuildConfiguration section */
-		2A572D6E7B441E9ECA21397694D040BE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4F48A5EDD0F214912E9AD6A6E452B83D /* MTLImage.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MTLImage/MTLImage-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MTLImage/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/MTLImage/MTLImage.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = MTLImage;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		56E4E49F9ADCBF57CAD8D6AC3E573014 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A8F00A22AD9EAB104F13731323A4BACD /* Pods-MTLImage_Example.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-MTLImage_Example/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_MTLImage_Example;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		660A33902BF7196D423940E6BB63CB52 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4F48A5EDD0F214912E9AD6A6E452B83D /* MTLImage.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MTLImage/MTLImage-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MTLImage/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/MTLImage/MTLImage.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = MTLImage;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		9A855C4B8A22EC94A1A05407E9982BFD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F436608614BB0CD48E472A46B5954A4 /* Pods-MTLImage_Tests.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-MTLImage_Tests/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-MTLImage_Tests/Pods-MTLImage_Tests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_MTLImage_Tests;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Debug;
-		};
-		C43AC22776F28C3B12BA74072900F8BE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22D8BAEC594D5A75040BC51C31CE8D65 /* Pods-MTLImage_Example.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-MTLImage_Example/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_MTLImage_Example;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		D9669D57F214A29BF5FE39CF4C756D46 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F88670808863AF79C7367E682F0F377A /* Pods-MTLImage_Tests.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-MTLImage_Tests/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-MTLImage_Tests/Pods-MTLImage_Tests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_MTLImage_Tests;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		FB45FFD90572718D82AB9092B750F0CA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		2D401C154C91A71A0DD3F70728177909 /* Build configuration list for PBXNativeTarget "Pods-MTLImage_Example" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C43AC22776F28C3B12BA74072900F8BE /* Debug */,
-				56E4E49F9ADCBF57CAD8D6AC3E573014 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */,
-				FB45FFD90572718D82AB9092B750F0CA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AF27202C54D956047305CB92964656AB /* Build configuration list for PBXNativeTarget "MTLImage" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2A572D6E7B441E9ECA21397694D040BE /* Debug */,
-				660A33902BF7196D423940E6BB63CB52 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F49A5D92D8768E2B8ACE6B9F2B033D8E /* Build configuration list for PBXNativeTarget "Pods-MTLImage_Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D9669D57F214A29BF5FE39CF4C756D46 /* Debug */,
-				9A855C4B8A22EC94A1A05407E9982BFD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-/* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		F50B806E4D48DC8E3F50D5E788903434 /* MTLImage.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				4A359BA6959CE02390503D75B4664044 /* MTLImage.xcdatamodel */,
-			);
-			currentVersion = 4A359BA6959CE02390503D75B4664044 /* MTLImage.xcdatamodel */;
-			path = MTLImage.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
-	};
-	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>archiveVersion</key>
+	<string>1</string>
+	<key>classes</key>
+	<dict/>
+	<key>objectVersion</key>
+	<string>46</string>
+	<key>objects</key>
+	<dict>
+		<key>004D4ABA0B5D43136BADB6F25BBE8AD5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>26FA44EA1BC1AE5B5DCE112B9E931EF7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>005BBB6FAEC2CEBC262264B586ED1C74</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>662D0BD356986B14B40DEC38C93DC128</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>MTLImage.xcdatamodeld</string>
+			<key>path</key>
+			<string>MTLImage.xcdatamodeld</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0278A786CA648036EC377735E3F79685</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>81B34CEFFE3B607075F5F950F3045DD2</string>
+				<string>54C33D4460433F8271DD2AF2E267663C</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>029E68E8CA14563CE0BC0B9D6C16FD63</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>E9771466467E6D426AD75F3C83BDA0CC</string>
+				<string>26FA44EA1BC1AE5B5DCE112B9E931EF7</string>
+				<string>A20609E460010D9485F22C4CB2DF6423</string>
+				<string>278135E54569FC337D43744DD09270BA</string>
+				<string>B71510DA6358DD58B8145479D2B4130B</string>
+				<string>4960194C6492FCD00678E5EC3A99D697</string>
+				<string>B92DDCC7954CF20BF018E12C7C246DF0</string>
+				<string>4545DBBD532521AFF29B250363B7F86D</string>
+				<string>9EB64B55A65B65F09F9F60B257C32B33</string>
+				<string>89B1E7DF5B0DE96D8AAFB328EE36B36C</string>
+				<string>DFA67D8F8023BBB41114DE1D60AA6A9E</string>
+				<string>CEC4AE2EB5D63E7486D081F34DBE7AA6</string>
+				<string>21BDE02D30D94731EB6DBDD4074778EE</string>
+				<string>FE7A75CC1B4C43492D49DCB4017DACA3</string>
+				<string>BFB30FFB3A72F73D17E3F94E8EB25897</string>
+				<string>7D01D49C431A69E754B164CC185C0095</string>
+				<string>C319D37714137EB035DF5E7F625B308B</string>
+				<string>DB481EDC944F3C45E7C96D33CF96276C</string>
+				<string>1AB6B1541B9E60231A5B16648A714EA3</string>
+				<string>5C3FEE5D6F09DA8981530F8CDDCF2551</string>
+				<string>AFC8808D71BC3CA6A21D54B86326D66C</string>
+				<string>5E1D31D3F76C55EADBA917D382BAD8D7</string>
+				<string>DFD536B553B06E98E0313770DF4A9E18</string>
+				<string>4C23317E7FDC560F7295423D7E2987FE</string>
+				<string>9484526D3FE140C02071B13C25A7BE0D</string>
+				<string>AE5DD954C7EE00A87F9636615867474C</string>
+				<string>F0D08327C1A54BEC6DBE415FE2A5789A</string>
+				<string>2EDADD1080BC1E4D245FC1BFC5D22EF0</string>
+				<string>34EA40B25D78AA9A5AF5D7E98B7BF182</string>
+				<string>56EB38A6EE152402D827E370A279DB8B</string>
+				<string>9F2AA379955A2CC159E53478E81467B5</string>
+				<string>3791447CCCDBBC027E0846562BED8836</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Filters</string>
+			<key>path</key>
+			<string>Filters</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0310553B557B0E7838900D24195DDE82</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>OilPaint.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>047F9957BA392358BA8DD90550C23CAF</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>072D7D9EFD107E2D9B493C6E9C428244</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Invert.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0882722BB0CC3531A2A826FC7527F13A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>UIImage+Scale.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>094F9E703F8B11EEAFFF9C42FEF1A7F1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>0310553B557B0E7838900D24195DDE82</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0957087252C62590D9DC6A1C2D7AB2DC</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLCamera.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0A62B0B6D1D580271BBC4C3BC9D4B7AC</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>GaussianBlur.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0A6CD68AAB7D805F37B526945930D8A7</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>0F9B7D68DE98F02F70B53E6F15F26786</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>0A8CF2161A107264526FF8F195E0F6F6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9F1757BED86E6FF8B0B251070AC9FB50</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0ADBAA928FCC3A8D1EB298AB0D79D82C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F780FF9C107DD2F6D9A4880773764A6E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0C073BB2FC315075B9DE90C24FE2C52B</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Crashlytics.framework</string>
+			<key>path</key>
+			<string>iOS/Crashlytics.framework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0D5F65108951413E4B22084D0608D5C6</key>
+		<dict>
+			<key>children</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Shaders</string>
+			<key>path</key>
+			<string>Shaders</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0E5877B32C1C48086A922E3C2BFE87F9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9B56FBCE16BBBC9BAD019283C913FC3C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0F9B7D68DE98F02F70B53E6F15F26786</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1337DAFF61C581D87CBE52D9A9C0CDE6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0FBADD4C4C312933525779355B4A728B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>5AF2ED3E1B1DF375ACFB148B356F91A5</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Crashlytics</string>
+			<key>path</key>
+			<string>Crashlytics</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1089757672CC1054594CD0E175712E17</key>
+		<dict>
+			<key>fileRef</key>
+			<string>FFCEC7BCAC2D7FD181705E34EACCBE57</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>1235DEB9D63CB0D2B372C959C66E1F4A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>MTLImage</string>
+			<key>target</key>
+			<string>F5F124A27E05ACDF917ED171FCC9329D</string>
+			<key>targetProxy</key>
+			<string>678DEA03E2C9017D09FD5C19C1737A04</string>
+		</dict>
+		<key>1337DAFF61C581D87CBE52D9A9C0CDE6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Tests-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>13A9327A74AD305FE70AABC468D2BF29</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E4C0C2102B7CC229D04CFFAEA5517FFB</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>13B05026F098DDDD4775C9B8024E1E87</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MTLImage.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>15340A9B1BC5C794BE02AD6869D6DCF7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Convolution.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1608155A94638A127F5EB2225E7C70F3</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>FD1F2B22DA8FEEE9AE2071D933123C75</string>
+				<string>0D5F65108951413E4B22084D0608D5C6</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Classes</string>
+			<key>path</key>
+			<string>Classes</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1673638130E99105E82FB1BEECA6555D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>PolkaDot.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1AB6B1541B9E60231A5B16648A714EA3</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLPerlinNoiseFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1ADB405A68D8D5BD48A7060077FD2F36</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>compileMetalib.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1C7F753B14412F4E2686483B6B2FC53A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Vignette.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1CBA8C168E3D36957A75C21A61DE34A9</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>77E0F0CCC5F11FE4A8E80A02EB7A3CED</string>
+				<string>4EDEA3A6588AD8FB2E2EBD26106E5FD6</string>
+				<string>E6DF1D461358DA025BA827493E009D88</string>
+				<string>EC960A96A78F25EDBB5D48A3D1026AD7</string>
+				<string>40DCD688E112155FC36BFB1E1785E2AF</string>
+				<string>CB4B624775F7308657EF62930951D4FB</string>
+				<string>D1FCF9AA8281DB558B0EEB8B4AE32B60</string>
+				<string>A2736C893E707E5F0CDBB9714735979C</string>
+				<string>900062F6F2BEAD0FE89BE7793EA0004F</string>
+				<string>6871B0F5D9B96EEC32729635D02B8E72</string>
+				<string>6871B0F5D9B96EEC32729635D02B8E72</string>
+				<string>13A9327A74AD305FE70AABC468D2BF29</string>
+				<string>EF87D8FE7A94CE349F627F31ED47134E</string>
+				<string>88732AD57887435CBE2518CD5D07ED30</string>
+				<string>494E1A50339F57C583CE6CE11B3C5EDF</string>
+				<string>81ADB26A9D9FC52D8E7BA8C62ACB0951</string>
+				<string>DF45F37C6C70B9D421A9540F94744A78</string>
+				<string>9BA07252040D44D919F83F733CF88B9A</string>
+				<string>9C1F4A3FE002EBEB336906F35929D685</string>
+				<string>1D8706699CBDA1564E42A42DD73D4A25</string>
+				<string>C8F32B6A4A6DFA36A458969BD2B82536</string>
+				<string>DB19B1ADC2D8866CCD87201BD1677B01</string>
+				<string>C39485F682E347C1BCD9A8142CABDDE2</string>
+				<string>665A28A8FD90AF47226E13E1782240F9</string>
+				<string>004D4ABA0B5D43136BADB6F25BBE8AD5</string>
+				<string>E9B4B7D671E7295B96C82AEE3D74B2EA</string>
+				<string>47E11E29F059911DE48F66052983AA4C</string>
+				<string>BA292B7BDD59D7093B9F0E2497A3928F</string>
+				<string>CC872517950E5A02328704ACB454B828</string>
+				<string>903E4A278B7180A389922CF9E01DA406</string>
+				<string>E968E79A692EAA63803B504C92EC9461</string>
+				<string>CF18C301512E5D29F55381644FEFDBEB</string>
+				<string>D883C510F55EFC2E76E9F0D71F16D04D</string>
+				<string>D685CD3540890B8E421349738004AD5E</string>
+				<string>4889D0CD452B6AA1ABC296237FF28FE5</string>
+				<string>F24CE90AE2387FD5E6C9B5EC0D4F00BC</string>
+				<string>55C428F71E1662290415A00983C9032A</string>
+				<string>E01E6418954E1B26DB111B41591B4D97</string>
+				<string>1089757672CC1054594CD0E175712E17</string>
+				<string>CB347D02EE684925882568BD141EFD48</string>
+				<string>608E9E3B326B2CB2B677BE108DE8A1E2</string>
+				<string>33426D4183208C6A5915402E2DAAB71E</string>
+				<string>716A45FE6B372E089F427A234C5839AE</string>
+				<string>686A4BAEDAE50B7CAEEFD14C60B5F5F4</string>
+				<string>6337415AD63BB8D65C8801C9E0125F63</string>
+				<string>408A4DE4B3217CE3BAA2AD2C3D0CB2A8</string>
+				<string>E76FCD1000DD5FBE05222B07297938DE</string>
+				<string>4C803BF5B6EAB61617127DC91FE93900</string>
+				<string>495B116224CFB9D124EBD28BD1791880</string>
+				<string>60060E9D91F6629338E0B4F3224E798D</string>
+				<string>F27D94E779FCA3E10AFE626B7DBDE429</string>
+				<string>2C052288DB6CD1AEE4673075E86AB9C4</string>
+				<string>E215386F27E91E78949DFA163761D73E</string>
+				<string>976CC670414F653A6025FFC7346B4166</string>
+				<string>CD3AFFB5C0B042A73A7106FD4238EE47</string>
+				<string>89357738BDDB27C729C545EF0716BB16</string>
+				<string>44A9D25A6E2005A467E35B2372FC909B</string>
+				<string>D73496CF4CF955DD6211D7C097E24574</string>
+				<string>81256231B50748335800E5F2AAAFDA17</string>
+				<string>1D68B20A0BF520568FF3E675AEB1F77C</string>
+				<string>A3F95CC4349C65831FA0AEC48698840A</string>
+				<string>D34AD4E1EFA0636A271A7E24BE62D8B4</string>
+				<string>47733DF58D24BD69DFDC2DD37D819670</string>
+				<string>9744DD5EEEA347A26361B45FFA151A58</string>
+				<string>31E4E40AE82A0A090509E3300880DC15</string>
+				<string>8E519732A73819B142ED7736A464794E</string>
+				<string>39C8DFE49B43F3208896626D2FA97B7B</string>
+				<string>F4BC0C14BD781175323EF179D1FEEC65</string>
+				<string>FF233D8A6E59817A2911854CE4127000</string>
+				<string>2C2998D721DFD7D5325F23D8E581147C</string>
+				<string>9659B0B0D82CBC179365A7F3C1A81821</string>
+				<string>BDDD7BFD1F8EB1B4640EC680227DF658</string>
+				<string>094F9E703F8B11EEAFFF9C42FEF1A7F1</string>
+				<string>0A8CF2161A107264526FF8F195E0F6F6</string>
+				<string>ABE01B0C2EB032F80289ADF556D4D899</string>
+				<string>A75BE68EA3CC3BAD0A833126889BE0B8</string>
+				<string>EBB60233490C98FCA1E11766F99D30FC</string>
+				<string>DF7EE550CB4A5A2C217908F859EE9985</string>
+				<string>F20C2AE41DE67EDF90BAE30738A58EFF</string>
+				<string>3AE71E5E927415D80E94F7C9C5BD8A43</string>
+				<string>A46299D203C8292626777D23566CE0A4</string>
+				<string>B33BBF7C8E9DBF1E2B73AE449CE6BD90</string>
+				<string>8535C0A806596CA5939DAFA56D4E71BA</string>
+				<string>76BC27C0CC38BAA4D1B67F2CF6AE8CA9</string>
+				<string>5C37C9F7B34E5D775C7846BBF4431764</string>
+				<string>EA5217FF8B43D676F9B7710A9988AE2C</string>
+				<string>74CA1182F1701520D391B8CB05FE371F</string>
+				<string>88494FAA50F1F12113113AC8E271D217</string>
+				<string>0E5877B32C1C48086A922E3C2BFE87F9</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>1D319412AA638401A559D7A1B9BBD788</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>SobelEdgeDetection.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1D68B20A0BF520568FF3E675AEB1F77C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5E1D31D3F76C55EADBA917D382BAD8D7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>1D8706699CBDA1564E42A42DD73D4A25</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E90C2E20347C1172028279290E9948A5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>1E9C559FD27D695257C10FC39ADEA510</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLTypes.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1FA000BAEF2CB5A036F9AB48BFB4FB83</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Saturation.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>20EAE86E87D3ABB3D817C310CF975A39</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Contrast.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>21BDE02D30D94731EB6DBDD4074778EE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLInvertFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>22D8BAEC594D5A75040BC51C31CE8D65</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Example.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>23815D39151CDEBEE83814B95ED234C6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLProperty.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>23F124B36981587A4F2E341B8AEC8517</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>E1B6F2CE97837747A137B7F9EC710EF8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>261FA9C15790E97967CD2877B4A1BD44</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>0957087252C62590D9DC6A1C2D7AB2DC</string>
+				<string>A70A4CC57183F096F708163907F4B64D</string>
+				<string>26C83089C6C0715F8BE053A8EAD470BB</string>
+				<string>9DBB6CD8E7113DE86E6EFD60E5A5AD35</string>
+				<string>A26AA27831FE83D406559050D73F10FD</string>
+				<string>9B13B18CA298658CCFCB086CE4517CB1</string>
+				<string>699329632BBD93A55B8BE802D43ABEE6</string>
+				<string>23815D39151CDEBEE83814B95ED234C6</string>
+				<string>1E9C559FD27D695257C10FC39ADEA510</string>
+				<string>71C5DEF250C12BF6BA80C986B66CA78E</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>MTLImage</string>
+			<key>path</key>
+			<string>MTLImage</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>26C83089C6C0715F8BE053A8EAD470BB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLDataManager.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>26FA44EA1BC1AE5B5DCE112B9E931EF7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLBrightnessFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>278135E54569FC337D43744DD09270BA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLContrastFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28ED49397A64B0057F19A3EDB50F9982</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>MTLImage</string>
+			<key>target</key>
+			<string>F5F124A27E05ACDF917ED171FCC9329D</string>
+			<key>targetProxy</key>
+			<string>6C39C0FE89A9749BE69952B829DE2494</string>
+		</dict>
+		<key>2C052288DB6CD1AEE4673075E86AB9C4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DB481EDC944F3C45E7C96D33CF96276C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>2C2998D721DFD7D5325F23D8E581147C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>56EB38A6EE152402D827E370A279DB8B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>2D401C154C91A71A0DD3F70728177909</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>C43AC22776F28C3B12BA74072900F8BE</string>
+				<string>56E4E49F9ADCBF57CAD8D6AC3E573014</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>2D8E8EC45A3A1A1D94AE762CB5028504</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>A70CDAD61F90AC503C7D04CC22DA2923</string>
+				<string>FB45FFD90572718D82AB9092B750F0CA</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>2EDADD1080BC1E4D245FC1BFC5D22EF0</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLToonFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2FD3B641363A7798A9FC383A1EC350DA</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLPropertyRecord.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3174281D2E629474CC93E4BE00931E33</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3E4E89230EF59BC255123B67864ACF77</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>31E4E40AE82A0A090509E3300880DC15</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F0D08327C1A54BEC6DBE415FE2A5789A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>324F713C8F23E14758EE5BF21B7E7835</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Histogram.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>33426D4183208C6A5915402E2DAAB71E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>89B1E7DF5B0DE96D8AAFB328EE36B36C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>348065CFA1E5B15BF9B77F230B22440E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Watercolor.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>34EA40B25D78AA9A5AF5D7E98B7BF182</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLVignetteFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3694F3F447F4CB82D81C54E772214BE2</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3E4E89230EF59BC255123B67864ACF77</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>3791447CCCDBBC027E0846562BED8836</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLWhiteBalanceFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>37C4B8B773C36E500DB2C5260D19AF5C</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6D722B910E61047D065EBD92F92539F4</string>
+				<string>A961BE57C6639F2E090E9B50C276831C</string>
+				<string>E2A885D9FDFF57240B101DFE7E3306C1</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>MTLImage</string>
+			<key>path</key>
+			<string>../..</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>39C8DFE49B43F3208896626D2FA97B7B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1E9C559FD27D695257C10FC39ADEA510</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>3AE71E5E927415D80E94F7C9C5BD8A43</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5F5520C503C53224D1010580D9DC9E2B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>3CE5E43CED8F56EED42B209158E6A85A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>BA5C0326BC77C4FAB5058519F153B12D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>3E4E89230EF59BC255123B67864ACF77</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Foundation.framework</string>
+			<key>path</key>
+			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>408A4DE4B3217CE3BAA2AD2C3D0CB2A8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9B13B18CA298658CCFCB086CE4517CB1</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>40DCD688E112155FC36BFB1E1785E2AF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1ADB405A68D8D5BD48A7060077FD2F36</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>415AD551CD0EF3AE8EE6C7D9AF199DE5</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>3694F3F447F4CB82D81C54E772214BE2</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>42A29EC7FBE2DD72BE14842D6D1A7C17</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>F49A5D92D8768E2B8ACE6B9F2B033D8E</string>
+			<key>buildPhases</key>
+			<array>
+				<string>0A6CD68AAB7D805F37B526945930D8A7</string>
+				<string>B47244BAB510491A0B5BA1C1F9FFCE0D</string>
+				<string>E518FFC6628186EFBBFDF39F55A94F96</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>28ED49397A64B0057F19A3EDB50F9982</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-MTLImage_Tests</string>
+			<key>productName</key>
+			<string>Pods-MTLImage_Tests</string>
+			<key>productReference</key>
+			<string>A03E1F85E9DE25C5195F856D96C01188</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>44A9D25A6E2005A467E35B2372FC909B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>23815D39151CDEBEE83814B95ED234C6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>451CBB47EB9BAD6985F74984B435FE0B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Makefile</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4545DBBD532521AFF29B250363B7F86D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLEmbossFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>47733DF58D24BD69DFDC2DD37D819670</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9484526D3FE140C02071B13C25A7BE0D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>47E11E29F059911DE48F66052983AA4C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A20609E460010D9485F22C4CB2DF6423</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>4889D0CD452B6AA1ABC296237FF28FE5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9EB64B55A65B65F09F9F60B257C32B33</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>494E1A50339F57C583CE6CE11B3C5EDF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>0A62B0B6D1D580271BBC4C3BC9D4B7AC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>495B116224CFB9D124EBD28BD1791880</key>
+		<dict>
+			<key>fileRef</key>
+			<string>BFB30FFB3A72F73D17E3F94E8EB25897</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>4960194C6492FCD00678E5EC3A99D697</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLCrossHatchFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4A094107253E6B6713452CB664D823A4</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>72242081EC9B561815D1E6C725AD5CF7</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Assets</string>
+			<key>path</key>
+			<string>Assets</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4C01CE7C97A1F4AA2AA6283DCBF4679A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>0FBADD4C4C312933525779355B4A728B</string>
+				<string>BD8B321ABCC17A2AA08C4077E26ECA81</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4C23317E7FDC560F7295423D7E2987FE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLSelectiveHSLFilter1.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4C803BF5B6EAB61617127DC91FE93900</key>
+		<dict>
+			<key>fileRef</key>
+			<string>FE7A75CC1B4C43492D49DCB4017DACA3</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>4C8D906C3B52AD90DA4681B3D597F613</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>default.metallib</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4EDEA3A6588AD8FB2E2EBD26106E5FD6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F1A0E9C7E253AB57F61AA94A5C4B8EEB</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4F48A5EDD0F214912E9AD6A6E452B83D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>MTLImage.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4F7FC947C276C453C680F93704B018E0</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Blend.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>512BBF0D23718643382CCE4F33594357</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Example-resources.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>513A7C4599BEB890CABCCFEDAA9F6F1A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Tests-resources.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>51A0C5F3A3BB98B76D333341C08ECD42</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>E10E9297698842E3A3F6229C42E37F93</string>
+				<string>DF56A257BB834FA685F096CB9FD477F2</string>
+				<string>F33056EE9C473BE561F43602A2603A77</string>
+				<string>B66705766F70A098A2D9A035B1EEB307</string>
+				<string>8B825C029516AC3A225926C6BFBC3103</string>
+				<string>D42C03076B250D79E6163C87E49C945B</string>
+				<string>512BBF0D23718643382CCE4F33594357</string>
+				<string>990567AE9031D7C8ADEEC6E93140DF00</string>
+				<string>22D8BAEC594D5A75040BC51C31CE8D65</string>
+				<string>A8F00A22AD9EAB104F13731323A4BACD</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods-MTLImage_Example</string>
+			<key>path</key>
+			<string>Target Support Files/Pods-MTLImage_Example</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>53C502B7D703502F3FD0FC1C70C1BBEE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>72242081EC9B561815D1E6C725AD5CF7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>54C33D4460433F8271DD2AF2E267663C</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>4F48A5EDD0F214912E9AD6A6E452B83D</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/MTLImage/MTLImage-prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/MTLImage/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/MTLImage/MTLImage.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>PRODUCT_NAME</key>
+				<string>MTLImage</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>55C428F71E1662290415A00983C9032A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A26AA27831FE83D406559050D73F10FD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>56E4E49F9ADCBF57CAD8D6AC3E573014</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>A8F00A22AD9EAB104F13731323A4BACD</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Pods-MTLImage_Example/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_NAME</key>
+				<string>Pods_MTLImage_Example</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>56EB38A6EE152402D827E370A279DB8B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLWatercolorFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5AF2ED3E1B1DF375ACFB148B356F91A5</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>0C073BB2FC315075B9DE90C24FE2C52B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5C37C9F7B34E5D775C7846BBF4431764</key>
+		<dict>
+			<key>fileRef</key>
+			<string>0882722BB0CC3531A2A826FC7527F13A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>5C3FEE5D6F09DA8981530F8CDDCF2551</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLPixellateFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5D95A0EE2B54F250ECAF3B955E107DCD</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>default.metallib</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5E1D31D3F76C55EADBA917D382BAD8D7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLSaturationFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5F5520C503C53224D1010580D9DC9E2B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Sketch.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>60060E9D91F6629338E0B4F3224E798D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7D01D49C431A69E754B164CC185C0095</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>608E9E3B326B2CB2B677BE108DE8A1E2</key>
+		<dict>
+			<key>fileRef</key>
+			<string>B9E9765CD7EAEE849FC284A02BBC3199</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>61B8C601F2597185DD1C608CFDE7A9F7</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>A54AB4E24E3860AF31EF4DD9CA0DFDE6</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>6337415AD63BB8D65C8801C9E0125F63</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DD32901A1A361E5D90A01017DA9833BE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>638628E9DB2EE8884AB2C736E3DA9B58</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Mask.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>63F63CEAEDBE19A6C275EA08CF59C0F3</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Tests.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>63FD0771AD886CA4667D2C4A89588FF7</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>9D4839BA543F7AE42E8872EBA046FAE7</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>662D0BD356986B14B40DEC38C93DC128</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7CBEDC6F9742BC41D3A93C5CAE37F802</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>MTLImage.xcdatamodel</string>
+			<key>path</key>
+			<string>MTLImage.xcdatamodel</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>665A28A8FD90AF47226E13E1782240F9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E9771466467E6D426AD75F3C83BDA0CC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>678DEA03E2C9017D09FD5C19C1737A04</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>F5F124A27E05ACDF917ED171FCC9329D</string>
+			<key>remoteInfo</key>
+			<string>MTLImage</string>
+		</dict>
+		<key>67B6FE0226C72AEE5C4E33C0E80F8BA3</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>UIImage+MTLTexture.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>67FCDBA73F45AC8CD171801AAC91A82A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>FFCEC7BCAC2D7FD181705E34EACCBE57</string>
+				<string>C82618ED40F7BA5910D625B22FE19EA5</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>FilterGroupRecord</string>
+			<key>path</key>
+			<string>FilterGroupRecord</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>686A4BAEDAE50B7CAEEFD14C60B5F5F4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>CEC4AE2EB5D63E7486D081F34DBE7AA6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>6871B0F5D9B96EEC32729635D02B8E72</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4C8D906C3B52AD90DA4681B3D597F613</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>699329632BBD93A55B8BE802D43ABEE6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLPicture.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6C18550FA86F4274240112F060D3C87E</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>2D401C154C91A71A0DD3F70728177909</string>
+			<key>buildPhases</key>
+			<array>
+				<string>63FD0771AD886CA4667D2C4A89588FF7</string>
+				<string>415AD551CD0EF3AE8EE6C7D9AF199DE5</string>
+				<string>7B3B900697AA286A6EEF8AF89743E554</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>1235DEB9D63CB0D2B372C959C66E1F4A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-MTLImage_Example</string>
+			<key>productName</key>
+			<string>Pods-MTLImage_Example</string>
+			<key>productReference</key>
+			<string>96D2E03E55CE847077265B9B2888354F</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>6C39C0FE89A9749BE69952B829DE2494</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>F5F124A27E05ACDF917ED171FCC9329D</string>
+			<key>remoteInfo</key>
+			<string>MTLImage</string>
+		</dict>
+		<key>6D722B910E61047D065EBD92F92539F4</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>E35AB826F313FCAED93E0035EB3FE029</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pod</string>
+			<key>path</key>
+			<string>Pod</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6EE0F01CBFACD1410D54CFE1787E2462</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7097ABB79589364FE5529A1DEEB7287A</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>E89C887B22862E41934A052786808332</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>716A45FE6B372E089F427A234C5839AE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DFA67D8F8023BBB41114DE1D60AA6A9E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>71C5DEF250C12BF6BA80C986B66CA78E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLView.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>71FBDEFC1F8951FD09019EC5FA46D236</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>Tools.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>72242081EC9B561815D1E6C725AD5CF7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>folder.assetcatalog</string>
+			<key>path</key>
+			<string>images.xcassets</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>725B88EC0379433AC02E56D67AE22C8F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>71FBDEFC1F8951FD09019EC5FA46D236</string>
+				<string>67B6FE0226C72AEE5C4E33C0E80F8BA3</string>
+				<string>0882722BB0CC3531A2A826FC7527F13A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Tools</string>
+			<key>path</key>
+			<string>Tools</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>74CA1182F1701520D391B8CB05FE371F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>BC7D8A1A4853BEDA940666AF8F7625F5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>76BC27C0CC38BAA4D1B67F2CF6AE8CA9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>67B6FE0226C72AEE5C4E33C0E80F8BA3</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>77E0F0CCC5F11FE4A8E80A02EB7A3CED</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4F7FC947C276C453C680F93704B018E0</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7828E37653B2778AC62ECB83CEA4A832</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>CrossHatch.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>798EDE7B6A664A2629D8B0EDB030B4FB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>SelectiveHSL.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7B3B900697AA286A6EEF8AF89743E554</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>E056C99C70D840CB96E607702A6AFEFA</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7B58F491EE741156379383D2CB4C66CF</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>67FCDBA73F45AC8CD171801AAC91A82A</string>
+				<string>B0873A509F2925AC642AD5FFCC34A92A</string>
+				<string>005BBB6FAEC2CEBC262264B586ED1C74</string>
+				<string>ADCFA67278783750C1DA02F057E91CC3</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>CoreData</string>
+			<key>path</key>
+			<string>CoreData</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7CBEDC6F9742BC41D3A93C5CAE37F802</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>contents</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7D01D49C431A69E754B164CC185C0095</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLLuminanceThresholdFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7DB346D0F39D3F0E887471402A8071AB</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>BA6428E9F66FD5A23C0A2E06ED26CD2F</string>
+				<string>A7FE421865775FA663AE33FB109AA882</string>
+				<string>BC3CA7F9E30CC8F7E2DD044DD34432FC</string>
+				<string>4C01CE7C97A1F4AA2AA6283DCBF4679A</string>
+				<string>DA0A0C2CDCD0A31AA3F37B444C718F0E</string>
+				<string>A027D9F65891A07607F70F8A22B0B3BA</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7E949B33FD6B664BD35A0DB8AF1F78C6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Sharpen.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7F436608614BB0CD48E472A46B5954A4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Tests.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>81256231B50748335800E5F2AAAFDA17</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2FD3B641363A7798A9FC383A1EC350DA</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>81ADB26A9D9FC52D8E7BA8C62ACB0951</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F5B95C127D27929B7B8D0A56E7A04A43</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>81B34CEFFE3B607075F5F950F3045DD2</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>4F48A5EDD0F214912E9AD6A6E452B83D</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/MTLImage/MTLImage-prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/MTLImage/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/MTLImage/MTLImage.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>PRODUCT_NAME</key>
+				<string>MTLImage</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>81FFD9B1B4F4729BBA51C6486956A117</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>MTLImage-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8535C0A806596CA5939DAFA56D4E71BA</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C46DBE7E72FE40FB11ABA797B5EBC086</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>88494FAA50F1F12113113AC8E271D217</key>
+		<dict>
+			<key>fileRef</key>
+			<string>348065CFA1E5B15BF9B77F230B22440E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>88732AD57887435CBE2518CD5D07ED30</key>
+		<dict>
+			<key>fileRef</key>
+			<string>B968193948736263178B80D7054E1C6F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>89357738BDDB27C729C545EF0716BB16</key>
+		<dict>
+			<key>fileRef</key>
+			<string>AFC8808D71BC3CA6A21D54B86326D66C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>8981A29B7546A8424543D0257DFC84C6</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>MTLImage.framework</string>
+			<key>path</key>
+			<string>MTLImage.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>89B1E7DF5B0DE96D8AAFB328EE36B36C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLGaussianBlurFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8B825C029516AC3A225926C6BFBC3103</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Example-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8E519732A73819B142ED7736A464794E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2EDADD1080BC1E4D245FC1BFC5D22EF0</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>900062F6F2BEAD0FE89BE7793EA0004F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7828E37653B2778AC62ECB83CEA4A832</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>903E4A278B7180A389922CF9E01DA406</key>
+		<dict>
+			<key>fileRef</key>
+			<string>B71510DA6358DD58B8145479D2B4130B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>932EE1B25C43F3170F629BBDFE7E00A1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>LuminanceThreshold.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9484526D3FE140C02071B13C25A7BE0D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLSharpenFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9659B0B0D82CBC179365A7F3C1A81821</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9F2AA379955A2CC159E53478E81467B5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>96D2E03E55CE847077265B9B2888354F</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Pods_MTLImage_Example.framework</string>
+			<key>path</key>
+			<string>Pods_MTLImage_Example.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>9744DD5EEEA347A26361B45FFA151A58</key>
+		<dict>
+			<key>fileRef</key>
+			<string>AE5DD954C7EE00A87F9636615867474C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>976CC670414F653A6025FFC7346B4166</key>
+		<dict>
+			<key>fileRef</key>
+			<string>699329632BBD93A55B8BE802D43ABEE6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>990567AE9031D7C8ADEEC6E93140DF00</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Example-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9A855C4B8A22EC94A1A05407E9982BFD</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>7F436608614BB0CD48E472A46B5954A4</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Pods-MTLImage_Tests/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Pods-MTLImage_Tests/Pods-MTLImage_Tests.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_NAME</key>
+				<string>Pods_MTLImage_Tests</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>9B13B18CA298658CCFCB086CE4517CB1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLImage.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9B56FBCE16BBBC9BAD019283C913FC3C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>WhiteBalance.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9BA07252040D44D919F83F733CF88B9A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>072D7D9EFD107E2D9B493C6E9C428244</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>9C1F4A3FE002EBEB336906F35929D685</key>
+		<dict>
+			<key>fileRef</key>
+			<string>FDFBC268C1DD24CDF55149474ECEB1E7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>9D4839BA543F7AE42E8872EBA046FAE7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8B825C029516AC3A225926C6BFBC3103</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>9DBB6CD8E7113DE86E6EFD60E5A5AD35</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9EB64B55A65B65F09F9F60B257C32B33</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLExposureFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9F1757BED86E6FF8B0B251070AC9FB50</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>PerlinNoise.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9F2AA379955A2CC159E53478E81467B5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLWaterFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A027D9F65891A07607F70F8A22B0B3BA</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>51A0C5F3A3BB98B76D333341C08ECD42</string>
+				<string>B4BB48D33630B002A5C0BBE6BC94339D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Targets Support Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A03E1F85E9DE25C5195F856D96C01188</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Pods_MTLImage_Tests.framework</string>
+			<key>path</key>
+			<string>Pods_MTLImage_Tests.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>A20609E460010D9485F22C4CB2DF6423</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLColorSelectionFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A26AA27831FE83D406559050D73F10FD</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLFilterGroup.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A2736C893E707E5F0CDBB9714735979C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>15340A9B1BC5C794BE02AD6869D6DCF7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A3F95CC4349C65831FA0AEC48698840A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DFD536B553B06E98E0313770DF4A9E18</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>A46299D203C8292626777D23566CE0A4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1D319412AA638401A559D7A1B9BBD788</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A54AB4E24E3860AF31EF4DD9CA0DFDE6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A7D36269A93C28113935F629F321DE3D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>A70A4CC57183F096F708163907F4B64D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLContext.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A70CDAD61F90AC503C7D04CC22DA2923</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>STRIP_INSTALLED_PRODUCT</key>
+				<string>NO</string>
+				<key>SYMROOT</key>
+				<string>${SRCROOT}/../build</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>A75BE68EA3CC3BAD0A833126889BE0B8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1673638130E99105E82FB1BEECA6555D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A7CAC80C75CF2908F9FB76A7363D2C45</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Pixellate.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A7D36269A93C28113935F629F321DE3D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>MTLImage-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A7FE421865775FA663AE33FB109AA882</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>37C4B8B773C36E500DB2C5260D19AF5C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Development Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A8F00A22AD9EAB104F13731323A4BACD</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Example.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A961BE57C6639F2E090E9B50C276831C</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>BCD3F1DBE9A087C92C967B9DC5221305</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Resources</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>ABE01B0C2EB032F80289ADF556D4D899</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A7CAC80C75CF2908F9FB76A7363D2C45</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>ADCFA67278783750C1DA02F057E91CC3</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2FD3B641363A7798A9FC383A1EC350DA</string>
+				<string>B300D0AEB3DF042E132C1780C14513A5</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>PropertyRecord</string>
+			<key>path</key>
+			<string>PropertyRecord</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>AE5DD954C7EE00A87F9636615867474C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLSketchFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>AFC8808D71BC3CA6A21D54B86326D66C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLPolkaDotFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B0873A509F2925AC642AD5FFCC34A92A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>B9E9765CD7EAEE849FC284A02BBC3199</string>
+				<string>B5886B93C3B5AC386CE2E65BBA2DC560</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>FilterRecord</string>
+			<key>path</key>
+			<string>FilterRecord</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B12569E0C98A99570FC02FC9B99F1545</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4C8D906C3B52AD90DA4681B3D597F613</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>B300D0AEB3DF042E132C1780C14513A5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLPropertyRecord+CoreDataProperties.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B33BBF7C8E9DBF1E2B73AE449CE6BD90</key>
+		<dict>
+			<key>fileRef</key>
+			<string>71FBDEFC1F8951FD09019EC5FA46D236</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>B47244BAB510491A0B5BA1C1F9FFCE0D</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>3174281D2E629474CC93E4BE00931E33</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>B4BB48D33630B002A5C0BBE6BC94339D</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6EE0F01CBFACD1410D54CFE1787E2462</string>
+				<string>63F63CEAEDBE19A6C275EA08CF59C0F3</string>
+				<string>D421F630D61FC84ED86D4D297494B18B</string>
+				<string>D535DE3FC1EE294E4A9E0A729FB78099</string>
+				<string>1337DAFF61C581D87CBE52D9A9C0CDE6</string>
+				<string>DBF0C469D368387D4305D6FBC0D45DBE</string>
+				<string>513A7C4599BEB890CABCCFEDAA9F6F1A</string>
+				<string>BA5C0326BC77C4FAB5058519F153B12D</string>
+				<string>F88670808863AF79C7367E682F0F377A</string>
+				<string>7F436608614BB0CD48E472A46B5954A4</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods-MTLImage_Tests</string>
+			<key>path</key>
+			<string>Target Support Files/Pods-MTLImage_Tests</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B5886B93C3B5AC386CE2E65BBA2DC560</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLFilterRecord+CoreDataProperties.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B66705766F70A098A2D9A035B1EEB307</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Example-acknowledgements.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B71510DA6358DD58B8145479D2B4130B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLConvolutionFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B92DDCC7954CF20BF018E12C7C246DF0</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLDistortionFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B968193948736263178B80D7054E1C6F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Exposure.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B9E9765CD7EAEE849FC284A02BBC3199</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLFilterRecord.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BA292B7BDD59D7093B9F0E2497A3928F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A70A4CC57183F096F708163907F4B64D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>BA5C0326BC77C4FAB5058519F153B12D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Tests-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BA6428E9F66FD5A23C0A2E06ED26CD2F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>name</key>
+			<string>Podfile</string>
+			<key>path</key>
+			<string>../Podfile</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.ruby</string>
+		</dict>
+		<key>BC3CA7F9E30CC8F7E2DD044DD34432FC</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>BF6342C8B29F4CEEA088EFF7AB4DE362</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BC7D8A1A4853BEDA940666AF8F7625F5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Water.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BCD3F1DBE9A087C92C967B9DC5221305</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4A094107253E6B6713452CB664D823A4</string>
+				<string>1608155A94638A127F5EB2225E7C70F3</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pod</string>
+			<key>path</key>
+			<string>Pod</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BD8B321ABCC17A2AA08C4077E26ECA81</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>23F124B36981587A4F2E341B8AEC8517</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Fabric</string>
+			<key>path</key>
+			<string>Fabric</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BDDD7BFD1F8EB1B4640EC680227DF658</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3791447CCCDBBC027E0846562BED8836</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>BF6342C8B29F4CEEA088EFF7AB4DE362</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>3E4E89230EF59BC255123B67864ACF77</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>iOS</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BFB30FFB3A72F73D17E3F94E8EB25897</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLLevelsFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BFB555765AE862C4263B75A3F6D83226</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.xcdatamodel</string>
+			<key>path</key>
+			<string>MTLImage.xcdatamodel</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C319D37714137EB035DF5E7F625B308B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLMaskFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C39485F682E347C1BCD9A8142CABDDE2</key>
+		<dict>
+			<key>fileRef</key>
+			<string>638628E9DB2EE8884AB2C736E3DA9B58</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C43AC22776F28C3B12BA74072900F8BE</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>22D8BAEC594D5A75040BC51C31CE8D65</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Pods-MTLImage_Example/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_NAME</key>
+				<string>Pods_MTLImage_Example</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>C46DBE7E72FE40FB11ABA797B5EBC086</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Toon.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C82618ED40F7BA5910D625B22FE19EA5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLFilterGroupRecord+CoreDataProperties.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C85786B4BEE0470DB0280D41303BAFB5</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>B12569E0C98A99570FC02FC9B99F1545</string>
+				<string>B12569E0C98A99570FC02FC9B99F1545</string>
+				<string>53C502B7D703502F3FD0FC1C70C1BBEE</string>
+				<string>0ADBAA928FCC3A8D1EB298AB0D79D82C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>C8F32B6A4A6DFA36A458969BD2B82536</key>
+		<dict>
+			<key>fileRef</key>
+			<string>932EE1B25C43F3170F629BBDFE7E00A1</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C9DD1A971BD239FB2C16CBFFDDA50C04</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Camera.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CA4DAE1FDD3D3056D9477B768408845A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Distortion.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CB347D02EE684925882568BD141EFD48</key>
+		<dict>
+			<key>fileRef</key>
+			<string>B5886B93C3B5AC386CE2E65BBA2DC560</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>CB4B624775F7308657EF62930951D4FB</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7CBEDC6F9742BC41D3A93C5CAE37F802</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>CC872517950E5A02328704ACB454B828</key>
+		<dict>
+			<key>fileRef</key>
+			<string>278135E54569FC337D43744DD09270BA</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>CD3AFFB5C0B042A73A7106FD4238EE47</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5C3FEE5D6F09DA8981530F8CDDCF2551</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>CEC4AE2EB5D63E7486D081F34DBE7AA6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLHistogramFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CF18C301512E5D29F55381644FEFDBEB</key>
+		<dict>
+			<key>fileRef</key>
+			<string>26C83089C6C0715F8BE053A8EAD470BB</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>D1FCF9AA8281DB558B0EEB8B4AE32B60</key>
+		<dict>
+			<key>fileRef</key>
+			<string>20EAE86E87D3ABB3D817C310CF975A39</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>D2D9B3EC960A017F09AF540CB6673D7D</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>4F7FC947C276C453C680F93704B018E0</string>
+				<string>F1A0E9C7E253AB57F61AA94A5C4B8EEB</string>
+				<string>C9DD1A971BD239FB2C16CBFFDDA50C04</string>
+				<string>E86D5D4DA70D15F977D23B012156BAAD</string>
+				<string>1ADB405A68D8D5BD48A7060077FD2F36</string>
+				<string>20EAE86E87D3ABB3D817C310CF975A39</string>
+				<string>15340A9B1BC5C794BE02AD6869D6DCF7</string>
+				<string>7828E37653B2778AC62ECB83CEA4A832</string>
+				<string>4C8D906C3B52AD90DA4681B3D597F613</string>
+				<string>E4C0C2102B7CC229D04CFFAEA5517FFB</string>
+				<string>CA4DAE1FDD3D3056D9477B768408845A</string>
+				<string>B968193948736263178B80D7054E1C6F</string>
+				<string>0A62B0B6D1D580271BBC4C3BC9D4B7AC</string>
+				<string>F5B95C127D27929B7B8D0A56E7A04A43</string>
+				<string>324F713C8F23E14758EE5BF21B7E7835</string>
+				<string>072D7D9EFD107E2D9B493C6E9C428244</string>
+				<string>FDFBC268C1DD24CDF55149474ECEB1E7</string>
+				<string>E90C2E20347C1172028279290E9948A5</string>
+				<string>932EE1B25C43F3170F629BBDFE7E00A1</string>
+				<string>451CBB47EB9BAD6985F74984B435FE0B</string>
+				<string>638628E9DB2EE8884AB2C736E3DA9B58</string>
+				<string>0310553B557B0E7838900D24195DDE82</string>
+				<string>9F1757BED86E6FF8B0B251070AC9FB50</string>
+				<string>A7CAC80C75CF2908F9FB76A7363D2C45</string>
+				<string>1673638130E99105E82FB1BEECA6555D</string>
+				<string>1FA000BAEF2CB5A036F9AB48BFB4FB83</string>
+				<string>798EDE7B6A664A2629D8B0EDB030B4FB</string>
+				<string>7E949B33FD6B664BD35A0DB8AF1F78C6</string>
+				<string>5F5520C503C53224D1010580D9DC9E2B</string>
+				<string>1D319412AA638401A559D7A1B9BBD788</string>
+				<string>C46DBE7E72FE40FB11ABA797B5EBC086</string>
+				<string>1C7F753B14412F4E2686483B6B2FC53A</string>
+				<string>BC7D8A1A4853BEDA940666AF8F7625F5</string>
+				<string>348065CFA1E5B15BF9B77F230B22440E</string>
+				<string>9B56FBCE16BBBC9BAD019283C913FC3C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Shaders</string>
+			<key>path</key>
+			<string>Shaders</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D34AD4E1EFA0636A271A7E24BE62D8B4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4C23317E7FDC560F7295423D7E2987FE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>D41D8CD98F00B204E9800998ECF8427E</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>LastSwiftUpdateCheck</key>
+				<string>0700</string>
+				<key>LastUpgradeCheck</key>
+				<string>0700</string>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>2D8E8EC45A3A1A1D94AE762CB5028504</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+			</array>
+			<key>mainGroup</key>
+			<string>7DB346D0F39D3F0E887471402A8071AB</string>
+			<key>productRefGroup</key>
+			<string>DA0A0C2CDCD0A31AA3F37B444C718F0E</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>F5F124A27E05ACDF917ED171FCC9329D</string>
+				<string>6C18550FA86F4274240112F060D3C87E</string>
+				<string>42A29EC7FBE2DD72BE14842D6D1A7C17</string>
+			</array>
+		</dict>
+		<key>D421F630D61FC84ED86D4D297494B18B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Tests-acknowledgements.markdown</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D42C03076B250D79E6163C87E49C945B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Example-frameworks.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D535DE3FC1EE294E4A9E0A729FB78099</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Tests-acknowledgements.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D685CD3540890B8E421349738004AD5E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4545DBBD532521AFF29B250363B7F86D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>D73496CF4CF955DD6211D7C097E24574</key>
+		<dict>
+			<key>fileRef</key>
+			<string>B300D0AEB3DF042E132C1780C14513A5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>D883C510F55EFC2E76E9F0D71F16D04D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>B92DDCC7954CF20BF018E12C7C246DF0</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>D9669D57F214A29BF5FE39CF4C756D46</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>F88670808863AF79C7367E682F0F377A</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Pods-MTLImage_Tests/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Pods-MTLImage_Tests/Pods-MTLImage_Tests.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_NAME</key>
+				<string>Pods_MTLImage_Tests</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>DA0A0C2CDCD0A31AA3F37B444C718F0E</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>8981A29B7546A8424543D0257DFC84C6</string>
+				<string>96D2E03E55CE847077265B9B2888354F</string>
+				<string>A03E1F85E9DE25C5195F856D96C01188</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DB19B1ADC2D8866CCD87201BD1677B01</key>
+		<dict>
+			<key>fileRef</key>
+			<string>451CBB47EB9BAD6985F74984B435FE0B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>DB481EDC944F3C45E7C96D33CF96276C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLOilPaintFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DBF0C469D368387D4305D6FBC0D45DBE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Tests-frameworks.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DD32901A1A361E5D90A01017DA9833BE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>MTLImage-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DF45F37C6C70B9D421A9540F94744A78</key>
+		<dict>
+			<key>fileRef</key>
+			<string>324F713C8F23E14758EE5BF21B7E7835</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>DF56A257BB834FA685F096CB9FD477F2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Example.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DF7EE550CB4A5A2C217908F859EE9985</key>
+		<dict>
+			<key>fileRef</key>
+			<string>798EDE7B6A664A2629D8B0EDB030B4FB</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>DFA67D8F8023BBB41114DE1D60AA6A9E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLHazeFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DFD536B553B06E98E0313770DF4A9E18</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLSelectiveHSLFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E01E6418954E1B26DB111B41591B4D97</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C82618ED40F7BA5910D625B22FE19EA5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>E056C99C70D840CB96E607702A6AFEFA</key>
+		<dict>
+			<key>fileRef</key>
+			<string>990567AE9031D7C8ADEEC6E93140DF00</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>E10E9297698842E3A3F6229C42E37F93</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E1B6F2CE97837747A137B7F9EC710EF8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Fabric.framework</string>
+			<key>path</key>
+			<string>iOS/Fabric.framework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E215386F27E91E78949DFA163761D73E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1AB6B1541B9E60231A5B16648A714EA3</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>E2A885D9FDFF57240B101DFE7E3306C1</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>047F9957BA392358BA8DD90550C23CAF</string>
+				<string>13B05026F098DDDD4775C9B8024E1E87</string>
+				<string>4F48A5EDD0F214912E9AD6A6E452B83D</string>
+				<string>DD32901A1A361E5D90A01017DA9833BE</string>
+				<string>81FFD9B1B4F4729BBA51C6486956A117</string>
+				<string>A7D36269A93C28113935F629F321DE3D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>Example/Pods/Target Support Files/MTLImage</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E35AB826F313FCAED93E0035EB3FE029</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>5D95A0EE2B54F250ECAF3B955E107DCD</string>
+				<string>7B58F491EE741156379383D2CB4C66CF</string>
+				<string>029E68E8CA14563CE0BC0B9D6C16FD63</string>
+				<string>261FA9C15790E97967CD2877B4A1BD44</string>
+				<string>D2D9B3EC960A017F09AF540CB6673D7D</string>
+				<string>725B88EC0379433AC02E56D67AE22C8F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Classes</string>
+			<key>path</key>
+			<string>Classes</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E4C0C2102B7CC229D04CFFAEA5517FFB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>DefaultShaders.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E518FFC6628186EFBBFDF39F55A94F96</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>3CE5E43CED8F56EED42B209158E6A85A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>E6DF1D461358DA025BA827493E009D88</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C9DD1A971BD239FB2C16CBFFDDA50C04</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>E76FCD1000DD5FBE05222B07297938DE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>21BDE02D30D94731EB6DBDD4074778EE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>E86D5D4DA70D15F977D23B012156BAAD</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>ColorSelection.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E89C887B22862E41934A052786808332</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3E4E89230EF59BC255123B67864ACF77</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>E90C2E20347C1172028279290E9948A5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Levels.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E968E79A692EAA63803B504C92EC9461</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4960194C6492FCD00678E5EC3A99D697</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>E9771466467E6D426AD75F3C83BDA0CC</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLBlendFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E9B4B7D671E7295B96C82AEE3D74B2EA</key>
+		<dict>
+			<key>fileRef</key>
+			<string>0957087252C62590D9DC6A1C2D7AB2DC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>EA5217FF8B43D676F9B7710A9988AE2C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1C7F753B14412F4E2686483B6B2FC53A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>EBB60233490C98FCA1E11766F99D30FC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1FA000BAEF2CB5A036F9AB48BFB4FB83</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>EC960A96A78F25EDBB5D48A3D1026AD7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E86D5D4DA70D15F977D23B012156BAAD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>EF87D8FE7A94CE349F627F31ED47134E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>CA4DAE1FDD3D3056D9477B768408845A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F0D08327C1A54BEC6DBE415FE2A5789A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLSobelEdgeDetectionFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F1A0E9C7E253AB57F61AA94A5C4B8EEB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Brightness.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F20C2AE41DE67EDF90BAE30738A58EFF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7E949B33FD6B664BD35A0DB8AF1F78C6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F24CE90AE2387FD5E6C9B5EC0D4F00BC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9DBB6CD8E7113DE86E6EFD60E5A5AD35</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>F27D94E779FCA3E10AFE626B7DBDE429</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C319D37714137EB035DF5E7F625B308B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>F33056EE9C473BE561F43602A2603A77</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Example-acknowledgements.markdown</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F49A5D92D8768E2B8ACE6B9F2B033D8E</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>D9669D57F214A29BF5FE39CF4C756D46</string>
+				<string>9A855C4B8A22EC94A1A05407E9982BFD</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>F4BC0C14BD781175323EF179D1FEEC65</key>
+		<dict>
+			<key>fileRef</key>
+			<string>71C5DEF250C12BF6BA80C986B66CA78E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>F5B95C127D27929B7B8D0A56E7A04A43</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Haze.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F5F124A27E05ACDF917ED171FCC9329D</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>0278A786CA648036EC377735E3F79685</string>
+			<key>buildPhases</key>
+			<array>
+				<string>1CBA8C168E3D36957A75C21A61DE34A9</string>
+				<string>7097ABB79589364FE5529A1DEEB7287A</string>
+				<string>C85786B4BEE0470DB0280D41303BAFB5</string>
+				<string>61B8C601F2597185DD1C608CFDE7A9F7</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>MTLImage</string>
+			<key>productName</key>
+			<string>MTLImage</string>
+			<key>productReference</key>
+			<string>8981A29B7546A8424543D0257DFC84C6</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>F780FF9C107DD2F6D9A4880773764A6E</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>BFB555765AE862C4263B75A3F6D83226</string>
+			</array>
+			<key>isa</key>
+			<string>XCVersionGroup</string>
+			<key>path</key>
+			<string>MTLImage.xcdatamodeld</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>versionGroupType</key>
+			<string>wrapper.xcdatamodel</string>
+		</dict>
+		<key>F88670808863AF79C7367E682F0F377A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-MTLImage_Tests.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FB45FFD90572718D82AB9092B750F0CA</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>RELEASE=1</string>
+				</array>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>STRIP_INSTALLED_PRODUCT</key>
+				<string>NO</string>
+				<key>SYMROOT</key>
+				<string>${SRCROOT}/../build</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>FD1F2B22DA8FEEE9AE2071D933123C75</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F780FF9C107DD2F6D9A4880773764A6E</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>CoreData</string>
+			<key>path</key>
+			<string>CoreData</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FDFBC268C1DD24CDF55149474ECEB1E7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Kuwahara.metal</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FE7A75CC1B4C43492D49DCB4017DACA3</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLKuwaharaFilter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FF233D8A6E59817A2911854CE4127000</key>
+		<dict>
+			<key>fileRef</key>
+			<string>34EA40B25D78AA9A5AF5D7E98B7BF182</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>COMPILER_FLAGS</key>
+				<string>-DOS_OBJECT_USE_OBJC=0</string>
+			</dict>
+		</dict>
+		<key>FFCEC7BCAC2D7FD181705E34EACCBE57</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>MTLFilterGroupRecord.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+	</dict>
+	<key>rootObject</key>
+	<string>D41D8CD98F00B204E9800998ECF8427E</string>
+</dict>
+</plist>

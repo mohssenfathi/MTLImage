@@ -47,28 +47,28 @@ class MTLHistogramFilter: MTLFilter {
         if self.input == nil { return }
         
         if luminanceBuffer != nil {
-            var data = NSData(bytesNoCopy: luminanceBuffer!.contents(), length: 255 * sizeof(Float), freeWhenDone: false)
+            let data = NSData(bytesNoCopy: luminanceBuffer!.contents(), length: 255 * sizeof(Float), freeWhenDone: false)
             data.getBytes(&luminance, length:255 * sizeof(Float))
             smooth(&luminance)
             updateHistogramView(luminance)
         }
         
         if redBuffer != nil {
-            var data = NSData(bytesNoCopy: redBuffer!.contents(), length: 255 * sizeof(Float), freeWhenDone: false)
+            let data = NSData(bytesNoCopy: redBuffer!.contents(), length: 255 * sizeof(Float), freeWhenDone: false)
             data.getBytes(&red, length:255 * sizeof(Float))
             smooth(&red)
             updateHistogramView(red)
         }
         
         if greenBuffer != nil {
-            var data = NSData(bytesNoCopy: greenBuffer!.contents(), length: 255 * sizeof(Float), freeWhenDone: false)
+            let data = NSData(bytesNoCopy: greenBuffer!.contents(), length: 255 * sizeof(Float), freeWhenDone: false)
             data.getBytes(&green, length:255 * sizeof(Float))
             smooth(&green)
             updateHistogramView(green)
         }
         
         if blueBuffer != nil {
-            var data = NSData(bytesNoCopy: blueBuffer!.contents(), length: 255 * sizeof(Float), freeWhenDone: false)
+            let data = NSData(bytesNoCopy: blueBuffer!.contents(), length: 255 * sizeof(Float), freeWhenDone: false)
             data.getBytes(&blue, length:255 * sizeof(Float))
             smooth(&blue)
             updateHistogramView(blue)
@@ -186,9 +186,6 @@ class MTLHistogramFilter: MTLFilter {
         let maxHeight = histogramView.frame.size.height * 0.8
         var newHeight: CGFloat!
         var index: Int = 0
-        
-        let averageRange = 10
-        var average: CGFloat = 0.0
         
         var view: UIView!
         if      values == luminance { view = luminanceView }

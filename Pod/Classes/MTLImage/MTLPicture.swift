@@ -177,4 +177,19 @@ class MTLPicture: NSObject, MTLInput {
         internalTargets.removeAll()
     }
     
+    
+    public var needsUpdate: Bool {
+        set {
+            if newValue == true {
+                for target in targets {
+                    if let filter = target as? MTLFilter {
+                        filter.dirty = true
+                    }
+                }
+            }
+        }
+        get {
+            return dirty
+        }
+    }
 }

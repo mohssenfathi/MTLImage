@@ -36,10 +36,6 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
         MTLDataManager.sharedManager.save(self, completion: nil)
     }
     
-    public func setNeedsUpdate() {
-        filters.first?.dirty = true
-    }
-    
     func updateFilterIndexes() {
         for i in 0 ..< filters.count {
             filters[i].index = i
@@ -98,7 +94,7 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
         }
 
         filters.removeObject(filter)
-        setNeedsUpdate()
+        needsUpdate = true
     }
     
     public func removeAll() {
@@ -232,7 +228,15 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
     public func removeAllTargets() {
         filters.last?.removeAllTargets()
     }
-    
+
+    public var needsUpdate: Bool {
+        set {
+            filters.first?.needsUpdate = newValue
+        }
+        get {
+            return (filters.last?.needsUpdate)!
+        }
+    }
     
 //    MARK: - MTLOutput
     
