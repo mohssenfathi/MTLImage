@@ -39,9 +39,8 @@
 		41EF17CD799C6A0BDDE4B3CD68CC4B15 /* MTLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B678E2A0D9CF7CB19F2D9E966337100 /* MTLView.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		44B77382865C810E672AC2E965EBAF41 /* MTLContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9761DDA49820443C66E53AC96D94111 /* MTLContext.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		453FA0281CE36F51003F9871 /* MTLNonMaximumSuppressionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453FA0271CE36F51003F9871 /* MTLNonMaximumSuppressionFilter.swift */; };
-		453FA02A1CE37565003F9871 /* MTLHarrisCornerDetectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453FA0291CE37565003F9871 /* MTLHarrisCornerDetectionFilter.swift */; };
 		453FA02E1CE37C65003F9871 /* MTLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453FA02D1CE37C65003F9871 /* MTLObject.swift */; };
-		453FA0301CE38862003F9871 /* MTLHarrisCornerDetectionFilterGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453FA02F1CE38862003F9871 /* MTLHarrisCornerDetectionFilterGroup.swift */; };
+		453FA0301CE38862003F9871 /* MTLHarrisCornerDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453FA02F1CE38862003F9871 /* MTLHarrisCornerDetection.swift */; };
 		45764E351CE38DE900315DA7 /* MTLCannyEdgeDetectionFilterGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45764E341CE38DE900315DA7 /* MTLCannyEdgeDetectionFilterGroup.swift */; };
 		45764E391CE3901900315DA7 /* MTLWeakPixelInclusionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45764E381CE3901900315DA7 /* MTLWeakPixelInclusionFilter.swift */; };
 		45764E3D1CE3935C00315DA7 /* MTLXYDerivativeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45764E3C1CE3935C00315DA7 /* MTLXYDerivativeFilter.swift */; };
@@ -165,9 +164,8 @@
 		3FEAC86768948BB981295A532F7EA84A /* Convolution.metal */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.metal; path = Convolution.metal; sourceTree = "<group>"; };
 		4244BF9BE75FA66FBE455BCA92E3B024 /* MTLCamera.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCamera.swift; sourceTree = "<group>"; };
 		453FA0271CE36F51003F9871 /* MTLNonMaximumSuppressionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLNonMaximumSuppressionFilter.swift; sourceTree = "<group>"; };
-		453FA0291CE37565003F9871 /* MTLHarrisCornerDetectionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLHarrisCornerDetectionFilter.swift; sourceTree = "<group>"; };
 		453FA02D1CE37C65003F9871 /* MTLObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLObject.swift; sourceTree = "<group>"; };
-		453FA02F1CE38862003F9871 /* MTLHarrisCornerDetectionFilterGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLHarrisCornerDetectionFilterGroup.swift; sourceTree = "<group>"; };
+		453FA02F1CE38862003F9871 /* MTLHarrisCornerDetection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLHarrisCornerDetection.swift; sourceTree = "<group>"; };
 		45764E341CE38DE900315DA7 /* MTLCannyEdgeDetectionFilterGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLCannyEdgeDetectionFilterGroup.swift; sourceTree = "<group>"; };
 		45764E381CE3901900315DA7 /* MTLWeakPixelInclusionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLWeakPixelInclusionFilter.swift; sourceTree = "<group>"; };
 		45764E3C1CE3935C00315DA7 /* MTLXYDerivativeFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLXYDerivativeFilter.swift; sourceTree = "<group>"; };
@@ -551,8 +549,7 @@
 				806554F0F05CD46EDD166580E1FE7D5D /* MTLWaterFilter.swift */,
 				65529500573B92F99E8DD7EDBF0A19B2 /* MTLWhiteBalanceFilter.swift */,
 				453FA0271CE36F51003F9871 /* MTLNonMaximumSuppressionFilter.swift */,
-				453FA0291CE37565003F9871 /* MTLHarrisCornerDetectionFilter.swift */,
-				453FA02F1CE38862003F9871 /* MTLHarrisCornerDetectionFilterGroup.swift */,
+				453FA02F1CE38862003F9871 /* MTLHarrisCornerDetection.swift */,
 				45764E341CE38DE900315DA7 /* MTLCannyEdgeDetectionFilterGroup.swift */,
 				45764E381CE3901900315DA7 /* MTLWeakPixelInclusionFilter.swift */,
 				45764E3C1CE3935C00315DA7 /* MTLXYDerivativeFilter.swift */,
@@ -894,7 +891,7 @@
 				FA53B4EA28EB38FBFBB432521BAB151B /* MTLFilterRecord.swift in Sources */,
 				9838B201E05804CC22CB56784427E929 /* MTLGaussianBlurFilter.swift in Sources */,
 				69514507A0B3BAF6E42EB1362A583A73 /* MTLHazeFilter.swift in Sources */,
-				453FA0301CE38862003F9871 /* MTLHarrisCornerDetectionFilterGroup.swift in Sources */,
+				453FA0301CE38862003F9871 /* MTLHarrisCornerDetection.swift in Sources */,
 				0D1848F9F9D611DB694B47DC358AFAAA /* MTLHistogramFilter.swift in Sources */,
 				819C08CD420EE618C133CA2DEE82FF79 /* MTLImage-dummy.m in Sources */,
 				2A82E28A5988350291F2C68A4721D212 /* MTLImage.swift in Sources */,
@@ -910,7 +907,6 @@
 				4738D9BB26D6A8F572DF56F193B27F31 /* MTLPicture.swift in Sources */,
 				77E77D909D2F37146BA53C79F2ED9473 /* MTLPixellateFilter.swift in Sources */,
 				7F9B3FE0D3351FBC96DCA66FF9BE2BE8 /* MTLPolkaDotFilter.swift in Sources */,
-				453FA02A1CE37565003F9871 /* MTLHarrisCornerDetectionFilter.swift in Sources */,
 				0803117B172C439AF9D149E692055871 /* MTLProperty.swift in Sources */,
 				62ADF46F7D3D4D46BA6C353CDC42E2A6 /* MTLPropertyRecord+CoreDataProperties.swift in Sources */,
 				88696B025D38FF4474EDC7CBC05D0CD8 /* MTLPropertyRecord.swift in Sources */,
