@@ -43,6 +43,7 @@ class MTLImage: NSObject {
          "Emboss",
          "Exposure",
          "Gaussian Blur",
+         "Harris Corner Detection",
          "Haze",
          "Histogram",
          "Invert",
@@ -78,6 +79,7 @@ class MTLImage: NSObject {
             case "emboss"                         : return MTLEmbossFilter()
             case "exposure"                       : return MTLExposureFilter()
             case "gaussian blur"                  : return MTLGaussianBlurFilter()
+            case "harris corner detection"        : return MTLHarrisCornderDetectionFilter()
             case "haze"                           : return MTLHazeFilter()
             case "histogram"                      : return MTLHistogramFilter()
             case "invert"                         : return MTLInvertFilter()

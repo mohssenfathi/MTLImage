@@ -43,6 +43,7 @@
 		453FA0221CE0F58B003F9871 /* Watercolor.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453F9FFF1CE0F58B003F9871 /* Watercolor.metal */; };
 		453FA0231CE0F58B003F9871 /* WhiteBalance.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453FA0001CE0F58B003F9871 /* WhiteBalance.metal */; };
 		453FA0261CE36F2D003F9871 /* NonMaximumSuppression.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453FA0251CE36F2D003F9871 /* NonMaximumSuppression.metal */; };
+		453FA02C1CE37683003F9871 /* HarrisCornerDetection.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453FA02B1CE37683003F9871 /* HarrisCornerDetection.metal */; };
 		4544E8181CD278D0009115B7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4544E8171CD278D0009115B7 /* MessageUI.framework */; };
 		4545D6401CD312570067A498 /* Retro in Resources */ = {isa = PBXBuildFile; fileRef = 4545D63F1CD312570067A498 /* Retro */; };
 		4546570B1CB9BB98001E421A /* FilterGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546570A1CB9BB98001E421A /* FilterGroupViewController.swift */; };
@@ -117,6 +118,7 @@
 		453F9FFF1CE0F58B003F9871 /* Watercolor.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Watercolor.metal; sourceTree = "<group>"; };
 		453FA0001CE0F58B003F9871 /* WhiteBalance.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = WhiteBalance.metal; sourceTree = "<group>"; };
 		453FA0251CE36F2D003F9871 /* NonMaximumSuppression.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = NonMaximumSuppression.metal; sourceTree = "<group>"; };
+		453FA02B1CE37683003F9871 /* HarrisCornerDetection.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HarrisCornerDetection.metal; sourceTree = "<group>"; };
 		4544E8171CD278D0009115B7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4545D63F1CD312570067A498 /* Retro */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Retro; sourceTree = "<group>"; };
 		4546570A1CB9BB98001E421A /* FilterGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterGroupViewController.swift; path = Filters/FilterGroupViewController.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				453F9FFF1CE0F58B003F9871 /* Watercolor.metal */,
 				453FA0001CE0F58B003F9871 /* WhiteBalance.metal */,
 				453FA0251CE36F2D003F9871 /* NonMaximumSuppression.metal */,
+				453FA02B1CE37683003F9871 /* HarrisCornerDetection.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -644,6 +647,7 @@
 				45EB4FCF1CADF8CD0018936C /* SettingsViewController.swift in Sources */,
 				453FA01D1CE0F58B003F9871 /* SobelEdgeDetection.metal in Sources */,
 				453FA01A1CE0F58B003F9871 /* SelectiveHSL.metal in Sources */,
+				453FA02C1CE37683003F9871 /* HarrisCornerDetection.metal in Sources */,
 				453FA0121CE0F58B003F9871 /* LuminanceThreshold.metal in Sources */,
 				454CEDC21CB1470600D67A9E /* InfoViewController.swift in Sources */,
 				453FA00A1CE0F58B003F9871 /* Exposure.metal in Sources */,
