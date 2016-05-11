@@ -15,7 +15,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var tableView: UITableView!
     var settingsViewController: SettingsViewController?
     var filterGroup: MTLFilterGroup!
-    var selectedFilter: MTLFilter!
+    var selectedFilter: MTLObject!
     var actionButton: UIBarButtonItem!
     var isNewFilter: Bool = false
     
@@ -275,7 +275,11 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "settings" {
             settingsViewController = segue.destinationViewController as? SettingsViewController
-            settingsViewController?.filter = selectedFilter
+            if selectedFilter is MTLFilter {
+                settingsViewController?.filter = selectedFilter as! MTLFilter
+            } else {
+//                Handle this later
+            }
         }
         else if segue.identifier == "addFilter" {
             let navigationController = segue.destinationViewController as! UINavigationController

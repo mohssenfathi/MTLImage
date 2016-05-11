@@ -39,6 +39,7 @@
 		41EF17CD799C6A0BDDE4B3CD68CC4B15 /* MTLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B678E2A0D9CF7CB19F2D9E966337100 /* MTLView.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		44B77382865C810E672AC2E965EBAF41 /* MTLContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9761DDA49820443C66E53AC96D94111 /* MTLContext.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		453FA0281CE36F51003F9871 /* MTLNonMaximumSuppressionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453FA0271CE36F51003F9871 /* MTLNonMaximumSuppressionFilter.swift */; };
+		453FA02E1CE37C65003F9871 /* MTLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453FA02D1CE37C65003F9871 /* MTLObject.swift */; };
 		453FA02A1CE37565003F9871 /* MTLHarrisCornderDetectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453FA0291CE37565003F9871 /* MTLHarrisCornderDetectionFilter.swift */; };
 		4738D9BB26D6A8F572DF56F193B27F31 /* MTLPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4895CEC211EB03C0E6A402FB5C6C063D /* MTLPicture.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		4799AE1B9C6C0FDBED54988DB73C32D2 /* MTLSobelEdgeDetectionThresholdFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D31F82071F1BFDA9FC5C1ADA674501 /* MTLSobelEdgeDetectionThresholdFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -160,6 +161,7 @@
 		3FEAC86768948BB981295A532F7EA84A /* Convolution.metal */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.metal; path = Convolution.metal; sourceTree = "<group>"; };
 		4244BF9BE75FA66FBE455BCA92E3B024 /* MTLCamera.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCamera.swift; sourceTree = "<group>"; };
 		453FA0271CE36F51003F9871 /* MTLNonMaximumSuppressionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLNonMaximumSuppressionFilter.swift; sourceTree = "<group>"; };
+		453FA02D1CE37C65003F9871 /* MTLObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLObject.swift; sourceTree = "<group>"; };
 		453FA0291CE37565003F9871 /* MTLHarrisCornderDetectionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLHarrisCornderDetectionFilter.swift; sourceTree = "<group>"; };
 		4895CEC211EB03C0E6A402FB5C6C063D /* MTLPicture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPicture.swift; sourceTree = "<group>"; };
 		4AB0809F6340CE1DE91A69898E0D05F6 /* MTLToonFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLToonFilter.swift; sourceTree = "<group>"; };
@@ -643,6 +645,7 @@
 				820962D6F2BF1A9D29FA311910310416 /* MTLProperty.swift */,
 				7F8A5A316D881E981DC8ABC501FB91E6 /* MTLTypes.swift */,
 				2B678E2A0D9CF7CB19F2D9E966337100 /* MTLView.swift */,
+				453FA02D1CE37C65003F9871 /* MTLObject.swift */,
 			);
 			path = MTLImage;
 			sourceTree = "<group>";
@@ -914,6 +917,7 @@
 				E0ABAF6277147B0F2C1C3046AE44DE95 /* Pixellate.metal in Sources */,
 				DDB2C851C2103C72C6F60E86902FF3DD /* PolkaDot.metal in Sources */,
 				AB957CAFE9FA2691C2A88CB42F921B51 /* Saturation.metal in Sources */,
+				453FA02E1CE37C65003F9871 /* MTLObject.swift in Sources */,
 				AFC6B5A2CB3BB968C99F80F75DE1E2B8 /* SelectiveHSL.metal in Sources */,
 				BFACBD444D62B64FF8C0D4C9F78E8EF0 /* Sharpen.metal in Sources */,
 				5A7C49A2FC189850ED138580C1CAB3C7 /* Sketch.metal in Sources */,

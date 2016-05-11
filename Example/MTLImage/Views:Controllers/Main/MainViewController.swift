@@ -54,7 +54,6 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         navigationItem.title = "MTLImage"
     }
     
-    
     @IBAction func actionButtonPressed(sender: AnyObject) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
