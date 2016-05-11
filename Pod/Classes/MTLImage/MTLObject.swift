@@ -8,6 +8,36 @@
 
 import UIKit
 
-class MTLObject: NSObject {
+public
+class MTLObject: NSObject, MTLInput, MTLOutput {
 
+//    MARK: - MTLInput
+    public var texture: MTLTexture? { get { return nil } }
+    public var context: MTLContext  { get { return MTLContext() }}
+    public var device : MTLDevice   { get { return context.device }}
+    public var targets: [MTLOutput] { get { return [] }}
+    
+    public var title: String {
+        get {  return "" }
+        set {}
+    }
+    
+    public var identifier: String! {
+        get { return "" }
+        set {}
+    }
+    public var needsUpdate: Bool {
+        get { return false }
+        set {}
+    }
+        
+    public func addTarget(target: MTLOutput) {}
+    public func removeTarget(target: MTLOutput) {}
+    public func removeAllTargets() {}
+
+//    MARK: - MTLOutput
+    public var input: MTLInput? {
+        get { return nil }
+        set {}
+    }
 }
