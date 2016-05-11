@@ -37,6 +37,10 @@ class MTLColorSelectionFilter: MTLFilter {
         update()
     }
     
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func update() {
         if self.input == nil { return }
         
@@ -58,7 +62,7 @@ class MTLColorSelectionFilter: MTLFilter {
     public var red: Float = 1.0 {
         didSet {
             clamp(&red, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -66,7 +70,7 @@ class MTLColorSelectionFilter: MTLFilter {
     public var orange: Float = 1.0 {
         didSet {
             clamp(&orange, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -74,7 +78,7 @@ class MTLColorSelectionFilter: MTLFilter {
     public var yellow: Float = 1.0 {
         didSet {
             clamp(&yellow, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -82,7 +86,7 @@ class MTLColorSelectionFilter: MTLFilter {
     public var green: Float = 1.0 {
         didSet {
             clamp(&green, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -90,7 +94,7 @@ class MTLColorSelectionFilter: MTLFilter {
     public var aqua: Float = 1.0 {
         didSet {
             clamp(&aqua, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -98,7 +102,7 @@ class MTLColorSelectionFilter: MTLFilter {
     public var blue: Float = 1.0 {
         didSet {
             clamp(&blue, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -106,7 +110,7 @@ class MTLColorSelectionFilter: MTLFilter {
     public var purple: Float = 1.0 {
         didSet {
             clamp(&purple, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -114,7 +118,7 @@ class MTLColorSelectionFilter: MTLFilter {
     public var magenta: Float = 1.0 {
         didSet {
             clamp(&magenta, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }

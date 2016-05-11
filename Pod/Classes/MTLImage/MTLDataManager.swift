@@ -113,8 +113,31 @@ class MTLDataManager: NSObject {
         filterRecord.index = NSNumber(integer: filter.index)
         
         var propertyRecords = [MTLPropertyRecord]()
+        var record: MTLPropertyRecord!
         for property in filter.properties {
-            propertyRecords.append(propertyRecord(property))
+            record = propertyRecord(property)
+            
+            if let type = MTLPropertyType(rawValue: Int(record.propertyType!.integerValue)) {
+                switch type {
+                case .Value:
+                    record.value = NSNumber(float: filter.valueForKey(property.key) as! Float)
+                    break
+                case .Point:
+                    record.point = NSValue(CGPoint: filter.valueForKey(property.key)!.CGPointValue())
+                    break
+                case .Color:
+                    record.color = filter.valueForKey(property.key) as? UIColor
+                    break
+                case .Selection:
+                    record.value =  NSNumber(integer: filter.valueForKey(property.key) as! Int)
+                    break
+                case .Image:
+                    record.image = UIImageJPEGRepresentation(filter.valueForKey(property.key) as! UIImage, 1.0)
+                    break
+                }
+            }
+            
+            propertyRecords.append(record)
         }
         filterRecord.properties = NSOrderedSet(array: propertyRecords)
         
@@ -127,34 +150,11 @@ class MTLDataManager: NSObject {
         
         propertyRecord.title = property.title
         propertyRecord.key = property.key
+        propertyRecord.selectionItems = property.selectionItems
         propertyRecord.minimumValue = NSNumber(float: property.minimumValue)
         propertyRecord.maximumValue = NSNumber(float: property.maximumValue)
         propertyRecord.defaultValue = NSNumber(float: property.defaultValue)
-        
-        var propertyType = 0
-        switch property.propertyType! {
-        case .Value: propertyType = 0
-            break
-        case .Point: propertyType = 1
-            break
-        case .Color: propertyType = 2
-            break
-        case .Selection: propertyType = 3
-            break
-        case .Image: propertyType = 4
-            break
-        }
-        
-        propertyRecord.propertyType = NSNumber(integer: propertyType)
-        
-        var typeString = ""
-        if      property.type is Float   { typeString = "Float"   }
-        else if property.type is Int     { typeString = "Int"     }
-        else if property.type is CGPoint { typeString = "CGPoint" }
-        else if property.type is Bool    { typeString = "Bool"    }
-        else if property.type is UIColor { typeString = "UIColor" }
-        else if property.type is UIImage { typeString = "UIImage" }
-        propertyRecord.type = typeString
+        propertyRecord.propertyType = NSNumber(integer: property.propertyType.rawValue)
         
         return propertyRecord
     }
@@ -178,7 +178,7 @@ class MTLDataManager: NSObject {
     
     func filter(filterRecord: MTLFilterRecord) -> MTLFilter? {
                 
-        guard let filter = try! MTLImage.filter(filterRecord.title!) else {
+        guard let filter = try! MTLImage.filter((filterRecord.title?.lowercaseString)!) else {
             return nil
         }
         
@@ -190,57 +190,44 @@ class MTLDataManager: NSObject {
         let propertyRecords = filterRecord.properties!.array as! [MTLPropertyRecord]
         for propertyRecord: MTLPropertyRecord in propertyRecords {
             filter.properties.append(property(propertyRecord))
+            
+            if let type = MTLPropertyType(rawValue: Int(propertyRecord.propertyType!.integerValue)) {
+                switch type {
+                case .Value:
+                    filter.setValue(propertyRecord.value, forKey: propertyRecord.key!)
+                    break
+                case .Point:
+                    filter.setValue(propertyRecord.point, forKey: propertyRecord.key!)
+                    break
+                case .Color:
+                    filter.setValue(propertyRecord.color, forKey: propertyRecord.key!)
+                    break
+                case .Selection:
+                    filter.setValue(propertyRecord.value?.integerValue, forKey: propertyRecord.key!)
+                    break
+                case .Image:
+                    if let image = UIImage(data: propertyRecord.image! as NSData) {
+                        filter.setValue(image, forKey: propertyRecord.key!)
+                    }
+                    break
+                }
+            }
+            
         }
         
         return filter
     }
     
     func property(propertyRecord: MTLPropertyRecord) -> MTLProperty {
+
+        let propertyType = MTLPropertyType(rawValue: (propertyRecord.propertyType?.integerValue)!)
         
-        var type: Any!
-        if propertyRecord.type != nil {
-            switch propertyRecord.type! {
-            case "Float":
-                type = Float()
-                break
-            case "Int":
-                type = Int()
-                break
-            case "CGPoint":
-                type = CGPoint()
-                break
-            case "Bool":
-                type = Bool()
-                break
-            case "UIColor":
-                type = UIColor()
-                break
-            default:
-                type = Float()
-                break
-            }
-        }
-        
-        var propertyType: MTLPropertyType = .Value
-        if propertyRecord.propertyType != nil {
-            switch (propertyRecord.propertyType?.integerValue)! {
-            case 0: propertyType = .Value
-                break
-            case 1: propertyType = .Point
-                break
-            case 2: propertyType = .Color
-                break
-            case 3: propertyType = .Selection
-                break
-            default: break
-            }
-        }
-        
-        let property = MTLProperty(key: propertyRecord.key!, title: propertyRecord.title!, type: type, propertyType: propertyType)
+        let property = MTLProperty(key: propertyRecord.key!, title: propertyRecord.title!, propertyType: propertyType!)
         
         property.minimumValue = (propertyRecord.minimumValue?.floatValue)!
         property.maximumValue = (propertyRecord.maximumValue?.floatValue)!
         property.defaultValue = (propertyRecord.defaultValue?.floatValue)!
+        property.selectionItems = propertyRecord.selectionItems
         
         return property
     }
@@ -284,6 +271,7 @@ class MTLDataManager: NSObject {
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
     }()
+    
     
     // MARK: - Core Data Saving support
     

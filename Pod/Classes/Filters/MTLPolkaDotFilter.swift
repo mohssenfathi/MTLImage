@@ -20,7 +20,7 @@ class MTLPolkaDotFilter: MTLFilter {
     public var dotRadius: Float = 0.0 {
         didSet {
             clamp(&dotRadius, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -30,6 +30,10 @@ class MTLPolkaDotFilter: MTLFilter {
         title = "Polka Dot"
         properties = [MTLProperty(key: "dotRadius", title: "Dot Radius")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

@@ -20,7 +20,7 @@ class MTLPerlinNoiseFilter: MTLFilter {
     public var scale: Float = 0.5 {
         didSet {
             clamp(&scale, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -30,6 +30,10 @@ class MTLPerlinNoiseFilter: MTLFilter {
         title = "Perlin Noise"
         properties = [MTLProperty(key: "scale", title: "Scale")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

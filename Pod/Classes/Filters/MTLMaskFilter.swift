@@ -29,7 +29,7 @@ class MTLMaskFilter: MTLFilter {
     public var brushSize: Float = 0.25 {
         didSet {
             clamp(&brushSize, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -37,7 +37,7 @@ class MTLMaskFilter: MTLFilter {
 //    public var add: CGPoint = CGPointZero {
 //        didSet {
 //            updateMask(add, value: 1.0) // Add a bool property later for this
-//            dirty = true
+//            needsUpdate = true
 //        }
 //    }
     
@@ -53,7 +53,7 @@ class MTLMaskFilter: MTLFilter {
             }
             updateMask(point, value: 0.0)
             originalTexture = nil
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -139,9 +139,13 @@ class MTLMaskFilter: MTLFilter {
         super.init(functionName: "mask")
         title = "Mask"
         properties = [MTLProperty(key: "brushSize", title: "Brush Size"),
-                      MTLProperty(key: "point"    , title: "Point"     , type: CGPoint(), propertyType: .Point)]
+                      MTLProperty(key: "point"    , title: "Point", propertyType: .Point)]
         mask = [Float](count: width * width, repeatedValue: 1.0)
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {
@@ -179,7 +183,7 @@ class MTLMaskFilter: MTLFilter {
     
     override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
-        if dirty == true {
+        if needsUpdate == true {
             updateMaskTexture()
         }
         commandEncoder.setTexture(maskTexture, atIndex: 2)

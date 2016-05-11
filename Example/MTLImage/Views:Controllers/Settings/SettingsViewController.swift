@@ -23,9 +23,9 @@ SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINav
         navigationItem.title = filter.title
         tableView.estimatedRowHeight = 80
         
-        for mtlProperty: MTLProperty in filter.properties {
-            if let _ = mtlProperty.type as? CGPoint {
-                touchProperty = mtlProperty
+        for property: MTLProperty in filter.properties {
+            if property.propertyType == .Point {
+                touchProperty = property
                 break;
             }
         }
@@ -138,11 +138,11 @@ SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINav
 
         let property: MTLProperty = filter.properties[(indexPath?.row)!]
         
-        if let _ = property.type as? Float {
+        if property.propertyType == .Value {
             sender.valueLabel.text = String(format: "%.2f", value)
             filter.setValue(value, forKey: property.key)
         }
-        else if let _ = property.type as? UIColor {
+        else if property.propertyType == .Color {
             sender.valueLabel.text = "-"
             filter.setValue(sender.currentColor(), forKey: property.key)
         }

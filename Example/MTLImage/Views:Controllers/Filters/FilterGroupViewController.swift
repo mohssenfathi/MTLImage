@@ -7,15 +7,16 @@
 //
 
 import UIKit
+import MessageUI
 import MTLImage
 
-class FilterGroupViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddFilterViewControllerDelegate {
+class FilterGroupViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddFilterViewControllerDelegate, MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var settingsViewController: SettingsViewController?
     var filterGroup: MTLFilterGroup!
     var selectedFilter: MTLFilter!
-    var saveButton: UIBarButtonItem!
+    var actionButton: UIBarButtonItem!
     var isNewFilter: Bool = false
     
     override func viewDidLoad() {
@@ -29,20 +30,88 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.setEditing(true, animated: false)
     }
 
-    func saveButtonPressed(button: UIBarButtonItem) {
+    func actionButtonPressed(button: UIBarButtonItem) {
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let exportAction = UIAlertAction(title: "Export", style: .Default) { (action) in
+            self.dismissViewControllerAnimated(true, completion:nil)
+            self.export()
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .Default) { (action) in
+            self.dismissViewControllerAnimated(true, completion:nil)
+            self.save()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        alert.addAction(saveAction)
+        alert.addAction(exportAction)
+        alert.addAction(cancelAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func save() {
         if isNewFilter {
-            showRenameAlert({ 
+            showRenameAlert({
                 MTLImage.save(self.filterGroup, completion: { (success) in
-                    if success == true {
-                        self.saveButton.enabled = false
-                    }
+                    let message = success ? "Saved" : "Couldn't Save"
+                    let alertView = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
+                    self.presentViewController(alertView, animated: true, completion: { 
+                        sleep(UInt32(1.0))
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    })
                 })
             })
         } else {
             MTLImage.save(self.filterGroup, completion: { (success) in
-                if success == true {
-                    self.saveButton.enabled = false
-                }
+                let message = success ? "Saved" : "Couldn't Save"
+                let alertView = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
+                self.presentViewController(alertView, animated: true, completion: {
+                    sleep(UInt32(1.0))
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
+            })
+        }
+    }
+    
+    
+    func export() {
+    
+        let exportBlock = {
+            let data = MTLImage.archive(self.filterGroup)
+            let composeViewController = MFMailComposeViewController()
+            composeViewController.setSubject("MTLImage Export Document - " + self.filterGroup.title)
+            composeViewController.mailComposeDelegate = self
+            composeViewController.addAttachmentData(data!, mimeType: "application/octet-stream", fileName: self.filterGroup.title)
+            self.presentViewController(composeViewController, animated: true, completion: nil)
+        }
+        
+        if isNewFilter {
+            showRenameAlert({
+                exportBlock();
+            })
+        } else {
+            exportBlock();
+        }
+    }
+    
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        controller.dismissViewControllerAnimated(true) {
+            
+            if result == MFMailComposeResultCancelled { return }
+            
+            let message = (result == MFMailComposeResultFailed) ? "Failed to send" : "Sent"
+            let alertView = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
+            
+            self.presentViewController(alertView, animated: true, completion: {
+                sleep(UInt32(1.0))
+                self.dismissViewControllerAnimated(true, completion: nil)
             })
         }
     }
@@ -82,10 +151,10 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func setupView() {
-        saveButton = UIBarButtonItem(title: "Save", style: .Done, target: self, action: #selector(FilterGroupViewController.saveButtonPressed(_:)))
-        saveButton.enabled = false
-        navigationItem.rightBarButtonItem = saveButton
-        
+        actionButton = UIBarButtonItem(title: "•••", style: .Done, target: self, action: #selector(FilterGroupViewController.actionButtonPressed(_:)))
+        navigationItem.rightBarButtonItem = actionButton
+        actionButton.enabled = filterGroup.filters.count > 0
+    
         navigationItem.title = filterGroup.title
     }
     
@@ -123,7 +192,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         
-        saveButton.enabled = true
+        actionButton.enabled = true
         
         if cell?.reuseIdentifier == "addCell" {
             performSegueWithIdentifier("addFilter", sender: self)
@@ -162,15 +231,16 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
             }
         }
         
-        
         filterGroup += filter
+        
+        actionButton.enabled = true
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             filterGroup.remove(filterGroup.filters[indexPath.row])
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            saveButton.enabled = true
+            actionButton.enabled = filterGroup.filters.count > 0
         }
     }
     

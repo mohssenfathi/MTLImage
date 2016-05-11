@@ -28,14 +28,14 @@ class MTLVignetteFilter: MTLFilter {
     
     public var center: CGPoint = CGPointMake(0.5, 0.5) {
         didSet {
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
     
     public var color: UIColor = UIColor.blackColor() {
         didSet {
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -43,7 +43,7 @@ class MTLVignetteFilter: MTLFilter {
     public var start: Float = 0.25 {
         didSet {
             clamp(&start, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -51,14 +51,14 @@ class MTLVignetteFilter: MTLFilter {
     public var end: Float = 0.7 {
         didSet {
             clamp(&end, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
     
     public override func reset() {
         viewSize = nil
-        center = CGPoint(x: -1, y: -1)
+        center = CGPoint(x: 0.5, y: 0.5)
         color = UIColor.blackColor()
         start = 0.25
         end = 0.7
@@ -67,11 +67,21 @@ class MTLVignetteFilter: MTLFilter {
     public init() {
         super.init(functionName: "vignette")
         title = "Vignette"
-        properties = [MTLProperty(key: "center", title: "Center", type: CGPoint(), propertyType: .Point),
-                      MTLProperty(key: "color" , title: "Color" , type: UIColor(), propertyType: .Color),
+        properties = [MTLProperty(key: "center", title: "Center", propertyType: .Point),
+                      MTLProperty(key: "color" , title: "Color" , propertyType: .Color),
                       MTLProperty(key: "start" , title: "Start" ),
                       MTLProperty(key: "end"   , title: "End"   )]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override public var needsUpdate: Bool {
+        didSet {
+            if needsUpdate == true { update() }
+        }
     }
     
     override func update() {

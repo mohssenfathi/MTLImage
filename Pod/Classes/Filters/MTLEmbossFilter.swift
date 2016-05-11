@@ -14,7 +14,7 @@ class MTLEmbossFilter: MTLConvolutionFilter {
     public var intensity: Float = 0.0 {
         didSet {
             clamp(&intensity, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -23,6 +23,10 @@ class MTLEmbossFilter: MTLConvolutionFilter {
         super.init()
         title = "Emboss"
         properties = [MTLProperty(key: "intensity", title: "Intensity")]
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

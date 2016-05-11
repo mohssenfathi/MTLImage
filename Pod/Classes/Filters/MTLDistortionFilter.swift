@@ -21,7 +21,7 @@ class MTLDistortionFilter: MTLFilter {
     public var x: Float = 0.5 {
         didSet {
             clamp(&x, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -29,7 +29,7 @@ class MTLDistortionFilter: MTLFilter {
     public var y: Float = 0.5 {
         didSet {
             clamp(&y, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -40,6 +40,10 @@ class MTLDistortionFilter: MTLFilter {
         properties = [MTLProperty(key: "x", title: "X"),
                       MTLProperty(key: "y", title: "Y")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

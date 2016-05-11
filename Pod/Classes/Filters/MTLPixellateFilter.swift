@@ -23,7 +23,7 @@ class MTLPixellateFilter: MTLFilter {
     public var dotRadius: Float = 0.5 {
         didSet {
             clamp(&dotRadius, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -33,6 +33,10 @@ class MTLPixellateFilter: MTLFilter {
         title = "Pixellate"
         properties = [MTLProperty(key: "dotRadius", title: "Dot Radius")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

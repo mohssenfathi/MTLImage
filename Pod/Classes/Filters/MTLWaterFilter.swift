@@ -68,10 +68,14 @@ class MTLWaterFilter: MTLFilter {
         update()
     }
     
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     public override func process() {
         update()
         super.process()
-        dirty = true
+        needsUpdate = true
     }
     
     override func update() {

@@ -23,7 +23,7 @@ class MTLLevelsFilter: MTLFilter {
     public var min: Float = 0.0 {
         didSet {
             clamp(&min, low: 0, high: mid)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -31,7 +31,7 @@ class MTLLevelsFilter: MTLFilter {
     public var mid: Float = 0.5 {
         didSet {
             clamp(&mid, low: min, high: max)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -39,7 +39,7 @@ class MTLLevelsFilter: MTLFilter {
     public var max: Float = 1.0 {
         didSet {
             clamp(&max, low: mid, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -47,7 +47,7 @@ class MTLLevelsFilter: MTLFilter {
     public var minOut: Float = 0.0 {
         didSet {
             clamp(&minOut, low: 0, high: maxOut)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -55,7 +55,7 @@ class MTLLevelsFilter: MTLFilter {
     public var maxOut: Float = 1.0 {
         didSet {
             clamp(&maxOut, low: minOut, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -79,14 +79,12 @@ class MTLLevelsFilter: MTLFilter {
         update()
     }
     
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func update() {
         if self.input == nil { return }
-        
-//        if min > mid { min = mid }
-//        if max < mid { max = mid }
-//        if mid < min { mid = min }
-//        if mid > max { mid = max }
-        
         uniforms.min = min
         uniforms.mid = Tools.convert(mid, oldMin: 0.0, oldMid: 0.5, oldMax: 1.0, newMin: 0.0, newMid: 1.0, newMax: 10.0)
         uniforms.max = max

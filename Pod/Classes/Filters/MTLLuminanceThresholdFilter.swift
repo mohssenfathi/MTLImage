@@ -20,16 +20,20 @@ class MTLLuminanceThresholdFilter: MTLFilter {
     public var threshold: Float = 0.5 {
         didSet {
             clamp(&threshold, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
     
     public init() {
         super.init(functionName: "luminanceThreshold")
-        title = "LuminanceThreshold"
+        title = "Luminance Threshold"
         properties = [MTLProperty(key: "threshold", title: "Threshold")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

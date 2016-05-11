@@ -20,7 +20,7 @@ class MTLSaturationFilter: MTLFilter {
     public var saturation: Float = 0.5 {
         didSet {
             clamp(&saturation, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -31,6 +31,10 @@ class MTLSaturationFilter: MTLFilter {
         properties = [MTLProperty(key: "saturation", title: "Saturation")]
         
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

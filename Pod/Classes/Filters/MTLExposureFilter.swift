@@ -19,7 +19,7 @@ class MTLExposureFilter: MTLFilter {
     public var exposure: Float = 0.5 {
         didSet {
             clamp(&exposure, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -29,6 +29,10 @@ class MTLExposureFilter: MTLFilter {
         title = "Exposure"
         properties = [MTLProperty(key: "exposure", title: "Exposure")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

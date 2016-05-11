@@ -23,4 +23,10 @@ extension MTLPropertyRecord {
     @NSManaged var propertyType: NSNumber?
     @NSManaged var host: MTLFilterRecord?
 
+//    Property Types
+    @NSManaged var value: NSNumber?
+    @NSManaged var point: NSValue?
+    @NSManaged var color: UIColor?
+    @NSManaged var selectionItems: [Int: String]?
+    @NSManaged var image: NSData?
 }

@@ -23,7 +23,7 @@ class MTLGaussianBlurFilter: MTLFilter {
         didSet {
 //            if round(newValue) != blurRadius {
                 clamp(&blurRadius, low: 0, high: 1)
-                dirty = true
+                needsUpdate = true
                 blurWeightTexture = nil
                 update()
 //            }
@@ -32,7 +32,7 @@ class MTLGaussianBlurFilter: MTLFilter {
     
     public var sigma: Float = 0.0 {
         didSet {
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -42,6 +42,10 @@ class MTLGaussianBlurFilter: MTLFilter {
         title = "Gaussian Blur"
         properties = [ MTLProperty(key: "blurRadius", title: "Blur Radius"),
                        MTLProperty(key: "sigma"     , title: "Sigma"      )]
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

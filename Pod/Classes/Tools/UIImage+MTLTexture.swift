@@ -15,35 +15,31 @@ extension UIImage {
     class func imageWithTexture(texture: MTLTexture) -> UIImage? {
         
         if texture.pixelFormat != .RGBA8Unorm { return nil }
-//        assert(texture.pixelFormat != .RGBA8Unorm)
         
         let imageSize = CGSize(width: texture.width, height: texture.height)
         let width:Int = Int(imageSize.width)
         let height: Int = Int(imageSize.height)
         
         let imageByteCount: Int = width * height * 4
-        let imageBytes = malloc(imageByteCount)
+        let imageBytes = UnsafeMutablePointer<Void>(malloc(imageByteCount))
         let bytesPerRow = width * 4
 
         let region: MTLRegion = MTLRegionMake2D(0, 0, width, height)
         texture.getBytes(imageBytes, bytesPerRow: bytesPerRow, fromRegion: region, mipmapLevel: 0)
-
-        let releaseDataCallback: CGDataProviderReleaseDataCallback? = { (info: UnsafeMutablePointer<Void>, data: UnsafePointer<Void>, _) -> () in
-            free(info)
-        }
         
-        let provider = CGDataProviderCreateWithData(nil, imageBytes, imageByteCount, releaseDataCallback)
+        let data = NSData(bytes: imageBytes, length: imageByteCount)
+        let provider = CGDataProviderCreateWithCFData(data)
     
         let bitsPerComponent = 8
         let bitsPerPixel = 32
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedFirst.rawValue).union(.ByteOrder32Big)
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue).union(.ByteOrder32Big)
         let renderingIntent = CGColorRenderingIntent.RenderingIntentDefault
         let imageRef = CGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpace, bitmapInfo, provider, nil, false, renderingIntent)
         
         let image = UIImage(CGImage: imageRef!, scale: 0.0, orientation: .Up)
         
-//        free(imageBytes)
+        free(imageBytes)
         
         return image;
     }

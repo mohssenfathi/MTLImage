@@ -20,7 +20,7 @@ class MTLKuwaharaFilter: MTLFilter {
     public var radius: Float = 0.5 {
         didSet {
             clamp(&radius, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -30,6 +30,10 @@ class MTLKuwaharaFilter: MTLFilter {
         title = "Kuwahara"
         properties = [MTLProperty(key: "radius", title: "Radius")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

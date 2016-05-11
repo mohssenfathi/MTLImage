@@ -37,9 +37,18 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        savedFilterGroups = MTLImage.savedFilterGroups()
+        loadSavedFilters()
         editButton.enabled = savedFilterGroups.count > 0
         tableView.reloadData()
+    }
+    
+    func loadSavedFilters() {
+        savedFilterGroups = MTLImage.savedFilterGroups()
+        
+//        let path = NSBundle.mainBundle().pathForResource("Retro", ofType: "")
+//        let data = NSData(contentsOfFile: path!)
+//        let filterGroup = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! MTLFilterGroup
+//        savedFilterGroups.append(filterGroup)
     }
     
     func handleTouchAtLocation(location: CGPoint) {
@@ -117,6 +126,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                 newFilterSeleced = true
             } else {
                 filterGroup = savedFilterGroups[indexPath.row]
+                filterGroup.needsUpdate = true
                 newFilterSeleced = false
             }
             

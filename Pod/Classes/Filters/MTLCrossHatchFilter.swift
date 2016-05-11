@@ -21,7 +21,7 @@ class MTLCrossHatchFilter: MTLFilter {
     public var crossHatchSpacing: Float = 0.5 {
         didSet {
             clamp(&crossHatchSpacing, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -29,7 +29,7 @@ class MTLCrossHatchFilter: MTLFilter {
     public var lineWidth: Float = 0.5 {
         didSet {
             clamp(&lineWidth, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -40,6 +40,10 @@ class MTLCrossHatchFilter: MTLFilter {
         properties = [ MTLProperty(key: "crossHatchSpacing", title: "Cross Hatch Spacing"),
                        MTLProperty(key: "lineWidth"        , title: "Line Width"         )]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

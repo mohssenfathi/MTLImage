@@ -9,7 +9,7 @@
 import UIKit
 
 // Set to true to use compiled shaders
-let useMetalib = true
+let useMetalib = false
 
 public
 class MTLContext: NSObject {
@@ -27,20 +27,7 @@ class MTLContext: NSObject {
         
         device = MTLCreateSystemDefaultDevice()
         if (device != nil) {
-            #if os(tvOS)
-                if !device.supportsFeatureSet(.TVOS_GPUFamily1_v1) {
-                    self.library = self.device.newDefaultLibrary()
-                    return
-                }
-            #endif
-            
-            #if os(iOS)
-                if !device.supportsFeatureSet(.iOS_GPUFamily1_v1) {
-                    self.library = self.device.newDefaultLibrary()
-                    return
-                }
-            #endif
-
+        
             if useMetalib {
                 do {
                     let bundle = NSBundle(forClass: MTLImage.classForCoder())
@@ -52,7 +39,15 @@ class MTLContext: NSObject {
                 }
             }
             else {
-              self.library = self.device.newDefaultLibrary()
+                #if os(tvOS)
+                    if !device.supportsFeatureSet(.TVOS_GPUFamily1_v1) { return }
+                #endif
+                
+                #if os(iOS)
+                    if !device.supportsFeatureSet(.iOS_GPUFamily1_v1) { return }
+                #endif
+                
+                self.library = self.device.newDefaultLibrary()
             }
             
             self.commandQueue = self.device.newCommandQueue()

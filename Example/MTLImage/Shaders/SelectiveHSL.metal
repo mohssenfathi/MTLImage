@@ -154,38 +154,6 @@ float RGBToL(float3 color) {
     return (fmax + fmin) / 2.0; // Luminance
 }
 
-float convertValue(float value, float oldMin, float oldMax, float newMin, float newMax) {
-    float normalizedValue = (value - oldMin)/(oldMax - oldMin);
-    float newValue = newMin + (normalizedValue * (newMax - newMin));
-    return newValue;
-}
-
-float compare(float3 rgb1, float3 rgb2, float tolerance, float min, float max) {
-    
-    float3 color1 = rgb1;
-    float3 color2 = rgb2;
-    
-    float c1 = sqrt(color1.g * color1.g + color1.b * color1.b);
-    float c2 = sqrt(color2.g * color2.g + color2.b * color2.b);
-    
-    float dc = c1 - c2;
-    float dl = color1.r - color2.r;
-    float da = color1.g - color2.g;
-    float db = color1.b - color2.b;
-    float dh = sqrt((da*da)+(db*db)-(dc*dc));
-    float first  = dl;
-    float second = dc/(1.0 + 0.045 * c1);
-    float third  = dh/(1.0 + 0.015 * c1);
-    
-    float r = sqrt(first * first + second * second + third * third);
-    
-    min += tolerance;
-    max += tolerance;
-    
-    if (r < min) return convertValue(r, min, max, 0.0, 1.0);
-    return 0.0;
-}
-
 float map_hue(float hueShift[7], int range, float value) {
     value += (hueShift[0] + hueShift[range]) / 2.0;
     

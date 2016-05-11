@@ -18,7 +18,6 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     var internalContext: MTLContext = MTLContext()
     var pipeline: MTLComputePipelineState!
     var kernelFunction: MTLFunction!
-    var dirty: Bool = true
     
     var session: AVCaptureSession!
     var captureDevice: AVCaptureDevice!
@@ -148,7 +147,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         internalTexture = CVMetalTextureGetTexture((textureRef?.takeUnretainedValue())!)
 //        videoTexture = CVMetalTextureGetTexture((textureRef?.takeUnretainedValue())!)
         textureRef?.release()
-        setNeedsUpdate()
+        needsUpdate = true
     }
     
     var internalTitle: String!
@@ -169,14 +168,10 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         }
     }
     
-    public func setNeedsUpdate() {
-        for target in targets {
-            
-        }
-    }
-    
+    private var privateNeedsUpdate = true
     public var needsUpdate: Bool {
         set {
+            privateNeedsUpdate = newValue
             for target in targets {
                 if var inp = target as? MTLInput {
                     inp.needsUpdate = newValue
@@ -184,7 +179,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             }
         }
         get {
-            return dirty
+            return privateNeedsUpdate
         }
     }
     
@@ -237,7 +232,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         
         let commandBuffer = context.commandQueue.commandBuffer()
         commandBuffer.addCompletedHandler { (commandBuffer) in
-            self.dirty = false
+            self.needsUpdate = false
         }
         
         let commandEncoder = commandBuffer.computeCommandEncoder()
@@ -258,7 +253,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     public var texture: MTLTexture? {
         get {
             // Enable if you want to do some processing before passing on the texture (currently not working)
-//            if dirty == true { process() }
+//            if needsUpdate == true { process() }
             return internalTexture
         }
     }

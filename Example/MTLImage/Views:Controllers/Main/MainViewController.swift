@@ -18,9 +18,8 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var filtersBar: UIView!
     @IBOutlet weak var filtersContainer: UIView!
     @IBOutlet weak var filtersContainerHeight: NSLayoutConstraint!
-    @IBOutlet var infoButton: UIBarButtonItem!
-    @IBOutlet var libraryButton: UIBarButtonItem!
     @IBOutlet var flipButton: UIBarButtonItem!
+    @IBOutlet var actionButton: UIBarButtonItem!
     
     var filterGroup = MTLFilterGroup()
     var filtersViewController: FiltersViewController!
@@ -55,6 +54,41 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         navigationItem.title = "MTLImage"
     }
     
+    
+    @IBAction func actionButtonPressed(sender: AnyObject) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let imageAction = UIAlertAction(title: "New Image", style: .Default) { (action) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+            self.presentViewController(self.imagePickerController, animated: true) {
+                self.filtersViewController.navigationController?.popToRootViewControllerAnimated(false)
+            }
+        }
+        
+        let saveAction = UIAlertAction(title: "Save to Library", style: .Default) { (action) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+            // Do this later
+        }
+        
+        let infoAction = UIAlertAction(title: "Image Information", style: .Default) { (action) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+            // Do this later
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        alert.addAction(imageAction)
+        alert.addAction(saveAction)
+        alert.addAction(infoAction)
+        alert.addAction(cancelAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
+        
+    }
+
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -71,7 +105,6 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func mtlViewTouchesMoved(sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
         let touch: UITouch = touches.first! as UITouch
         let location = touch.locationInView(sender)
-        print(location)
         filtersViewController.handleTouchAtLocation(location)
         
     }
@@ -123,16 +156,6 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
 //    MARK: - Actions
     
-    @IBAction func albumButtonPressed(sender: UIBarButtonItem) {
-        presentViewController(imagePickerController, animated: true) { 
-            self.filtersViewController.navigationController?.popToRootViewControllerAnimated(false)
-        }
-    }
-    
-    @IBAction func infoButtonPressed(sender: AnyObject) {
-        
-    }
-    
     @IBAction func flipButtonPressed(sender: UIBarButtonItem) {
         camera.flipCamera()
     }
@@ -143,8 +166,8 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         filterGroup.removeAllTargets()
         
         if sender.selectedSegmentIndex == 0 {
-            navigationItem.rightBarButtonItem = libraryButton
             currentInput = sourcePicture
+            navigationItem.rightBarButtonItem = actionButton
         }
         else {
             navigationItem.rightBarButtonItem = nil
@@ -168,8 +191,6 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         })
         
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        
-        navigationItem.leftBarButtonItem = infoButton
         
         sourcePicture.removeAllTargets()
         sourcePicture.image = image

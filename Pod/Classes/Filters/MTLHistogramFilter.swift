@@ -30,7 +30,7 @@ class MTLHistogramFilter: MTLFilter {
     var dummy: Float = 0.5 {
         didSet {
             clamp(&dummy, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -41,6 +41,10 @@ class MTLHistogramFilter: MTLFilter {
         properties = []
         update()
         createHistogramView()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {
@@ -99,6 +103,10 @@ class MTLHistogramFilter: MTLFilter {
         super.process()
     }
     
+    
+    
+    
+//    MARK: - View Testing
     
     func smooth(inout values: [Float]) {
         let averageRange = 10

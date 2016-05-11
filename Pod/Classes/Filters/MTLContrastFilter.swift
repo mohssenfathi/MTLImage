@@ -19,7 +19,7 @@ class MTLContrastFilter: MTLFilter {
     public var contrast: Float = 0.5 {
         didSet {
             clamp(&contrast, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -29,6 +29,10 @@ class MTLContrastFilter: MTLFilter {
         title = "Contrast"
         properties = [MTLProperty(key: "contrast", title: "Contrast")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

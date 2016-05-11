@@ -17,10 +17,10 @@ class MTLSobelEdgeDetectionFilter: MTLFilter {
     
     var uniforms = SobelEdgeDetectionUniforms()
     
-    public var edgeStrength: Float = 0.0 {
+    public var edgeStrength: Float = 0.5 {
         didSet {
             clamp(&edgeStrength, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -30,6 +30,10 @@ class MTLSobelEdgeDetectionFilter: MTLFilter {
         title = "Sobel Edge Detection"
         properties = [MTLProperty(key: "edgeStrength", title: "Edge Strength")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

@@ -9,7 +9,21 @@
 import UIKit
 
 public
-class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
+class MTLFilterGroup: NSObject, NSCoding, MTLInput, MTLOutput {
+    
+    override public init() {
+        super.init()
+        title = "Filter Group"
+    }
+    
+    public var image: UIImage? {
+        get {
+            guard texture != nil else {
+                return nil
+            }
+            return UIImage.imageWithTexture(texture!)
+        }
+    }
     
     public var filters = [MTLFilter]()
     var internalInput: MTLInput?
@@ -27,9 +41,14 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
         set { privateIdentifier = newValue }
     }
     
-    override public init() {
-        super.init()
-        title = "Filter Group"
+    public func filterImage(image: UIImage) -> UIImage? {
+        let picture = MTLPicture(image: image)
+        picture > self
+        let filteredImage = UIImage.imageWithTexture(texture!)
+        
+        picture.removeAllTargets()
+                
+        return filteredImage
     }
     
     func save() {
@@ -37,9 +56,9 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
     }
     
     func updateFilterIndexes() {
-        for i in 0 ..< filters.count {
-            filters[i].index = i
-        }
+//        for i in 0 ..< filters.count {
+//            filters[i].index = i
+//        }
     }
     
     public func add(filter: MTLFilter) {
@@ -148,7 +167,7 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
             filters.last?.addTarget(target)
         }
         
-        filters.first?.dirty = true
+        filters.first?.needsUpdate = true
     }
     
     func printFilters() {
@@ -218,6 +237,7 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
         } else {
             input?.addTarget(target)
         }
+        needsUpdate = true
     }
     
     public func removeTarget(target: MTLOutput) {
@@ -231,7 +251,9 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
 
     public var needsUpdate: Bool {
         set {
-            filters.first?.needsUpdate = newValue
+            for filter in filters {
+                filter.needsUpdate = newValue
+            }
         }
         get {
             return (filters.last?.needsUpdate)!
@@ -249,12 +271,40 @@ class MTLFilterGroup: NSObject, MTLInput, MTLOutput {
             if filters.count > 0 {
                 input?.addTarget(filters.first!)
             }
+            needsUpdate = true
         }
     }
+    
+    
+    //    MARK: - NSCoding
+    
+    public func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(title     , forKey: "title")
+        aCoder.encodeObject(identifier, forKey: "identifier")
+        aCoder.encodeObject(filters   , forKey: "filters")
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init()
+        identifier = aDecoder.decodeObjectForKey("identifier") as! String
+        title      = aDecoder.decodeObjectForKey("title") as! String
+        filters    = aDecoder.decodeObjectForKey("filters") as! [MTLFilter]
+        rebuildFilterChain()
+    }
+
 }
 
 public func += (filterGroup: MTLFilterGroup, filter: MTLFilter) {
     filterGroup.add(filter)
+}
+
+public func > (left: MTLFilterGroup, right: MTLFilterGroup) {
+    for target in left.targets {
+        right.addTarget(target)
+    }
+    
+    left.removeAllTargets()
+    left.addTarget(right)
 }
 
 extension Array where Element: Equatable {

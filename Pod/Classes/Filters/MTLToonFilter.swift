@@ -20,7 +20,7 @@ class MTLToonFilter: MTLFilter {
     public var quantizationLevels: Float = 0.5 {
         didSet {
             clamp(&quantizationLevels, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -28,7 +28,7 @@ class MTLToonFilter: MTLFilter {
     public var threshold: Float = 0.5 {
         didSet {
             clamp(&threshold, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -39,6 +39,10 @@ class MTLToonFilter: MTLFilter {
         properties = [MTLProperty(key: "threshold"         , title: "Threshold"          ),
                       MTLProperty(key: "quantizationLevels", title: "Quantization Levels")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

@@ -16,4 +16,8 @@ class MTLInvertFilter: MTLFilter {
         title = "Invert"
         properties = []
     }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }

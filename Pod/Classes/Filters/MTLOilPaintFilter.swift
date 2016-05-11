@@ -20,7 +20,7 @@ class MTLOilPaintFilter: MTLFilter {
     public var brightness: Float = 0.5 {
         didSet {
             clamp(&brightness, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -30,6 +30,10 @@ class MTLOilPaintFilter: MTLFilter {
         title = "Oil Paint"
         properties = [MTLProperty(key: "wobble", title: "Wobble")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

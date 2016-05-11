@@ -15,7 +15,6 @@ class MTLPicture: NSObject, MTLInput {
     private var internalTexture: MTLTexture!
     var internalContext: MTLContext = MTLContext()
     var pipeline: MTLComputePipelineState!
-    var dirty: Bool!
     
     var internalTitle: String!
     public var title: String {
@@ -35,18 +34,18 @@ class MTLPicture: NSObject, MTLInput {
         }
     }
     
+    public func setNeedsUpdate() {
+        for target in targets {
+            if let filter = target as? MTLFilter {
+                filter.needsUpdate = true
+            }
+        }
+    }
+    
     public var processingSize: CGSize! {
         didSet {
             loadTexture()
             context.processingSize = processingSize
-        }
-    }
-    
-    public func setNeedsUpdate() {
-        for target in targets {
-            if let filter = target as? MTLFilter {
-                filter.dirty = true
-            }
         }
     }
     
@@ -178,18 +177,20 @@ class MTLPicture: NSObject, MTLInput {
     }
     
     
+    private var privateNeedsUpdate = true
     public var needsUpdate: Bool {
         set {
+            privateNeedsUpdate = newValue
             if newValue == true {
                 for target in targets {
                     if let filter = target as? MTLFilter {
-                        filter.dirty = true
+                        filter.needsUpdate = true
                     }
                 }
             }
         }
         get {
-            return dirty
+            return privateNeedsUpdate
         }
     }
 }

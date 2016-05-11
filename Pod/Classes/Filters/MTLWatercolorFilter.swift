@@ -24,7 +24,7 @@ class MTLWatercolorFilter: MTLFilter {
     var distortion: Float = 0.5 {
         didSet {
             clamp(&distortion, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -32,7 +32,7 @@ class MTLWatercolorFilter: MTLFilter {
     var edgeDarkening: Float = 0.5 {
         didSet {
             clamp(&edgeDarkening, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -40,7 +40,7 @@ class MTLWatercolorFilter: MTLFilter {
     var turbulance: Float = 0.5 {
         didSet {
             clamp(&turbulance, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -52,6 +52,10 @@ class MTLWatercolorFilter: MTLFilter {
                       MTLProperty(key: "edgeDarkening", title: "Edge Darkening"),
                       MTLProperty(key: "turbulance"   , title: "Turbulance")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

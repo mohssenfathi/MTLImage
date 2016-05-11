@@ -16,10 +16,10 @@ public
 class MTLSharpenFilter: MTLFilter {
     var uniforms = SharpenUniforms()
     
-    public var sharpness: Float = 0.5 {
+    public var sharpness: Float = 0.0 {
         didSet {
             clamp(&sharpness, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -29,6 +29,10 @@ class MTLSharpenFilter: MTLFilter {
         title = "Sharpen"
         properties = [MTLProperty(key: "sharpness", title: "Sharpness")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

@@ -19,7 +19,7 @@ class MTLSketchFilter: MTLFilter {
     public var intensity: Float = 0.0 {
         didSet {
             clamp(&intensity, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -29,6 +29,10 @@ class MTLSketchFilter: MTLFilter {
         title = "Sketch"
         properties = [MTLProperty(key: "intensity", title: "Intensity")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {

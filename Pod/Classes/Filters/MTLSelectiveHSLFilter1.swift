@@ -27,7 +27,7 @@ class MTLSelectiveHSLFilter1: MTLFilter {
     public var mode: Int = 0 {
         didSet {
             clamp(&mode, low: 0, high: 3)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -44,6 +44,10 @@ class MTLSelectiveHSLFilter1: MTLFilter {
                       MTLProperty(key: "purple" , title: "Purple" ),
                       MTLProperty(key: "magenta", title: "Magenta")]
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func update() {
@@ -68,7 +72,7 @@ class MTLSelectiveHSLFilter1: MTLFilter {
     public var red: Float = 0.0 {
         didSet {
             clamp(&red, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -76,7 +80,7 @@ class MTLSelectiveHSLFilter1: MTLFilter {
     public var orange: Float = 0.0 {
         didSet {
             clamp(&orange, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -84,7 +88,7 @@ class MTLSelectiveHSLFilter1: MTLFilter {
     public var yellow: Float = 0.0 {
         didSet {
             clamp(&yellow, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -92,7 +96,7 @@ class MTLSelectiveHSLFilter1: MTLFilter {
     public var green: Float = 0.0 {
         didSet {
             clamp(&green, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -100,7 +104,7 @@ class MTLSelectiveHSLFilter1: MTLFilter {
     public var aqua: Float = 0.0 {
         didSet {
             clamp(&aqua, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -108,7 +112,7 @@ class MTLSelectiveHSLFilter1: MTLFilter {
     public var blue: Float = 0.0 {
         didSet {
             clamp(&blue, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -116,7 +120,7 @@ class MTLSelectiveHSLFilter1: MTLFilter {
     public var purple: Float = 0.0 {
         didSet {
             clamp(&purple, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }
@@ -124,7 +128,7 @@ class MTLSelectiveHSLFilter1: MTLFilter {
     public var magenta: Float = 0.0 {
         didSet {
             clamp(&magenta, low: 0, high: 1)
-            dirty = true
+            needsUpdate = true
             update()
         }
     }

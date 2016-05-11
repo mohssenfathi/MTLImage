@@ -17,7 +17,7 @@ class MTLConvolutionFilter: MTLFilter {
                                                [0.0, 1.0, 0.0],
                                                [0.0, 0.0, 0.0]] {
         didSet {
-            dirty = true
+            needsUpdate = true
             convolutionMatrixTexture = nil
         }
     }
@@ -28,6 +28,10 @@ class MTLConvolutionFilter: MTLFilter {
         properties = []
         
         update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
