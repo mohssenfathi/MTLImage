@@ -80,7 +80,10 @@ class MTLDataManager: NSObject {
         
         var filterRecords = [MTLFilterRecord]()
         for filter in filterGroup.filters {
-            filterRecords.append(filterRecord(filter))
+//            Need to change this to add subfiltergroups
+            if filter is MTLFilter {
+                filterRecords.append(filterRecord(filter as! MTLFilter))
+            }
         }
         filterGroupRecord.filters = NSOrderedSet(array: filterRecords)
         
@@ -96,7 +99,10 @@ class MTLDataManager: NSObject {
         
         var filterRecords = [MTLFilterRecord]()
         for filter in filterGroup.filters {
-            filterRecords.append(filterRecord(filter))
+//            Need to change this to add subfiltergroups
+            if filter is MTLFilter {
+                filterRecords.append(filterRecord(filter as! MTLFilter))
+            }
         }
         filterGroupRecord.filters = NSOrderedSet(array: filterRecords)
         

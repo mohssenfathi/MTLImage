@@ -13,7 +13,7 @@ func ==(left: MTLFilter, right: MTLFilter) -> Bool {
 }
 
 public
-class MTLFilter: NSObject, NSCoding, MTLInput, MTLOutput {
+class MTLFilter: MTLObject, NSCoding {
     
     private var propertyValues = [String : AnyObject]()
     private var internalTargets = [MTLOutput]()
@@ -32,13 +32,13 @@ class MTLFilter: NSObject, NSCoding, MTLInput, MTLOutput {
     }
     
     var internalTitle: String!
-    public var title: String {
+    public override var title: String {
         get { return internalTitle }
         set { internalTitle = newValue }
     }
     
     private var privateIdentifier: String = NSUUID().UUIDString
-    public var identifier: String! {
+    public override var identifier: String! {
         get { return privateIdentifier     }
         set { privateIdentifier = newValue }
     }
@@ -210,7 +210,7 @@ class MTLFilter: NSObject, NSCoding, MTLInput, MTLOutput {
     
     //    MARK: - MTLInput
     
-    public var texture: MTLTexture? {
+    public override var texture: MTLTexture? {
         get {
             if needsUpdate == true {
                 process()
@@ -219,7 +219,7 @@ class MTLFilter: NSObject, NSCoding, MTLInput, MTLOutput {
         }
     }
     
-    public var context: MTLContext {
+    public override var context: MTLContext {
         get {
             if internalInput != nil {
                 return internalInput!.context
@@ -228,19 +228,19 @@ class MTLFilter: NSObject, NSCoding, MTLInput, MTLOutput {
         }
     }
     
-    public var device: MTLDevice {
+    public override var device: MTLDevice {
         get {
             return context.device
         }
     }
     
-    public var targets: [MTLOutput] {
+    public override var targets: [MTLOutput] {
         get {
             return internalTargets
         }
     }
     
-    public func addTarget(target: MTLOutput) {
+    public override func addTarget(target: MTLOutput) {
         var t = target
         internalTargets.append(t)
         t.input = self
@@ -249,7 +249,7 @@ class MTLFilter: NSObject, NSCoding, MTLInput, MTLOutput {
         }
     }
     
-    public func removeTarget(target: MTLOutput) {
+    public override func removeTarget(target: MTLOutput) {
         var t = target
         
         t.input = nil
@@ -272,7 +272,7 @@ class MTLFilter: NSObject, NSCoding, MTLInput, MTLOutput {
         internalTexture = nil
     }
     
-    public func removeAllTargets() {
+    public override func removeAllTargets() {
         for var target in internalTargets {
             target.input = nil
         }
@@ -280,7 +280,7 @@ class MTLFilter: NSObject, NSCoding, MTLInput, MTLOutput {
     }
     
     private var privateNeedsUpdate = true
-    public var needsUpdate: Bool {
+    public override var needsUpdate: Bool {
         set {
             privateNeedsUpdate = newValue
             if newValue == true {
@@ -299,7 +299,7 @@ class MTLFilter: NSObject, NSCoding, MTLInput, MTLOutput {
     
     //    MARK: - MTLOutput
     
-    public var input: MTLInput? {
+    public override var input: MTLInput? {
         get {
             return internalInput
         }
