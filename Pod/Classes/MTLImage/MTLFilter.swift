@@ -183,14 +183,6 @@ class MTLFilter: MTLObject, NSCoding {
     }
     
     
-    //    MARK: - Tools
-    
-    func clamp<T: Comparable>(inout value: T, low: T, high: T) {
-        if      value < low  { value = low  }
-        else if value > high { value = high }
-    }
-    
-    
     //    MARK: - Queues
     
     func runSynchronously(block: (()->())) {
@@ -322,7 +314,7 @@ class MTLFilter: MTLObject, NSCoding {
     
     public override func copy() -> AnyObject {
         
-        let filter = try! MTLImage.filter(title.lowercaseString)!
+        let filter = try! MTLImage.filter(title.lowercaseString) as! MTLFilter
 
         filter.functionName = functionName
         filter.title = title

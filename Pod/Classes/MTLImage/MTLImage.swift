@@ -37,6 +37,7 @@ class MTLImage: NSObject {
     public static var filters: [String] = [
          "Blend",
          "Brightness",
+         "Canny Edge Detection",
          "Contrast",
          "Cross Hatch",
          "Distortion",
@@ -52,7 +53,6 @@ class MTLImage: NSObject {
          "Line Detection",
          "Luminance Threshold",
          "Mask",
-         "Non Maximum Suppression",
          "Perlin Noise",
          "Pixellate",
          "Polka Dot",
@@ -66,20 +66,22 @@ class MTLImage: NSObject {
          "Vignette",
          "Water",
          "Watercolor",
-         "White Balance"
+         "White Balance",
+         "XY Derivative"
     ]
     
-    public class func filter(name: String) throws -> MTLFilter? {
+    public class func filter(name: String) throws -> MTLObject? {
         switch name.lowercaseString {
             case "blend"                          : return MTLBlendFilter()
             case "brightness"                     : return MTLBrightnessFilter()
+            case "canny edge detection"           : return MTLCannyEdgeDetectionFilterGroup()
             case "contrast"                       : return MTLContrastFilter()
             case "cross hatch"                    : return MTLCrossHatchFilter()
             case "distortion"                     : return MTLDistortionFilter()
             case "emboss"                         : return MTLEmbossFilter()
             case "exposure"                       : return MTLExposureFilter()
             case "gaussian blur"                  : return MTLGaussianBlurFilter()
-            case "harris corner detection"        : return MTLHarrisCornderDetectionFilter()
+            case "harris corner detection"        : return MTLHarrisCornerDetectionFilterGroup()
             case "haze"                           : return MTLHazeFilter()
             case "histogram"                      : return MTLHistogramFilter()
             case "invert"                         : return MTLInvertFilter()
@@ -88,7 +90,6 @@ class MTLImage: NSObject {
             case "line detection"                 : return MTLLineDetectionFilter()
             case "luminance threshold"            : return MTLLuminanceThresholdFilter()
             case "mask"                           : return MTLMaskFilter()
-            case "non maximum suppression"        : return MTLNonMaximumSuppressionFilter()
             case "perlin noise"                   : return MTLPerlinNoiseFilter()
             case "pixellate"                      : return MTLPixellateFilter()
             case "polka dot"                      : return MTLPolkaDotFilter()
@@ -103,6 +104,7 @@ class MTLImage: NSObject {
             case "water"                          : return MTLWaterFilter()
             case "watercolor"                     : return MTLWatercolorFilter()
             case "white balance"                  : return MTLWhiteBalanceFilter()
+            case "xy derivative"                  : return MTLXYDerivativeFilter()
             default:                                throw  MTLError.InvalidFilterName
         }
     }

@@ -184,7 +184,8 @@ class MTLDataManager: NSObject {
     
     func filter(filterRecord: MTLFilterRecord) -> MTLFilter? {
                 
-        guard let filter = try! MTLImage.filter((filterRecord.title?.lowercaseString)!) else {
+        guard let filter = try! MTLImage.filter((filterRecord.title?.lowercaseString)!) as? MTLFilter else {
+            print("Might be a MTLFitlerGroup")
             return nil
         }
         

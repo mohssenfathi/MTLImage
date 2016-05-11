@@ -39,8 +39,12 @@
 		41EF17CD799C6A0BDDE4B3CD68CC4B15 /* MTLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B678E2A0D9CF7CB19F2D9E966337100 /* MTLView.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		44B77382865C810E672AC2E965EBAF41 /* MTLContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9761DDA49820443C66E53AC96D94111 /* MTLContext.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		453FA0281CE36F51003F9871 /* MTLNonMaximumSuppressionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453FA0271CE36F51003F9871 /* MTLNonMaximumSuppressionFilter.swift */; };
+		453FA02A1CE37565003F9871 /* MTLHarrisCornerDetectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453FA0291CE37565003F9871 /* MTLHarrisCornerDetectionFilter.swift */; };
 		453FA02E1CE37C65003F9871 /* MTLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453FA02D1CE37C65003F9871 /* MTLObject.swift */; };
-		453FA02A1CE37565003F9871 /* MTLHarrisCornderDetectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453FA0291CE37565003F9871 /* MTLHarrisCornderDetectionFilter.swift */; };
+		453FA0301CE38862003F9871 /* MTLHarrisCornerDetectionFilterGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453FA02F1CE38862003F9871 /* MTLHarrisCornerDetectionFilterGroup.swift */; };
+		45764E351CE38DE900315DA7 /* MTLCannyEdgeDetectionFilterGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45764E341CE38DE900315DA7 /* MTLCannyEdgeDetectionFilterGroup.swift */; };
+		45764E391CE3901900315DA7 /* MTLWeakPixelInclusionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45764E381CE3901900315DA7 /* MTLWeakPixelInclusionFilter.swift */; };
+		45764E3D1CE3935C00315DA7 /* MTLXYDerivativeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45764E3C1CE3935C00315DA7 /* MTLXYDerivativeFilter.swift */; };
 		4738D9BB26D6A8F572DF56F193B27F31 /* MTLPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4895CEC211EB03C0E6A402FB5C6C063D /* MTLPicture.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		4799AE1B9C6C0FDBED54988DB73C32D2 /* MTLSobelEdgeDetectionThresholdFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D31F82071F1BFDA9FC5C1ADA674501 /* MTLSobelEdgeDetectionThresholdFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		48DD1731ACFA2C2C26ACB1E3BF990EB5 /* MTLWatercolorFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8686C4807AFA92CC42683D91AF9EC4C /* MTLWatercolorFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -161,8 +165,12 @@
 		3FEAC86768948BB981295A532F7EA84A /* Convolution.metal */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.metal; path = Convolution.metal; sourceTree = "<group>"; };
 		4244BF9BE75FA66FBE455BCA92E3B024 /* MTLCamera.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCamera.swift; sourceTree = "<group>"; };
 		453FA0271CE36F51003F9871 /* MTLNonMaximumSuppressionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLNonMaximumSuppressionFilter.swift; sourceTree = "<group>"; };
+		453FA0291CE37565003F9871 /* MTLHarrisCornerDetectionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLHarrisCornerDetectionFilter.swift; sourceTree = "<group>"; };
 		453FA02D1CE37C65003F9871 /* MTLObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLObject.swift; sourceTree = "<group>"; };
-		453FA0291CE37565003F9871 /* MTLHarrisCornderDetectionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLHarrisCornderDetectionFilter.swift; sourceTree = "<group>"; };
+		453FA02F1CE38862003F9871 /* MTLHarrisCornerDetectionFilterGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLHarrisCornerDetectionFilterGroup.swift; sourceTree = "<group>"; };
+		45764E341CE38DE900315DA7 /* MTLCannyEdgeDetectionFilterGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLCannyEdgeDetectionFilterGroup.swift; sourceTree = "<group>"; };
+		45764E381CE3901900315DA7 /* MTLWeakPixelInclusionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLWeakPixelInclusionFilter.swift; sourceTree = "<group>"; };
+		45764E3C1CE3935C00315DA7 /* MTLXYDerivativeFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTLXYDerivativeFilter.swift; sourceTree = "<group>"; };
 		4895CEC211EB03C0E6A402FB5C6C063D /* MTLPicture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPicture.swift; sourceTree = "<group>"; };
 		4AB0809F6340CE1DE91A69898E0D05F6 /* MTLToonFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLToonFilter.swift; sourceTree = "<group>"; };
 		4CB42B0882780474190738A4B87AD31F /* MTLContrastFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLContrastFilter.swift; sourceTree = "<group>"; };
@@ -543,7 +551,11 @@
 				806554F0F05CD46EDD166580E1FE7D5D /* MTLWaterFilter.swift */,
 				65529500573B92F99E8DD7EDBF0A19B2 /* MTLWhiteBalanceFilter.swift */,
 				453FA0271CE36F51003F9871 /* MTLNonMaximumSuppressionFilter.swift */,
-				453FA0291CE37565003F9871 /* MTLHarrisCornderDetectionFilter.swift */,
+				453FA0291CE37565003F9871 /* MTLHarrisCornerDetectionFilter.swift */,
+				453FA02F1CE38862003F9871 /* MTLHarrisCornerDetectionFilterGroup.swift */,
+				45764E341CE38DE900315DA7 /* MTLCannyEdgeDetectionFilterGroup.swift */,
+				45764E381CE3901900315DA7 /* MTLWeakPixelInclusionFilter.swift */,
+				45764E3C1CE3935C00315DA7 /* MTLXYDerivativeFilter.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -840,11 +852,13 @@
 			files = (
 				ABE76D4D72276479528B802908BE1885 /* Blend.metal in Sources */,
 				0233827D4142D4D31B0D6B882422F1A7 /* Brightness.metal in Sources */,
+				45764E351CE38DE900315DA7 /* MTLCannyEdgeDetectionFilterGroup.swift in Sources */,
 				2EFEFAA6F95687081893D828CEC481CB /* Camera.metal in Sources */,
 				CA0361C31A31894327E7A6A6C1C7D977 /* ColorSelection.metal in Sources */,
 				AC002BAD556DF99AB6C316E3FE15DF46 /* Contrast.metal in Sources */,
 				28942C23DB6263EC7B2410F3EF01D8BB /* Convolution.metal in Sources */,
 				1DC28FD55C50E756AD269997F8C1A343 /* CrossHatch.metal in Sources */,
+				45764E3D1CE3935C00315DA7 /* MTLXYDerivativeFilter.swift in Sources */,
 				D47E7A1FA687E50F660E3E821BAA1BD2 /* DefaultShaders.metal in Sources */,
 				DA3BE65EF199090A2A2C5B2204535EA6 /* Distortion.metal in Sources */,
 				CBDC15C651B24EC0FBBFD1201611480C /* Exposure.metal in Sources */,
@@ -876,9 +890,11 @@
 				31E7503FADA6F75EA072422D09648A30 /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */,
 				206AFB6761FD650CD16170E8BBD29BED /* MTLFilterGroupRecord.swift in Sources */,
 				6170CDAF73E46C3A0AE748B1ADC548E1 /* MTLFilterRecord+CoreDataProperties.swift in Sources */,
+				45764E391CE3901900315DA7 /* MTLWeakPixelInclusionFilter.swift in Sources */,
 				FA53B4EA28EB38FBFBB432521BAB151B /* MTLFilterRecord.swift in Sources */,
 				9838B201E05804CC22CB56784427E929 /* MTLGaussianBlurFilter.swift in Sources */,
 				69514507A0B3BAF6E42EB1362A583A73 /* MTLHazeFilter.swift in Sources */,
+				453FA0301CE38862003F9871 /* MTLHarrisCornerDetectionFilterGroup.swift in Sources */,
 				0D1848F9F9D611DB694B47DC358AFAAA /* MTLHistogramFilter.swift in Sources */,
 				819C08CD420EE618C133CA2DEE82FF79 /* MTLImage-dummy.m in Sources */,
 				2A82E28A5988350291F2C68A4721D212 /* MTLImage.swift in Sources */,
@@ -894,7 +910,7 @@
 				4738D9BB26D6A8F572DF56F193B27F31 /* MTLPicture.swift in Sources */,
 				77E77D909D2F37146BA53C79F2ED9473 /* MTLPixellateFilter.swift in Sources */,
 				7F9B3FE0D3351FBC96DCA66FF9BE2BE8 /* MTLPolkaDotFilter.swift in Sources */,
-				453FA02A1CE37565003F9871 /* MTLHarrisCornderDetectionFilter.swift in Sources */,
+				453FA02A1CE37565003F9871 /* MTLHarrisCornerDetectionFilter.swift in Sources */,
 				0803117B172C439AF9D149E692055871 /* MTLProperty.swift in Sources */,
 				62ADF46F7D3D4D46BA6C353CDC42E2A6 /* MTLPropertyRecord+CoreDataProperties.swift in Sources */,
 				88696B025D38FF4474EDC7CBC05D0CD8 /* MTLPropertyRecord.swift in Sources */,

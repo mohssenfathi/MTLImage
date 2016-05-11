@@ -10,8 +10,8 @@ import UIKit
 import MTLImage
 
 protocol FiltersViewControllerDelegate {
-    func filtersViewControllerDidSelectFilter(sender: FiltersViewController, filter: MTLFilter)
-    func filtersViewControllerDidSelectFilterGroup(sender: FiltersViewController, filterGroup: MTLFilterGroup)
+    func filtersViewControllerDidSelectFilter(sender: FiltersViewController, filter: MTLObject)
+    func filtersViewControllerDidSelectFilterGroup(sender: FiltersViewController, filterGroup: MTLObject)
     func filtersViewControllerBackButtonPressed(sender: FiltersViewController)
 }
 
@@ -22,7 +22,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var settingsViewController: SettingsViewController?
     var filterGroupViewController: FilterGroupViewController?
-    var selectedFilter: MTLFilter!
+    var selectedFilter: MTLObject!
     var delegate: FiltersViewControllerDelegate?
     var filterNames = Array(MTLImage.filters).sort()
     var savedFilterGroups: [MTLFilterGroup]!
@@ -135,9 +135,18 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         else {
             let title = filterNames[indexPath.row]
-            selectedFilter = try! MTLImage.filter(title)
-            delegate?.filtersViewControllerDidSelectFilter(self, filter: selectedFilter)
-            performSegueWithIdentifier("settings", sender: self)
+            let object = try! MTLImage.filter(title)
+            
+            if object is MTLFilter {
+                selectedFilter = object as! MTLFilter
+                delegate?.filtersViewControllerDidSelectFilter(self, filter: selectedFilter)
+                performSegueWithIdentifier("settings", sender: self)
+            }
+            else if object is MTLFilterGroup {
+                selectedFilter = object as! MTLFilterGroup
+                delegate?.filtersViewControllerDidSelectFilterGroup(self, filterGroup: selectedFilter)
+                performSegueWithIdentifier("filterGroup", sender: self)
+            }
         }
     }
     
@@ -190,12 +199,16 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "settings" {
             settingsViewController = segue.destinationViewController as? SettingsViewController
-            settingsViewController?.filter = selectedFilter
+            settingsViewController?.filter = selectedFilter as! MTLFilter
         }
         else if segue.identifier == "filterGroup" {
             filterGroupViewController = segue.destinationViewController as? FilterGroupViewController
-            filterGroupViewController?.filterGroup = filterGroup
-            filterGroupViewController?.isNewFilter = newFilterSeleced
+            if selectedFilter is MTLFilterGroup {
+                filterGroupViewController?.filterGroup = selectedFilter as! MTLFilterGroup
+            } else {
+                filterGroupViewController?.filterGroup = filterGroup
+                filterGroupViewController?.isNewFilter = newFilterSeleced
+            }
         }
     }
 

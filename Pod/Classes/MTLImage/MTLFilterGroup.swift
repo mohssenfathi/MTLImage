@@ -294,7 +294,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
 
 }
 
-public func += (filterGroup: MTLFilterGroup, filter: MTLFilter) {
+public func += (filterGroup: MTLFilterGroup, filter: MTLObject) {
     filterGroup.add(filter)
 }
 

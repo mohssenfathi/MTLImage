@@ -216,9 +216,11 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
 //    MARK: - AddFilterViewController Delegate
     
     var histogramView: UIView?
+    var cornerView: UIView!
     
-    func addFilterViewControllerDidSelectFilter(sender: AddFilterViewController, filter: MTLFilter) {
+    func addFilterViewControllerDidSelectFilter(sender: AddFilterViewController, filter: MTLObject) {
     
+//        Temp test for histogram
         if histogramView == nil {
             if filter is MTLHistogramFilter {
                 let histogram = filter as! MTLHistogramFilter
@@ -230,6 +232,18 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             }
         }
+        
+//        Temp test for Harris Corner Detection
+        if filter is MTLHarrisCornerDetectionFilterGroup {
+
+            let harrisCornerDetection = filter as! MTLHarrisCornerDetectionFilterGroup
+            if harrisCornerDetection.cornerView != nil {
+                cornerView = harrisCornerDetection.cornerView
+                cornerView.frame = CGRect(x: 0, y: 44, width: CGRectGetWidth(view.frame), height: CGRectGetMinY(view.frame) - 44)
+                view.addSubview(cornerView)
+            }
+        }
+
         
         filterGroup += filter
         

@@ -31,3 +31,24 @@ kernel void harrisCornerDetection(texture2d<float, access::read>  inTexture     
 
     outTexture.write(float4(float3(cornerness * uniforms.sensitivity), 1.0), gid);
 }
+
+
+struct HarrisCornerDetectionOutputUniforms {
+    
+};
+
+kernel void harrisCornerDetectionOutput(texture2d<float, access::read>  inTexture              [[ texture(0)]],
+                                        texture2d<float, access::write> outTexture             [[ texture(1)]],
+                                        texture2d<float, access::read>  originalTexture        [[ texture(2)]],
+                                        constant HarrisCornerDetectionOutputUniforms &uniforms [[ buffer(0) ]],
+                                        uint2 gid [[thread_position_in_grid]])
+{
+    float4 color = originalTexture.read(gid);
+    float corner = inTexture.read(gid).r;
+    
+    if (corner > 0.0) {
+        color = float4(1, 0, 0, 1); // Change to different color later
+    }
+    
+    outTexture.write(color, gid);
+}

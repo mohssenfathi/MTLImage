@@ -40,4 +40,13 @@ class MTLObject: NSObject, MTLInput, MTLOutput {
         get { return nil }
         set {}
     }
+    
+    
+    
+    //    MARK: - Tools
+    
+    func clamp<T: Comparable>(inout value: T, low: T, high: T) {
+        if      value < low  { value = low  }
+        else if value > high { value = high }
+    }
 }

@@ -10,7 +10,7 @@ import UIKit
 import MTLImage
 
 protocol AddFilterViewControllerDelegate {
-    func addFilterViewControllerDidSelectFilter(sender: AddFilterViewController, filter: MTLFilter)
+    func addFilterViewControllerDidSelectFilter(sender: AddFilterViewController, filter: MTLObject)
 }
 
 class AddFilterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {

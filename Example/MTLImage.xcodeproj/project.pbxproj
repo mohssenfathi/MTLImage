@@ -53,6 +53,8 @@
 		454CEDB11CB09FB800D67A9E /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDB01CB09FB800D67A9E /* FiltersViewController.swift */; };
 		454CEDC21CB1470600D67A9E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDC11CB1470600D67A9E /* InfoViewController.swift */; };
 		454CEDC41CB1496500D67A9E /* MetadataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDC31CB1496500D67A9E /* MetadataFormatter.swift */; };
+		45764E3B1CE3906100315DA7 /* WeakPixelInclusion.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45764E3A1CE3906100315DA7 /* WeakPixelInclusion.metal */; };
+		45764E3F1CE3936C00315DA7 /* XYDerivative.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45764E3E1CE3936C00315DA7 /* XYDerivative.metal */; };
 		45A616811CBFD9BA00C000C7 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A616801CBFD9BA00C000C7 /* PickerCell.swift */; };
 		45EB4FC41CADF4C00018936C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EB4FC31CADF4C00018936C /* MainViewController.swift */; };
 		45EB4FC81CADF75F0018936C /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BE9F871C9226010014593F /* Metal.framework */; };
@@ -128,6 +130,8 @@
 		454CEDB01CB09FB800D67A9E /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FiltersViewController.swift; path = Filters/FiltersViewController.swift; sourceTree = "<group>"; };
 		454CEDC11CB1470600D67A9E /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = Info/InfoViewController.swift; sourceTree = "<group>"; };
 		454CEDC31CB1496500D67A9E /* MetadataFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetadataFormatter.swift; path = Info/MetadataFormatter.swift; sourceTree = "<group>"; };
+		45764E3A1CE3906100315DA7 /* WeakPixelInclusion.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = WeakPixelInclusion.metal; sourceTree = "<group>"; };
+		45764E3E1CE3936C00315DA7 /* XYDerivative.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = XYDerivative.metal; sourceTree = "<group>"; };
 		45A616801CBFD9BA00C000C7 /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		45BE9F871C9226010014593F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		45EB4FC31CADF4C00018936C /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Main/MainViewController.swift; sourceTree = "<group>"; };
@@ -220,6 +224,8 @@
 				453FA0001CE0F58B003F9871 /* WhiteBalance.metal */,
 				453FA0251CE36F2D003F9871 /* NonMaximumSuppression.metal */,
 				453FA02B1CE37683003F9871 /* HarrisCornerDetection.metal */,
+				45764E3A1CE3906100315DA7 /* WeakPixelInclusion.metal */,
+				45764E3E1CE3936C00315DA7 /* XYDerivative.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -616,6 +622,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45764E3F1CE3936C00315DA7 /* XYDerivative.metal in Sources */,
 				45EB4FC41CADF4C00018936C /* MainViewController.swift in Sources */,
 				453FA0011CE0F58B003F9871 /* Blend.metal in Sources */,
 				453FA0151CE0F58B003F9871 /* OilPaint.metal in Sources */,
@@ -655,6 +662,7 @@
 				453FA0051CE0F58B003F9871 /* Contrast.metal in Sources */,
 				453FA01F1CE0F58B003F9871 /* Toon.metal in Sources */,
 				453FA00D1CE0F58B003F9871 /* Histogram.metal in Sources */,
+				45764E3B1CE3906100315DA7 /* WeakPixelInclusion.metal in Sources */,
 				453FA0161CE0F58B003F9871 /* PerlinNoise.metal in Sources */,
 				453FA0091CE0F58B003F9871 /* Distortion.metal in Sources */,
 				453FA0181CE0F58B003F9871 /* PolkaDot.metal in Sources */,

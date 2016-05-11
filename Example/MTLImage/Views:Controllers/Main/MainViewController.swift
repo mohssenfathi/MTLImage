@@ -211,7 +211,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
 //    MARK: - FiltersViewController Delegate
         
-    func filtersViewControllerDidSelectFilter(sender: FiltersViewController, filter: MTLFilter) {
+    func filtersViewControllerDidSelectFilter(sender: FiltersViewController, filter: MTLObject) {
         filterGroup += filter
     }
     
@@ -219,11 +219,11 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         filterGroup.removeAll()
     }
     
-    func filtersViewControllerDidSelectFilterGroup(sender: FiltersViewController, filterGroup: MTLFilterGroup) {
+    func filtersViewControllerDidSelectFilterGroup(sender: FiltersViewController, filterGroup: MTLObject) {
         currentInput.removeAllTargets()
         filterGroup.removeAllTargets()
         
-        self.filterGroup = filterGroup
+        self.filterGroup = filterGroup as! MTLFilterGroup
         
         currentInput > filterGroup
         filterGroup > mtlView
