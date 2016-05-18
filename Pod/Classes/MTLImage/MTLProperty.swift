@@ -11,7 +11,9 @@ import UIKit
 public
 enum MTLPropertyType: Int {
     case Value = 0,
+    Bool,
     Point,
+    Rect,
     Color,
     Selection,
     Image

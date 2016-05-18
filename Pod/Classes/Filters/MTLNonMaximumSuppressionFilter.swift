@@ -61,3 +61,42 @@ class MTLNonMaximumSuppressionFilter: MTLFilter {
     
 }
 
+
+// Threshold
+
+struct NonMaximumSuppressionThreshodUniforms {
+    var threshold: Float = 0.5;
+}
+
+public
+class MTLNonMaximumSuppressionThreshodFilter: MTLFilter {
+    
+    var uniforms = NonMaximumSuppressionThreshodUniforms()
+    
+    public var threshold: Float = 0.5 {
+        didSet {
+            clamp(&threshold, low: 0, high: 1)
+            needsUpdate = true
+            update()
+        }
+    }
+    
+    public init() {
+        super.init(functionName: "nonMaximumSuppressionThreshold")
+        title = "Non Maximum Suppression Threshold"
+        properties = [MTLProperty(key: "threshold", title: "Threshold")]
+        update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func update() {
+        if self.input == nil { return }
+        uniforms.threshold = threshold/5.0 + 0.01
+        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(NonMaximumSuppressionThreshodUniforms), options: .CPUCacheModeDefaultCache)
+    }
+    
+}
+

@@ -39,6 +39,7 @@ class MTLImage: NSObject {
          "Brightness",
          "Canny Edge Detection",
          "Contrast",
+         "Crop",
          "Cross Hatch",
          "Distortion",
          "Emboss",
@@ -50,7 +51,7 @@ class MTLImage: NSObject {
          "Invert",
          "Kuwahara",
          "Levels",
-         "Line Detection",
+         "Hough Line Detection",
          "Luminance Threshold",
          "Mask",
          "Perlin Noise",
@@ -63,6 +64,7 @@ class MTLImage: NSObject {
          "Sobel Edge Detection Threshold",
          "Sharpen",
          "Toon",
+         "Transform",
          "Vignette",
          "Water",
          "Watercolor",
@@ -76,6 +78,7 @@ class MTLImage: NSObject {
             case "brightness"                     : return MTLBrightnessFilter()
             case "canny edge detection"           : return MTLCannyEdgeDetectionFilterGroup()
             case "contrast"                       : return MTLContrastFilter()
+            case "crop"                           : return MTLCropFilter()
             case "cross hatch"                    : return MTLCrossHatchFilter()
             case "distortion"                     : return MTLDistortionFilter()
             case "emboss"                         : return MTLEmbossFilter()
@@ -84,10 +87,10 @@ class MTLImage: NSObject {
             case "harris corner detection"        : return MTLHarrisCornerDetectionFilterGroup()
             case "haze"                           : return MTLHazeFilter()
             case "histogram"                      : return MTLHistogramFilter()
+            case "hough line detection"           : return MTLHoughLineDetectionFilterGroup()
             case "invert"                         : return MTLInvertFilter()
             case "kuwahara"                       : return MTLKuwaharaFilter()
             case "levels"                         : return MTLLevelsFilter()
-            case "line detection"                 : return MTLLineDetectionFilter()
             case "luminance threshold"            : return MTLLuminanceThresholdFilter()
             case "mask"                           : return MTLMaskFilter()
             case "perlin noise"                   : return MTLPerlinNoiseFilter()
@@ -100,6 +103,7 @@ class MTLImage: NSObject {
             case "sobel edge detection threshold" : return MTLSobelEdgeDetectionThresholdFilter()
             case "sharpen"                        : return MTLSharpenFilter()
             case "toon"                           : return MTLToonFilter()
+            case "transform"                      : return MTLTransformFilter()
             case "vignette"                       : return MTLVignetteFilter()
             case "water"                          : return MTLWaterFilter()
             case "watercolor"                     : return MTLWatercolorFilter()

@@ -16,7 +16,7 @@ public
 class MTLSketchFilter: MTLFilter {
     var uniforms = SketchUniforms()
     
-    public var intensity: Float = 0.0 {
+    public var intensity: Float = 0.5 {
         didSet {
             clamp(&intensity, low: 0, high: 1)
             needsUpdate = true
@@ -37,7 +37,13 @@ class MTLSketchFilter: MTLFilter {
     
     override func update() {
         if self.input == nil { return }
-        uniforms.intensity = intensity * 3.0 + 0.2
+        
+        var intense = intensity * 3.0 + 0.2
+//        if context.processingSize != nil {
+//            intense *= Float(2048.0/context.processingSize.width)
+//        }
+        uniforms.intensity = intense
+        
         uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(SketchUniforms), options: .CPUCacheModeDefaultCache)
     }
     

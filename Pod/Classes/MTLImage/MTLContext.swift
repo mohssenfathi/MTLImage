@@ -27,6 +27,14 @@ class MTLContext: NSObject {
         
         device = MTLCreateSystemDefaultDevice()
         if (device != nil) {
+            
+            #if os(tvOS)
+                if !device.supportsFeatureSet(.TVOS_GPUFamily1_v1) { return }
+            #endif
+            
+            #if os(iOS)
+                if !device.supportsFeatureSet(.iOS_GPUFamily1_v1) { return }
+            #endif
         
             if useMetalib {
                 do {
@@ -39,14 +47,6 @@ class MTLContext: NSObject {
                 }
             }
             else {
-                #if os(tvOS)
-                    if !device.supportsFeatureSet(.TVOS_GPUFamily1_v1) { return }
-                #endif
-                
-                #if os(iOS)
-                    if !device.supportsFeatureSet(.iOS_GPUFamily1_v1) { return }
-                #endif
-                
                 self.library = self.device.newDefaultLibrary()
             }
             

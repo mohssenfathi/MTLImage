@@ -10,13 +10,13 @@
 using namespace metal;
 
 struct SketchUniforms {
-    float edgeStrength;
+    float intensity;
 };
 
-kernel void sketch(texture2d<float, access::read>  inTexture     [[texture(0)]],
-                               texture2d<float, access::write> outTexture    [[texture(1)]],
-                               constant SketchUniforms &uniforms [[ buffer(0) ]],
-                               uint2 gid [[thread_position_in_grid]])
+kernel void sketch(texture2d<float, access::read>  inTexture  [[ texture(0)]],
+                   texture2d<float, access::write> outTexture [[ texture(1)]],
+                   constant SketchUniforms &uniforms          [[ buffer(0) ]],
+                   uint2 gid [[thread_position_in_grid]])
 {
     
     float bottomLeftIntensity  = inTexture.read(uint2(gid.x - 1, gid.y - 1)).r;
@@ -31,7 +31,7 @@ kernel void sketch(texture2d<float, access::read>  inTexture     [[texture(0)]],
     float h = -topLeftIntensity - 2.0 * topIntensity - topRightIntensity + bottomLeftIntensity + 2.0 * bottomIntensity + bottomRightIntensity;
     float v = -bottomLeftIntensity - 2.0 * leftIntensity - topLeftIntensity + bottomRightIntensity + 2.0 * rightIntensity + topRightIntensity;
     
-    float magnitude = 1.0 - length(float2(h, v)) * uniforms.edgeStrength;
+    float magnitude = 1.0 - length(float2(h, v)) * uniforms.intensity;
     
     outTexture.write(float4(float3(magnitude), 1.0), gid);
 }

@@ -199,7 +199,12 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         }
         else {
             selectedFilter = filterGroup.filters[indexPath.row]
-            performSegueWithIdentifier("settings", sender: self)
+            if selectedFilter is MTLFilter {
+                performSegueWithIdentifier("settings", sender: self)
+            }
+            else if selectedFilter is MTLFilterGroup {
+                performSegueWithIdentifier("filterGroup", sender: self)
+            }
         }
     }
     
@@ -216,8 +221,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
 //    MARK: - AddFilterViewController Delegate
     
     var histogramView: UIView?
-    var cornerView: UIView!
-    
+
     func addFilterViewControllerDidSelectFilter(sender: AddFilterViewController, filter: MTLObject) {
     
 //        Temp test for histogram
@@ -232,18 +236,6 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             }
         }
-        
-//        Temp test for Harris Corner Detection
-        if filter is MTLHarrisCornerDetectionFilterGroup {
-
-            let harrisCornerDetection = filter as! MTLHarrisCornerDetectionFilterGroup
-            if harrisCornerDetection.cornerView != nil {
-                cornerView = harrisCornerDetection.cornerView
-                cornerView.frame = CGRect(x: 0, y: 44, width: CGRectGetWidth(view.frame), height: CGRectGetMinY(view.frame) - 44)
-                view.addSubview(cornerView)
-            }
-        }
-
         
         filterGroup += filter
         
@@ -289,16 +281,16 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "settings" {
             settingsViewController = segue.destinationViewController as? SettingsViewController
-            if selectedFilter is MTLFilter {
-                settingsViewController?.filter = selectedFilter as! MTLFilter
-            } else {
-//                Handle this later
-            }
+            settingsViewController?.filter = selectedFilter as! MTLFilter
         }
         else if segue.identifier == "addFilter" {
             let navigationController = segue.destinationViewController as! UINavigationController
             let addFilterViewController = navigationController.viewControllers.first as! AddFilterViewController
             addFilterViewController.delegate = self
+        }
+        else if segue.identifier == "filterGroup" {
+            let filterGroupViewController = segue.destinationViewController as! FilterGroupViewController
+            filterGroupViewController.filterGroup = selectedFilter as! MTLFilterGroup
         }
     }
 

@@ -78,6 +78,7 @@ SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINav
     func cellIdentifier(propertyType: MTLPropertyType) -> String {
         if propertyType == .Selection { return "pickerCell" }
         else if propertyType == .Image { return "imageCell" }
+//         Add switchCell later...
         return "settingsCell"
     }
     

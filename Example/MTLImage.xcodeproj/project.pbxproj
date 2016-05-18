@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		451282521CE765FB00FF7E9C /* Crop.metal in Sources */ = {isa = PBXBuildFile; fileRef = 451282511CE765FB00FF7E9C /* Crop.metal */; };
+		453D51B71CEBCAB4001A0C9A /* Transform.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453D51B61CEBCAB4001A0C9A /* Transform.metal */; };
 		453FA0011CE0F58B003F9871 /* Blend.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453F9FDE1CE0F58B003F9871 /* Blend.metal */; };
 		453FA0021CE0F58B003F9871 /* Brightness.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453F9FDF1CE0F58B003F9871 /* Brightness.metal */; };
 		453FA0031CE0F58B003F9871 /* Camera.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453F9FE01CE0F58B003F9871 /* Camera.metal */; };
@@ -84,6 +86,8 @@
 /* Begin PBXFileReference section */
 		0903E9E555816E58D7C438ED /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		22918B49ADBB9962DD3EDA05 /* Pods-MTLImage_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTLImage_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		451282511CE765FB00FF7E9C /* Crop.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Crop.metal; sourceTree = "<group>"; };
+		453D51B61CEBCAB4001A0C9A /* Transform.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Transform.metal; sourceTree = "<group>"; };
 		453F9FDE1CE0F58B003F9871 /* Blend.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Blend.metal; sourceTree = "<group>"; };
 		453F9FDF1CE0F58B003F9871 /* Brightness.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Brightness.metal; sourceTree = "<group>"; };
 		453F9FE01CE0F58B003F9871 /* Camera.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Camera.metal; sourceTree = "<group>"; };
@@ -226,6 +230,8 @@
 				453FA02B1CE37683003F9871 /* HarrisCornerDetection.metal */,
 				45764E3A1CE3906100315DA7 /* WeakPixelInclusion.metal */,
 				45764E3E1CE3936C00315DA7 /* XYDerivative.metal */,
+				451282511CE765FB00FF7E9C /* Crop.metal */,
+				453D51B61CEBCAB4001A0C9A /* Transform.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -647,6 +653,8 @@
 				453FA00E1CE0F58B003F9871 /* Invert.metal in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				453FA0191CE0F58B003F9871 /* Saturation.metal in Sources */,
+				453D51B71CEBCAB4001A0C9A /* Transform.metal in Sources */,
+				451282521CE765FB00FF7E9C /* Crop.metal in Sources */,
 				453FA0261CE36F2D003F9871 /* NonMaximumSuppression.metal in Sources */,
 				453FA0171CE0F58B003F9871 /* Pixellate.metal in Sources */,
 				453FA0231CE0F58B003F9871 /* WhiteBalance.metal in Sources */,

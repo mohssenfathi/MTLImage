@@ -25,7 +25,9 @@ extension MTLPropertyRecord {
 
 //    Property Types
     @NSManaged var value: NSNumber?
+    @NSManaged var bool: NSNumber?   // Test this
     @NSManaged var point: NSValue?
+    @NSManaged var rect: NSValue?
     @NSManaged var color: UIColor?
     @NSManaged var selectionItems: [Int: String]?
     @NSManaged var image: NSData?

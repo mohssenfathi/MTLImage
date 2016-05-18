@@ -256,6 +256,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
             }
         }
         get {
+            if filters.last == nil { return false }
             return (filters.last?.needsUpdate)!
         }
     }
@@ -291,7 +292,23 @@ class MTLFilterGroup: MTLObject, NSCoding {
         filters    = aDecoder.decodeObjectForKey("filters") as! [MTLFilter]
         rebuildFilterChain()
     }
+    
 
+//    MARK: - Copying
+    
+    public override func copy() -> AnyObject {
+        
+        let filterGroup = MTLFilterGroup()
+        
+        filterGroup.title = title
+        filterGroup.identifier = identifier
+        
+        for filter in filters {
+            filterGroup.add(filter.copy() as! MTLObject)
+        }
+        
+        return filterGroup
+    }
 }
 
 public func += (filterGroup: MTLFilterGroup, filter: MTLObject) {

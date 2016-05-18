@@ -280,6 +280,7 @@
         <!--Settings View Controller-->
         <scene sceneID="y5t-o0-Vig">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Sr-nh-bJ6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="EaC-cO-6I0" customClass="SettingsViewController" customModule="MTLImage_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="s4s-vX-1eS"/>
@@ -438,7 +439,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Properties" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftt-4h-z9L">
-                                <rect key="frame" x="247.5" y="115" width="105.5" height="20"/>
+                                <rect key="frame" x="247" y="115" width="105.5" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -459,9 +460,8 @@
                         <outlet property="tableView" destination="DQV-tC-u7s" id="ANo-Bb-IqO"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5Sr-nh-bJ6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3318" y="537"/>
+            <point key="canvasLocation" x="3350" y="712"/>
         </scene>
         <!--Filter Group View Controller-->
         <scene sceneID="bKe-oa-RzO">
@@ -537,6 +537,16 @@
                                     <outlet property="delegate" destination="G7s-ex-G6U" id="pxq-Kg-Rnk"/>
                                 </connections>
                             </tableView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfo-RS-ZTx">
+                                <rect key="frame" x="0.0" y="44" width="1" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="1" id="LZv-2h-HUg"/>
+                                    <constraint firstAttribute="height" constant="1" id="R7I-7Y-L8L"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="G7s-ex-G6U" kind="show" identifier="filterGroup" id="U6e-RN-GGM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -544,6 +554,8 @@
                             <constraint firstAttribute="trailing" secondItem="bc1-c4-lmb" secondAttribute="trailing" id="CtY-he-1ZG"/>
                             <constraint firstItem="840-F3-Krm" firstAttribute="top" secondItem="bc1-c4-lmb" secondAttribute="bottom" id="F8b-Vj-9Pr"/>
                             <constraint firstItem="bc1-c4-lmb" firstAttribute="leading" secondItem="8yi-xs-oyh" secondAttribute="leading" id="kgi-l6-Ui2"/>
+                            <constraint firstItem="cfo-RS-ZTx" firstAttribute="leading" secondItem="8yi-xs-oyh" secondAttribute="leading" id="uCc-31-Zw8"/>
+                            <constraint firstItem="cfo-RS-ZTx" firstAttribute="top" secondItem="Ch4-bB-BEe" secondAttribute="bottom" id="vI3-IR-yNv"/>
                         </constraints>
                     </view>
                     <connections>
@@ -554,7 +566,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TiB-5c-dKs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3318" y="173"/>
+            <point key="canvasLocation" x="3350" y="323"/>
         </scene>
         <!--Add Filter View Controller-->
         <scene sceneID="euE-pR-DE0">
@@ -617,7 +629,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nrs-qJ-OJ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4836" y="173"/>
+            <point key="canvasLocation" x="4864" y="323"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="N40-AU-OJc">
@@ -635,7 +647,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VyY-Nw-WJf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1817" y="537"/>
+            <point key="canvasLocation" x="1837" y="537"/>
         </scene>
         <!--Info View Controller-->
         <scene sceneID="GJL-GJ-gh4">
@@ -731,7 +743,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7xY-cf-f4X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1817" y="1037"/>
+            <point key="canvasLocation" x="1837" y="1037"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CG0-eF-d33">
@@ -749,7 +761,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="boD-0c-4YR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4024" y="173"/>
+            <point key="canvasLocation" x="4102" y="323"/>
         </scene>
     </scenes>
     <resources>
@@ -758,6 +770,7 @@
         <image name="info" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="fmc-23-HaG"/>
         <segue reference="1TL-RI-Vv1"/>
     </inferredMetricsTieBreakers>
 </document>

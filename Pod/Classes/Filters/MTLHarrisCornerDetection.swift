@@ -13,13 +13,10 @@ class MTLHarrisCornerDetectionFilterGroup: MTLFilterGroup {
 
     public var corners = [CGPoint]()
     
-//    Temp
-    public var cornerView: UIView?
-    
     let derivativeFilter = MTLXYDerivativeFilter()
     let blurFilter = MTLGaussianBlurFilter()
     let harrisCornerDetectionFilter = MTLHarrisCornerDetectionFilter()
-    let nonMaximumSuppressionFilter = MTLNonMaximumSuppressionFilter()
+    let nonMaximumSuppressionFilter = MTLNonMaximumSuppressionThreshodFilter()
     var outputFilter = MTLHarrisCornerDetectionOutputFilter()
     
     override init() {
@@ -36,9 +33,6 @@ class MTLHarrisCornerDetectionFilterGroup: MTLFilterGroup {
         add(harrisCornerDetectionFilter)
         add(nonMaximumSuppressionFilter)
         add(outputFilter)
-        
-        cornerView = UIView()
-        cornerView?.backgroundColor = UIColor.clearColor()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -85,29 +79,10 @@ class MTLHarrisCornerDetectionFilterGroup: MTLFilterGroup {
         outputFilter.originalTexture = input?.texture
     }
     
-    public override var texture: MTLTexture? {
-        get {
-            return input?.texture
-        }
-    }
-    
     public override var needsUpdate: Bool {
         didSet {
             updateCorners()
         }
-    }
-    
-    
-    
-//    Temp
-    
-    func drawCorner(point: CGPoint) {
-        let corner = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 5))
-        corner.backgroundColor = UIColor.redColor()
-        corner.layer.masksToBounds = true
-        corner.layer.cornerRadius = 2.5
-        corner.center = point
-        cornerView!.addSubview(corner)
     }
 }
 

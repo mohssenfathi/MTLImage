@@ -142,7 +142,7 @@ class MTLFilter: MTLObject, NSCoding {
         }
         
         dispatch_semaphore_wait(self.computeSemaphore, DISPATCH_TIME_FOREVER)
-//        runAsynchronously { 
+        runAsynchronously { 
             autoreleasepool {
                 if self.internalTexture == nil || self.internalTexture!.width != inputTexture.width || self.internalTexture!.height != inputTexture.height {
                     let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(inputTexture.pixelFormat, width:inputTexture.width, height: inputTexture.height, mipmapped: false)
@@ -174,7 +174,7 @@ class MTLFilter: MTLObject, NSCoding {
                 commandBuffer.waitUntilCompleted()
                 
             }
-//        }
+        }
         
     }
     
@@ -192,10 +192,8 @@ class MTLFilter: MTLObject, NSCoding {
     }
     
     func runAsynchronously(block: (()->())) {
-        //        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
         dispatch_async(context.processingQueue) {
             block()
-            //            dispatch_semaphore_signal(self.semaphore)
         }
     }
     

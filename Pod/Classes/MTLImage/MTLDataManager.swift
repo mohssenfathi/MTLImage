@@ -128,9 +128,14 @@ class MTLDataManager: NSObject {
                 case .Value:
                     record.value = NSNumber(float: filter.valueForKey(property.key) as! Float)
                     break
+                case .Bool:
+                    record.bool = NSNumber(bool: filter.valueForKey(property.key) as! Bool)
+                    break
                 case .Point:
                     record.point = NSValue(CGPoint: filter.valueForKey(property.key)!.CGPointValue())
                     break
+                case .Rect:
+                    record.rect = NSValue(CGRect: filter.valueForKey(property.key)!.CGRectValue())
                 case .Color:
                     record.color = filter.valueForKey(property.key) as? UIColor
                     break
@@ -203,8 +208,14 @@ class MTLDataManager: NSObject {
                 case .Value:
                     filter.setValue(propertyRecord.value, forKey: propertyRecord.key!)
                     break
+                case .Bool:
+                    filter.setValue(propertyRecord.bool, forKey: propertyRecord.key!)
+                    break
                 case .Point:
                     filter.setValue(propertyRecord.point, forKey: propertyRecord.key!)
+                    break
+                case .Rect:
+                    filter.setValue(propertyRecord.rect, forKey: propertyRecord.key!)
                     break
                 case .Color:
                     filter.setValue(propertyRecord.color, forKey: propertyRecord.key!)
