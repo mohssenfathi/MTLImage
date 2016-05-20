@@ -58,6 +58,7 @@ class MTLImage: NSObject {
          "Pixellate",
          "Polka Dot",
          "Saturation",
+         "Scatter",
          "Selective HSL",
          "Sketch",
          "Sobel Edge Detection",
@@ -97,6 +98,7 @@ class MTLImage: NSObject {
             case "pixellate"                      : return MTLPixellateFilter()
             case "polka dot"                      : return MTLPolkaDotFilter()
             case "saturation"                     : return MTLSaturationFilter()
+            case "scatter"                        : return MTLScatterFilter()
             case "selective hsl"                  : return MTLSelectiveHSLFilter()
             case "sketch"                         : return MTLSketchFilter()
             case "sobel edge detection"           : return MTLSobelEdgeDetectionFilter()

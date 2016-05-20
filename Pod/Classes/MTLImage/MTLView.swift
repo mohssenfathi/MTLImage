@@ -96,6 +96,10 @@ class MTLView: UIView, MTLOutput {
         }
     }
     
+    public func layoutView() {
+        setupBuffers()
+    }
+    
     public override func layoutSubviews() {
         super.layoutSubviews()
         
