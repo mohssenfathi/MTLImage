@@ -38,7 +38,7 @@ class MTLSketchFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         
-        var intense = intensity * 3.0 + 0.2
+        let intense = intensity * 3.0 + 0.2
 //        if context.processingSize != nil {
 //            intense *= Float(2048.0/context.processingSize.width)
 //        }

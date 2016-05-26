@@ -58,7 +58,7 @@ class MTLHarrisCornerDetectionFilterGroup: MTLFilterGroup {
         corners.removeAll()
         
         var currentByte: Int = 0
-        var cornerStorageIndex = 0
+//        var cornerStorageIndex = 0
         while (currentByte < byteCount) {
             
             let colorByte = bytes[currentByte]

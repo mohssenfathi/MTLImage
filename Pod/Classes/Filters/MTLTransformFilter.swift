@@ -29,7 +29,7 @@ class MTLTransformFilter: MTLFilter {
     public var scale: Float = 0.5 {
         didSet {
             clamp(&scale, low: 0, high: 1)
-            let val = CGFloat(scale) * 2.0
+//            let val = CGFloat(scale) * 2.0
 //            transform = CATransform3DMakeScale(val, val, 1.0)
             needsUpdate = true
             update()
@@ -39,7 +39,7 @@ class MTLTransformFilter: MTLFilter {
     public var rotation: Float = 0.5 {
         didSet {
             clamp(&scale, low: 0, high: 1)
-            let val = CGFloat(rotation) - 1.0
+//            let val = CGFloat(rotation) - 1.0
 //            transform = CATransform3DMakeRotation(val, 0.0, 0.0, 1.0)
             needsUpdate = true
             update()

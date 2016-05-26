@@ -8,7 +8,6 @@
 
 import UIKit
 import Metal
-
 import MetalKit
 
 public
@@ -22,6 +21,8 @@ public
 class MTLView: UIView, MTLOutput {
     
     public var delegate: MTLViewDelegate?
+    
+    public var panGestureRecognizer: UIPanGestureRecognizer!
     
     private var mtlClearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0)
     public var clearColor: UIColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0) {
@@ -82,6 +83,7 @@ class MTLView: UIView, MTLOutput {
     
     func commonInit() {
         title = "MTLView"
+        setupPanGestureRecognizer()
         setupDevice()
         setupPipeline()
         setupBuffers()
@@ -106,7 +108,7 @@ class MTLView: UIView, MTLOutput {
         if window != nil {
             let scale = window!.screen.nativeScale
             contentScaleFactor = scale
-            metalLayer.frame = CGRect(origin: CGPointZero, size: bounds.size)
+            metalLayer.frame = bounds
             metalLayer.drawableSize = CGSizeMake(bounds.size.width * scale, bounds.size.height * scale)
         }
     }
@@ -128,6 +130,9 @@ class MTLView: UIView, MTLOutput {
         delegate?.mtlViewTouchesEnded(self, touches: touches, event: event)
     }
     
+    func handlePan(sender: UIPanGestureRecognizer) {
+        
+    }
     
     func update(displayLink: CADisplayLink) {
         redraw()
@@ -158,6 +163,11 @@ class MTLView: UIView, MTLOutput {
     //        }
     //    }
     
+    func setupPanGestureRecognizer() {
+        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MTLView.handlePan(_:)))
+        addGestureRecognizer(panGestureRecognizer)
+    }
+    
     func setupDevice() {
         device = MTLCreateSystemDefaultDevice()
         metalLayer = layer as! CAMetalLayer
@@ -183,49 +193,46 @@ class MTLView: UIView, MTLOutput {
         }
     }
     
+    
+    
+    let kSzQuadTexCoords = 6 * sizeof(float2)
+    let kSzQuadVertices  = 6 * sizeof(float4)
+    
+    let kQuadTexCoords: [float2] = [ float2(0.0, 0.0),
+                                     float2(1.0, 0.0),
+                                     float2(0.0, 1.0),
+                                    
+                                     float2(1.0, 0.0),
+                                     float2(0.0, 1.0),
+                                     float2(1.0, 1.0) ]
+    
     func setupBuffers() {
         
         if device == nil { return }
         
-        let kCntQuadTexCoords = 6;
-        let kSzQuadTexCoords  = kCntQuadTexCoords * sizeof(float2);
-        
-        let kCntQuadVertices = kCntQuadTexCoords;
-        let kSzQuadVertices  = kCntQuadVertices * sizeof(float4);
-        
         var x: Float = 0.0, y: Float = 0.0
-        if input != nil && input?.texture != nil {
+        
+        if let inputTexture = input?.texture {
             let viewSize  = bounds.size
             
-            let viewRatio  = Float(viewSize.width / viewSize.height)
-            let imageRatio = Float(input!.texture!.width) / Float(input!.texture!.height)
+            let viewRatio  = viewSize.width / viewSize.height
+            let imageRatio = CGFloat(inputTexture.width) / CGFloat(inputTexture.height)
             
             if imageRatio > viewRatio {  // Image is wider than view
-                y = (Float(viewSize.height) - (Float(viewSize.width) / imageRatio))/Float(viewSize.height)
+                y = Float((viewSize.height - (viewSize.width / imageRatio)) / viewSize.height)
             }
             else if viewRatio > imageRatio { // View is wider than image
-                x = (Float(viewSize.width) - (Float(viewSize.height) * imageRatio))/Float(viewSize.width)
+                x = Float((viewSize.width - (viewSize.height) * imageRatio) / viewSize.width)
             }
         }
-        
-        let kQuadVertices: [float4] = [
-            float4(-1.0 + x,  1.0 - y, 0.0, 1.0),
-            float4( 1.0 - x,  1.0 - y, 0.0, 1.0),
-            float4(-1.0 + x, -1.0 + y, 0.0, 1.0),
+
+        let kQuadVertices: [float4] = [ float4(-1.0 + x,  1.0 - y, 0.0, 1.0),
+                                        float4( 1.0 - x,  1.0 - y, 0.0, 1.0),
+                                        float4(-1.0 + x, -1.0 + y, 0.0, 1.0),
             
-            float4( 1.0 - x,  1.0 - y, 0.0, 1.0),
-            float4(-1.0 + x, -1.0 + y, 0.0, 1.0),
-            float4( 1.0 - x, -1.0 + y, 0.0, 1.0) ]
-        
-        let width: Float = 1.0
-        let kQuadTexCoords: [float2] = [
-            float2(0.0, 0.0),
-            float2(width, 0.0),
-            float2(0.0, width),
-            
-            float2(width, 0.0),
-            float2(0.0, width),
-            float2(width, width) ]
+                                        float4( 1.0 - x,  1.0 - y, 0.0, 1.0),
+                                        float4(-1.0 + x, -1.0 + y, 0.0, 1.0),
+                                        float4( 1.0 - x, -1.0 + y, 0.0, 1.0) ]
         
         vertexBuffer   = device.newBufferWithBytes(kQuadVertices , length: kSzQuadVertices , options: .CPUCacheModeDefaultCache)
         texCoordBuffer = device.newBufferWithBytes(kQuadTexCoords, length: kSzQuadTexCoords, options: .CPUCacheModeDefaultCache)
@@ -233,46 +240,49 @@ class MTLView: UIView, MTLOutput {
     
     func redraw() {
         if input?.texture == nil { return }
-        //        if input?.needsUpdate == false { return }
+//        if input?.needsUpdate == false { return }
         
-        dispatch_semaphore_wait(self.renderSemaphore, DISPATCH_TIME_FOREVER)
-        autoreleasepool {
+//        dispatch_semaphore_wait(self.renderSemaphore, DISPATCH_TIME_FOREVER)
+        runSynchronously { 
+            
+            autoreleasepool {
+                    
+                guard let drawable = self.metalLayer.nextDrawable() else {
+//                    dispatch_semaphore_signal(self.renderSemaphore)
+                    return
+                }
                 
-            guard let drawable = self.metalLayer.nextDrawable() else {
-                dispatch_semaphore_signal(self.renderSemaphore)
-                return
+                let texture = drawable.texture
+                
+                let renderPassDescriptor = MTLRenderPassDescriptor()
+                renderPassDescriptor.colorAttachments[0].texture = texture
+                renderPassDescriptor.colorAttachments[0].clearColor = self.mtlClearColor
+                renderPassDescriptor.colorAttachments[0].storeAction = .Store
+                renderPassDescriptor.colorAttachments[0].loadAction = .Clear
+                
+                let commandBuffer = self.commandQueue.commandBuffer()
+                commandBuffer.label = "MTLView Buffer"
+                
+                let commandEncoder = commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
+                commandEncoder.setRenderPipelineState(self.pipeline)
+                commandEncoder.setVertexBuffer(self.vertexBuffer, offset: 0, atIndex: 0)
+                commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, atIndex: 1)
+                commandEncoder.setFragmentTexture(self.input?.texture, atIndex: 0)
+                commandEncoder.setFragmentBuffer(self.uniformsBuffer, offset: 0, atIndex: 1)
+                commandEncoder.drawPrimitives(.Triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
+                
+                commandEncoder.endEncoding()
+                
+                commandBuffer.presentDrawable(drawable)
+                
+                commandBuffer.addCompletedHandler({ (commandBuffer) in
+//                    dispatch_semaphore_signal(self.renderSemaphore)
+                })
+                
+                commandBuffer.commit()
+                commandBuffer.waitUntilCompleted()
+                
             }
-            
-            let texture = drawable.texture
-            
-            let renderPassDescriptor = MTLRenderPassDescriptor()
-            renderPassDescriptor.colorAttachments[0].texture = texture
-            renderPassDescriptor.colorAttachments[0].clearColor = self.mtlClearColor
-            renderPassDescriptor.colorAttachments[0].storeAction = .Store
-            renderPassDescriptor.colorAttachments[0].loadAction = .Clear
-            
-            let commandBuffer = self.commandQueue.commandBuffer()
-            commandBuffer.label = "MTLView Buffer"
-            
-            let commandEncoder = commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
-            commandEncoder.setRenderPipelineState(self.pipeline)
-            commandEncoder.setVertexBuffer(self.vertexBuffer, offset: 0, atIndex: 0)
-            commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, atIndex: 1)
-            commandEncoder.setFragmentTexture(self.input?.texture, atIndex: 0)
-            commandEncoder.setFragmentBuffer(self.uniformsBuffer, offset: 0, atIndex: 1)
-            commandEncoder.drawPrimitives(.Triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
-            
-            commandEncoder.endEncoding()
-            
-            commandBuffer.presentDrawable(drawable)
-            
-            commandBuffer.addCompletedHandler({ (commandBuffer) in
-                dispatch_semaphore_signal(self.renderSemaphore)
-            })
-            
-            commandBuffer.commit()
-            commandBuffer.waitUntilCompleted()
-            
         }
     }
     

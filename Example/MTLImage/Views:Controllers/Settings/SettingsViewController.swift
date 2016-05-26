@@ -17,11 +17,15 @@ SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINav
     
     var filter: MTLFilter!
     var touchProperty: MTLProperty?
+    var mainViewController: MainViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = filter.title
         tableView.estimatedRowHeight = 80
+        
+        mainViewController = self.navigationController?.parentViewController as! MainViewController
+        mainViewController.mtlView.panGestureRecognizer.addTarget(self, action: #selector(SettingsViewController.handlePan(_:)))
         
         for property: MTLProperty in filter.properties {
             if property.propertyType == .Point {
@@ -35,6 +39,20 @@ SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINav
         super.viewWillAppear(animated)
         tableView.hidden  = (filter.properties.count == 0)
         emptyLabel.hidden = (filter.properties.count != 0)
+    }
+    
+    func handlePan(sender: UIPanGestureRecognizer) {
+        
+        let translation = sender.translationInView(sender.view)
+        let location    = sender.locationInView(sender.view)
+//        let velocity    = sender.velocityInView(sender.view)
+        
+        if let smudgeFilter = filter as? MTLSmudgeFilter {
+            smudgeFilter.location = location
+            smudgeFilter.direction = translation
+//            smudgeFilter.force = Float(max(velocity.x, velocity.y))
+        }
+        
     }
     
     //    MARK: - UITableView
@@ -70,6 +88,9 @@ SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINav
     }
     
     func handleTouchAtLocation(location: CGPoint) {
+        
+        if filter is MTLSmudgeFilter { return } // Temp
+        
         if touchProperty != nil {
             filter.setValue(NSValue(CGPoint: location), forKey: touchProperty!.key)
         }

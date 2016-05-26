@@ -27,39 +27,7 @@ class MTLCropFilter: MTLFilter {
             update()
         }
     }
-    
-//    public var x: Float = 0.0 {
-//        didSet {
-//            if x + width > 1.0 { x = oldValue }
-//            needsUpdate = true
-//            update()
-//        }
-//    }
-//    
-//    public var y: Float = 0.0 {
-//        didSet {
-//            if y + height > 1.0 { y = oldValue }
-//            needsUpdate = true
-//            update()
-//        }
-//    }
-//    
-//    public var width: Float = 1.0 {
-//        didSet {
-//            if x + width > 1.0 { width = oldValue }
-//            needsUpdate = true
-//            update()
-//        }
-//    }
-//    
-//    public var height: Float = 1.0 {
-//        didSet {
-//            if y + height > 1.0 { height = oldValue }
-//            needsUpdate = true
-//            update()
-//        }
-//    }
-    
+
     public var cropRegion: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1) {
         didSet {
             assert(cropRegion.size.width  <= 1.0)
@@ -76,12 +44,9 @@ class MTLCropFilter: MTLFilter {
     public init() {
         super.init(functionName: "crop")
         title = "Crop"
-//        properties = [MTLProperty(key: "cropRegion", title: "Crop Region", propertyType: .Rect)]
-        properties = [MTLProperty(key: "x", title: "X"),
-                      MTLProperty(key: "y", title: "Y"),
-                      MTLProperty(key: "width", title: "Width"),
-                      MTLProperty(key: "height", title: "Height"),
-                      MTLProperty(key: "fit", title: "Fit", propertyType: .Bool)]
+        properties = [MTLProperty(key: "cropRegion", title: "Crop Region", propertyType: .Rect),
+                      MTLProperty(key: "fit"       , title: "Fit"        , propertyType: .Bool)]
+        
         update()
     }
     
@@ -91,11 +56,7 @@ class MTLCropFilter: MTLFilter {
     
     override func update() {
         if self.input == nil { return }
-        
-//        uniforms.x = x
-//        uniforms.y = y
-//        uniforms.width = width
-//        uniforms.height = height
+
         uniforms.x = Float(cropRegion.origin.x)
         uniforms.y = Float(cropRegion.origin.y)
         uniforms.width = Float(cropRegion.size.width)

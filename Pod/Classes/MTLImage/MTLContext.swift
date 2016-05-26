@@ -9,18 +9,27 @@
 import UIKit
 
 // Set to true to use compiled shaders
-let useMetalib = true
+let useMetalib = false
 
 public
 class MTLContext: NSObject {
 
     var device: MTLDevice!
-    var library: MTLLibrary!
     var commandQueue: MTLCommandQueue!
     var processingSize: CGSize!
     var processingQueue: dispatch_queue_t!    
     var needsUpdate: Bool = true
     let semaphore = dispatch_semaphore_create(3)
+    
+    private var internalLibrary: MTLLibrary!
+    var library: MTLLibrary! {
+        get {
+            if internalLibrary == nil {
+                loadLibrary()
+            }
+            return internalLibrary
+        }
+    }
     
     override init() {
         super.init()
@@ -36,26 +45,30 @@ class MTLContext: NSObject {
                 if !device.supportsFeatureSet(.iOS_GPUFamily1_v1) { return }
             #endif
         
-            if useMetalib {
-                do {
-                    let bundle = NSBundle(forClass: MTLImage.classForCoder())
-                    let path = bundle.pathForResource("default", ofType: "metallib")
-                    try self.library = self.device.newLibraryWithFile(path!)
-                } catch {
-                    print("Couldn't load precompiled metallib")
-                    self.library = self.device.newDefaultLibrary()
-                }
-            }
-            else {
-                self.library = self.device.newDefaultLibrary()
-            }
-            
+            loadLibrary()
             self.commandQueue = self.device.newCommandQueue()
             self.processingQueue = dispatch_queue_create("MTLImageProcessQueue", DISPATCH_QUEUE_SERIAL);
         } else {
             print("Device does not support metal")
         }
         
+    }
+    
+    func loadLibrary() {
+        if useMetalib {
+            do {
+                let bundle = NSBundle(forClass: MTLImage.classForCoder())
+                let path = bundle.pathForResource("default", ofType: "metallib")
+                try internalLibrary = self.device.newLibraryWithFile(path!)
+            } catch {
+                print(error)
+                //                    self.library = self.device.newDefaultLibrary()
+            }
+        }
+        else {
+            internalLibrary = self.device.newDefaultLibrary()
+        }
+
     }
     
 }

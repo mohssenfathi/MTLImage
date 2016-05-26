@@ -1,0 +1,116 @@
+//
+//  MTLSmudgeFilter.swift
+//  Pods
+//
+//  Created by Mohssen Fathi on 5/26/16.
+//
+//
+
+import UIKit
+
+struct SmudgeUniforms {
+    var radius: Float = 0.5
+    var x: Float = 0.0
+    var y: Float = 0.0
+    var dx: Float = 0.0
+    var dy: Float = 0.0
+    var force: Float = 0.0
+}
+
+public
+class MTLSmudgeFilter: MTLFilter {
+    
+    var uniforms = SmudgeUniforms()
+    
+    public var radius: Float = 0.5 {
+        didSet {
+            clamp(&radius, low: 0, high: 1)
+            needsUpdate = true
+            update()
+        }
+    }
+    
+    public var force: Float = 0.5 {
+        didSet {
+            clamp(&radius, low: 0, high: 1)
+            needsUpdate = true
+            update()
+        }
+    }
+    
+    public var location: CGPoint = CGPointZero {
+        didSet {
+            needsUpdate = true
+            update()
+        }
+    }
+    
+    public var direction: CGPoint = CGPointZero {
+        didSet {
+//            direction.x = direction.x < 0 ? -1 : 1
+//            direction.y = direction.y < 0 ? -1 : 1
+            needsUpdate = true
+            update()
+        }
+    }
+    
+    private var viewSize: CGSize!
+    
+    public init() {
+        super.init(functionName: "smudge")
+        title = "Smudge"
+        properties = [MTLProperty(key: "radius", title: "Radius"),
+                      MTLProperty(key: "force" , title: "Force"),
+                      MTLProperty(key: "location" , title: "Location" , propertyType: .Point),
+                      MTLProperty(key: "direction", title: "Direction", propertyType: .Point)]
+        update()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func update() {
+        if self.input == nil { return }
+        
+        if viewSize != nil {
+            uniforms.x = Float(location.x/viewSize!.width)
+            uniforms.y = Float(location.y/viewSize!.height)
+        } else {
+            if let mtlView = outputView {
+                viewSize = mtlView.frame.size
+            }
+        }
+        
+        uniforms.radius = radius * 100
+        uniforms.force = force
+        uniforms.dx = Float(direction.x)
+        uniforms.dy = Float(direction.y)
+        
+        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(SmudgeUniforms), options: .CPUCacheModeDefaultCache)
+    }
+    
+    
+    var accumulatedTexture: MTLTexture?
+    override var inputTexture: MTLTexture? {
+        get {
+            if accumulatedTexture == nil {
+                accumulatedTexture = input?.texture
+            }
+            return accumulatedTexture
+        }
+    }
+    
+    public override func process() {
+        super.process()
+        accumulatedTexture = texture
+    }
+    
+    public override func reset() {
+        super.reset()
+        accumulatedTexture = nil
+    }
+    
+    
+    
+}

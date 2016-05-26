@@ -64,6 +64,7 @@ class MTLImage: NSObject {
          "Sobel Edge Detection",
          "Sobel Edge Detection Threshold",
          "Sharpen",
+         "Smudge",
          "Toon",
          "Transform",
          "Vignette",
@@ -104,6 +105,7 @@ class MTLImage: NSObject {
             case "sobel edge detection"           : return MTLSobelEdgeDetectionFilter()
             case "sobel edge detection threshold" : return MTLSobelEdgeDetectionThresholdFilter()
             case "sharpen"                        : return MTLSharpenFilter()
+            case "smudge"                         : return MTLSmudgeFilter()
             case "toon"                           : return MTLToonFilter()
             case "transform"                      : return MTLTransformFilter()
             case "vignette"                       : return MTLVignetteFilter()

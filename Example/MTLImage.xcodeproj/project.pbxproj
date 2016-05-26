@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		451282521CE765FB00FF7E9C /* Crop.metal in Sources */ = {isa = PBXBuildFile; fileRef = 451282511CE765FB00FF7E9C /* Crop.metal */; };
+		453A609C1CF7974900A48FEE /* Smudge.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453A609B1CF7974900A48FEE /* Smudge.metal */; };
 		453D51B71CEBCAB4001A0C9A /* Transform.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453D51B61CEBCAB4001A0C9A /* Transform.metal */; };
 		453FA0011CE0F58B003F9871 /* Blend.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453F9FDE1CE0F58B003F9871 /* Blend.metal */; };
 		453FA0021CE0F58B003F9871 /* Brightness.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453F9FDF1CE0F58B003F9871 /* Brightness.metal */; };
@@ -88,6 +89,7 @@
 		0903E9E555816E58D7C438ED /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		22918B49ADBB9962DD3EDA05 /* Pods-MTLImage_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTLImage_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		451282511CE765FB00FF7E9C /* Crop.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Crop.metal; sourceTree = "<group>"; };
+		453A609B1CF7974900A48FEE /* Smudge.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Smudge.metal; sourceTree = "<group>"; };
 		453D51B61CEBCAB4001A0C9A /* Transform.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Transform.metal; sourceTree = "<group>"; };
 		453F9FDE1CE0F58B003F9871 /* Blend.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Blend.metal; sourceTree = "<group>"; };
 		453F9FDF1CE0F58B003F9871 /* Brightness.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Brightness.metal; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				451282511CE765FB00FF7E9C /* Crop.metal */,
 				453D51B61CEBCAB4001A0C9A /* Transform.metal */,
 				457A87971CECB6E400188C52 /* Scatter.metal */,
+				453A609B1CF7974900A48FEE /* Smudge.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -679,6 +682,7 @@
 				453FA0091CE0F58B003F9871 /* Distortion.metal in Sources */,
 				453FA0181CE0F58B003F9871 /* PolkaDot.metal in Sources */,
 				453FA0131CE0F58B003F9871 /* Mask.metal in Sources */,
+				453A609C1CF7974900A48FEE /* Smudge.metal in Sources */,
 				4546570B1CB9BB98001E421A /* FilterGroupViewController.swift in Sources */,
 				45A616811CBFD9BA00C000C7 /* PickerCell.swift in Sources */,
 				453FA0111CE0F58B003F9871 /* LineDetection.metal in Sources */,

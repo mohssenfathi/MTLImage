@@ -20,7 +20,14 @@ class MTLBlendFilter: MTLFilter {
     private var blendTexture: MTLTexture?
     private var originalBlendImage: UIImage?
     
-    var mix: Float = 0.5 {
+    var blendOriginal: Bool = true {
+        didSet {
+            needsUpdate = true
+            update()
+        }
+    }
+    
+    public var mix: Float = 1.0 {
         didSet {
             clamp(&mix, low: 0, high: 1)
             needsUpdate = true
@@ -28,7 +35,7 @@ class MTLBlendFilter: MTLFilter {
         }
     }
     
-    var blendMode: Int = 0 {
+    public var blendMode: Int = 0 {
         didSet {
             clamp(&blendMode, low: 0, high: 12)
             needsUpdate = true
@@ -36,7 +43,7 @@ class MTLBlendFilter: MTLFilter {
         }
     }
     
-    var contentMode: UIViewContentMode = .ScaleToFill {
+    public var contentMode: UIViewContentMode = .ScaleToFill {
         didSet {
             needsUpdate = true
             update()
@@ -44,15 +51,16 @@ class MTLBlendFilter: MTLFilter {
         }
     }
     
-    var blendImage: UIImage? {
+    public var blendImage: UIImage? {
         willSet {
             if blendImage == nil {
                 originalBlendImage = newValue?.copy() as? UIImage
             }
         }
         didSet {
-            
             if blendImage != nil && originalImage != nil {
+                blendOriginal = false
+                
                 switch contentMode {
                 case .ScaleAspectFit:
                     blendImage = originalBlendImage?.scaleToFit(originalImage!.size)
@@ -76,7 +84,7 @@ class MTLBlendFilter: MTLFilter {
     public init() {
         super.init(functionName: "blend")
         title = "Blend"
-        uniforms.mix = mix
+        uniforms.mix = 1.0 - mix
         
         let blendModeProperty = MTLProperty(key: "blendMode", title: "Blend Mode", propertyType: .Selection)
         blendModeProperty.selectionItems = [0  : "Normal",
@@ -124,7 +132,10 @@ class MTLBlendFilter: MTLFilter {
     }
     
     func createBlendTexture() {
-        if blendImage != nil {
+        if blendOriginal == true {
+            blendTexture = source?.texture
+        }
+        else if blendImage != nil {
             blendTexture = blendImage?.texture(device)
         }
     }
