@@ -25,8 +25,7 @@ SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINav
         tableView.estimatedRowHeight = 80
         
         mainViewController = self.navigationController?.parentViewController as! MainViewController
-        mainViewController.mtlView.panGestureRecognizer.addTarget(self, action: #selector(SettingsViewController.handlePan(_:)))
-        
+    
         for property: MTLProperty in filter.properties {
             if property.propertyType == .Point {
                 touchProperty = property

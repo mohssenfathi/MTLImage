@@ -44,7 +44,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.navigationItem.leftBarButtonItems = nil
         
         sourcePicture = MTLPicture(image: image)
-        sourcePicture.setProcessingSize(CGSizeMake(1000, 1000), respectAspectRatio: true)
+        sourcePicture.setProcessingSize(scrollView.bounds.size * 1.5, respectAspectRatio: true)
         mtlView.delegate = self
         currentInput = sourcePicture
         
@@ -250,4 +250,8 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
+}
+
+func * (left: CGSize, right: CGFloat) -> CGSize {
+    return CGSize(width: left.width * right, height: left.height * right)
 }

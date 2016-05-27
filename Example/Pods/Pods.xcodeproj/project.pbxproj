@@ -25,7 +25,6 @@
 		159BBEA93C2071D1FE995ED8974547E6 /* MTLProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066ADF5ECD63CFDB780B48B1F7951AC9 /* MTLProperty.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		19A2E59698B57FE059AB462BC50C0B30 /* Blend.metal in Sources */ = {isa = PBXBuildFile; fileRef = 188652A9CF4A2878F37819D8FA35780E /* Blend.metal */; };
 		19B115CEB705B0477C063B22AD733560 /* MTLCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1215F6DFE98B3544D6365599733FDF6 /* MTLCamera.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		201324BC662278301EC2290ADAD9CD65 /* MTLWatercolorFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68079377B28CB8C7BEFFBC937E004236 /* MTLWatercolorFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		210812FBE551DC6D1CEC0AB09BA91613 /* MTLSelectiveHSLFilter1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEB96818CA9A6A7543EBC30170592D2 /* MTLSelectiveHSLFilter1.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		260162362AA2879BA3FEDCDF0B720200 /* MTLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15A60AD6EC7A0A5898E439A6FD9122A /* MTLView.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		289635A1FAC6378CB20874E9C51C4F12 /* MTLSharpenFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFD2471E42F15C0891474DF6B664FE /* MTLSharpenFilter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -202,7 +201,6 @@
 		63F63CEAEDBE19A6C275EA08CF59C0F3 /* Pods-MTLImage_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MTLImage_Tests.modulemap"; sourceTree = "<group>"; };
 		649E4D3AF1C59B6B1A5FCC4F353704E3 /* Levels.metal */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.metal; path = Levels.metal; sourceTree = "<group>"; };
 		64A7798D2C92A4F880E0948011E47B6B /* SelectiveHSL.metal */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.metal; path = SelectiveHSL.metal; sourceTree = "<group>"; };
-		68079377B28CB8C7BEFFBC937E004236 /* MTLWatercolorFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLWatercolorFilter.swift; sourceTree = "<group>"; };
 		6CDF82B69F14A8431B6C0590952BEF69 /* WeakPixelInclusion.metal */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.metal; path = WeakPixelInclusion.metal; sourceTree = "<group>"; };
 		6D0762DC89ABE854ED2BEE75B21FD5F2 /* MTLMaskFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLMaskFilter.swift; sourceTree = "<group>"; };
 		6E7982DB41AA88A31AB0803F8E6F5B94 /* MTLLevelsFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLLevelsFilter.swift; sourceTree = "<group>"; };
@@ -393,7 +391,6 @@
 				1285C91A032DF95AC8C0BF95409E078F /* MTLSobelEdgeDetectionThresholdFilter.swift */,
 				7ADBB810888011EDAC44D9BDD34FB366 /* MTLToonFilter.swift */,
 				8BFD85418ECF3FE84365476A5642DEDA /* MTLVignetteFilter.swift */,
-				68079377B28CB8C7BEFFBC937E004236 /* MTLWatercolorFilter.swift */,
 				20318B395AAAF814AF024FB8DF223AE1 /* MTLWaterFilter.swift */,
 				7F9EB0FE0791F693591B378ACC0BB207 /* MTLWeakPixelInclusionFilter.swift */,
 				EB3F6F38AF0EC41320508DF5ADF648CE /* MTLWhiteBalanceFilter.swift */,
@@ -962,7 +959,6 @@
 				5EE45214E821B009E1B8C3D1BB6F7390 /* MTLTypes.swift in Sources */,
 				260162362AA2879BA3FEDCDF0B720200 /* MTLView.swift in Sources */,
 				6DF8F289A786D524527EE00A98C66EC0 /* MTLVignetteFilter.swift in Sources */,
-				201324BC662278301EC2290ADAD9CD65 /* MTLWatercolorFilter.swift in Sources */,
 				838EE87813DF0DF54D509BC9A7035FFC /* MTLWaterFilter.swift in Sources */,
 				59F899E0D9AAEE10B209ADD43DF8C601 /* MTLWeakPixelInclusionFilter.swift in Sources */,
 				9299578E61DF60EC8BE67C39C45A1E22 /* MTLWhiteBalanceFilter.swift in Sources */,

@@ -28,11 +28,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Pod/Classes/MTLImage/MTLView.swift"
-            timestampString = "485992372.949043"
+            timestampString = "486075321.960806"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "318"
-            endingLineNumber = "318"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "MTLView"
             landmarkType = "3">
          </BreakpointContent>
@@ -44,11 +44,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Pod/Classes/MTLImage/MTLView.swift"
-            timestampString = "485992373.574455"
+            timestampString = "486075321.960806"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
             landmarkName = "MTLView"
             landmarkType = "3">
          </BreakpointContent>

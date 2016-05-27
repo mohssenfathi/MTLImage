@@ -43,7 +43,6 @@
 		453FA01F1CE0F58B003F9871 /* Toon.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453F9FFC1CE0F58B003F9871 /* Toon.metal */; };
 		453FA0201CE0F58B003F9871 /* Vignette.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453F9FFD1CE0F58B003F9871 /* Vignette.metal */; };
 		453FA0211CE0F58B003F9871 /* Water.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453F9FFE1CE0F58B003F9871 /* Water.metal */; };
-		453FA0221CE0F58B003F9871 /* Watercolor.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453F9FFF1CE0F58B003F9871 /* Watercolor.metal */; };
 		453FA0231CE0F58B003F9871 /* WhiteBalance.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453FA0001CE0F58B003F9871 /* WhiteBalance.metal */; };
 		453FA0261CE36F2D003F9871 /* NonMaximumSuppression.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453FA0251CE36F2D003F9871 /* NonMaximumSuppression.metal */; };
 		453FA02C1CE37683003F9871 /* HarrisCornerDetection.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453FA02B1CE37683003F9871 /* HarrisCornerDetection.metal */; };
@@ -124,7 +123,6 @@
 		453F9FFC1CE0F58B003F9871 /* Toon.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Toon.metal; sourceTree = "<group>"; };
 		453F9FFD1CE0F58B003F9871 /* Vignette.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Vignette.metal; sourceTree = "<group>"; };
 		453F9FFE1CE0F58B003F9871 /* Water.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Water.metal; sourceTree = "<group>"; };
-		453F9FFF1CE0F58B003F9871 /* Watercolor.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Watercolor.metal; sourceTree = "<group>"; };
 		453FA0001CE0F58B003F9871 /* WhiteBalance.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = WhiteBalance.metal; sourceTree = "<group>"; };
 		453FA0251CE36F2D003F9871 /* NonMaximumSuppression.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = NonMaximumSuppression.metal; sourceTree = "<group>"; };
 		453FA02B1CE37683003F9871 /* HarrisCornerDetection.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HarrisCornerDetection.metal; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 				453F9FFC1CE0F58B003F9871 /* Toon.metal */,
 				453F9FFD1CE0F58B003F9871 /* Vignette.metal */,
 				453F9FFE1CE0F58B003F9871 /* Water.metal */,
-				453F9FFF1CE0F58B003F9871 /* Watercolor.metal */,
 				453FA0001CE0F58B003F9871 /* WhiteBalance.metal */,
 				453FA0251CE36F2D003F9871 /* NonMaximumSuppression.metal */,
 				453FA02B1CE37683003F9871 /* HarrisCornerDetection.metal */,
@@ -686,7 +683,6 @@
 				4546570B1CB9BB98001E421A /* FilterGroupViewController.swift in Sources */,
 				45A616811CBFD9BA00C000C7 /* PickerCell.swift in Sources */,
 				453FA0111CE0F58B003F9871 /* LineDetection.metal in Sources */,
-				453FA0221CE0F58B003F9871 /* Watercolor.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

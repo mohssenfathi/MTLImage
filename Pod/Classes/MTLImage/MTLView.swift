@@ -22,8 +22,6 @@ class MTLView: UIView, MTLOutput {
     
     public var delegate: MTLViewDelegate?
     
-    public var panGestureRecognizer: UIPanGestureRecognizer!
-    
     private var mtlClearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0)
     public var clearColor: UIColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0) {
         didSet {
@@ -83,7 +81,6 @@ class MTLView: UIView, MTLOutput {
     
     func commonInit() {
         title = "MTLView"
-        setupPanGestureRecognizer()
         setupDevice()
         setupPipeline()
         setupBuffers()
@@ -130,10 +127,6 @@ class MTLView: UIView, MTLOutput {
         delegate?.mtlViewTouchesEnded(self, touches: touches, event: event)
     }
     
-    func handlePan(sender: UIPanGestureRecognizer) {
-        
-    }
-    
     func update(displayLink: CADisplayLink) {
         redraw()
     }
@@ -162,11 +155,6 @@ class MTLView: UIView, MTLOutput {
     //            metalLayer.drawableSize = CGSizeMake(layerSize.width * newScale, layerSize.height * newScale)
     //        }
     //    }
-    
-    func setupPanGestureRecognizer() {
-        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(MTLView.handlePan(_:)))
-        addGestureRecognizer(panGestureRecognizer)
-    }
     
     func setupDevice() {
         device = MTLCreateSystemDefaultDevice()

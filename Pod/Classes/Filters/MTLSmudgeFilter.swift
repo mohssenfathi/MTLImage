@@ -92,14 +92,14 @@ class MTLSmudgeFilter: MTLFilter {
     
     
     var accumulatedTexture: MTLTexture?
-    override var inputTexture: MTLTexture? {
-        get {
-            if accumulatedTexture == nil {
-                accumulatedTexture = input?.texture
-            }
-            return accumulatedTexture
-        }
-    }
+//    override var inputTexture: MTLTexture? {
+//        get {
+//            if accumulatedTexture == nil {
+//                accumulatedTexture = input?.texture
+//            }
+//            return accumulatedTexture
+//        }
+//    }
     
     public override func process() {
         super.process()
