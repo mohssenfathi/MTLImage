@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 import MessageUI
 import MTLImage
 
@@ -39,6 +40,11 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
             self.export()
         }
         
+        let uploadAction = UIAlertAction(title: "Upload", style: .Default) { (action) in
+            self.dismissViewControllerAnimated(true, completion:nil)
+            self.upload()
+        }
+        
         let saveAction = UIAlertAction(title: "Save", style: .Default) { (action) in
             self.dismissViewControllerAnimated(true, completion:nil)
             self.save()
@@ -49,25 +55,44 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         alert.addAction(saveAction)
+        alert.addAction(uploadAction)
         alert.addAction(exportAction)
         alert.addAction(cancelAction)
         
         presentViewController(alert, animated: true, completion: nil)
     }
     
-    func save() {
-        if isNewFilter {
-            showRenameAlert({
-                MTLImage.save(self.filterGroup, completion: { (success) in
-                    let message = success ? "Saved" : "Couldn't Save"
-                    let alertView = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
-                    self.presentViewController(alertView, animated: true, completion: { 
-                        sleep(UInt32(1.0))
-                        self.dismissViewControllerAnimated(true, completion: nil)
-                    })
+    func upload() {
+        
+        let uploadBlock = {
+            
+            let container = CKContainer(identifier: "iCloud.com.mohssenfathi.Lumen-iOS")
+
+            MTLImage.upload(self.filterGroup, container: container, completion: { (record, error) in
+                if error != nil {
+                    print(error?.description)
+                    return
+                }
+                
+                let alertView = UIAlertController(title: nil, message: "Uploaded", preferredStyle: .Alert)
+                self.presentViewController(alertView, animated: true, completion: {
+                    sleep(UInt32(1.0))
+                    self.dismissViewControllerAnimated(true, completion: nil)
                 })
             })
-        } else {
+        }
+        
+        
+        showUploadAlert({ (name, category) in
+            self.filterGroup.title = name
+            self.filterGroup.category = category
+            uploadBlock()
+        })
+    }
+    
+    func save() {
+        
+        let saveBlock = {
             MTLImage.save(self.filterGroup, completion: { (success) in
                 let message = success ? "Saved" : "Couldn't Save"
                 let alertView = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
@@ -76,6 +101,14 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
                     self.dismissViewControllerAnimated(true, completion: nil)
                 })
             })
+        }
+        
+        if isNewFilter {
+            showRenameAlert({
+                saveBlock()
+            })
+        } else {
+            saveBlock()
         }
     }
     
@@ -141,6 +174,52 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
             MTLImage.save(self.filterGroup, completion: { (success) in
                 self.dismissViewControllerAnimated(true, completion: nil)
                 completion?()
+            })
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(doneAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func showUploadAlert(completion: ((name: String, category: String) -> ())?) {
+        let alert = UIAlertController(title: "Name this filter group", message: nil, preferredStyle: .Alert)
+        
+        alert.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = self.filterGroup.title
+            if self.filterGroup.title != "" {
+                textField.text = self.filterGroup.title
+            }
+        }
+        
+        alert.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "Category"
+            if self.filterGroup.title != "" {
+                textField.text = self.filterGroup.category
+            }
+        }
+        
+        let doneAction = UIAlertAction(title: "Done", style: .Default) { (action) in
+            let nameTextField = alert.textFields?.first!
+            if nameTextField!.text == nil || nameTextField!.text == "" { return }
+            
+            let categoryTextField = alert.textFields?.last!
+            if categoryTextField!.text == nil || categoryTextField!.text == "" { return }
+            
+            self.filterGroup.title = nameTextField!.text!
+            self.navigationItem.title = nameTextField?.text
+            self.isNewFilter = false
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
+            
+            completion?(name: self.filterGroup.title, category: (categoryTextField?.text)!)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action) in
+            MTLImage.save(self.filterGroup, completion: { (success) in
+                self.dismissViewControllerAnimated(true, completion: nil)
+                completion?(name: "", category: "")
             })
         }
         

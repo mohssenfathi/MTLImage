@@ -25,6 +25,7 @@ class MTLFilter: MTLObject, NSCoding {
     var texCoordBuffer: MTLBuffer?
     var uniformsBuffer: MTLBuffer?
     var index: Int = 0
+    var gcd: Int = 0
     
     public init(functionName: String) {
         super.init()
@@ -134,8 +135,6 @@ class MTLFilter: MTLObject, NSCoding {
         }
     }
     
-    private var computeSemaphore = dispatch_semaphore_create(1)
-    
     public func process() {
         
         guard let inputTexture = input?.texture else {
@@ -143,60 +142,45 @@ class MTLFilter: MTLObject, NSCoding {
             return
         }
         
-//        dispatch_semaphore_wait(self.computeSemaphore, DISPATCH_TIME_FOREVER)
-//        runAsynchronously {
-            autoreleasepool {
-                if self.internalTexture == nil || self.internalTexture!.width != inputTexture.width || self.internalTexture!.height != inputTexture.height {
-                    let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(inputTexture.pixelFormat, width:inputTexture.width,
-                        height: inputTexture.height, mipmapped: false)
-                    self.internalTexture = self.context.device?.newTextureWithDescriptor(textureDescriptor)
-                }
-                
-                let threadgroupCounts = MTLSizeMake(1, 1, 1)  // Find the largest denominator? Using a non-divisor will cut pixels off the end
-                let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
-                
-                let commandBuffer = self.context.commandQueue.commandBuffer()
-                commandBuffer.label = "MTLFilter: " + self.title
-                
-                let commandEncoder = commandBuffer.computeCommandEncoder()
-                commandEncoder.setComputePipelineState(self.pipeline)
-                commandEncoder.setBuffer(self.uniformsBuffer, offset: 0, atIndex: 0)
-                commandEncoder.setTexture(inputTexture, atIndex: 0)
-                commandEncoder.setTexture(self.internalTexture, atIndex: 1)
-                self.configureCommandEncoder(commandEncoder)
-                commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
-                commandEncoder.endEncoding()
-                
-                commandBuffer.addCompletedHandler({ (commandBuffer) in
-                    self.needsUpdate = false
-                    dispatch_semaphore_signal(self.computeSemaphore)
-                })
-                
-                commandBuffer.commit()
-                commandBuffer.waitUntilCompleted()
-                
+        autoreleasepool {
+            if internalTexture == nil || internalTexture!.width != inputTexture.width || internalTexture!.height != inputTexture.height {
+                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(inputTexture.pixelFormat, width:inputTexture.width,
+                    height: inputTexture.height, mipmapped: false)
+                internalTexture = context.device?.newTextureWithDescriptor(textureDescriptor)
             }
-//        }
-        
+            
+//            if gcd == 0 {
+//                // Find the largest denominator? Using a non-divisor will cut pixels off the end
+//                gcd = Tools.gcd(inputTexture.width, b: inputTexture.height)
+//            }
+            // Next, try different values for x, y
+            let threadgroupCounts = MTLSizeMake(8, 8, 1)
+            let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
+            
+            let commandBuffer = context.commandQueue.commandBuffer()
+            commandBuffer.label = "MTLFilter: " + title
+            
+            let commandEncoder = commandBuffer.computeCommandEncoder()
+            commandEncoder.setComputePipelineState(pipeline)
+            commandEncoder.setBuffer(uniformsBuffer, offset: 0, atIndex: 0)
+            commandEncoder.setTexture(inputTexture, atIndex: 0)
+            commandEncoder.setTexture(internalTexture, atIndex: 1)
+            self.configureCommandEncoder(commandEncoder)
+            commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
+            commandEncoder.endEncoding()
+            
+            commandBuffer.addCompletedHandler({ (commandBuffer) in
+                self.needsUpdate = false
+            })
+            
+            commandBuffer.commit()
+            commandBuffer.waitUntilCompleted()
+            
+        }
     }
     
     func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
         
-    }
-    
-    
-    //    MARK: - Queues
-    
-    func runSynchronously(block: (()->())) {
-        dispatch_sync(context.processingQueue) {
-            block()
-        }
-    }
-    
-    func runAsynchronously(block: (()->())) {
-        dispatch_async(context.processingQueue) {
-            block()
-        }
     }
     
     
@@ -209,6 +193,7 @@ class MTLFilter: MTLObject, NSCoding {
             }
             
             if needsUpdate == true {
+                update()
                 process()
             }
             return internalTexture
@@ -338,8 +323,8 @@ class MTLFilter: MTLObject, NSCoding {
     }
     
     
-//    MARK: - NSCoding
     
+//    MARK: - NSCoding
 
     public func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(title, forKey: "title")
@@ -361,7 +346,7 @@ class MTLFilter: MTLObject, NSCoding {
         for property in properties {
             setValue(propertyValues[property.key], forKey: property.key)
         }
-        title        = aDecoder.decodeObjectForKey("title") as! String
-        index        = aDecoder.decodeIntegerForKey("index")
+        title = aDecoder.decodeObjectForKey("title") as! String
+        index = aDecoder.decodeIntegerForKey("index")
     }
 }

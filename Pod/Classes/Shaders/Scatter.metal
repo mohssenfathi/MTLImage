@@ -13,6 +13,8 @@ struct ScatterUniforms {
     float radius;
 };
 
+//constant float3 lum = float3(0.2125, 0.7154, 0.0721);
+
 kernel void scatter(texture2d<float, access::read>  inTexture  [[ texture(0)]],
                     texture2d<float, access::write> outTexture [[ texture(1)]],
                     texture2d<float, access::read>  noise      [[ texture(2)]],
@@ -23,9 +25,10 @@ kernel void scatter(texture2d<float, access::read>  inTexture  [[ texture(0)]],
     
 // noise.read(uint2(gid.x * uniforms.radius * 2, gid.y * uniforms.radius * 2)).xy
 //    float l = dot(noise.read(gid).rgb, float3(0.2125, 0.7154, 0.0721));
+    
     float3 noiseColor = noise.read(gid).rgb;
     float l = (1.5 - (noiseColor.r + noiseColor.g + noiseColor.b)) * uniforms.radius;
-    float2 workingSpaceCoord = float2(gid) + l * 2;
+    float2 workingSpaceCoord = float2(gid) - l * 2;
     color = inTexture.read(uint2(workingSpaceCoord));
     
 //    float2 imageSpaceCoord = samplerTransform(image, workingSpaceCoord);

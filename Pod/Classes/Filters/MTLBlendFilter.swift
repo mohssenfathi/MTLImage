@@ -9,7 +9,7 @@
 import UIKit
 
 struct BlendUniforms {
-    var mix: Float = 0.5
+    var mix: Float = 1.0
     var blendMode: Float = 0
 }
 

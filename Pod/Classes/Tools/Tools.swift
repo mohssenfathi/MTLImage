@@ -113,4 +113,16 @@ class Tools: NSObject {
         if      value < low  { value = low  }
         else if value > high { value = high }
     }
+    
+    public class func gcd(a: Int, b: Int) -> Int {
+        if b == 0 {
+            return a
+        } else {
+            if a > b {
+                return gcd(a - b, b: b)
+            } else {
+                return gcd(a, b: b-a)
+            }
+        }
+    }
 }

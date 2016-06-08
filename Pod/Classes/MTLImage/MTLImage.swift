@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit // later, test if module enabled
 #if !(TARGET_OS_SIMULATOR)
 import Metal
 #endif
@@ -45,7 +46,9 @@ class MTLImage: NSObject {
          "Exposure",
          "Gaussian Blur",
          "Haze",
+         "Highlight/Shadow",
          "Histogram",
+         "Hue",
          "Invert",
          "Kuwahara",
          "Levels",
@@ -59,6 +62,7 @@ class MTLImage: NSObject {
          "Sketch",
          "Sobel Edge Detection",
          "Sharpen",
+         "Tone Curve",
          "Toon",
          "Vignette",
          "Water",
@@ -78,7 +82,9 @@ class MTLImage: NSObject {
             case "exposure"                       : return MTLExposureFilter()
             case "gaussian blur"                  : return MTLGaussianBlurFilter()
             case "haze"                           : return MTLHazeFilter()
+            case "highlight/shadow"               : return MTLHighlightShadowFilter()
             case "histogram"                      : return MTLHistogramFilter()
+            case "hue"                            : return MTLHueFilter()
             case "invert"                         : return MTLInvertFilter()
             case "kuwahara"                       : return MTLKuwaharaFilter()
             case "levels"                         : return MTLLevelsFilter()
@@ -92,6 +98,7 @@ class MTLImage: NSObject {
             case "sketch"                         : return MTLSketchFilter()
             case "sobel edge detection"           : return MTLSobelEdgeDetectionFilter()
             case "sharpen"                        : return MTLSharpenFilter()
+            case "tone curve"                     : return MTLToneCurveFilter()
             case "toon"                           : return MTLToonFilter()
             case "vignette"                       : return MTLVignetteFilter()
             case "water"                          : return MTLWaterFilter()
@@ -101,6 +108,21 @@ class MTLImage: NSObject {
         }
     }
     
+    
+    public class func archive(filterGroup: MTLFilterGroup) -> NSData? {
+        return NSKeyedArchiver.archivedDataWithRootObject(filterGroup)
+    }
+    
+    public class func unarchive(data: NSData) -> MTLFilterGroup? {
+        return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? MTLFilterGroup
+    }
+    
+}
+
+
+//    MARK: - CoreData
+public
+extension MTLImage {
     public class func save(filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
         MTLDataManager.sharedManager.save(filterGroup, completion: completion)
     }
@@ -112,16 +134,34 @@ class MTLImage: NSObject {
     public class func savedFilterGroups() -> [MTLFilterGroup] {
         return MTLDataManager.sharedManager.savedFilterGroups()
     }
-    
-    public class func archive(filterGroup: MTLFilterGroup) -> NSData? {
-        return NSKeyedArchiver.archivedDataWithRootObject(filterGroup)
-    }
-    
-    public class func unarchive(data: NSData) -> MTLFilterGroup? {
-        return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? MTLFilterGroup
-    }
 }
 
+
+//    MARK: - CloudKit
+public
+extension MTLImage {
+
+    public class func filterGroup(record: CKRecord) -> MTLFilterGroup? {
+        
+        let asset: CKAsset = record["filterData"] as! CKAsset
+        guard let data = NSData(contentsOfURL: asset.fileURL) else {
+            return nil
+        }
+        
+        return MTLImage.unarchive(data)
+    }
+    
+    public class func upload(filterGroup: MTLFilterGroup, container: CKContainer, completion: ((record: CKRecord?, error: NSError?) -> ())?) {
+        MTLCloudKitManager.sharedManager.upload(filterGroup, container: container) { (record, error) in
+            completion?(record: record, error: error)
+        }
+    }
+    
+}
+
+
+
+//MARK: - Overloading
 infix operator --> { associativity left precedence 80 }
 public func + (left: MTLInput, right: MTLOutput) {
     left.addTarget(right)

@@ -20,7 +20,6 @@ class MTLContrastFilter: MTLFilter {
         didSet {
             clamp(&contrast, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

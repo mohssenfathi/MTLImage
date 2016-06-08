@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		451282521CE765FB00FF7E9C /* Crop.metal in Sources */ = {isa = PBXBuildFile; fileRef = 451282511CE765FB00FF7E9C /* Crop.metal */; };
 		453A609C1CF7974900A48FEE /* Smudge.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453A609B1CF7974900A48FEE /* Smudge.metal */; };
+		453A60A11CFB4D1500A48FEE /* Template.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453A60A01CFB4D1500A48FEE /* Template.metal */; };
+		453A60A31CFB4D6000A48FEE /* HSV.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453A60A21CFB4D6000A48FEE /* HSV.metal */; };
 		453D51B71CEBCAB4001A0C9A /* Transform.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453D51B61CEBCAB4001A0C9A /* Transform.metal */; };
 		453FA0011CE0F58B003F9871 /* Blend.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453F9FDE1CE0F58B003F9871 /* Blend.metal */; };
 		453FA0021CE0F58B003F9871 /* Brightness.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453F9FDF1CE0F58B003F9871 /* Brightness.metal */; };
@@ -55,9 +57,13 @@
 		454CEDB11CB09FB800D67A9E /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDB01CB09FB800D67A9E /* FiltersViewController.swift */; };
 		454CEDC21CB1470600D67A9E /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDC11CB1470600D67A9E /* InfoViewController.swift */; };
 		454CEDC41CB1496500D67A9E /* MetadataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454CEDC31CB1496500D67A9E /* MetadataFormatter.swift */; };
+		455AE1F01CFB643A007702BA /* Hue.metal in Sources */ = {isa = PBXBuildFile; fileRef = 455AE1EF1CFB643A007702BA /* Hue.metal */; };
+		455AE3611CFBE8D5007702BA /* HighlightShadow.metal in Sources */ = {isa = PBXBuildFile; fileRef = 455AE3601CFBE8D5007702BA /* HighlightShadow.metal */; };
+		457551351D01BCAC0096D842 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457551341D01BCAC0096D842 /* CloudKit.framework */; };
 		45764E3B1CE3906100315DA7 /* WeakPixelInclusion.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45764E3A1CE3906100315DA7 /* WeakPixelInclusion.metal */; };
 		45764E3F1CE3936C00315DA7 /* XYDerivative.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45764E3E1CE3936C00315DA7 /* XYDerivative.metal */; };
 		457A87981CECB6E500188C52 /* Scatter.metal in Sources */ = {isa = PBXBuildFile; fileRef = 457A87971CECB6E400188C52 /* Scatter.metal */; };
+		458EDE051CFDC71F009BA88E /* ToneCurve.metal in Sources */ = {isa = PBXBuildFile; fileRef = 458EDE041CFDC71F009BA88E /* ToneCurve.metal */; };
 		45A616811CBFD9BA00C000C7 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A616801CBFD9BA00C000C7 /* PickerCell.swift */; };
 		45EB4FC41CADF4C00018936C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EB4FC31CADF4C00018936C /* MainViewController.swift */; };
 		45EB4FC81CADF75F0018936C /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BE9F871C9226010014593F /* Metal.framework */; };
@@ -89,6 +95,8 @@
 		22918B49ADBB9962DD3EDA05 /* Pods-MTLImage_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTLImage_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		451282511CE765FB00FF7E9C /* Crop.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Crop.metal; sourceTree = "<group>"; };
 		453A609B1CF7974900A48FEE /* Smudge.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Smudge.metal; sourceTree = "<group>"; };
+		453A60A01CFB4D1500A48FEE /* Template.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Template.metal; sourceTree = "<group>"; };
+		453A60A21CFB4D6000A48FEE /* HSV.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HSV.metal; sourceTree = "<group>"; };
 		453D51B61CEBCAB4001A0C9A /* Transform.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Transform.metal; sourceTree = "<group>"; };
 		453F9FDE1CE0F58B003F9871 /* Blend.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Blend.metal; sourceTree = "<group>"; };
 		453F9FDF1CE0F58B003F9871 /* Brightness.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Brightness.metal; sourceTree = "<group>"; };
@@ -135,9 +143,14 @@
 		454CEDB01CB09FB800D67A9E /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FiltersViewController.swift; path = Filters/FiltersViewController.swift; sourceTree = "<group>"; };
 		454CEDC11CB1470600D67A9E /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = Info/InfoViewController.swift; sourceTree = "<group>"; };
 		454CEDC31CB1496500D67A9E /* MetadataFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetadataFormatter.swift; path = Info/MetadataFormatter.swift; sourceTree = "<group>"; };
+		455AE1EF1CFB643A007702BA /* Hue.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Hue.metal; sourceTree = "<group>"; };
+		455AE3601CFBE8D5007702BA /* HighlightShadow.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HighlightShadow.metal; sourceTree = "<group>"; };
+		457551331D01BCA60096D842 /* MTLImage_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MTLImage_Example.entitlements; sourceTree = "<group>"; };
+		457551341D01BCAC0096D842 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		45764E3A1CE3906100315DA7 /* WeakPixelInclusion.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = WeakPixelInclusion.metal; sourceTree = "<group>"; };
 		45764E3E1CE3936C00315DA7 /* XYDerivative.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = XYDerivative.metal; sourceTree = "<group>"; };
 		457A87971CECB6E400188C52 /* Scatter.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Scatter.metal; sourceTree = "<group>"; };
+		458EDE041CFDC71F009BA88E /* ToneCurve.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ToneCurve.metal; sourceTree = "<group>"; };
 		45A616801CBFD9BA00C000C7 /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		45BE9F871C9226010014593F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		45EB4FC31CADF4C00018936C /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Main/MainViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +187,7 @@
 				4544E8181CD278D0009115B7 /* MessageUI.framework in Frameworks */,
 				45EB4FCC1CADF76C0018936C /* MetalKit.framework in Frameworks */,
 				45EB4FCA1CADF7640018936C /* MTLImage.framework in Frameworks */,
+				457551351D01BCAC0096D842 /* CloudKit.framework in Frameworks */,
 				45EB4FC81CADF75F0018936C /* Metal.framework in Frameworks */,
 				8ECC16F7722472D178FA5A02 /* Pods_MTLImage_Example.framework in Frameworks */,
 			);
@@ -195,6 +209,7 @@
 			children = (
 				453F9FDE1CE0F58B003F9871 /* Blend.metal */,
 				453F9FDF1CE0F58B003F9871 /* Brightness.metal */,
+				453A60A01CFB4D1500A48FEE /* Template.metal */,
 				453F9FE01CE0F58B003F9871 /* Camera.metal */,
 				453F9FE11CE0F58B003F9871 /* ColorSelection.metal */,
 				453F9FE21CE0F58B003F9871 /* Contrast.metal */,
@@ -220,6 +235,7 @@
 				453F9FF61CE0F58B003F9871 /* Saturation.metal */,
 				453F9FF71CE0F58B003F9871 /* SelectiveHSL.metal */,
 				453F9FF81CE0F58B003F9871 /* Sharpen.metal */,
+				458EDE041CFDC71F009BA88E /* ToneCurve.metal */,
 				453F9FF91CE0F58B003F9871 /* Sketch.metal */,
 				453F9FFA1CE0F58B003F9871 /* SobelEdgeDetection.metal */,
 				453F9FFB1CE0F58B003F9871 /* SobelEdgeDetectionThreshold.metal */,
@@ -230,11 +246,14 @@
 				453FA0251CE36F2D003F9871 /* NonMaximumSuppression.metal */,
 				453FA02B1CE37683003F9871 /* HarrisCornerDetection.metal */,
 				45764E3A1CE3906100315DA7 /* WeakPixelInclusion.metal */,
+				455AE3601CFBE8D5007702BA /* HighlightShadow.metal */,
 				45764E3E1CE3936C00315DA7 /* XYDerivative.metal */,
 				451282511CE765FB00FF7E9C /* Crop.metal */,
 				453D51B61CEBCAB4001A0C9A /* Transform.metal */,
 				457A87971CECB6E400188C52 /* Scatter.metal */,
 				453A609B1CF7974900A48FEE /* Smudge.metal */,
+				455AE1EF1CFB643A007702BA /* Hue.metal */,
+				453A60A21CFB4D6000A48FEE /* HSV.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -316,6 +335,7 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
+				457551331D01BCA60096D842 /* MTLImage_Example.entitlements */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for MTLImage */,
 				607FACE81AFB9204008FA782 /* Tests */,
@@ -402,6 +422,7 @@
 		A2862FF0806B418CDB5AF86F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				457551341D01BCAC0096D842 /* CloudKit.framework */,
 				4544E8171CD278D0009115B7 /* MessageUI.framework */,
 				45EB4FCB1CADF76C0018936C /* MetalKit.framework */,
 				45EB4FC91CADF7640018936C /* MTLImage.framework */,
@@ -471,6 +492,11 @@
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = P83X3BG446;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -635,6 +661,7 @@
 				45EB4FC41CADF4C00018936C /* MainViewController.swift in Sources */,
 				453FA0011CE0F58B003F9871 /* Blend.metal in Sources */,
 				453FA0151CE0F58B003F9871 /* OilPaint.metal in Sources */,
+				455AE3611CFBE8D5007702BA /* HighlightShadow.metal in Sources */,
 				457A87981CECB6E500188C52 /* Scatter.metal in Sources */,
 				453FA01C1CE0F58B003F9871 /* Sketch.metal in Sources */,
 				453FA0061CE0F58B003F9871 /* Convolution.metal in Sources */,
@@ -646,6 +673,7 @@
 				453FA00B1CE0F58B003F9871 /* GaussianBlur.metal in Sources */,
 				45EB4FD11CADFAAE0018936C /* SettingsCell.swift in Sources */,
 				4546570D1CB9BE98001E421A /* AddFilterViewController.swift in Sources */,
+				453A60A31CFB4D6000A48FEE /* HSV.metal in Sources */,
 				453FA0031CE0F58B003F9871 /* Camera.metal in Sources */,
 				453FA0081CE0F58B003F9871 /* DefaultShaders.metal in Sources */,
 				453FA01B1CE0F58B003F9871 /* Sharpen.metal in Sources */,
@@ -668,6 +696,7 @@
 				453FA01A1CE0F58B003F9871 /* SelectiveHSL.metal in Sources */,
 				453FA02C1CE37683003F9871 /* HarrisCornerDetection.metal in Sources */,
 				453FA0121CE0F58B003F9871 /* LuminanceThreshold.metal in Sources */,
+				455AE1F01CFB643A007702BA /* Hue.metal in Sources */,
 				454CEDC21CB1470600D67A9E /* InfoViewController.swift in Sources */,
 				453FA00A1CE0F58B003F9871 /* Exposure.metal in Sources */,
 				454CEDB11CB09FB800D67A9E /* FiltersViewController.swift in Sources */,
@@ -680,8 +709,10 @@
 				453FA0181CE0F58B003F9871 /* PolkaDot.metal in Sources */,
 				453FA0131CE0F58B003F9871 /* Mask.metal in Sources */,
 				453A609C1CF7974900A48FEE /* Smudge.metal in Sources */,
+				458EDE051CFDC71F009BA88E /* ToneCurve.metal in Sources */,
 				4546570B1CB9BB98001E421A /* FilterGroupViewController.swift in Sources */,
 				45A616811CBFD9BA00C000C7 /* PickerCell.swift in Sources */,
+				453A60A11CFB4D1500A48FEE /* Template.metal in Sources */,
 				453FA0111CE0F58B003F9871 /* LineDetection.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -811,6 +842,7 @@
 			baseConfigurationReference = 22918B49ADBB9962DD3EDA05 /* Pods-MTLImage_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MTLImage_Example.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MTLImage/Info.plist;
@@ -828,6 +860,7 @@
 			baseConfigurationReference = 9C2A6AA4FC9C0883A0B65FE0 /* Pods-MTLImage_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MTLImage_Example.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MTLImage/Info.plist;

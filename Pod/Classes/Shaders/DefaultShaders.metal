@@ -9,10 +9,6 @@
 #include <metal_stdlib>
 using namespace metal;
 
-struct Uniforms {
-    float value;
-};
-
 struct VertexInOut {
     float4 pos      [[position]];
     float2 texCoord [[user(texturecoord)]];

@@ -34,8 +34,6 @@ class MTLView: UIView, MTLOutput {
         }
     }
     
-    private var renderSemaphore: dispatch_semaphore_t = dispatch_semaphore_create(3)
-    
     var internalTitle: String!
     public var title: String {
         get { return internalTitle }
@@ -57,16 +55,22 @@ class MTLView: UIView, MTLOutput {
     
     public override var contentMode: UIViewContentMode {
         didSet {
-            setupBuffers()
+            needsUpdateBuffers = true
         }
     }
     
     public override var bounds: CGRect {
-        didSet { setupBuffers() }
+        didSet { needsUpdateBuffers = true }
     }
     
     public override var frame: CGRect {
-        didSet { setupBuffers() }
+        didSet { needsUpdateBuffers = true }
+    }
+    
+    public var processingSize: CGSize! {
+        didSet {
+            metalLayer.drawableSize = processingSize
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -101,13 +105,7 @@ class MTLView: UIView, MTLOutput {
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
-        if window != nil {
-            let scale = window!.screen.nativeScale
-            contentScaleFactor = scale
-            metalLayer.frame = bounds
-            metalLayer.drawableSize = CGSizeMake(bounds.size.width * scale, bounds.size.height * scale)
-        }
+        updateMetalLayer = true
     }
     
     //    MARK: - Touch Events
@@ -157,11 +155,11 @@ class MTLView: UIView, MTLOutput {
     //    }
     
     func setupDevice() {
-        device = MTLCreateSystemDefaultDevice()
+        device = context.device
         metalLayer = layer as! CAMetalLayer
         metalLayer.device = device
         metalLayer.pixelFormat = MTLPixelFormat.BGRA8Unorm
-        metalLayer.drawsAsynchronously = true
+//        metalLayer.drawsAsynchronously = true
     }
     
     func setupPipeline() {
@@ -181,6 +179,12 @@ class MTLView: UIView, MTLOutput {
         }
     }
     
+    func updateMetalLayerLayout() {
+        let scale = window!.screen.nativeScale
+        contentScaleFactor = scale
+        metalLayer.frame = bounds
+        metalLayer.drawableSize = CGSizeMake(bounds.size.width * scale, bounds.size.height * scale)
+    }
     
     
     let kSzQuadTexCoords = 6 * sizeof(float2)
@@ -194,6 +198,7 @@ class MTLView: UIView, MTLOutput {
                                      float2(0.0, 1.0),
                                      float2(1.0, 1.0) ]
     
+    private var needsUpdateBuffers = true
     func setupBuffers() {
         
         if device == nil { return }
@@ -222,55 +227,76 @@ class MTLView: UIView, MTLOutput {
                                         float4(-1.0 + x, -1.0 + y, 0.0, 1.0),
                                         float4( 1.0 - x, -1.0 + y, 0.0, 1.0) ]
         
-        vertexBuffer   = device.newBufferWithBytes(kQuadVertices , length: kSzQuadVertices , options: .CPUCacheModeDefaultCache)
-        texCoordBuffer = device.newBufferWithBytes(kQuadTexCoords, length: kSzQuadTexCoords, options: .CPUCacheModeDefaultCache)
+        vertexBuffer = device.newBufferWithBytes(kQuadVertices , length: kSzQuadVertices , options: .CPUCacheModeDefaultCache)
+        if texCoordBuffer == nil {
+            texCoordBuffer = device.newBufferWithBytes(kQuadTexCoords, length: kSzQuadTexCoords, options: .CPUCacheModeDefaultCache)
+        }
+    }
+    
+    
+    private var currentDrawable: CAMetalDrawable?
+    var drawable: CAMetalDrawable? {
+        if currentDrawable == nil {
+            currentDrawable = metalLayer.nextDrawable()
+        }
+        return currentDrawable
     }
     
     func redraw() {
-        if input?.texture == nil { return }
-//        if input?.needsUpdate == false { return }
         
-//        dispatch_semaphore_wait(self.renderSemaphore, DISPATCH_TIME_FOREVER)
-        runSynchronously { 
-            
+        if input?.texture == nil { return }
+        
+        dispatch_semaphore_wait(self.renderSemaphore, DISPATCH_TIME_FOREVER)
+//        runAsynchronously {
+        
             autoreleasepool {
                     
-                guard let drawable = self.metalLayer.nextDrawable() else {
-//                    dispatch_semaphore_signal(self.renderSemaphore)
+                guard let drawable = self.drawable else {
+                    dispatch_semaphore_signal(self.renderSemaphore)
                     return
+                }
+                
+                if self.needsUpdateBuffers == true {
+                    self.setupBuffers()
+                    self.updateMetalLayerLayout()
+                    self.needsUpdateBuffers = false
+                }
+                
+                if self.updateMetalLayer == true && self.window != nil {
+                    self.updateMetalLayerLayout()
+                    self.updateMetalLayer = false
                 }
                 
                 let texture = drawable.texture
                 
-                let renderPassDescriptor = MTLRenderPassDescriptor()
-                renderPassDescriptor.colorAttachments[0].texture = texture
-                renderPassDescriptor.colorAttachments[0].clearColor = self.mtlClearColor
-                renderPassDescriptor.colorAttachments[0].storeAction = .Store
-                renderPassDescriptor.colorAttachments[0].loadAction = .Clear
+                self.renderPassDescriptor.colorAttachments[0].texture = texture
                 
                 let commandBuffer = self.commandQueue.commandBuffer()
                 commandBuffer.label = "MTLView Buffer"
                 
-                let commandEncoder = commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
+                let commandEncoder = commandBuffer.renderCommandEncoderWithDescriptor(self.renderPassDescriptor)
+                commandEncoder.pushDebugGroup("Render Texture")
                 commandEncoder.setRenderPipelineState(self.pipeline)
-                commandEncoder.setVertexBuffer(self.vertexBuffer, offset: 0, atIndex: 0)
+                commandEncoder.setVertexBuffer(self.vertexBuffer  , offset: 0, atIndex: 0)
                 commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, atIndex: 1)
                 commandEncoder.setFragmentTexture(self.input?.texture, atIndex: 0)
-                commandEncoder.setFragmentBuffer(self.uniformsBuffer, offset: 0, atIndex: 1)
+                
                 commandEncoder.drawPrimitives(.Triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
                 
                 commandEncoder.endEncoding()
+                commandEncoder.popDebugGroup()
+                
+                commandBuffer.addCompletedHandler({ (commandBuffer) in
+                    dispatch_semaphore_signal(self.renderSemaphore)
+                    self.currentDrawable = nil
+                })
                 
                 commandBuffer.presentDrawable(drawable)
                 
-                commandBuffer.addCompletedHandler({ (commandBuffer) in
-//                    dispatch_semaphore_signal(self.renderSemaphore)
-                })
-                
                 commandBuffer.commit()
-                commandBuffer.waitUntilCompleted()
+//                commandBuffer.waitUntilCompleted()
                 
-            }
+//            }
         }
     }
     
@@ -284,9 +310,12 @@ class MTLView: UIView, MTLOutput {
     }
     
     func runAsynchronously(block: (()->())) {
-        dispatch_async(context.processingQueue) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
             block()
         }
+//        dispatch_async(context.processingQueue) {
+//            block()
+//        }
     }
     
     
@@ -312,11 +341,10 @@ class MTLView: UIView, MTLOutput {
                 displayLink.paused = true
             } else {
                 displayLink.paused = false
-                setupBuffers()
+                needsUpdateBuffers = true
             }
         }
     }
-    
     
     
     //    MARK: - Internal
@@ -330,9 +358,19 @@ class MTLView: UIView, MTLOutput {
     var pipeline: MTLRenderPipelineState!
     var vertexBuffer: MTLBuffer!
     var texCoordBuffer: MTLBuffer!
-    var uniformsBuffer: MTLBuffer!
-    var renderPassDescriptor: MTLRenderPassDescriptor!
+    
     lazy var commandQueue: MTLCommandQueue! = {
         return self.device.newCommandQueue()
+    }()
+
+    private var updateMetalLayer = true
+    
+    private var renderSemaphore: dispatch_semaphore_t = dispatch_semaphore_create(3)
+    lazy var renderPassDescriptor: MTLRenderPassDescriptor = {
+        let rpd = MTLRenderPassDescriptor()
+        rpd.colorAttachments[0].clearColor = self.mtlClearColor
+        rpd.colorAttachments[0].storeAction = .Store
+        rpd.colorAttachments[0].loadAction = .Clear
+        return rpd
     }()
 }

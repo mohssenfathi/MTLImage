@@ -9,7 +9,7 @@
 import UIKit
 
 // Set to true to use compiled shaders
-let useMetalib = true
+let useMetalib = false
 
 public
 class MTLContext: NSObject {
@@ -19,7 +19,7 @@ class MTLContext: NSObject {
     var processingSize: CGSize!
     var processingQueue: dispatch_queue_t!    
     var needsUpdate: Bool = true
-    let semaphore = dispatch_semaphore_create(3)
+    let semaphore = dispatch_semaphore_create(1)
     
     private var internalLibrary: MTLLibrary!
     var library: MTLLibrary! {
@@ -47,7 +47,7 @@ class MTLContext: NSObject {
         
             loadLibrary()
             self.commandQueue = self.device.newCommandQueue()
-            self.processingQueue = dispatch_queue_create("MTLImageProcessQueue", DISPATCH_QUEUE_SERIAL);
+            self.processingQueue = dispatch_queue_create("MTLImageProcessQueue", DISPATCH_QUEUE_CONCURRENT)
         } else {
             print("Device does not support metal")
         }

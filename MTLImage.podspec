@@ -33,6 +33,10 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Pod/Classes/**/*'
   s.resources = ['Pod/Classes/CoreData/**/*.xcdatamodeld', 'Pod/Classes/**/*.metallib', 'Pod/Assets/**/*.xcassets']
+
+# Move this to subspec later
+  s.frameworks = 'CloudKit' 
+
 #s.resource_bundles = {
 #   'MTLImage' => ['Pod/Assets/**/*']
 # }

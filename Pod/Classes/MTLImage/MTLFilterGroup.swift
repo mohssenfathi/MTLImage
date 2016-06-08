@@ -277,19 +277,37 @@ class MTLFilterGroup: MTLObject, NSCoding {
     }
     
     
-    //    MARK: - NSCoding
+//    MARK: - Conveniece
+    
+    public var category: String = ""
+    public var filterDescription: String = ""
+    
+    
+//    MARK: - NSCoding
     
     public func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(title     , forKey: "title")
         aCoder.encodeObject(identifier, forKey: "identifier")
+        aCoder.encodeObject(category, forKey: "category")
+        aCoder.encodeObject(filterDescription, forKey: "filterDescription")
         aCoder.encodeObject(filters   , forKey: "filters")
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init()
+        
         identifier = aDecoder.decodeObjectForKey("identifier") as! String
         title      = aDecoder.decodeObjectForKey("title") as! String
         filters    = aDecoder.decodeObjectForKey("filters") as! [MTLFilter]
+        
+        if let cat = aDecoder.decodeObjectForKey("category") as? String {
+            category = cat
+        }
+
+        if let fDesc = aDecoder.decodeObjectForKey("filterDescription") as? String {
+            filterDescription = fDesc
+        }
+        
         rebuildFilterChain()
     }
     

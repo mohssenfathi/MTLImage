@@ -74,13 +74,6 @@ class MTLPicture: NSObject, MTLInput {
     
     func loadTexture() {
         let flip = false
-//        if chainLength() % 2 == 0 { flip = true }
-        
-//        var size = CGSize(width: CGImageGetWidth(image.CGImage), height: CGImageGetHeight(image.CGImage))
-//        if processingSize != nil {
-//            size = processingSize!
-//        }
-        
         self.internalTexture = image.texture(device, flip: flip, size: processingSize)
     }
     

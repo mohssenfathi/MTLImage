@@ -40,10 +40,13 @@ class MTLScatterFilter: MTLFilter {
     
     public var noiseImage: UIImage? {
         didSet {
+            
             if let tex = input?.texture {
                 let imageSize = CGSize(width: tex.width, height: tex.height)
-                if noiseImage?.size.width > imageSize.width || noiseImage?.size.height > imageSize.height {
-                    noiseImage = noiseImage?.scaleToFill(image.size)
+                if noiseImage?.size.width != imageSize.width && noiseImage?.size.height != imageSize.height {
+                    let scaledImage = noiseImage?.scaleToFill(imageSize)  // Only calls itself once
+                    noiseImage = scaledImage
+                    return
                 }
             }
             
@@ -91,37 +94,6 @@ class MTLScatterFilter: MTLFilter {
         }
         
         noiseTexture = noiseImage?.texture(device)
-        
-//        guard let outputTexture = input?.texture else {
-//            noiseTexture = noiseFilter.texture
-//            return
-//        }
-//        
-//        let width  = inputTexture.width
-//        let height = inputTexture.height
-//        let newWidth = outputTexture.width
-//        let newHeight = outputTexture.height
-//        
-//        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(.RGBA8Unorm, width: newWidth, height: newHeight, mipmapped: false)
-//        let newTexture = device.newTextureWithDescriptor(textureDescriptor)
-//        
-//        let commandBuffer = self.context.commandQueue.commandBuffer()
-//        let blitCommandEncoder = commandBuffer.blitCommandEncoder()
-//        
-//        blitCommandEncoder.copyFromTexture(inputTexture,
-//                                           sourceSlice: 0,
-//                                           sourceLevel: 0,
-//                                           sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0),
-//                                           sourceSize: MTLSize(width: width, height: height, depth: 1),
-//                                           toTexture: newTexture,
-//                                           destinationSlice: 0,
-//                                           destinationLevel: 0,
-//                                           destinationOrigin: MTLOrigin(x: 0, y: 0, z: 0))
-//        
-//        blitCommandEncoder.endEncoding()
-//        commandBuffer.commit()
-//        
-//        noiseTexture = newTexture
     }
     
     func resize(image: UIImage, size: CGSize) -> UIImage? {
