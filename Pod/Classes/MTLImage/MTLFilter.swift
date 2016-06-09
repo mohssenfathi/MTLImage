@@ -277,6 +277,18 @@ class MTLFilter: MTLObject, NSCoding {
         }
     }
     
+    public func filter(image: UIImage) -> UIImage? {
+        let sourcePicture = MTLPicture(image: image)
+        let filterCopy = self.copy() as! MTLFilter
+        sourcePicture > filterCopy
+        
+        guard let tex = filterCopy.texture else {
+            return nil
+        }
+        
+        return UIImage.imageWithTexture(tex)
+    }
+    
     
     //    MARK: - MTLOutput
     

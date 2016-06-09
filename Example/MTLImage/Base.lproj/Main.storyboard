@@ -19,27 +19,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" maximumZoomScale="100" translatesAutoresizingMaskIntoConstraints="NO" id="ews-1S-Xix">
-                                <rect key="frame" x="0.0" y="64" width="600" height="285"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pGn-3a-1Pv" userLabel="MTLView" customClass="MTLView" customModule="MTLImage">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="285"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="pGn-3a-1Pv" firstAttribute="leading" secondItem="ews-1S-Xix" secondAttribute="leading" id="kuI-e5-Y6r"/>
-                                    <constraint firstAttribute="bottom" secondItem="pGn-3a-1Pv" secondAttribute="bottom" id="moh-N8-0OR"/>
-                                    <constraint firstItem="pGn-3a-1Pv" firstAttribute="top" secondItem="ews-1S-Xix" secondAttribute="top" id="rEs-sL-SEQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="pGn-3a-1Pv" secondAttribute="trailing" id="vbn-XT-K8k"/>
-                                    <constraint firstItem="pGn-3a-1Pv" firstAttribute="centerX" secondItem="ews-1S-Xix" secondAttribute="centerX" id="xXJ-mD-Mlj"/>
-                                    <constraint firstItem="pGn-3a-1Pv" firstAttribute="centerY" secondItem="ews-1S-Xix" secondAttribute="centerY" id="zf0-mj-osL"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="delegate" destination="JNq-Hf-rXT" id="Scz-bD-jO1"/>
-                                    <outletCollection property="gestureRecognizers" destination="d0t-BT-IW3" appends="YES" id="eQ7-x4-ZBG"/>
-                                </connections>
-                            </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pGn-3a-1Pv" userLabel="MTLView" customClass="MTLView" customModule="MTLImage">
+                                <rect key="frame" x="0.0" y="64" width="600" height="286"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dyy-kP-9wH" userLabel="Divider">
                                 <rect key="frame" x="0.0" y="349" width="600" height="1"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -67,15 +50,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="pGn-3a-1Pv" firstAttribute="top" secondItem="6nT-fF-Hm0" secondAttribute="bottom" id="54L-Ff-C8R"/>
+                            <constraint firstItem="pGn-3a-1Pv" firstAttribute="leading" secondItem="M8M-4x-8pj" secondAttribute="leading" id="62b-Nn-5m2"/>
                             <constraint firstItem="Dyy-kP-9wH" firstAttribute="leading" secondItem="M8M-4x-8pj" secondAttribute="leading" id="6Hz-Hq-L6a"/>
-                            <constraint firstItem="ews-1S-Xix" firstAttribute="leading" secondItem="M8M-4x-8pj" secondAttribute="leading" id="6rt-rH-tkr"/>
                             <constraint firstItem="HbM-mm-vFh" firstAttribute="top" secondItem="Tr3-Uf-3Nv" secondAttribute="bottom" id="EeI-DX-41t"/>
-                            <constraint firstItem="Dyy-kP-9wH" firstAttribute="top" secondItem="ews-1S-Xix" secondAttribute="bottom" id="HSl-Iw-7mX"/>
+                            <constraint firstItem="nAR-9d-E01" firstAttribute="top" secondItem="pGn-3a-1Pv" secondAttribute="bottom" id="T6U-Ai-GQX"/>
                             <constraint firstItem="Tr3-Uf-3Nv" firstAttribute="leading" secondItem="M8M-4x-8pj" secondAttribute="leading" id="TM1-sq-409"/>
                             <constraint firstItem="Tr3-Uf-3Nv" firstAttribute="top" secondItem="Dyy-kP-9wH" secondAttribute="bottom" id="WWb-0g-7jK"/>
-                            <constraint firstItem="ews-1S-Xix" firstAttribute="top" secondItem="6nT-fF-Hm0" secondAttribute="bottom" id="XEd-D6-TWf"/>
-                            <constraint firstAttribute="trailing" secondItem="ews-1S-Xix" secondAttribute="trailing" id="ZrH-Tl-3KT"/>
                             <constraint firstAttribute="trailing" secondItem="Dyy-kP-9wH" secondAttribute="trailing" id="bZS-gI-nDX"/>
+                            <constraint firstAttribute="trailing" secondItem="pGn-3a-1Pv" secondAttribute="trailing" id="e2x-W4-wGs"/>
                             <constraint firstItem="nAR-9d-E01" firstAttribute="centerX" secondItem="M8M-4x-8pj" secondAttribute="centerX" id="g0G-NR-7wh"/>
                             <constraint firstAttribute="trailing" secondItem="Tr3-Uf-3Nv" secondAttribute="trailing" id="mRI-o3-Z49"/>
                             <constraint firstItem="nAR-9d-E01" firstAttribute="top" secondItem="Dyy-kP-9wH" secondAttribute="bottom" id="pND-m2-mso"/>
@@ -126,7 +109,6 @@
                         <outlet property="filtersContainerHeight" destination="cJ8-37-Zhr" id="kRy-iy-cSD"/>
                         <outlet property="flipButton" destination="avm-uL-JiS" id="VdS-pY-wS2"/>
                         <outlet property="mtlView" destination="pGn-3a-1Pv" id="thX-fl-qoa"/>
-                        <outlet property="scrollView" destination="ews-1S-Xix" id="cnh-ti-iXi"/>
                         <outlet property="selectPhotoButton" destination="pAI-Nu-B7g" id="PRQ-aZ-PJG"/>
                     </connections>
                 </viewController>
@@ -136,11 +118,6 @@
                         <action selector="handlePanGesture:" destination="JNq-Hf-rXT" id="6s0-fL-KGh"/>
                     </connections>
                 </panGestureRecognizer>
-                <tapGestureRecognizer cancelsTouchesInView="NO" numberOfTapsRequired="2" id="d0t-BT-IW3">
-                    <connections>
-                        <action selector="handleDoubleTapGesture:" destination="JNq-Hf-rXT" id="aZE-ma-SzP"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1089" y="712"/>
         </scene>

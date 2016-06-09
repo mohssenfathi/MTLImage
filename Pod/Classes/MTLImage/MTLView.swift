@@ -18,9 +18,12 @@ protocol MTLViewDelegate {
 }
 
 public
-class MTLView: UIView, MTLOutput {
+class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     
     public var delegate: MTLViewDelegate?
+    
+    var scrollView: UIScrollView!
+    var contentView: MetalLayerView!
     
     private var mtlClearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0)
     public var clearColor: UIColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0) {
@@ -85,9 +88,9 @@ class MTLView: UIView, MTLOutput {
     
     func commonInit() {
         title = "MTLView"
-        setupDevice()
         setupPipeline()
         setupBuffers()
+        setupView()
     }
     
     override public func didMoveToSuperview() {
@@ -141,28 +144,31 @@ class MTLView: UIView, MTLOutput {
         return CAMetalLayer.self
     }
     
-    
-    //    func updateViewScale(scale: CGFloat) {
-    //        if window != nil {
-    //            let newScale = window!.screen.nativeScale * scale
-    //            let layerSize = bounds.size
-    //
-    //            contentScaleFactor = newScale
-    //            metalLayer.frame = CGRect(origin: CGPointZero, size: layerSize)
-    //            metalLayer.drawableSize = CGSizeMake(layerSize.width * newScale, layerSize.height * newScale)
-    //            metalLayer.drawableSize = CGSizeMake(layerSize.width * newScale, layerSize.height * newScale)
-    //        }
-    //    }
-    
-    func setupDevice() {
-        device = context.device
-        metalLayer = layer as! CAMetalLayer
+    func setupView() {
+        
+        contentView = MetalLayerView(frame: bounds)
+        contentView.backgroundColor = UIColor.clearColor()
+        
+        scrollView = UIScrollView(frame: bounds)
+        scrollView.backgroundColor = UIColor.clearColor()
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 100.0
+        scrollView.delegate = self
+        scrollView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        
+        scrollView.addSubview(contentView)
+        addSubview(scrollView)
+        
+        metalLayer = contentView.layer as! CAMetalLayer
         metalLayer.device = device
         metalLayer.pixelFormat = MTLPixelFormat.BGRA8Unorm
-//        metalLayer.drawsAsynchronously = true
+        metalLayer.drawsAsynchronously = true
+        
     }
     
+    
     func setupPipeline() {
+        device = context.device
         library = context.library
         vertexFunction   = library.newFunctionWithName("vertex_main")
         fragmentFunction = library.newFunctionWithName("fragment_main")
@@ -301,6 +307,46 @@ class MTLView: UIView, MTLOutput {
     }
     
     
+    //    MARK: - UIScrollView Delegate
+    
+    public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return contentView
+    }
+    
+    public func scrollViewDidZoom(scrollView: UIScrollView) {
+    
+        guard let tex = self.input?.texture else { return }
+        
+        let imageSize = CGSize(width: tex.width, height: tex.height)
+        let imageFrame = Tools.imageFrame(imageSize, rect: self.contentView.frame)
+        
+        var y = imageFrame.origin.y - (CGRectGetHeight(frame)/2 - CGRectGetHeight(imageFrame)/2)
+        var x = imageFrame.origin.x - (CGRectGetWidth (frame)/2 - CGRectGetWidth (imageFrame)/2)
+        y = min(imageFrame.origin.y, y)
+        x = min(imageFrame.origin.x, x)
+        
+        scrollView.contentInset = UIEdgeInsetsMake(-y, -x, -y, -x);
+    }
+
+    public func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+        guard let viewSize = view?.frame.size else { return }
+        
+//        let maxSize = FiltersManager.sharedManager.maxProcessingSize
+        let minSize = bounds.size * UIScreen.mainScreen().scale
+        let ratio = viewSize.width / viewSize.height
+        
+//        if (viewSize.width > maxSize.width || viewSize.height > maxSize.height) {
+//            mtlView.processingSize = CGSize(width: maxSize.width, height: maxSize.width / ratio)
+//        }
+        if (viewSize.width < minSize.width || viewSize.height < minSize.height) {
+            metalLayer.drawableSize = CGSize(width: minSize.width, height: minSize.width / ratio)
+        }
+        else {
+            metalLayer.drawableSize = viewSize
+        }
+    }
+
+    
     //    MARK: - Queues
     
     func runSynchronously(block: (()->())) {
@@ -348,6 +394,7 @@ class MTLView: UIView, MTLOutput {
     
     
     //    MARK: - Internal
+    
     private var privateInput: MTLInput?
     var displayLink: CADisplayLink!
     var device: MTLDevice!
@@ -362,7 +409,7 @@ class MTLView: UIView, MTLOutput {
     lazy var commandQueue: MTLCommandQueue! = {
         return self.device.newCommandQueue()
     }()
-
+    
     private var updateMetalLayer = true
     
     private var renderSemaphore: dispatch_semaphore_t = dispatch_semaphore_create(3)
@@ -373,4 +420,14 @@ class MTLView: UIView, MTLOutput {
         rpd.colorAttachments[0].loadAction = .Clear
         return rpd
     }()
+}
+
+class MetalLayerView: UIView {
+    public override class func layerClass() -> AnyClass {
+        return CAMetalLayer.self
+    }
+}
+
+func *(left: CGSize, right: CGFloat) -> CGSize {
+    return CGSize(width: left.width * right, height: left.height * right)
 }

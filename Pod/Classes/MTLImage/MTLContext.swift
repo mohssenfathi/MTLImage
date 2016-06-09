@@ -9,7 +9,7 @@
 import UIKit
 
 // Set to true to use compiled shaders
-let useMetalib = false
+let useMetalib = true
 
 public
 class MTLContext: NSObject {

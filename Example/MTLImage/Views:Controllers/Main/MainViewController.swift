@@ -13,7 +13,6 @@ import Photos
 class MainViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FiltersViewControllerDelegate, MTLViewDelegate {
     
     @IBOutlet weak var selectPhotoButton: UIBarButtonItem!
-    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var mtlView: MTLView!
     @IBOutlet weak var filtersBar: UIView!
     @IBOutlet weak var filtersContainer: UIView!
@@ -137,14 +136,6 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         }
         
-    }
-    
-    @IBAction func handleDoubleTapGesture(sender: AnyObject) {
-        if scrollView.zoomScale > 1.0 {
-            scrollView.setZoomScale(1.0, animated: true)
-        } else {
-            scrollView.setZoomScale(2.0, animated: true)
-        }
     }
     
     //    MARK: - UIScrollView Delegate
