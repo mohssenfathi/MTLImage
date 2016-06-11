@@ -162,7 +162,25 @@ extension MTLImage {
 
 
 //MARK: - Overloading
+
 infix operator --> { associativity left precedence 80 }
+public func -->(left: MTLInput , right: MTLOutput) -> MTLOutput {
+    left.addTarget(right)
+    return right
+}
+public func --> (left: MTLInput , right: MTLObject) -> MTLObject {
+    left.addTarget(right)
+    return right
+}
+public func --> (left: MTLObject, right: MTLObject) -> MTLObject {
+    left.addTarget(right)
+    return right
+}
+public func --> (left: MTLObject, right: MTLOutput) -> MTLOutput {
+    left.addTarget(right)
+    return right
+}
+
 public func + (left: MTLInput, right: MTLOutput) {
     left.addTarget(right)
 }

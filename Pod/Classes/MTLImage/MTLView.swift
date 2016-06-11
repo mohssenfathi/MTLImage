@@ -250,7 +250,8 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     
     func redraw() {
         
-        if input?.texture == nil { return }
+        guard let tex = input?.texture else { return }
+//        if input?.texture == nil { return }
         
         dispatch_semaphore_wait(self.renderSemaphore, DISPATCH_TIME_FOREVER)
 //        runAsynchronously {
@@ -285,7 +286,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
                 commandEncoder.setRenderPipelineState(self.pipeline)
                 commandEncoder.setVertexBuffer(self.vertexBuffer  , offset: 0, atIndex: 0)
                 commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, atIndex: 1)
-                commandEncoder.setFragmentTexture(self.input?.texture, atIndex: 0)
+                commandEncoder.setFragmentTexture(tex, atIndex: 0)
                 
                 commandEncoder.drawPrimitives(.Triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
                 
@@ -329,6 +330,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     }
 
     public func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+        
         guard let viewSize = view?.frame.size else { return }
         
 //        let maxSize = FiltersManager.sharedManager.maxProcessingSize
@@ -345,7 +347,27 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
             metalLayer.drawableSize = viewSize
         }
     }
-
+    
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.zooming { return }
+//        cropFilter.cropRegion = currentCropRegion(scrollView)
+    }
+    
+    func currentCropRegion(scrollView: UIScrollView) -> CGRect {
+        
+        var x = scrollView.contentOffset.x / scrollView.contentSize.width
+        var y = scrollView.contentOffset.y / scrollView.contentSize.height
+        var width  = scrollView.frame.size.width / scrollView.contentSize.width
+        var height = scrollView.frame.size.height / scrollView.contentSize.height
+        
+        Tools.clamp(&x     , low: 0, high: 1)
+        Tools.clamp(&y     , low: 0, high: 1)
+        Tools.clamp(&width , low: 0, high: 1.0 - x)
+        Tools.clamp(&height, low: 0, high: 1.0 - y)
+        
+        return CGRect(x: x, y: y, width: width, height: height)
+    }
+    
     
     //    MARK: - Queues
     
@@ -364,6 +386,9 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
 //        }
     }
     
+//    var texture: MTLTexture? {
+//        return cropFilter.texture
+//    }
     
     var context: MTLContext! {
         get {
@@ -382,6 +407,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
         }
         set {
             privateInput = newValue
+//            cropFilter.input = newValue
             
             if privateInput == nil {
                 displayLink.paused = true
@@ -395,6 +421,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     
     //    MARK: - Internal
     
+    private var cropFilter = MTLCropFilter()
     private var privateInput: MTLInput?
     var displayLink: CADisplayLink!
     var device: MTLDevice!

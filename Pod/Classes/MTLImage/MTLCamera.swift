@@ -145,7 +145,6 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         let height = CVPixelBufferGetHeight(pixelBuffer!);
         CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache!.takeUnretainedValue(), pixelBuffer!, nil, .BGRA8Unorm, width, height, 0, &textureRef);
         internalTexture = CVMetalTextureGetTexture((textureRef?.takeUnretainedValue())!)
-//        videoTexture = CVMetalTextureGetTexture((textureRef?.takeUnretainedValue())!)
         textureRef?.release()
         needsUpdate = true
     }
