@@ -62,7 +62,7 @@ class MTLScatterFilter: MTLFilter {
         
         properties = [MTLProperty(key: "radius", title: "Radius"),
                       MTLProperty(key: "scale", title: "Scale"),
-                      MTLProperty(key: "noiseImage", title: "Noise Image", propertyType: .Image)]
+                      MTLProperty(key: "noiseImage", title: "Noise Image", propertyType: .image)]
         update()
     }
     
@@ -73,7 +73,7 @@ class MTLScatterFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.radius = radius * 40
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(ScatterUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(ScatterUniforms), options: .cpuCacheModeWriteCombined)
     }
     
     func updateNoiseTexture() {
@@ -96,33 +96,33 @@ class MTLScatterFilter: MTLFilter {
         noiseTexture = noiseImage?.texture(device)
     }
     
-    func resize(image: UIImage, size: CGSize) -> UIImage? {
+    func resize(_ image: UIImage, size: CGSize) -> UIImage? {
     
-        let cgImage = image.CGImage
+        let cgImage = image.cgImage
         
-        let width = CGImageGetWidth(cgImage) / 2
-        let height = CGImageGetHeight(cgImage) / 2
-        let bitsPerComponent = CGImageGetBitsPerComponent(cgImage)
-        let bytesPerRow = CGImageGetBytesPerRow(cgImage)
-        let colorSpace = CGImageGetColorSpace(cgImage)
-        let bitmapInfo = CGImageGetBitmapInfo(cgImage)
+        let width = (cgImage?.width)! / 2
+        let height = (cgImage?.height)! / 2
+        let bitsPerComponent = cgImage?.bitsPerComponent
+        let bytesPerRow = cgImage?.bytesPerRow
+        let colorSpace = cgImage?.colorSpace
+        let bitmapInfo = cgImage?.bitmapInfo
         
-        let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo.rawValue)
+        let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: bitsPerComponent!, bytesPerRow: bytesPerRow!, space: colorSpace!, bitmapInfo: (bitmapInfo?.rawValue)!)
         
-        CGContextSetInterpolationQuality(context, .High)
-        CGContextDrawImage(context, CGRect(origin: CGPointZero, size: CGSize(width: CGFloat(width), height: CGFloat(height))), cgImage)
+        context!.interpolationQuality = .high
+        context?.draw(in: CGRect(origin: CGPoint.zero, size: CGSize(width: CGFloat(width), height: CGFloat(height))), image: cgImage!)
         
-        let scaledImage = CGBitmapContextCreateImage(context).flatMap { UIImage(CGImage: $0) }
+        let scaledImage = context?.makeImage().flatMap { UIImage(cgImage: $0) }
         
         return scaledImage
     }
 
     
-    override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
+    override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         if noiseTexture == nil {
             updateNoiseTexture()
         }
-        commandEncoder.setTexture(noiseTexture, atIndex: 2)
+        commandEncoder.setTexture(noiseTexture, at: 2)
     }
     
     public override var input: MTLInput? {

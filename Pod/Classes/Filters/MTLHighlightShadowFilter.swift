@@ -50,7 +50,7 @@ class MTLHighlightShadowFilter: MTLFilter {
         if self.input == nil { return }
         uniforms.highlights = highlights
         uniforms.shadows = shadows
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(HighlightShadowUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(HighlightShadowUniforms), options: .cpuCacheModeWriteCombined)
     }
     
 }

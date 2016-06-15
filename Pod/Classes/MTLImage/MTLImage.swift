@@ -13,23 +13,27 @@ import Metal
 #endif
 
 public protocol MTLInput {
+    
     var texture: MTLTexture? { get }
     var context: MTLContext  { get }
     var device : MTLDevice   { get }
     var targets: [MTLOutput] { get }
-    var title: String { get set }
-    var identifier: String! { get set }
-    var needsUpdate: Bool { get set }
     
-    func addTarget(target: MTLOutput)
-    func removeTarget(target: MTLOutput)
+    var title      : String  { get set }
+    var identifier : String! { get set }
+    var needsUpdate: Bool    { get set }
+    
+    func addTarget(_ target: MTLOutput)
+    func removeTarget(_ target: MTLOutput)
     func removeAllTargets()
 }
 
 public protocol MTLOutput {
-    var input: MTLInput? { get set }
-    var title: String { get set }
-    var identifier: String! { get set }
+    
+    var input     : MTLInput? { get set }
+    var title     : String    { get set }
+    var identifier: String!   { get set }
+    
 }
 
 public
@@ -70,8 +74,8 @@ class MTLImage: NSObject {
          "XY Derivative"
     ]
     
-    public class func filter(name: String) throws -> MTLObject? {
-        switch name.lowercaseString {
+    public class func filter(_ name: String) throws -> MTLObject? {
+        switch name.lowercased() {
             case "blend"                          : return MTLBlendFilter()
             case "brightness"                     : return MTLBrightnessFilter()
             case "canny edge detection"           : return MTLCannyEdgeDetectionFilterGroup()
@@ -104,17 +108,17 @@ class MTLImage: NSObject {
             case "water"                          : return MTLWaterFilter()
             case "white balance"                  : return MTLWhiteBalanceFilter()
             case "xy derivative"                  : return MTLXYDerivativeFilter()
-            default:                                throw  MTLError.InvalidFilterName
+            default:                                throw  MTLError.invalidFilterName
         }
     }
     
     
-    public class func archive(filterGroup: MTLFilterGroup) -> NSData? {
-        return NSKeyedArchiver.archivedDataWithRootObject(filterGroup)
+    public class func archive(_ filterGroup: MTLFilterGroup) -> Data? {
+        return NSKeyedArchiver.archivedData(withRootObject: filterGroup)
     }
     
-    public class func unarchive(data: NSData) -> MTLFilterGroup? {
-        return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? MTLFilterGroup
+    public class func unarchive(_ data: Data) -> MTLFilterGroup? {
+        return NSKeyedUnarchiver.unarchiveObject(with: data) as? MTLFilterGroup
     }
     
 }
@@ -123,11 +127,11 @@ class MTLImage: NSObject {
 //    MARK: - CoreData
 public
 extension MTLImage {
-    public class func save(filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
+    public class func save(_ filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
         MTLDataManager.sharedManager.save(filterGroup, completion: completion)
     }
     
-    public class func remove(filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
+    public class func remove(_ filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
         MTLDataManager.sharedManager.remove(filterGroup, completion: completion)
     }
     
@@ -141,17 +145,17 @@ extension MTLImage {
 public
 extension MTLImage {
 
-    public class func filterGroup(record: CKRecord) -> MTLFilterGroup? {
+    public class func filterGroup(_ record: CKRecord) -> MTLFilterGroup? {
         
         let asset: CKAsset = record["filterData"] as! CKAsset
-        guard let data = NSData(contentsOfURL: asset.fileURL) else {
+        guard let data = try? Data(contentsOf: asset.fileURL) else {
             return nil
         }
         
         return MTLImage.unarchive(data)
     }
     
-    public class func upload(filterGroup: MTLFilterGroup, container: CKContainer, completion: ((record: CKRecord?, error: NSError?) -> ())?) {
+    public class func upload(_ filterGroup: MTLFilterGroup, container: CKContainer, completion: ((record: CKRecord?, error: NSError?) -> ())?) {
         MTLCloudKitManager.sharedManager.upload(filterGroup, container: container) { (record, error) in
             completion?(record: record, error: error)
         }
@@ -176,9 +180,8 @@ public func --> (left: MTLObject, right: MTLObject) -> MTLObject {
     left.addTarget(right)
     return right
 }
-public func --> (left: MTLObject, right: MTLOutput) -> MTLOutput {
+public func --> (left: MTLObject, right: MTLOutput) {
     left.addTarget(right)
-    return right
 }
 
 public func + (left: MTLInput, right: MTLOutput) {
@@ -189,6 +192,6 @@ public func > (left: MTLInput, right: MTLOutput) {
     left.addTarget(right)
 }
 
-enum MTLError: ErrorType {
-    case InvalidFilterName
+enum MTLError: ErrorProtocol {
+    case invalidFilterName
 }

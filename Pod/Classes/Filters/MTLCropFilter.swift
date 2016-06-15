@@ -44,8 +44,8 @@ class MTLCropFilter: MTLFilter {
     public init() {
         super.init(functionName: "crop")
         title = "Crop"
-        properties = [MTLProperty(key: "cropRegion", title: "Crop Region", propertyType: .Rect),
-                      MTLProperty(key: "fit"       , title: "Fit"        , propertyType: .Bool)]
+        properties = [MTLProperty(key: "cropRegion", title: "Crop Region", propertyType: .rect),
+                      MTLProperty(key: "fit"       , title: "Fit"        , propertyType: .bool)]
         
         update()
     }
@@ -63,7 +63,7 @@ class MTLCropFilter: MTLFilter {
         uniforms.height = Float(cropRegion.size.height)
         uniforms.fit = fit ? 1 : 0
         
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(CropUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(CropUniforms), options: .cpuCacheModeWriteCombined)
     }
     
     
@@ -80,18 +80,18 @@ class MTLCropFilter: MTLFilter {
         
         if newWidth <= 1 || newHeight <= 1 { return }
         
-        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(.RGBA8Unorm, width: newWidth, height: newHeight, mipmapped: false)
-        let newTexture = device.newTextureWithDescriptor(textureDescriptor)
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: .rgba8Unorm, width: newWidth, height: newHeight, mipmapped: false)
+        let newTexture = device.newTexture(with: textureDescriptor)
         
         let commandBuffer = self.context.commandQueue.commandBuffer()
         let blitCommandEncoder = commandBuffer.blitCommandEncoder()
         
-        blitCommandEncoder.copyFromTexture(inputTexture,
+        blitCommandEncoder.copy(from: inputTexture,
                                            sourceSlice: 0,
                                            sourceLevel: 0,
                                            sourceOrigin: MTLOrigin(x: newX, y: newY, z: 0),
                                            sourceSize: MTLSize(width: newWidth, height: newHeight, depth: 1),
-                                           toTexture: newTexture,
+                                           to: newTexture,
                                            destinationSlice: 0,
                                            destinationLevel: 0,
                                            destinationOrigin: MTLOrigin(x: 0, y: 0, z: 0))

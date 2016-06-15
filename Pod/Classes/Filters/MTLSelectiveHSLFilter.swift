@@ -17,9 +17,9 @@ class MTLSelectiveHSLFilter: MTLFilter {
     var uniforms = SelectiveHSLUniforms()
     
     private var adjustmentsTexture: MTLTexture?
-    private var hueAdjustments        = [Float](count: 7, repeatedValue: 0.0)
-    private var saturationAdjustments = [Float](count: 7, repeatedValue: 0.0)
-    private var luminanceAdjustments  = [Float](count: 7, repeatedValue: 0.0)
+    private var hueAdjustments        = [Float](repeating: 0.0, count: 7)
+    private var saturationAdjustments = [Float](repeating: 0.0, count: 7)
+    private var luminanceAdjustments  = [Float](repeating: 0.0, count: 7)
     
     public var mode: Int = 0 {
         didSet {
@@ -29,7 +29,7 @@ class MTLSelectiveHSLFilter: MTLFilter {
         }
     }
     
-    public var adjustments: [Float] = [Float](count: 7, repeatedValue: 0.0) {
+    public var adjustments: [Float] = [Float](repeating: 0.0, count: 7) {
         didSet {
             needsUpdate = true
             update()
@@ -40,7 +40,7 @@ class MTLSelectiveHSLFilter: MTLFilter {
         super.init(functionName: "selectiveHSL")
         title = "Selective HSL"
         
-        let modeProperty = MTLProperty(key: "mode", title: "Mode", propertyType: .Selection)
+        let modeProperty = MTLProperty(key: "mode", title: "Mode", propertyType: .selection)
         modeProperty.selectionItems = [0 : "Hue", 1 : "Saturation", 2 : "Luminance"]
         
         properties = [MTLProperty(key: "red"    , title: "Red"    ),
@@ -72,27 +72,27 @@ class MTLSelectiveHSLFilter: MTLFilter {
 //        uniforms.magenta = magenta
         uniforms.mode = mode
         
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(SelectiveHSLUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(SelectiveHSLUniforms), options: .cpuCacheModeWriteCombined)
     }
     
     func loadColorAdjustmentTexture() {
         let adjustments = hueAdjustments + saturationAdjustments + luminanceAdjustments
         let size = adjustments.count
         
-        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(.R32Float, width: size, height: 1, mipmapped: false)
-        self.adjustmentsTexture = self.device.newTextureWithDescriptor(textureDescriptor)
-        self.adjustmentsTexture!.replaceRegion(MTLRegionMake2D(0, 0, size, 1), mipmapLevel: 0, withBytes: adjustments, bytesPerRow: sizeof(Float) * size)
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: .r32Float, width: size, height: 1, mipmapped: false)
+        self.adjustmentsTexture = self.device.newTexture(with: textureDescriptor)
+        self.adjustmentsTexture!.replace(MTLRegionMake2D(0, 0, size, 1), mipmapLevel: 0, withBytes: adjustments, bytesPerRow: sizeof(Float) * size)
     }
     
-    override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
+    override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
         if needsUpdate == true {
             loadColorAdjustmentTexture()
         }
-        commandEncoder.setTexture(adjustmentsTexture, atIndex: 2)
+        commandEncoder.setTexture(adjustmentsTexture, at: 2)
     }
     
-    func updateColor(value: Float, index: Int) {
+    func updateColor(_ value: Float, index: Int) {
         switch mode {
         case 0: hueAdjustments[index] = value
             break

@@ -39,6 +39,6 @@ class MTLKuwaharaFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.radius = round(Tools.convert(radius, oldMin: 0, oldMax: 1, newMin: 1, newMax: 10))
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(KuwaharaUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(KuwaharaUniforms), options: .cpuCacheModeWriteCombined)
     }
 }

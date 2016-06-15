@@ -160,17 +160,17 @@ class MTLToneCurveFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
 
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(ToneCurveUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(ToneCurveUniforms), options: .cpuCacheModeWriteCombined)
     }
     
     
-    override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
+    override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
         
         if toneCurveBuffer == nil {
             updateToneCurveBuffer()
         }
-        commandEncoder.setBuffer(toneCurveBuffer, offset: 0, atIndex: 1)
+        commandEncoder.setBuffer(toneCurveBuffer, offset: 0, at: 1)
     }
     
     
@@ -180,7 +180,7 @@ class MTLToneCurveFilter: MTLFilter {
     
     func updateToneCurveBuffer() {
         
-        toneCurveByteArray = [Float](count: 256 * 3, repeatedValue: 0.0)
+        toneCurveByteArray = [Float](repeating: 0.0, count: 256 * 3)
         
         if (redCurve.count >= 256 &&
             greenCurve.count >= 256 &&
@@ -208,15 +208,15 @@ class MTLToneCurveFilter: MTLFilter {
             print("Whaaat?")
         }
             
-        toneCurveBuffer = device.newBufferWithBytes(toneCurveByteArray,
-                                                    length: toneCurveByteArray.count * sizeofValue(toneCurveByteArray[0]),
-                                                    options: .CPUCacheModeDefaultCache)
+        toneCurveBuffer = device.newBuffer(withBytes: toneCurveByteArray,
+                                              length: toneCurveByteArray.count * sizeofValue(Float),
+                                             options: .cpuCacheModeWriteCombined)
     }
     
     
-    func getPreparedSplineCurve(points: [CGPoint]) -> [CGFloat]? {
+    func getPreparedSplineCurve(_ points: [CGPoint]) -> [CGFloat]? {
         
-        points.sort {
+        points.sorted {
             return $0.x < $1.x
         }
         
@@ -226,14 +226,14 @@ class MTLToneCurveFilter: MTLFilter {
         }
         
         guard var splinePoints = splineCurve(convertedPoints) else {
-            return [CGFloat](count: 256, repeatedValue: 0)
+            return [CGFloat](repeating: 0, count: 256)
         }
         
         let firstSplinePoint = splinePoints[0]
     
         if firstSplinePoint.x > 0 {
-            for i in (0 ..< Int(firstSplinePoint.x)).reverse() {
-                splinePoints.insert(CGPoint(x: i, y: 0), atIndex: 0)
+            for i in (0 ..< Int(firstSplinePoint.x)).reversed() {
+                splinePoints.insert(CGPoint(x: i, y: 0), at: 0)
             }
         }
         
@@ -263,7 +263,7 @@ class MTLToneCurveFilter: MTLFilter {
     }
     
 
-    func splineCurve(points: [CGPoint]) -> [CGPoint]? {
+    func splineCurve(_ points: [CGPoint]) -> [CGPoint]? {
         
         guard let sdA = secondDerivative(points) else {
             return nil
@@ -272,12 +272,12 @@ class MTLToneCurveFilter: MTLFilter {
         let n = sdA.count
         if n < 1 { return nil }
         
-        var sd = [Double](count: n, repeatedValue: 0)
+        var sd = [Double](repeating: 0, count: n)
         for i in 0 ..< n {
             sd[i] = Double(sdA[i])
         }
         
-        let sortedPoints = points.sort {
+        let sortedPoints = points.sorted {
             return $0.x < $1.x
         }
         
@@ -307,13 +307,13 @@ class MTLToneCurveFilter: MTLFilter {
         return output
     }
     
-    func secondDerivative(points: [CGPoint]) -> [CGFloat]? {
+    func secondDerivative(_ points: [CGPoint]) -> [CGFloat]? {
         
         let n = points.count
         if n <= 1 { return nil }
         
-        var matrix = [[CGFloat]](count: n, repeatedValue: [CGFloat](count: 3, repeatedValue: 0))
-        var result = [CGFloat](count: n, repeatedValue: 0)
+        var matrix = [[CGFloat]](repeating: [CGFloat](repeating: 0, count: 3), count: n)
+        var result = [CGFloat](repeating: 0, count: n)
         
         matrix[0][0] = 0
         matrix[0][1] = 1
@@ -345,14 +345,14 @@ class MTLToneCurveFilter: MTLFilter {
             result[i] = result[i] - k * result[i-1]
         }
         
-        for i in (0 ..< n - 2).reverse()  {
+        for i in (0 ..< n - 2).reversed()  {
             let k = matrix[i][2] / matrix[i + 1][1]
             matrix[i][1] = matrix[i][1] - k * matrix[i + 1][0]
             matrix[i][2] = 0;
             result[i] = result[i] - k * result[i + 1]
         }
         
-        var y2 = [CGFloat](count: n, repeatedValue: 0)
+        var y2 = [CGFloat](repeating: 0, count: n)
         for i in 0 ..< n {
             y2[i] = result[i] / matrix[i][1]
         }

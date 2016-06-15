@@ -39,7 +39,7 @@ class MTLLuminanceThresholdFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.threshold = threshold
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(LuminanceThresholdUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(LuminanceThresholdUniforms), options: .cpuCacheModeWriteCombined)
     }
     
 }

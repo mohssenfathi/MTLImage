@@ -17,30 +17,30 @@ class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
     }
 
-    @IBAction func closeButtonPressed(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func closeButtonPressed(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
     
     
     //    MARK: - UITableView
     //    MARK: DataSource
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return metadata.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
         let titleLabel = cell.viewWithTag(101) as! UILabel
         let valueLabel = cell.viewWithTag(102) as! UILabel
         
-        let dict = metadata[indexPath.row] as! [String : String]
-        titleLabel.text = dict["title"]?.capitalizedString
+        let dict = metadata[(indexPath as NSIndexPath).row] as! [String : String]
+        titleLabel.text = dict["title"]?.capitalized
         valueLabel.text = dict["value"]
         
         return cell

@@ -22,7 +22,7 @@ class MTLPicture: NSObject, MTLInput {
         set { internalTitle = newValue }
     }
     
-    private var privateIdentifier: String = NSUUID().UUIDString
+    private var privateIdentifier: String = UUID().uuidString
     public var identifier: String! {
         get { return privateIdentifier     }
         set { privateIdentifier = newValue }
@@ -49,7 +49,7 @@ class MTLPicture: NSObject, MTLInput {
         }
     }
     
-    public func setProcessingSize(processingSize: CGSize, respectAspectRatio: Bool) {
+    public func setProcessingSize(_ processingSize: CGSize, respectAspectRatio: Bool) {
         
         var size = processingSize
         if respectAspectRatio == true {
@@ -94,7 +94,7 @@ class MTLPicture: NSObject, MTLInput {
 //        return count
     }
     
-    func length(target: MTLOutput) -> Int {
+    func length(_ target: MTLOutput) -> Int {
         var c = 1
         
         if let input = target as? MTLInput {
@@ -140,14 +140,14 @@ class MTLPicture: NSObject, MTLInput {
         }
     }
     
-    public func addTarget(target: MTLOutput) {
+    public func addTarget(_ target: MTLOutput) {
         var t = target
         internalTargets.append(t)
         loadTexture()
         t.input = self
     }
     
-    public func addTarget(target: MTLOutput, index: Int) {
+    public func addTarget(_ target: MTLOutput, index: Int) {
 //        var t = target
 //        internalTargets.append(t)
 //        t.input = self
@@ -156,7 +156,7 @@ class MTLPicture: NSObject, MTLInput {
 //        }
     }
     
-    public func removeTarget(target: MTLOutput) {
+    public func removeTarget(_ target: MTLOutput) {
         var t = target
         t.input = nil
 //      TODO:   remove from internalTargets

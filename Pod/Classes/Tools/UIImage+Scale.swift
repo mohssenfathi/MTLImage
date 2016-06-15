@@ -12,10 +12,10 @@ extension UIImage {
     
     // Something wrong with the scale
     
-    func scaleToFill(size: CGSize) -> UIImage {
+    func scaleToFill(_ size: CGSize) -> UIImage {
         
         let scaledImage: UIImage
-        if size == CGSizeZero {
+        if size == CGSize.zero {
             scaledImage = self
         } else {
             let scalingFactor = size.width / self.size.width > size.height / self.size.height ? size.width / self.size.width : size.height / self.size.height
@@ -26,15 +26,15 @@ extension UIImage {
             
             let origin = CGPoint(x: (size.width - newSize.width) / 2, y: (size.height - newSize.height) / 2)
             let rect = CGRect(origin: origin, size: newSize)
-            self.drawInRect(rect)
-            scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+            self.draw(in: rect)
+            scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
             
             UIGraphicsEndImageContext()
         }
         return scaledImage
     }
     
-    func scaleToFit(size: CGSize) -> UIImage {
+    func scaleToFit(_ size: CGSize) -> UIImage {
 
         // Need to set clear color
         
@@ -59,18 +59,18 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         
         let context = UIGraphicsGetCurrentContext()
-        CGContextSetFillColorWithColor(context, UIColor.clearColor().CGColor)
-        let rect = CGRectMake(x, y, width, height)
-        CGContextFillRect(context, rect)
-        self.drawInRect(rect)
+        context?.setFillColor(UIColor.clear().cgColor)
+        let rect = CGRect(x: x, y: y, width: width, height: height)
+        context?.fill(rect)
+        self.draw(in: rect)
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
         
-        return scaledImage
+        return scaledImage!
     }
     
-    func center(size: CGSize) -> UIImage {
+    func center(_ size: CGSize) -> UIImage {
         // Not working
         
         let x = (self.size.width  - size.width )/4.0
@@ -82,15 +82,15 @@ extension UIImage {
         
         UIGraphicsBeginImageContextWithOptions(self.size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()
-        CGContextSetFillColorWithColor(context, UIColor.clearColor().CGColor)
+        context?.setFillColor(UIColor.clear().cgColor)
         let rect = CGRect(origin: CGPoint(x: x, y: y), size: size)
-        CGContextFillRect(context, rect)
-        self.drawInRect(rect)
+        context?.fill(rect)
+        self.draw(in: rect)
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
         
-        return scaledImage
+        return scaledImage!
     }
     
 }

@@ -59,6 +59,6 @@ class MTLCrossHatchFilter: MTLFilter {
         
         uniforms.crossHatchSpacing = chs
         uniforms.lineWidth = Tools.convert(lineWidth, oldMin: 0, oldMax: 1, newMin: 0.001, newMax: 0.008)
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(CrossHatchUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(CrossHatchUniforms), options: .cpuCacheModeWriteCombined)
     }    
 }

@@ -52,28 +52,28 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         navigationItem.title = "MTLImage"
     }
     
-    @IBAction func actionButtonPressed(sender: AnyObject) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+    @IBAction func actionButtonPressed(_ sender: AnyObject) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let imageAction = UIAlertAction(title: "New Image", style: .Default) { (action) in
-            self.dismissViewControllerAnimated(true, completion: nil)
-            self.presentViewController(self.imagePickerController, animated: true) {
-                self.filtersViewController.navigationController?.popToRootViewControllerAnimated(false)
+        let imageAction = UIAlertAction(title: "New Image", style: UIAlertActionStyle.default) { (action) in
+            self.dismiss(animated: true, completion: nil)
+            self.present(self.imagePickerController, animated: true) {
+                let _ = self.filtersViewController.navigationController?.popToRootViewController(animated: false)
             }
         }
         
-        let saveAction = UIAlertAction(title: "Save to Library", style: .Default) { (action) in
-            self.dismissViewControllerAnimated(true, completion: nil)
+        let saveAction = UIAlertAction(title: "Save to Library", style: .default) { (action) in
+            self.dismiss(animated: true, completion: nil)
             // Do this later
         }
         
-        let infoAction = UIAlertAction(title: "Image Information", style: .Default) { (action) in
-            self.dismissViewControllerAnimated(true, completion: nil)
+        let infoAction = UIAlertAction(title: "Image Information", style: .default) { (action) in
+            self.dismiss(animated: true, completion: nil)
             // Do this later
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action) in
-            self.dismissViewControllerAnimated(true, completion: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
+            self.dismiss(animated: true, completion: nil)
         }
         
         alert.addAction(imageAction)
@@ -81,55 +81,55 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         alert.addAction(infoAction)
         alert.addAction(cancelAction)
         
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
         
     }
 
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
     
 //    MARK: - MTLView Delegate
     
-    func mtlViewTouchesBegan(sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
+    func mtlViewTouchesBegan(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
         let touch: UITouch = touches.first! as UITouch
-        let location = touch.locationInView(sender)
+        let location = touch.location(in: sender)
         filtersViewController.handleTouchAtLocation(location)
     }
     
-    func mtlViewTouchesMoved(sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
+    func mtlViewTouchesMoved(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
         let touch: UITouch = touches.first! as UITouch
-        let location = touch.locationInView(sender)
+        let location = touch.location(in: sender)
         filtersViewController.handleTouchAtLocation(location)
         
     }
     
-    func mtlViewTouchesEnded(sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
+    func mtlViewTouchesEnded(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
         
     }
     
     
 //    MARK: - Gesture Recognizers
     
-    @IBAction func handlePanGesture(sender: AnyObject) {
-        let location = sender.locationInView(view)
+    @IBAction func handlePanGesture(_ sender: AnyObject) {
+        let location = sender.location(in: view)
         
-        if sender.state == .Began {
-            if CGRectContainsPoint(filtersBar.frame, location) {
+        if sender.state == .began {
+            if filtersBar.frame.contains(location) {
                 canDrag = true
-                initialDragOffset = (location.y - CGRectGetMinY(filtersContainer.frame))
-                filtersViewController.navigationController?.navigationBar.barTintColor = UIColor.lightGrayColor()
+                initialDragOffset = (location.y - filtersContainer.frame.minY)
+                filtersViewController.navigationController?.navigationBar.barTintColor = UIColor.lightGray()
             }
         }
-        else if sender.state == .Ended {
+        else if sender.state == .ended {
             canDrag = false
-            filtersViewController.navigationController?.navigationBar.barTintColor = UIColor .whiteColor()
+            filtersViewController.navigationController?.navigationBar.barTintColor = UIColor .white()
         }
-        else if sender.state == .Changed && canDrag {
-            let newHeight = CGRectGetHeight(view.frame) - location.y + initialDragOffset
-            if newHeight < (CGRectGetHeight(view.frame) - 150) && newHeight > 125.0 {
+        else if sender.state == .changed && canDrag {
+            let newHeight = view.frame.height - location.y + initialDragOffset
+            if newHeight < (view.frame.height - 150) && newHeight > 125.0 {
                 filtersContainerHeight.constant = newHeight
                 updateViewConstraints()
             }
@@ -139,17 +139,17 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     //    MARK: - UIScrollView Delegate
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZoomingInScrollView(_ scrollView: UIScrollView) -> UIView? {
         return mtlView
     }
     
 //    MARK: - Actions
     
-    @IBAction func flipButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func flipButtonPressed(_ sender: UIBarButtonItem) {
         camera.flipCamera()
     }
     
-    @IBAction func segmentedControlValueChanged(sender: UISegmentedControl) {
+    @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         
         currentInput.removeAllTargets()
         filterGroup.removeAllTargets()
@@ -170,10 +170,13 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
 //    MARK: - Image Picker Delegate
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
-        let url = info[UIImagePickerControllerReferenceURL] as! NSURL
-        let asset: PHAsset = PHAsset.fetchAssetsWithALAssetURLs([url], options: nil).firstObject as! PHAsset
+        let url = info[UIImagePickerControllerReferenceURL] as! URL
+        guard let asset: PHAsset = PHAsset.fetchAssets(withALAssetURLs: [url], options: nil).firstObject! as PHAsset else {
+            return
+        }
+        
         MetadataFormatter.sharedFormatter.formatMetadata(asset, completion: { (metadata) in
             self.metadata = metadata
         })
@@ -182,7 +185,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         sourcePicture.removeAllTargets()
         sourcePicture.image = image
-        sourcePicture.setProcessingSize(CGSizeMake(500, 500), respectAspectRatio: true)
+        sourcePicture.setProcessingSize(CGSize(width: 500, height: 500), respectAspectRatio: true)
         filterGroup.removeAll()
         filterGroup.removeAllTargets()
         
@@ -193,21 +196,21 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         sourcePicture --> filterGroup --> mtlView
         
         
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     
 //    MARK: - FiltersViewController Delegate
         
-    func filtersViewControllerDidSelectFilter(sender: FiltersViewController, filter: MTLObject) {
+    func filtersViewControllerDidSelectFilter(_ sender: FiltersViewController, filter: MTLObject) {
         filterGroup += filter
     }
     
-    func filtersViewControllerBackButtonPressed(sender: FiltersViewController) {
+    func filtersViewControllerBackButtonPressed(_ sender: FiltersViewController) {
         filterGroup.removeAll()
     }
     
-    func filtersViewControllerDidSelectFilterGroup(sender: FiltersViewController, filterGroup: MTLObject) {
+    func filtersViewControllerDidSelectFilterGroup(_ sender: FiltersViewController, filterGroup: MTLObject) {
         currentInput.removeAllTargets()
         filterGroup.removeAllTargets()
         
@@ -223,7 +226,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     // MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "filters" {
             let navigationController = segue.destinationViewController as? UINavigationController
             filtersViewController = navigationController?.viewControllers.first as? FiltersViewController

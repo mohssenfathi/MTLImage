@@ -41,7 +41,7 @@ class MTLMaskFilter: MTLFilter {
 //        }
 //    }
     
-    public var point: CGPoint = CGPointZero {
+    public var point: CGPoint = CGPoint.zero {
         didSet {
             
             lastPoint = oldValue
@@ -59,12 +59,12 @@ class MTLMaskFilter: MTLFilter {
     }
     
     public override func reset() {
-        mask = [Float](count: width * width, repeatedValue: 1.0)
-        point = CGPointZero
+        mask = [Float](repeating: 1.0, count: width * width)
+        point = CGPoint.zero
         update()
     }
     
-    func updateMask(point: CGPoint, value: Float) {  // recieves point relative to output view
+    func updateMask(_ point: CGPoint, value: Float) {  // recieves point relative to output view
         // Change to generics later
         if viewSize == nil { return }
         
@@ -108,7 +108,7 @@ class MTLMaskFilter: MTLFilter {
         }
     }
     
-    func clearPoint(point: CGPoint, radius: CGFloat) {
+    func clearPoint(_ point: CGPoint, radius: CGFloat) {
         var starti = Int(point.x - radius)
         var startj = Int(point.y - radius)
         var endi   = Int(point.x + radius)
@@ -131,7 +131,7 @@ class MTLMaskFilter: MTLFilter {
         }
     }
     
-    func distance(point1: CGPoint, point2: CGPoint) -> CGFloat {
+    func distance(_ point1: CGPoint, point2: CGPoint) -> CGFloat {
         return sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2))
     }
     
@@ -139,8 +139,8 @@ class MTLMaskFilter: MTLFilter {
         super.init(functionName: "mask")
         title = "Mask"
         properties = [MTLProperty(key: "brushSize", title: "Brush Size"),
-                      MTLProperty(key: "point"    , title: "Point", propertyType: .Point)]
-        mask = [Float](count: width * width, repeatedValue: 1.0)
+                      MTLProperty(key: "point"    , title: "Point", propertyType: .point)]
+        mask = [Float](repeating: 1.0, count: width * width)
         update()
     }
     
@@ -178,22 +178,22 @@ class MTLMaskFilter: MTLFilter {
         }
         
         uniforms.brushSize = brushSize * 100
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(MaskUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(MaskUniforms), options: .cpuCacheModeWriteCombined)
     }
     
-    override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
+    override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
         if needsUpdate == true {
             updateMaskTexture()
         }
-        commandEncoder.setTexture(maskTexture, atIndex: 2)
-        commandEncoder.setTexture(originalTexture, atIndex: 3)
+        commandEncoder.setTexture(maskTexture, at: 2)
+        commandEncoder.setTexture(originalTexture, at: 3)
     }
     
     func updateMaskTexture() {
-        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(.R32Float, width: width, height: width, mipmapped: false)
-        maskTexture = self.device.newTextureWithDescriptor(textureDescriptor)
-        maskTexture!.replaceRegion(MTLRegionMake2D(0, 0, width, width), mipmapLevel: 0, withBytes: mask!, bytesPerRow: sizeof(Float) * width)
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: .r32Float, width: width, height: width, mipmapped: false)
+        maskTexture = self.device.newTexture(with: textureDescriptor)
+        maskTexture!.replace(MTLRegionMake2D(0, 0, width, width), mipmapLevel: 0, withBytes: mask!, bytesPerRow: sizeof(Float) * width)
     }
     
     override public var input: MTLInput? {

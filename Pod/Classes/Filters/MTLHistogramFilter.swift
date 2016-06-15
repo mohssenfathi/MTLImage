@@ -17,10 +17,10 @@ class MTLHistogramFilter: MTLFilter {
     
     var uniforms = HistogramUniforms()
 
-    public var luminance = [Float](count: 255, repeatedValue: 0)
-    public var red       = [Float](count: 255, repeatedValue: 0)
-    public var green     = [Float](count: 255, repeatedValue: 0)
-    public var blue      = [Float](count: 255, repeatedValue: 0)
+    public var luminance = [Float](repeating: 0, count: 255)
+    public var red       = [Float](repeating: 0, count: 255)
+    public var green     = [Float](repeating: 0, count: 255)
+    public var blue      = [Float](repeating: 0, count: 255)
     
     var luminanceBuffer: MTLBuffer?
     var redBuffer      : MTLBuffer?
@@ -51,51 +51,51 @@ class MTLHistogramFilter: MTLFilter {
         if self.input == nil { return }
         
         if luminanceBuffer != nil {
-            let data = NSData(bytesNoCopy: luminanceBuffer!.contents(), length: 255 * sizeof(Float), freeWhenDone: false)
-            data.getBytes(&luminance, length:255 * sizeof(Float))
+            let data = Data(bytesNoCopy: luminanceBuffer!.contents() as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(Float), deallocator:  .free)
+            data.copyBytes(to: luminance as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(UInt8))
             smooth(&luminance)
             updateHistogramView(luminance)
         }
         
         if redBuffer != nil {
-            let data = NSData(bytesNoCopy: redBuffer!.contents(), length: 255 * sizeof(Float), freeWhenDone: false)
-            data.getBytes(&red, length:255 * sizeof(Float))
+            let data = Data(bytesNoCopy: redBuffer!.contents() as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(Float), deallocator: .free)
+            data.copyBytes(to: red as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(UInt8))
             smooth(&red)
             updateHistogramView(red)
         }
         
         if greenBuffer != nil {
-            let data = NSData(bytesNoCopy: greenBuffer!.contents(), length: 255 * sizeof(Float), freeWhenDone: false)
-            data.getBytes(&green, length:255 * sizeof(Float))
+            let data = Data(bytesNoCopy: greenBuffer!.contents() as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(Float), deallocator:  .free)
+            data.copyBytes(to: green as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(UInt8))
             smooth(&green)
             updateHistogramView(green)
         }
         
         if blueBuffer != nil {
-            let data = NSData(bytesNoCopy: blueBuffer!.contents(), length: 255 * sizeof(Float), freeWhenDone: false)
-            data.getBytes(&blue, length:255 * sizeof(Float))
+            let data = Data(bytesNoCopy: blueBuffer!.contents() as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(Float), deallocator:  .free)
+            data.copyBytes(to: blue as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(UInt8))
             smooth(&blue)
             updateHistogramView(blue)
         }
         
         uniforms.dummy = dummy
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(HistogramUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(HistogramUniforms), options: .cpuCacheModeWriteCombined)
     }
     
-    override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
+    override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
         
-        let f = [Float](count: 255, repeatedValue: 0)
+        let f = [Float](repeating: 0, count: 255)
         
-        luminanceBuffer = device.newBufferWithBytes(f, length: f.count * sizeofValue(f[0]), options: .CPUCacheModeDefaultCache)
-        redBuffer       = device.newBufferWithBytes(f, length: f.count * sizeofValue(f[0]), options: .CPUCacheModeDefaultCache)
-        greenBuffer     = device.newBufferWithBytes(f, length: f.count * sizeofValue(f[0]), options: .CPUCacheModeDefaultCache)
-        blueBuffer      = device.newBufferWithBytes(f, length: f.count * sizeofValue(f[0]), options: .CPUCacheModeDefaultCache)
+        luminanceBuffer = device.newBuffer(withBytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
+        redBuffer       = device.newBuffer(withBytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
+        greenBuffer     = device.newBuffer(withBytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
+        blueBuffer      = device.newBuffer(withBytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
         
-        commandEncoder.setBuffer(luminanceBuffer, offset: 0, atIndex: 1)
-        commandEncoder.setBuffer(redBuffer      , offset: 0, atIndex: 2)
-        commandEncoder.setBuffer(greenBuffer    , offset: 0, atIndex: 3)
-        commandEncoder.setBuffer(blueBuffer     , offset: 0, atIndex: 4)
+        commandEncoder.setBuffer(luminanceBuffer, offset: 0, at: 1)
+        commandEncoder.setBuffer(redBuffer      , offset: 0, at: 2)
+        commandEncoder.setBuffer(greenBuffer    , offset: 0, at: 3)
+        commandEncoder.setBuffer(blueBuffer     , offset: 0, at: 4)
     }
     
     public override func process() {
@@ -108,7 +108,7 @@ class MTLHistogramFilter: MTLFilter {
     
 //    MARK: - View Testing
     
-    func smooth(inout values: [Float]) {
+    func smooth(_ values: inout [Float]) {
         let averageRange = 10
         var average: Float = 0.0
         for index in 0 ..< values.count {
@@ -116,7 +116,7 @@ class MTLHistogramFilter: MTLFilter {
                 average = average + values[index] / Float(averageRange)
             }
             else if index >= averageRange && index < values.count - 1 {
-                average = ((average * Float(averageRange)) - values[index - averageRange] + values[index + 1]) / Float(averageRange);
+                average = ((average * Float(averageRange)) - Float(values[index - averageRange]) + Float(values[index + 1])) / Float(averageRange);
                 average = max(average, 0)
             }
             
@@ -149,29 +149,29 @@ class MTLHistogramFilter: MTLFilter {
         view.addSubview(blueView)
         view.addSubview(luminanceView)
         
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.clear()
         
         var bar: UIView!
         for i in 0 ..< luminance.count {
             
             bar = UIView(frame: CGRect(x: dx * CGFloat(i), y: height - 1, width: dx, height: 1))
             bar.alpha = 0.75
-            bar.backgroundColor = UIColor.whiteColor()
+            bar.backgroundColor = UIColor.white()
             luminanceView.addSubview(bar)
             
             bar = UIView(frame: CGRect(x: dx * CGFloat(i), y: height - 1, width: dx, height: 1))
             bar.alpha = 0.5
-            bar.backgroundColor = UIColor.redColor()
+            bar.backgroundColor = UIColor.red()
             redView.addSubview(bar)
             
             bar = UIView(frame: CGRect(x: dx * CGFloat(i), y: height - 1, width: dx, height: 1))
             bar.alpha = 0.5
-            bar.backgroundColor = UIColor.greenColor()
+            bar.backgroundColor = UIColor.green()
             greenView.addSubview(bar)
             
             bar = UIView(frame: CGRect(x: dx * CGFloat(i), y: height - 1, width: dx, height: 1))
             bar.alpha = 0.5
-            bar.backgroundColor = UIColor.blueColor()
+            bar.backgroundColor = UIColor.blue()
             blueView.addSubview(bar)
             
         }
@@ -180,15 +180,15 @@ class MTLHistogramFilter: MTLFilter {
     }
  
     func maximumHistogramValue() -> Float {
-        let maxL = luminance.maxElement()
-        let maxR = red.maxElement()
-        let maxG = green.maxElement()
-        let maxB = blue.maxElement()
+        let maxL = luminance.max()
+        let maxR = red.max()
+        let maxG = green.max()
+        let maxB = blue.max()
         
         return max(max(maxL!, max(maxR!, max(maxG!, maxB!))), 1)
     }
     
-    func updateHistogramView(values: [Float]) {
+    func updateHistogramView(_ values: [Float]) {
         
         let maxValue: CGFloat = CGFloat(maximumHistogramValue())
         let maxHeight = histogramView.frame.size.height * 0.8

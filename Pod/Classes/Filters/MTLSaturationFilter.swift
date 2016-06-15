@@ -40,17 +40,17 @@ class MTLSaturationFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.saturation = saturation * 2.0
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(SaturationUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(SaturationUniforms), options: .cpuCacheModeWriteCombined)
     }
     
 //    override func configureArgumentTableWithCommandEncoder(commandEncoder: MTLComputeCommandEncoder?) {
 //        var uniforms = AdjustSaturationUniforms(saturation: saturation)
 //
 //        if uniformBuffer == nil {
-//            uniformBuffer = context.device?.newBufferWithLength(sizeofValue(uniforms), options: .CPUCacheModeDefaultCache)
+//            uniformBuffer = context.device?.newBufferWithLength(sizeofValue(uniforms), options: .cpuCacheModeWriteCombined)
 //        }
 //        
-//        memcpy(uniformBuffer.contents(), &uniforms, sizeofValue(uniforms))
+//        memcpy(uniformBuffer.contents(), withBytes: &uniforms, sizeofValue(uniforms))
 //        commandEncoder?.setBuffer(uniformBuffer, offset: 0, atIndex: 0)
 //    }
     

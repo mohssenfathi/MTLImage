@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SettingsCellDelegate {
-    func settingsCellSliderValueChanged(sender: SettingsCell, value: Float)
+    func settingsCellSliderValueChanged(_ sender: SettingsCell, value: Float)
 }
 
 class SettingsCell: UITableViewCell {
@@ -26,10 +26,10 @@ class SettingsCell: UITableViewCell {
     var message: String? {
         didSet {
             if message == "" || message == nil {
-                messageLabel.hidden = true
+                messageLabel.isHidden = true
                 messageLabel.text = ""
             } else {
-                messageLabel.hidden = false
+                messageLabel.isHidden = false
                 messageLabel.text = message
             }
         }
@@ -38,10 +38,10 @@ class SettingsCell: UITableViewCell {
     var spectrum: Bool = false {
         didSet {
             if spectrum == true {
-                slider.minimumTrackTintColor = UIColor.clearColor()
-                slider.maximumTrackTintColor = UIColor.clearColor()
+                slider.minimumTrackTintColor = UIColor.clear()
+                slider.maximumTrackTintColor = UIColor.clear()
                 slider.thumbTintColor = currentColor()
-                layer.insertSublayer(gradient!, atIndex: 0)
+                layer.insertSublayer(gradient!, at: 0)
                 layoutSubviews()
             }
         }
@@ -56,15 +56,15 @@ class SettingsCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         if spectrum == true {
-            gradient?.frame = CGRectMake(25, slider.center.y - 1.0, CGRectGetWidth(frame) - 100, 2.0)
+            gradient?.frame = CGRect(x: 25, y: slider.center.y - 1.0, width: frame.width - 100, height: 2.0)
         }
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
 
-    @IBAction func sliderValueChanged(sender: UISlider) {
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
         delegate?.settingsCellSliderValueChanged(self, value: sender.value)
         
         if spectrum {
@@ -82,7 +82,7 @@ class SettingsCell: UITableViewCell {
         var colors = [CGColor]()
         var locations = [Float]()
         for i in 1 ..< 7 {
-            colors.append(UIColor(hue: (1.0/6.0) * CGFloat(i), saturation: 1.0, brightness: 1.0, alpha: 1.0).CGColor)
+            colors.append(UIColor(hue: (1.0/6.0) * CGFloat(i), saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor)
             locations.append((1.0/6.0) * Float(i))
         }
         

@@ -39,7 +39,7 @@ class MTLHueFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.hue = fmodf(hue * 360.0, 360.0) * Float(M_PI / 180);
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(HueUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(HueUniforms), options: .cpuCacheModeWriteCombined)
     }
     
 }

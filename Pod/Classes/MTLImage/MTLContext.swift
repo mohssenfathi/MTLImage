@@ -9,7 +9,7 @@
 import UIKit
 
 // Set to true to use compiled shaders
-let useMetalib = true
+let useMetalib = false
 
 public
 class MTLContext: NSObject {
@@ -17,9 +17,9 @@ class MTLContext: NSObject {
     var device: MTLDevice!
     var commandQueue: MTLCommandQueue!
     var processingSize: CGSize!
-    var processingQueue: dispatch_queue_t!    
+    var processingQueue: DispatchQueue!    
     var needsUpdate: Bool = true
-    let semaphore = dispatch_semaphore_create(1)
+    let semaphore = DispatchSemaphore(value: 1)
     
     private var internalLibrary: MTLLibrary!
     var library: MTLLibrary! {
@@ -47,7 +47,7 @@ class MTLContext: NSObject {
         
             loadLibrary()
             self.commandQueue = self.device.newCommandQueue()
-            self.processingQueue = dispatch_queue_create("MTLImageProcessQueue", DISPATCH_QUEUE_CONCURRENT)
+            self.processingQueue = DispatchQueue(label: "MTLImageProcessQueue", attributes: DispatchQueueAttributes.concurrent)
         } else {
             print("Device does not support metal")
         }
@@ -57,9 +57,9 @@ class MTLContext: NSObject {
     func loadLibrary() {
         if useMetalib {
             do {
-                let bundle = NSBundle(forClass: MTLImage.classForCoder())
+                let bundle = Bundle(for: MTLImage.classForCoder())
                 let path = bundle.pathForResource("default", ofType: "metallib")
-                try internalLibrary = self.device.newLibraryWithFile(path!)
+                try internalLibrary = self.device.newLibrary(withFile: path!)
             } catch {
                 print(error)
                 //                    self.library = self.device.newDefaultLibrary()

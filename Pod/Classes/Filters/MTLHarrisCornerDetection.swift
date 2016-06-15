@@ -53,7 +53,7 @@ class MTLHarrisCornerDetectionFilterGroup: MTLFilterGroup {
         let bytesPerRow = width * 4
         
         let region: MTLRegion = MTLRegionMake2D(0, 0, width, height)
-        outputTexture.getBytes(bytes, bytesPerRow: bytesPerRow, fromRegion: region, mipmapLevel: 0)
+        outputTexture.getBytes(bytes!, bytesPerRow: bytesPerRow, from: region, mipmapLevel: 0)
         
         corners.removeAll()
         
@@ -61,10 +61,10 @@ class MTLHarrisCornerDetectionFilterGroup: MTLFilterGroup {
 //        var cornerStorageIndex = 0
         while (currentByte < byteCount) {
             
-            let colorByte = bytes[currentByte]
+            let colorByte = bytes?[currentByte]
             
             if (colorByte > 0) {
-                let x = CGFloat(currentByte) % textureSize.width
+                let x = remainder(CGFloat(currentByte), textureSize.width)
                 let y = CGFloat(currentByte) / textureSize.width
                 
                 let point = CGPoint(x: x/4, y: y)
@@ -112,12 +112,12 @@ class MTLHarrisCornerDetectionOutputFilter: MTLFilter {
     
     override func update() {
         if self.input == nil { return }
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(HarrisCornerDetectionOutputUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(HarrisCornerDetectionOutputUniforms), options: .cpuCacheModeWriteCombined)
     }
     
-    override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
+    override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
-        commandEncoder.setTexture(originalTexture, atIndex: 2)
+        commandEncoder.setTexture(originalTexture, at: 2)
     }
 }
 
@@ -164,6 +164,6 @@ class MTLHarrisCornerDetectionFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.sensitivity = sensitivity
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(HarrisCornerDetectionUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(HarrisCornerDetectionUniforms), options: .cpuCacheModeWriteCombined)
     }
 }

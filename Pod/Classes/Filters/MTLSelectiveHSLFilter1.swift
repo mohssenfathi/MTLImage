@@ -63,7 +63,7 @@ class MTLSelectiveHSLFilter1: MTLFilter {
         uniforms.magenta = magenta
         uniforms.mode    = mode
         
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(SelectiveHSLUniforms1), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(SelectiveHSLUniforms1), options: .cpuCacheModeWriteCombined)
     }
     
     

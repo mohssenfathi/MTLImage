@@ -9,7 +9,7 @@
 import UIKit
 import CloudKit
 
-let publicDatabase = CKContainer.defaultContainer().publicCloudDatabase
+let publicDatabase = CKContainer.default().publicCloudDatabase
 
 public
 class MTLCloudKitManager: NSObject {
@@ -21,11 +21,11 @@ class MTLCloudKitManager: NSObject {
         return nil
     }
     
-    func upload(filterGroup: MTLFilterGroup, container: CKContainer, completion: ((record: CKRecord?, error: NSError?) -> ())?) {
+    func upload(_ filterGroup: MTLFilterGroup, container: CKContainer, completion: ((record: CKRecord?, error: NSError?) -> ())?) {
         
         let record = filterGroup.ckRecord()
         
-        container.publicCloudDatabase.saveRecord(record) { (record, error) in
+        container.publicCloudDatabase.save(record) { (record, error) in
             completion?(record: record, error: error)
         }
     }
@@ -48,11 +48,11 @@ extension MTLFilterGroup {
         return record
     }
     
-    func filterDataAsset(data: NSData) -> CKAsset {
+    func filterDataAsset(_ data: Data) -> CKAsset {
         
-        let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first
-        let url = NSURL(fileURLWithPath: path!).URLByAppendingPathComponent(identifier)
-        try! data.writeToURL(url, options: .AtomicWrite) // Handle later
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
+        let url = try! URL(fileURLWithPath: path!).appendingPathComponent(identifier)
+        try! data.write(to: url, options: .atomicWrite) // Handle later
         
         return CKAsset(fileURL: url)
     }

@@ -22,7 +22,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     var session: AVCaptureSession!
     var captureDevice: AVCaptureDevice!
     var dataOutput: AVCaptureVideoDataOutput!
-    var dataOutputQueue: dispatch_queue_t!
+    var dataOutputQueue: DispatchQueue!
     var deviceInput: AVCaptureDeviceInput!
     var textureCache: Unmanaged<CVMetalTextureCache>?
 
@@ -41,15 +41,15 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         session.stopRunning()
     }
     
-    public var orientation: AVCaptureVideoOrientation = .Portrait {
+    public var orientation: AVCaptureVideoOrientation = .portrait {
         didSet {
-            if let connection = dataOutput.connectionWithMediaType(AVMediaTypeVideo) {
+            if let connection = dataOutput.connection(withMediaType: AVMediaTypeVideo) {
                 connection.videoOrientation = orientation
             }
         }
     }
     
-    public var capturePosition: AVCaptureDevicePosition = .Back {
+    public var capturePosition: AVCaptureDevicePosition = .back {
         didSet {
             if captureDevice.position == capturePosition { return }
             if session == nil { return }
@@ -58,7 +58,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             
             session.removeInput(deviceInput)  // maybe check if has input first
             
-            for device: AVCaptureDevice in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! [AVCaptureDevice] {
+            for device: AVCaptureDevice in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as! [AVCaptureDevice] {
                 if device.position == capturePosition {
                     captureDevice = device 
                     break
@@ -66,7 +66,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             }
             
             if captureDevice == nil {
-                captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+                captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
             }
             
             try! deviceInput = AVCaptureDeviceInput(device: captureDevice)
@@ -74,8 +74,8 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
                 session.addInput(deviceInput)
             }
             
-            let connection = dataOutput.connectionWithMediaType(AVMediaTypeVideo)
-            connection.videoOrientation = .Portrait
+            let connection = dataOutput.connection(withMediaType: AVMediaTypeVideo)
+            connection?.videoOrientation = .portrait
             
             // Set flag later to mirror preview when in .Front
             
@@ -84,7 +84,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     }
     
     public func flipCamera() {
-        capturePosition = (capturePosition == .Front) ? .Back : .Front
+        capturePosition = (capturePosition == .front) ? .back : .front
     }
     
     func setupAVDevice() {
@@ -94,14 +94,14 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         session = AVCaptureSession()
         session.sessionPreset = AVCaptureSessionPresetPhoto
         
-        for device: AVCaptureDevice in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! [AVCaptureDevice] {
+        for device: AVCaptureDevice in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as! [AVCaptureDevice] {
             if device.position == capturePosition {
                 captureDevice = device 
                 break
             }
         }
         if captureDevice == nil {
-            captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+            captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         }
         
         try! deviceInput = AVCaptureDeviceInput(device: captureDevice)
@@ -110,25 +110,25 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         }
         
         dataOutput = AVCaptureVideoDataOutput()
-        dataOutput.videoSettings = [String(kCVPixelBufferPixelFormatTypeKey) : NSNumber(unsignedInt: kCMPixelFormat_32BGRA)]
+        dataOutput.videoSettings = [String(kCVPixelBufferPixelFormatTypeKey) : NSNumber(value: kCMPixelFormat_32BGRA)]
         dataOutput.alwaysDiscardsLateVideoFrames = true
-        dataOutputQueue = dispatch_queue_create("VideoDataOutputQueue", DISPATCH_QUEUE_SERIAL)
+        dataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue", attributes: DispatchQueueAttributes.serial)
         dataOutput.setSampleBufferDelegate(self, queue: dataOutputQueue)
         if session.canAddOutput(dataOutput) {
             session.addOutput(dataOutput)
         }
         
-        let connection = dataOutput.connectionWithMediaType(AVMediaTypeVideo)
-        connection.enabled = true
-        connection.videoOrientation = .Portrait
+        let connection = dataOutput.connection(withMediaType: AVMediaTypeVideo)
+        connection?.isEnabled = true
+        connection?.videoOrientation = .portrait
 
         session.commitConfiguration()
     }
     
     func setupPipeline() {
-        kernelFunction = context.library?.newFunctionWithName("camera")
+        kernelFunction = context.library?.newFunction(withName: "camera")
         do {
-            pipeline = try context.device.newComputePipelineStateWithFunction(kernelFunction)
+            pipeline = try context.device.newComputePipelineState(with: kernelFunction)
         } catch {
             print("Failed to create pipeline")
         }
@@ -137,13 +137,13 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     
 //    MARK: - SampleBuffer Delegate
     
-    public func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
+    public func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
         
         let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-        var textureRef : Unmanaged<CVMetalTextureRef>?
+        var textureRef : Unmanaged<CVMetalTexture>?
         let width = CVPixelBufferGetWidth(pixelBuffer!);
         let height = CVPixelBufferGetHeight(pixelBuffer!);
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache!.takeUnretainedValue(), pixelBuffer!, nil, .BGRA8Unorm, width, height, 0, &textureRef);
+        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache!.takeUnretainedValue(), pixelBuffer!, nil, .bgra8Unorm, width, height, 0, &textureRef);
         internalTexture = CVMetalTextureGetTexture((textureRef?.takeUnretainedValue())!)
         textureRef?.release()
         needsUpdate = true
@@ -155,7 +155,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         set { internalTitle = newValue }
     }
     
-    private var privateIdentifier: String = NSUUID().UUIDString
+    private var privateIdentifier: String = UUID().uuidString
     public var identifier: String! {
         get { return privateIdentifier     }
         set { privateIdentifier = newValue }
@@ -182,7 +182,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         }
     }
     
-    public func setProcessingSize(processingSize: CGSize, respectAspectRatio: Bool) {
+    public func setProcessingSize(_ processingSize: CGSize, respectAspectRatio: Bool) {
         let size = processingSize
         if respectAspectRatio == true {
             if size.width > size.height {
@@ -202,7 +202,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         return c
     }
     
-    func length(target: MTLOutput) -> Int {
+    func length(_ target: MTLOutput) -> Int {
         var c = 1
         
         if let input = target as? MTLInput {
@@ -221,8 +221,8 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         
         if videoTexture == nil { return }
         if internalTexture == nil || internalTexture!.width != videoTexture.width || internalTexture!.height != videoTexture.height {
-            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(videoTexture.pixelFormat, width:videoTexture.width, height: videoTexture.height, mipmapped: false)
-            internalTexture = context.device?.newTextureWithDescriptor(textureDescriptor)
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: videoTexture.pixelFormat, width:videoTexture.width, height: videoTexture.height, mipmapped: false)
+            internalTexture = context.device?.newTexture(with: textureDescriptor)
         }
         
         let threadgroupCounts = MTLSizeMake(16, 16, 1)
@@ -237,8 +237,8 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         let commandEncoder = commandBuffer.computeCommandEncoder()
         commandEncoder.setComputePipelineState(pipeline)
         
-        commandEncoder.setTexture(videoTexture, atIndex: 0)
-        commandEncoder.setTexture(internalTexture, atIndex: 1)
+        commandEncoder.setTexture(videoTexture, at: 0)
+        commandEncoder.setTexture(internalTexture, at: 1)
         commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
         commandEncoder.endEncoding()
         
@@ -276,14 +276,14 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     }
     
     
-    public func addTarget(target: MTLOutput) {
+    public func addTarget(_ target: MTLOutput) {
         var t = target
         internalTargets.append(t)
         t.input = self
         startRunning()
     }
     
-    public func removeTarget(target: MTLOutput) {
+    public func removeTarget(_ target: MTLOutput) {
         var t = target
         t.input = nil
         //      TODO:   remove from internalTargets

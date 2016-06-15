@@ -53,7 +53,7 @@ class MTLColorSelectionFilter: MTLFilter {
         uniforms.purple  = purple
         uniforms.magenta = magenta
         
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(ColorSelectionUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(ColorSelectionUniforms), options: .cpuCacheModeWriteCombined)
     }
     
     

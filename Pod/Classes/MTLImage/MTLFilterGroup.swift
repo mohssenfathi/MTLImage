@@ -35,13 +35,13 @@ class MTLFilterGroup: MTLObject, NSCoding {
         set { internalTitle = newValue }
     }
     
-    private var privateIdentifier: String = NSUUID().UUIDString
+    private var privateIdentifier: String = UUID().uuidString
     public override var identifier: String! {
         get { return privateIdentifier     }
         set { privateIdentifier = newValue }
     }
     
-    public func filterImage(image: UIImage) -> UIImage? {
+    public func filterImage(_ image: UIImage) -> UIImage? {
         let picture = MTLPicture(image: image)
         picture > self
         let filteredImage = UIImage.imageWithTexture(texture!)
@@ -61,7 +61,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
 //        }
     }
     
-    public func add(filter: MTLObject) {
+    public func add(_ filter: MTLObject) {
         if let last = filters.last {
             last.removeAllTargets()
             last.addTarget(filter)
@@ -78,7 +78,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
         updateFilterIndexes()
     }
     
-    public func insert(filter: MTLObject, index: Int) {
+    public func insert(_ filter: MTLObject, index: Int) {
         assert(index < filters.count)
         
         if index == 0 {
@@ -97,11 +97,11 @@ class MTLFilterGroup: MTLObject, NSCoding {
             previous.addTarget(filter)
         }
         
-        filters.insert(filter, atIndex: index)
+        filters.insert(filter, at: index)
         updateFilterIndexes()
     }
     
-    public func remove(filter: MTLObject) {
+    public func remove(_ filter: MTLObject) {
         let targets = filter.targets
         let input = filter.input
 
@@ -130,7 +130,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
         filters.removeAll()
     }
     
-    public func move(fromIndex: Int, toIndex: Int) {
+    public func move(_ fromIndex: Int, toIndex: Int) {
         if fromIndex == toIndex { return }
 
         swap(&filters[fromIndex], &filters[toIndex])
@@ -230,7 +230,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
         }
     }
     
-    public override func addTarget(target: MTLOutput) {
+    public override func addTarget(_ target: MTLOutput) {
         internalTargets.append(target)
         if filters.count > 0 {
             filters.last!.addTarget(target)
@@ -240,7 +240,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
         needsUpdate = true
     }
     
-    public override func removeTarget(target: MTLOutput) {
+    public override func removeTarget(_ target: MTLOutput) {
         // TODO: remove from internal targets
         filters.last?.removeTarget(target)
     }
@@ -285,26 +285,26 @@ class MTLFilterGroup: MTLObject, NSCoding {
     
 //    MARK: - NSCoding
     
-    public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(title     , forKey: "title")
-        aCoder.encodeObject(identifier, forKey: "identifier")
-        aCoder.encodeObject(category, forKey: "category")
-        aCoder.encodeObject(filterDescription, forKey: "filterDescription")
-        aCoder.encodeObject(filters   , forKey: "filters")
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(title     , forKey: "title")
+        aCoder.encode(identifier, forKey: "identifier")
+        aCoder.encode(category, forKey: "category")
+        aCoder.encode(filterDescription, forKey: "filterDescription")
+        aCoder.encode(filters   , forKey: "filters")
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init()
         
-        identifier = aDecoder.decodeObjectForKey("identifier") as! String
-        title      = aDecoder.decodeObjectForKey("title") as! String
-        filters    = aDecoder.decodeObjectForKey("filters") as! [MTLFilter]
+        identifier = aDecoder.decodeObject(forKey: "identifier") as! String
+        title      = aDecoder.decodeObject(forKey: "title") as! String
+        filters    = aDecoder.decodeObject(forKey: "filters") as! [MTLFilter]
         
-        if let cat = aDecoder.decodeObjectForKey("category") as? String {
+        if let cat = aDecoder.decodeObject(forKey: "category") as? String {
             category = cat
         }
 
-        if let fDesc = aDecoder.decodeObjectForKey("filterDescription") as? String {
+        if let fDesc = aDecoder.decodeObject(forKey: "filterDescription") as? String {
             filterDescription = fDesc
         }
         
@@ -343,13 +343,13 @@ public func > (left: MTLFilterGroup, right: MTLFilterGroup) {
 }
 
 extension Array where Element: Equatable {
-    mutating func removeObject(object: Element) {
-        if let index = self.indexOf(object) {
-            self.removeAtIndex(index)
+    mutating func removeObject(_ object: Element) {
+        if let index = self.index(of: object) {
+            self.remove(at: index)
         }
     }
     
-    mutating func removeObjectsInArray(array: [Element]) {
+    mutating func removeObjectsInArray(_ array: [Element]) {
         for object in array {
             self.removeObject(object)
         }

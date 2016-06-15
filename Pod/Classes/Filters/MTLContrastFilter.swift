@@ -37,6 +37,6 @@ class MTLContrastFilter: MTLFilter {
     override func update() {
         if input == nil { return }
         uniforms.contrast = Tools.convert(contrast, oldMin: 0.0, oldMid: 0.5, oldMax: 1.0, newMin: 0.0, newMid: 1.0, newMax: 4.0)
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(ContrastUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(ContrastUniforms), options: .cpuCacheModeWriteCombined)
     }
 }

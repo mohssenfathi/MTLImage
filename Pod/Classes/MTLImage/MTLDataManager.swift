@@ -15,26 +15,26 @@ class MTLDataManager: NSObject {
     
     override init() {
         super.init()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MTLDataManager.modelChanged(_:)), name: NSManagedObjectContextObjectsDidChangeNotification, object: managedObjectContext)
+        NotificationCenter.default().addObserver(self, selector: #selector(MTLDataManager.modelChanged(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext)
         reloadSavedRecords()
     }
     
     var savedRecords: [MTLFilterGroupRecord]?
     
     func reloadSavedRecords() {
-        let request = NSFetchRequest(entityName: "MTLFilterGroupRecord")
+        let request: NSFetchRequest<MTLFilterGroupRecord> = NSFetchRequest(entityName: "MTLFilterGroupRecord")
         let filterGroupRecords: [MTLFilterGroupRecord]!
-        filterGroupRecords = try! self.managedObjectContext.executeFetchRequest(request) as? [MTLFilterGroupRecord]
+        filterGroupRecords = try! self.managedObjectContext.fetch(request) as? [MTLFilterGroupRecord]
         savedRecords = filterGroupRecords
     }
     
-    func modelChanged(notification: NSNotification) {
+    func modelChanged(_ notification: Notification) {
         reloadSavedRecords()
     }
     
-    func remove(filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
+    func remove(_ filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
         if let record = filterGroupRecordWithIdentifier(filterGroup.identifier) {
-            managedObjectContext.deleteObject(record)
+            managedObjectContext.delete(record)
             saveContext()
             completion?(success: true)
         }
@@ -43,7 +43,7 @@ class MTLDataManager: NSObject {
         }
     }
     
-    func save(filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
+    func save(_ filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
         if let record = filterGroupRecordWithIdentifier(filterGroup.identifier) {
             updateFilterGroupRecord(record, filterGroup: filterGroup)
             completion?(success: true)
@@ -64,7 +64,7 @@ class MTLDataManager: NSObject {
         return filterGroups
     }
     
-    func filterGroupRecordWithIdentifier(identifier: String) -> MTLFilterGroupRecord? {
+    func filterGroupRecordWithIdentifier(_ identifier: String) -> MTLFilterGroupRecord? {
         let records = savedRecords?.filter { $0.identifier == identifier }
         if records?.count > 0 {
             return records?.first
@@ -74,7 +74,7 @@ class MTLDataManager: NSObject {
     
     //    MARK: - Filter -> Record
     
-    func updateFilterGroupRecord(filterGroupRecord: MTLFilterGroupRecord, filterGroup: MTLFilterGroup) {
+    func updateFilterGroupRecord(_ filterGroupRecord: MTLFilterGroupRecord, filterGroup: MTLFilterGroup) {
         filterGroupRecord.title = filterGroup.title
         filterGroupRecord.identifier = filterGroup.identifier
         
@@ -85,14 +85,14 @@ class MTLDataManager: NSObject {
                 filterRecords.append(filterRecord(filter as! MTLFilter))
             }
         }
-        filterGroupRecord.filters = NSOrderedSet(array: filterRecords)
+        filterGroupRecord.filters = OrderedSet(array: filterRecords)
         
         saveContext()
     }
     
-    func filterGroupRecord(filterGroup: MTLFilterGroup) -> MTLFilterGroupRecord {
-        let entityDescription = NSEntityDescription.entityForName("MTLFilterGroupRecord", inManagedObjectContext: managedObjectContext)
-        let filterGroupRecord = MTLFilterGroupRecord(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
+    func filterGroupRecord(_ filterGroup: MTLFilterGroup) -> MTLFilterGroupRecord {
+        let entityDescription = NSEntityDescription.entity(forEntityName: "MTLFilterGroupRecord", in: managedObjectContext)
+        let filterGroupRecord = MTLFilterGroupRecord(entity: entityDescription!, insertInto: managedObjectContext)
         
         filterGroupRecord.title = filterGroup.title
         filterGroupRecord.identifier = filterGroup.identifier
@@ -104,68 +104,68 @@ class MTLDataManager: NSObject {
                 filterRecords.append(filterRecord(filter as! MTLFilter))
             }
         }
-        filterGroupRecord.filters = NSOrderedSet(array: filterRecords)
+        filterGroupRecord.filters = OrderedSet(array: filterRecords)
         
         return filterGroupRecord
     }
     
-    func filterRecord(filter: MTLFilter) -> MTLFilterRecord {
-        let entityDescription = NSEntityDescription.entityForName("MTLFilterRecord", inManagedObjectContext: managedObjectContext)
-        let filterRecord = MTLFilterRecord(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
+    func filterRecord(_ filter: MTLFilter) -> MTLFilterRecord {
+        let entityDescription = NSEntityDescription.entity(forEntityName: "MTLFilterRecord", in: managedObjectContext)
+        let filterRecord = MTLFilterRecord(entity: entityDescription!, insertInto: managedObjectContext)
         
         filterRecord.title = filter.title
         filterRecord.identifier = filter.identifier
         filterRecord.functionName = filter.functionName
-        filterRecord.index = NSNumber(integer: filter.index)
+        filterRecord.index = NSNumber(value: filter.index)
         
         var propertyRecords = [MTLPropertyRecord]()
         var record: MTLPropertyRecord!
         for property in filter.properties {
             record = propertyRecord(property)
             
-            if let type = MTLPropertyType(rawValue: Int(record.propertyType!.integerValue)) {
+            if let type = MTLPropertyType(rawValue: Int(record.propertyType!.intValue)) {
                 switch type {
-                case .Value:
-                    record.value = NSNumber(float: filter.valueForKey(property.key) as! Float)
+                case .value:
+                    record.value = NSNumber(value: filter.value(forKey: property.key) as! Float)
                     break
-                case .Bool:
-                    record.bool = NSNumber(bool: filter.valueForKey(property.key) as! Bool)
+                case .bool:
+                    record.bool = NSNumber(value: filter.value(forKey: property.key) as! Bool)
                     break
-                case .Point:
-                    record.point = NSValue(CGPoint: filter.valueForKey(property.key)!.CGPointValue())
+                case .point:
+                    record.point = NSValue(cgPoint: filter.value(forKey: property.key)!.cgPointValue())
                     break
-                case .Rect:
-                    record.rect = NSValue(CGRect: filter.valueForKey(property.key)!.CGRectValue())
-                case .Color:
-                    record.color = filter.valueForKey(property.key) as? UIColor
+                case .rect:
+                    record.rect = NSValue(cgRect: filter.value(forKey: property.key)!.cgRectValue())
+                case .color:
+                    record.color = filter.value(forKey: property.key) as? UIColor
                     break
-                case .Selection:
-                    record.value =  NSNumber(integer: filter.valueForKey(property.key) as! Int)
+                case .selection:
+                    record.value =  NSNumber(value: filter.value(forKey: property.key) as! Int)
                     break
-                case .Image:
-                    record.image = UIImageJPEGRepresentation(filter.valueForKey(property.key) as! UIImage, 1.0)
+                case .image:
+                    record.image = UIImageJPEGRepresentation(filter.value(forKey: property.key) as! UIImage, 1.0)
                     break
                 }
             }
             
             propertyRecords.append(record)
         }
-        filterRecord.properties = NSOrderedSet(array: propertyRecords)
+        filterRecord.properties = OrderedSet(array: propertyRecords)
         
         return filterRecord
     }
     
-    func propertyRecord(property: MTLProperty) -> MTLPropertyRecord {
-        let entityDescription = NSEntityDescription.entityForName("MTLPropertyRecord", inManagedObjectContext: managedObjectContext)
-        let propertyRecord = MTLPropertyRecord(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
+    func propertyRecord(_ property: MTLProperty) -> MTLPropertyRecord {
+        let entityDescription = NSEntityDescription.entity(forEntityName: "MTLPropertyRecord", in: managedObjectContext)
+        let propertyRecord = MTLPropertyRecord(entity: entityDescription!, insertInto: managedObjectContext)
         
         propertyRecord.title = property.title
         propertyRecord.key = property.key
         propertyRecord.selectionItems = property.selectionItems
-        propertyRecord.minimumValue = NSNumber(float: property.minimumValue)
-        propertyRecord.maximumValue = NSNumber(float: property.maximumValue)
-        propertyRecord.defaultValue = NSNumber(float: property.defaultValue)
-        propertyRecord.propertyType = NSNumber(integer: property.propertyType.rawValue)
+        propertyRecord.minimumValue = NSNumber(value: property.minimumValue)
+        propertyRecord.maximumValue = NSNumber(value: property.maximumValue)
+        propertyRecord.defaultValue = NSNumber(value: property.defaultValue)
+        propertyRecord.propertyType = NSNumber(value: property.propertyType.rawValue)
         
         return propertyRecord
     }
@@ -173,7 +173,7 @@ class MTLDataManager: NSObject {
     
     // MARK: - Record -> Filter
     
-    func filterGroup(filterGroupRecord: MTLFilterGroupRecord) -> MTLFilterGroup {
+    func filterGroup(_ filterGroupRecord: MTLFilterGroupRecord) -> MTLFilterGroup {
         let filterGroup = MTLFilterGroup()
         filterGroup.title = filterGroupRecord.title!
         filterGroup.identifier = filterGroupRecord.identifier!
@@ -187,15 +187,15 @@ class MTLDataManager: NSObject {
         return filterGroup
     }
     
-    func filter(filterRecord: MTLFilterRecord) -> MTLFilter? {
+    func filter(_ filterRecord: MTLFilterRecord) -> MTLFilter? {
                 
-        guard let filter = try! MTLImage.filter((filterRecord.title?.lowercaseString)!) as? MTLFilter else {
+        guard let filter = try! MTLImage.filter((filterRecord.title?.lowercased())!) as? MTLFilter else {
             print("Might be a MTLFitlerGroup")
             return nil
         }
         
         filter.title = filterRecord.title!
-        filter.index = (filterRecord.index?.integerValue)!
+        filter.index = (filterRecord.index?.intValue)!
         filter.identifier = filterRecord.identifier!
         filter.properties.removeAll()
         
@@ -203,28 +203,28 @@ class MTLDataManager: NSObject {
         for propertyRecord: MTLPropertyRecord in propertyRecords {
             filter.properties.append(property(propertyRecord))
             
-            if let type = MTLPropertyType(rawValue: Int(propertyRecord.propertyType!.integerValue)) {
+            if let type = MTLPropertyType(rawValue: Int(propertyRecord.propertyType!.intValue)) {
                 switch type {
-                case .Value:
+                case .value:
                     filter.setValue(propertyRecord.value, forKey: propertyRecord.key!)
                     break
-                case .Bool:
+                case .bool:
                     filter.setValue(propertyRecord.bool, forKey: propertyRecord.key!)
                     break
-                case .Point:
+                case .point:
                     filter.setValue(propertyRecord.point, forKey: propertyRecord.key!)
                     break
-                case .Rect:
+                case .rect:
                     filter.setValue(propertyRecord.rect, forKey: propertyRecord.key!)
                     break
-                case .Color:
+                case .color:
                     filter.setValue(propertyRecord.color, forKey: propertyRecord.key!)
                     break
-                case .Selection:
-                    filter.setValue(propertyRecord.value?.integerValue, forKey: propertyRecord.key!)
+                case .selection:
+                    filter.setValue(propertyRecord.value?.intValue, forKey: propertyRecord.key!)
                     break
-                case .Image:
-                    if let image = UIImage(data: propertyRecord.image! as NSData) {
+                case .image:
+                    if let image = UIImage(data: propertyRecord.image! as Data) {
                         filter.setValue(image, forKey: propertyRecord.key!)
                     }
                     break
@@ -236,9 +236,9 @@ class MTLDataManager: NSObject {
         return filter
     }
     
-    func property(propertyRecord: MTLPropertyRecord) -> MTLProperty {
+    func property(_ propertyRecord: MTLPropertyRecord) -> MTLProperty {
 
-        let propertyType = MTLPropertyType(rawValue: (propertyRecord.propertyType?.integerValue)!)
+        let propertyType = MTLPropertyType(rawValue: (propertyRecord.propertyType?.intValue)!)
         
         let property = MTLProperty(key: propertyRecord.key!, title: propertyRecord.title!, propertyType: propertyType!)
         
@@ -252,23 +252,23 @@ class MTLDataManager: NSObject {
     
     // MARK: - Core Data stack
     
-    lazy var applicationDocumentsDirectory: NSURL = {
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+    lazy var applicationDocumentsDirectory: URL = {
+        let urls = FileManager.default().urlsForDirectory(.documentDirectory, inDomains: .userDomainMask)
         return urls[urls.count-1]
     }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
-        let bundle = NSBundle(forClass: MTLImage.classForCoder())
-        let modelURL = bundle.URLForResource("MTLImage", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
+        let bundle = Bundle(for: MTLImage.classForCoder())
+        let modelURL = bundle.urlForResource("MTLImage", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
     }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("MTLImage.sqlite")
+        let url = try! self.applicationDocumentsDirectory.appendingPathComponent("MTLImage.sqlite")
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         } catch {
             var dict = [String: AnyObject]()
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
@@ -285,7 +285,7 @@ class MTLDataManager: NSObject {
     
     lazy var managedObjectContext: NSManagedObjectContext = {
         let coordinator = self.persistentStoreCoordinator
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
     }()

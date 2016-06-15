@@ -12,9 +12,9 @@ import MetalKit
 
 public
 protocol MTLViewDelegate {
-    func mtlViewTouchesBegan(sender: MTLView, touches: Set<UITouch>, event: UIEvent?)
-    func mtlViewTouchesMoved(sender: MTLView, touches: Set<UITouch>, event: UIEvent?)
-    func mtlViewTouchesEnded(sender: MTLView, touches: Set<UITouch>, event: UIEvent?)
+    func mtlViewTouchesBegan(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?)
+    func mtlViewTouchesMoved(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?)
+    func mtlViewTouchesEnded(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?)
 }
 
 public
@@ -28,11 +28,11 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     private var mtlClearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0)
     public var clearColor: UIColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0) {
         didSet {
-            if      clearColor == UIColor.whiteColor() { mtlClearColor = MTLClearColorMake(1.0, 1.0, 1.0, 1.0) }
-            else if clearColor == UIColor.blackColor() { mtlClearColor = MTLClearColorMake(0.0, 0.0, 0.0, 1.0) }
+            if      clearColor == UIColor.white() { mtlClearColor = MTLClearColorMake(1.0, 1.0, 1.0, 1.0) }
+            else if clearColor == UIColor.black() { mtlClearColor = MTLClearColorMake(0.0, 0.0, 0.0, 1.0) }
             else {
-                let components = CGColorGetComponents(clearColor.CGColor)
-                mtlClearColor = MTLClearColorMake(Double(components[0]), Double(components[1]), Double(components[2]), Double(components[3]))
+                let components = clearColor.cgColor.components
+                mtlClearColor = MTLClearColorMake(Double((components?[0])!), Double((components?[1])!), Double((components?[2])!), Double((components?[3])!))
             }
         }
     }
@@ -43,7 +43,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
         set { internalTitle = newValue }
     }
     
-    private var privateIdentifier: String = NSUUID().UUIDString
+    private var privateIdentifier: String = UUID().uuidString
     public var identifier: String! {
         get { return privateIdentifier     }
         set { privateIdentifier = newValue }
@@ -96,7 +96,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     override public func didMoveToSuperview() {
         if superview != nil {
             displayLink = CADisplayLink(target: self, selector: #selector(MTLView.update(_:)))
-            displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSDefaultRunLoopMode)
+            displayLink.add(to: RunLoop.current(), forMode: RunLoopMode.defaultRunLoopMode.rawValue)
         } else {
             displayLink.invalidate()
         }
@@ -113,31 +113,31 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     
     //    MARK: - Touch Events
     
-    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         delegate?.mtlViewTouchesBegan(self, touches: touches, event: event)
     }
     
-    public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesEnded(touches, withEvent: event)
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
         delegate?.mtlViewTouchesMoved(self, touches: touches, event: event)
     }
     
-    public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesEnded(touches, withEvent: event)
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
         delegate?.mtlViewTouchesEnded(self, touches: touches, event: event)
     }
     
-    func update(displayLink: CADisplayLink) {
+    func update(_ displayLink: CADisplayLink) {
         redraw()
     }
     
     public func stopProcessing() {
-        displayLink.paused = true
+        displayLink.isPaused = true
     }
     
     public func resumeProcessing() {
-        displayLink.paused = false
+        displayLink.isPaused = false
     }
     
     override public class func layerClass() -> AnyClass {
@@ -147,21 +147,21 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     func setupView() {
         
         contentView = MetalLayerView(frame: bounds)
-        contentView.backgroundColor = UIColor.clearColor()
+        contentView.backgroundColor = UIColor.clear()
         
         scrollView = UIScrollView(frame: bounds)
-        scrollView.backgroundColor = UIColor.clearColor()
+        scrollView.backgroundColor = UIColor.clear()
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 100.0
         scrollView.delegate = self
-        scrollView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         scrollView.addSubview(contentView)
         addSubview(scrollView)
         
         metalLayer = contentView.layer as! CAMetalLayer
         metalLayer.device = device
-        metalLayer.pixelFormat = MTLPixelFormat.BGRA8Unorm
+        metalLayer.pixelFormat = MTLPixelFormat.bgra8Unorm
         metalLayer.drawsAsynchronously = true
         
     }
@@ -170,16 +170,16 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     func setupPipeline() {
         device = context.device
         library = context.library
-        vertexFunction   = library.newFunctionWithName("vertex_main")
-        fragmentFunction = library.newFunctionWithName("fragment_main")
+        vertexFunction   = library.newFunction(withName: "vertex_main")
+        fragmentFunction = library.newFunction(withName: "fragment_main")
         
         let pipelineDescriptor = MTLRenderPipelineDescriptor()
-        pipelineDescriptor.colorAttachments[0].pixelFormat = .BGRA8Unorm
+        pipelineDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
         pipelineDescriptor.vertexFunction = vertexFunction
         pipelineDescriptor.fragmentFunction = fragmentFunction
         
         do {
-            pipeline = try device.newRenderPipelineStateWithDescriptor(pipelineDescriptor)
+            pipeline = try device.newRenderPipelineState(with: pipelineDescriptor)
         } catch {
             print("Failed to create pipeline")
         }
@@ -189,7 +189,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
         let scale = window!.screen.nativeScale
         contentScaleFactor = scale
         metalLayer.frame = bounds
-        metalLayer.drawableSize = CGSizeMake(bounds.size.width * scale, bounds.size.height * scale)
+        metalLayer.drawableSize = CGSize(width: bounds.size.width * scale, height: bounds.size.height * scale)
     }
     
     
@@ -203,6 +203,14 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
                                      float2(1.0, 0.0),
                                      float2(0.0, 1.0),
                                      float2(1.0, 1.0) ]
+    
+    var kQuadVertices: [float4] = [ float4(-1.0,  1.0, 0.0, 1.0),
+                                    float4( 1.0,  1.0, 0.0, 1.0),
+                                    float4(-1.0, -1.0, 0.0, 1.0),
+                                    
+                                    float4( 1.0,  1.0, 0.0, 1.0),
+                                    float4(-1.0, -1.0, 0.0, 1.0),
+                                    float4( 1.0, -1.0, 0.0, 1.0) ]
     
     private var needsUpdateBuffers = true
     func setupBuffers() {
@@ -225,17 +233,17 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
             }
         }
 
-        let kQuadVertices: [float4] = [ float4(-1.0 + x,  1.0 - y, 0.0, 1.0),
-                                        float4( 1.0 - x,  1.0 - y, 0.0, 1.0),
-                                        float4(-1.0 + x, -1.0 + y, 0.0, 1.0),
-            
-                                        float4( 1.0 - x,  1.0 - y, 0.0, 1.0),
-                                        float4(-1.0 + x, -1.0 + y, 0.0, 1.0),
-                                        float4( 1.0 - x, -1.0 + y, 0.0, 1.0) ]
+        kQuadVertices = [ float4(-1.0 + x,  1.0 - y, 0.0, 1.0),
+                          float4( 1.0 - x,  1.0 - y, 0.0, 1.0),
+                          float4(-1.0 + x, -1.0 + y, 0.0, 1.0),
         
-        vertexBuffer = device.newBufferWithBytes(kQuadVertices , length: kSzQuadVertices , options: .CPUCacheModeDefaultCache)
+                          float4( 1.0 - x,  1.0 - y, 0.0, 1.0),
+                          float4(-1.0 + x, -1.0 + y, 0.0, 1.0),
+                          float4( 1.0 - x, -1.0 + y, 0.0, 1.0) ]
+        
+        vertexBuffer = device.newBuffer(withBytes: kQuadVertices , length: kSzQuadVertices , options: MTLResourceOptions())
         if texCoordBuffer == nil {
-            texCoordBuffer = device.newBufferWithBytes(kQuadTexCoords, length: kSzQuadTexCoords, options: .CPUCacheModeDefaultCache)
+            texCoordBuffer = device.newBuffer(withBytes: kQuadTexCoords, length: kSzQuadTexCoords, options: MTLResourceOptions())
         }
     }
     
@@ -251,15 +259,14 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     func redraw() {
         
         guard let tex = input?.texture else { return }
-//        if input?.texture == nil { return }
         
-        dispatch_semaphore_wait(self.renderSemaphore, DISPATCH_TIME_FOREVER)
+//        dispatch_semaphore_wait(self.renderSemaphore, DISPATCH_TIME_FOREVER)
 //        runAsynchronously {
         
             autoreleasepool {
                     
                 guard let drawable = self.drawable else {
-                    dispatch_semaphore_signal(self.renderSemaphore)
+                    self.renderSemaphore.signal()
                     return
                 }
                 
@@ -281,28 +288,27 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
                 let commandBuffer = self.commandQueue.commandBuffer()
                 commandBuffer.label = "MTLView Buffer"
                 
-                let commandEncoder = commandBuffer.renderCommandEncoderWithDescriptor(self.renderPassDescriptor)
+                let commandEncoder = commandBuffer.renderCommandEncoder(with: self.renderPassDescriptor)
                 commandEncoder.pushDebugGroup("Render Texture")
                 commandEncoder.setRenderPipelineState(self.pipeline)
-                commandEncoder.setVertexBuffer(self.vertexBuffer  , offset: 0, atIndex: 0)
-                commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, atIndex: 1)
-                commandEncoder.setFragmentTexture(tex, atIndex: 0)
+                commandEncoder.setVertexBuffer(self.vertexBuffer  , offset: 0, at: 0)
+                commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, at: 1)
+                commandEncoder.setFragmentTexture(tex, at: 0)
                 
-                commandEncoder.drawPrimitives(.Triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
+                commandEncoder.drawPrimitives(.triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
                 
                 commandEncoder.endEncoding()
                 commandEncoder.popDebugGroup()
                 
                 commandBuffer.addCompletedHandler({ (commandBuffer) in
-                    dispatch_semaphore_signal(self.renderSemaphore)
+//                    dispatch_semaphore_signal(self.renderSemaphore)
                     self.currentDrawable = nil
                 })
                 
-                commandBuffer.presentDrawable(drawable)
+                commandBuffer.present(drawable)
                 
                 commandBuffer.commit()
-//                commandBuffer.waitUntilCompleted()
-                
+                commandBuffer.waitUntilCompleted()
 //            }
         }
     }
@@ -310,31 +316,31 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     
     //    MARK: - UIScrollView Delegate
     
-    public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return contentView
     }
     
-    public func scrollViewDidZoom(scrollView: UIScrollView) {
+    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
     
         guard let tex = self.input?.texture else { return }
         
         let imageSize = CGSize(width: tex.width, height: tex.height)
         let imageFrame = Tools.imageFrame(imageSize, rect: self.contentView.frame)
         
-        var y = imageFrame.origin.y - (CGRectGetHeight(frame)/2 - CGRectGetHeight(imageFrame)/2)
-        var x = imageFrame.origin.x - (CGRectGetWidth (frame)/2 - CGRectGetWidth (imageFrame)/2)
+        var y = imageFrame.origin.y - (frame.height/2 - imageFrame.height/2)
+        var x = imageFrame.origin.x - (frame.width/2 - imageFrame.width/2)
         y = min(imageFrame.origin.y, y)
         x = min(imageFrame.origin.x, x)
         
         scrollView.contentInset = UIEdgeInsetsMake(-y, -x, -y, -x);
     }
 
-    public func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+    public func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         
         guard let viewSize = view?.frame.size else { return }
         
 //        let maxSize = FiltersManager.sharedManager.maxProcessingSize
-        let minSize = bounds.size * UIScreen.mainScreen().scale
+        let minSize = bounds.size * UIScreen.main().scale
         let ratio = viewSize.width / viewSize.height
         
 //        if (viewSize.width > maxSize.width || viewSize.height > maxSize.height) {
@@ -348,12 +354,12 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
         }
     }
     
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.zooming { return }
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.isZooming { return }
 //        cropFilter.cropRegion = currentCropRegion(scrollView)
     }
     
-    func currentCropRegion(scrollView: UIScrollView) -> CGRect {
+    func currentCropRegion(_ scrollView: UIScrollView) -> CGRect {
         
         var x = scrollView.contentOffset.x / scrollView.contentSize.width
         var y = scrollView.contentOffset.y / scrollView.contentSize.height
@@ -371,14 +377,14 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     
     //    MARK: - Queues
     
-    func runSynchronously(block: (()->())) {
-        dispatch_sync(context.processingQueue) {
+    func runSynchronously(_ block: (()->())) {
+        context.processingQueue.sync {
             block()
         }
     }
     
-    func runAsynchronously(block: (()->())) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+    func runAsynchronously(_ block: (()->())) {
+        DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosUserInitiated).async {
             block()
         }
 //        dispatch_async(context.processingQueue) {
@@ -410,9 +416,9 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
 //            cropFilter.input = newValue
             
             if privateInput == nil {
-                displayLink.paused = true
+                displayLink.isPaused = true
             } else {
-                displayLink.paused = false
+                displayLink.isPaused = false
                 needsUpdateBuffers = true
             }
         }
@@ -439,12 +445,12 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     
     private var updateMetalLayer = true
     
-    private var renderSemaphore: dispatch_semaphore_t = dispatch_semaphore_create(3)
+    private var renderSemaphore: DispatchSemaphore = DispatchSemaphore(value: 3)
     lazy var renderPassDescriptor: MTLRenderPassDescriptor = {
         let rpd = MTLRenderPassDescriptor()
         rpd.colorAttachments[0].clearColor = self.mtlClearColor
-        rpd.colorAttachments[0].storeAction = .Store
-        rpd.colorAttachments[0].loadAction = .Clear
+        rpd.colorAttachments[0].storeAction = .store
+        rpd.colorAttachments[0].loadAction = .clear
         return rpd
     }()
 }

@@ -50,7 +50,7 @@ class MTLDistortionFilter: MTLFilter {
         if self.input == nil { return }
         uniforms.centerX = x
         uniforms.centerY = y
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(DistortionUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(DistortionUniforms), options: .cpuCacheModeWriteCombined)
     }
     
 }

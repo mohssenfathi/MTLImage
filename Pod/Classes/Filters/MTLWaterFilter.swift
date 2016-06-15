@@ -89,7 +89,7 @@ class MTLWaterFilter: MTLFilter {
         uniforms.intence = intence * 500.0 + 400.0
         uniforms.time += 1.0/60.0
         
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(WaterUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(WaterUniforms), options: .cpuCacheModeWriteCombined)
     }
 
 }

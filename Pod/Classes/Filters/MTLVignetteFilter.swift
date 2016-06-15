@@ -26,14 +26,14 @@ class MTLVignetteFilter: MTLFilter {
     var uniforms = VignetteUniforms()
     private var viewSize: CGSize?
     
-    public var center: CGPoint = CGPointMake(0.5, 0.5) {
+    public var center: CGPoint = CGPoint(x: 0.5, y: 0.5) {
         didSet {
             needsUpdate = true
             update()
         }
     }
     
-    public var color: UIColor = UIColor.blackColor() {
+    public var color: UIColor = UIColor.black() {
         didSet {
             needsUpdate = true
             update()
@@ -59,7 +59,7 @@ class MTLVignetteFilter: MTLFilter {
     public override func reset() {
         viewSize = nil
         center = CGPoint(x: 0.5, y: 0.5)
-        color = UIColor.blackColor()
+        color = UIColor.black()
         start = 0.25
         end = 0.7
     }
@@ -67,8 +67,8 @@ class MTLVignetteFilter: MTLFilter {
     public init() {
         super.init(functionName: "vignette")
         title = "Vignette"
-        properties = [MTLProperty(key: "center", title: "Center", propertyType: .Point),
-                      MTLProperty(key: "color" , title: "Color" , propertyType: .Color),
+        properties = [MTLProperty(key: "center", title: "Center", propertyType: .point),
+                      MTLProperty(key: "color" , title: "Color" , propertyType: .color),
                       MTLProperty(key: "start" , title: "Start" ),
                       MTLProperty(key: "end"   , title: "End"   )]
         update()
@@ -87,15 +87,15 @@ class MTLVignetteFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         
-        let components = CGColorGetComponents(color.CGColor)
-        if color == UIColor.whiteColor() || color == UIColor.blackColor() {
-            uniforms.r = Float(components[0])
-            uniforms.g = Float(components[0])
-            uniforms.b = Float(components[0])
+        let components = color.cgColor.components
+        if color == UIColor.white() || color == UIColor.black() {
+            uniforms.r = Float((components?[0])!)
+            uniforms.g = Float((components?[0])!)
+            uniforms.b = Float((components?[0])!)
         } else {
-            uniforms.r = Float(components[0])
-            uniforms.g = Float(components[1])
-            uniforms.b = Float(components[2])
+            uniforms.r = Float((components?[0])!)
+            uniforms.g = Float((components?[1])!)
+            uniforms.b = Float((components?[2])!)
         }
         
         if viewSize != nil {
@@ -112,6 +112,6 @@ class MTLVignetteFilter: MTLFilter {
         uniforms.start = start
         uniforms.end   = end
         
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(VignetteUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(VignetteUniforms), options: .cpuCacheModeWriteCombined)
     }
 }

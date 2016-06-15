@@ -63,7 +63,7 @@ class MTLHSVFilter: MTLFilter {
         uniforms.saturation = saturation
         uniforms.vibrancy = vibrancy
         
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(HSVUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(HSVUniforms), options: .cpuCacheModeWriteCombined)
     }
     
 }

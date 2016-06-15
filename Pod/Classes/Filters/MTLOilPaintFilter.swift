@@ -39,7 +39,7 @@ class MTLOilPaintFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(OilPaintUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(OilPaintUniforms), options: .cpuCacheModeWriteCombined)
     }
     
 }

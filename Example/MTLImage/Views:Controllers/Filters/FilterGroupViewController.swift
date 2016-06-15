@@ -25,33 +25,33 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         setupView()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
         tableView.setEditing(true, animated: false)
     }
 
-    func actionButtonPressed(button: UIBarButtonItem) {
+    func actionButtonPressed(_ button: UIBarButtonItem) {
         
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let exportAction = UIAlertAction(title: "Export", style: .Default) { (action) in
-            self.dismissViewControllerAnimated(true, completion:nil)
+        let exportAction = UIAlertAction(title: "Export", style: .default) { (action) in
+            self.dismiss(animated: true, completion:nil)
             self.export()
         }
         
-        let uploadAction = UIAlertAction(title: "Upload", style: .Default) { (action) in
-            self.dismissViewControllerAnimated(true, completion:nil)
+        let uploadAction = UIAlertAction(title: "Upload", style: .default) { (action) in
+            self.dismiss(animated: true, completion:nil)
             self.upload()
         }
         
-        let saveAction = UIAlertAction(title: "Save", style: .Default) { (action) in
-            self.dismissViewControllerAnimated(true, completion:nil)
+        let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
+            self.dismiss(animated: true, completion:nil)
             self.save()
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action) in
-            self.dismissViewControllerAnimated(true, completion: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
+            self.dismiss(animated: true, completion: nil)
         }
         
         alert.addAction(saveAction)
@@ -59,7 +59,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         alert.addAction(exportAction)
         alert.addAction(cancelAction)
         
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     func upload() {
@@ -74,10 +74,10 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
                     return
                 }
                 
-                let alertView = UIAlertController(title: nil, message: "Uploaded", preferredStyle: .Alert)
-                self.presentViewController(alertView, animated: true, completion: {
+                let alertView = UIAlertController(title: nil, message: "Uploaded", preferredStyle: .alert)
+                self.present(alertView, animated: true, completion: {
                     sleep(UInt32(1.0))
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 })
             })
         }
@@ -95,10 +95,10 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         let saveBlock = {
             MTLImage.save(self.filterGroup, completion: { (success) in
                 let message = success ? "Saved" : "Couldn't Save"
-                let alertView = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
-                self.presentViewController(alertView, animated: true, completion: {
+                let alertView = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                self.present(alertView, animated: true, completion: {
                     sleep(UInt32(1.0))
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 })
             })
         }
@@ -121,7 +121,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
             composeViewController.setSubject("MTLImage Export Document - " + self.filterGroup.title)
             composeViewController.mailComposeDelegate = self
             composeViewController.addAttachmentData(data!, mimeType: "application/octet-stream", fileName: self.filterGroup.title)
-            self.presentViewController(composeViewController, animated: true, completion: nil)
+            self.present(composeViewController, animated: true, completion: nil)
         }
         
         if isNewFilter {
@@ -134,45 +134,45 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        controller.dismissViewControllerAnimated(true) {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: NSError?) {
+        controller.dismiss(animated: true) {
             
-            if result == MFMailComposeResultCancelled { return }
+            if result == MFMailComposeResult.cancelled { return }
             
-            let message = (result == MFMailComposeResultFailed) ? "Failed to send" : "Sent"
-            let alertView = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
+            let message = (result == MFMailComposeResult.failed) ? "Failed to send" : "Sent"
+            let alertView = UIAlertController(title: nil, message: message, preferredStyle: .alert)
             
-            self.presentViewController(alertView, animated: true, completion: {
+            self.present(alertView, animated: true, completion: {
                 sleep(UInt32(1.0))
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             })
         }
     }
     
-    func handleTouchAtLocation(location: CGPoint) {
+    func handleTouchAtLocation(_ location: CGPoint) {
         settingsViewController?.handleTouchAtLocation(location)
     }
     
-    func showRenameAlert(completion: (() -> ())?) {
-        let alert = UIAlertController(title: "Name this filter group", message: nil, preferredStyle: .Alert)
+    func showRenameAlert(_ completion: (() -> ())?) {
+        let alert = UIAlertController(title: "Name this filter group", message: nil, preferredStyle: .alert)
         
-        alert.addTextFieldWithConfigurationHandler { (textField) in
+        alert.addTextField(configurationHandler: { (textField) in
             textField.placeholder = self.filterGroup.title
-        }
+        })
         
-        let doneAction = UIAlertAction(title: "Done", style: .Default) { (action) in
+        let doneAction = UIAlertAction(title: "Done", style: .default) { (action) in
             let textField = alert.textFields?.first!
             if textField!.text == nil || textField!.text == "" { return }
             self.filterGroup.title = textField!.text!
             self.navigationItem.title = textField?.text
             self.isNewFilter = false
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
             completion?()
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action) in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
             MTLImage.save(self.filterGroup, completion: { (success) in
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
                 completion?()
             })
         }
@@ -180,27 +180,27 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         alert.addAction(cancelAction)
         alert.addAction(doneAction)
         
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
-    func showUploadAlert(completion: ((name: String, category: String) -> ())?) {
-        let alert = UIAlertController(title: "Name this filter group", message: nil, preferredStyle: .Alert)
+    func showUploadAlert(_ completion: ((name: String, category: String) -> ())?) {
+        let alert = UIAlertController(title: "Name this filter group", message: nil, preferredStyle: .alert)
         
-        alert.addTextFieldWithConfigurationHandler { (textField) in
+        alert.addTextField { (textField) in
             textField.placeholder = self.filterGroup.title
             if self.filterGroup.title != "" {
                 textField.text = self.filterGroup.title
             }
         }
         
-        alert.addTextFieldWithConfigurationHandler { (textField) in
+        alert.addTextField { (textField) in
             textField.placeholder = "Category"
             if self.filterGroup.title != "" {
                 textField.text = self.filterGroup.category
             }
         }
         
-        let doneAction = UIAlertAction(title: "Done", style: .Default) { (action) in
+        let doneAction = UIAlertAction(title: "Done", style: .default) { (action) in
             let nameTextField = alert.textFields?.first!
             if nameTextField!.text == nil || nameTextField!.text == "" { return }
             
@@ -211,14 +211,14 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
             self.navigationItem.title = nameTextField?.text
             self.isNewFilter = false
             
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
             
             completion?(name: self.filterGroup.title, category: (categoryTextField?.text)!)
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action) in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
             MTLImage.save(self.filterGroup, completion: { (success) in
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
                 completion?(name: "", category: "")
             })
         }
@@ -226,13 +226,13 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         alert.addAction(cancelAction)
         alert.addAction(doneAction)
         
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     func setupView() {
-        actionButton = UIBarButtonItem(title: "•••", style: .Done, target: self, action: #selector(FilterGroupViewController.actionButtonPressed(_:)))
+        actionButton = UIBarButtonItem(title: "•••", style: .done, target: self, action: #selector(FilterGroupViewController.actionButtonPressed(_:)))
         navigationItem.rightBarButtonItem = actionButton
-        actionButton.enabled = filterGroup.filters.count > 0
+        actionButton.isEnabled = filterGroup.filters.count > 0
     
         navigationItem.title = filterGroup.title
     }
@@ -240,26 +240,26 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     //    MARK: - UITableView
     //    MARK: DataSource
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == filterGroup.filters.count { return 80.0 }
         return 70.0
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filterGroup.filters.count + 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
         if indexPath.row == filterGroup.filters.count {
-            return tableView.dequeueReusableCellWithIdentifier("addCell", forIndexPath: indexPath)
+            return tableView.dequeueReusableCell(withIdentifier: "addCell", for: indexPath)
         }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = filterGroup.filters[indexPath.row].title
         return cell
     }
@@ -267,41 +267,41 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     
     //    MARK: Delegate
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let cell = tableView.cellForRow(at: indexPath)
         
-        actionButton.enabled = true
+        actionButton.isEnabled = true
         
         if cell?.reuseIdentifier == "addCell" {
-            performSegueWithIdentifier("addFilter", sender: self)
+            performSegue(withIdentifier: "addFilter", sender: self)
         }
         else {
             selectedFilter = filterGroup.filters[indexPath.row]
             if selectedFilter is MTLFilter {
-                performSegueWithIdentifier("settings", sender: self)
+                performSegue(withIdentifier: "settings", sender: self)
             }
             else if selectedFilter is MTLFilterGroup {
-                performSegueWithIdentifier("filterGroup", sender: self)
+                performSegue(withIdentifier: "filterGroup", sender: self)
             }
         }
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if indexPath.row == filterGroup.filters.count { return false }
         return true
     }
 
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        if indexPath.row == filterGroup.filters.count { return .None }
-        return .Delete
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if indexPath.row == filterGroup.filters.count { return .none }
+        return .delete
     }
     
 //    MARK: - AddFilterViewController Delegate
     
     var histogramView: UIView?
 
-    func addFilterViewControllerDidSelectFilter(sender: AddFilterViewController, filter: MTLObject) {
+    func addFilterViewControllerDidSelectFilter(_ sender: AddFilterViewController, filter: MTLObject) {
     
 //        Temp test for histogram
         if histogramView == nil {
@@ -309,8 +309,8 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
                 let histogram = filter as! MTLHistogramFilter
                 if histogram.histogramView != nil {
                     histogramView = histogram.histogramView
-                    let window = UIApplication.sharedApplication().keyWindow!
-                    histogramView!.center = CGPointMake(view.frame.size.width/2, 200)
+                    let window = UIApplication.shared().keyWindow!
+                    histogramView!.center = CGPoint(x: view.frame.size.width/2, y: 200)
                     window.addSubview(histogramView!)
                 }
             }
@@ -318,34 +318,34 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         
         filterGroup += filter
         
-        actionButton.enabled = true
+        actionButton.isEnabled = true
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             filterGroup.remove(filterGroup.filters[indexPath.row])
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            actionButton.enabled = filterGroup.filters.count > 0
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            actionButton.isEnabled = filterGroup.filters.count > 0
         }
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         if indexPath.row == filterGroup.filters.count { return nil }
         
-        let action = UITableViewRowAction(style: .Default, title: "Delete", handler: { (action, indexPath) in
+        let action = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
             self.filterGroup.remove(self.filterGroup.filters[indexPath.row])
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         })
         
         return [action]
     }
     
-    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         filterGroup.move(sourceIndexPath.row, toIndex: destinationIndexPath.row)
     }
     
-    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         if indexPath.row == filterGroup.filters.count { return false }
         return true
     }
@@ -357,7 +357,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
 
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "settings" {
             settingsViewController = segue.destinationViewController as? SettingsViewController
             settingsViewController?.filter = selectedFilter as! MTLFilter

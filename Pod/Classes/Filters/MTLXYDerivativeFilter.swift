@@ -39,7 +39,7 @@ class MTLXYDerivativeFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.edgeStrength = edgeStrength * 3.0 + 0.2
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(XYDerivativeUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(XYDerivativeUniforms), options: .cpuCacheModeWriteCombined)
     }
     
 }

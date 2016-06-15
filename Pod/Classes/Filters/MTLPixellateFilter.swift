@@ -48,7 +48,7 @@ class MTLPixellateFilter: MTLFilter {
 //        }
         
         uniforms.dotRadius = Tools.convert(dotRadius, oldMin: 0, oldMax: 1, newMin: 0.01, newMax: 3)
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(PixellateUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(PixellateUniforms), options: .cpuCacheModeWriteCombined)
     }
     
     override public var input: MTLInput? {

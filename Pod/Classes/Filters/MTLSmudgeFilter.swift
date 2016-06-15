@@ -38,14 +38,14 @@ class MTLSmudgeFilter: MTLFilter {
         }
     }
     
-    public var location: CGPoint = CGPointZero {
+    public var location: CGPoint = CGPoint.zero {
         didSet {
             needsUpdate = true
             update()
         }
     }
     
-    public var direction: CGPoint = CGPointZero {
+    public var direction: CGPoint = CGPoint.zero {
         didSet {
 //            direction.x = direction.x < 0 ? -1 : 1
 //            direction.y = direction.y < 0 ? -1 : 1
@@ -61,8 +61,8 @@ class MTLSmudgeFilter: MTLFilter {
         title = "Smudge"
         properties = [MTLProperty(key: "radius", title: "Radius"),
                       MTLProperty(key: "force" , title: "Force"),
-                      MTLProperty(key: "location" , title: "Location" , propertyType: .Point),
-                      MTLProperty(key: "direction", title: "Direction", propertyType: .Point)]
+                      MTLProperty(key: "location" , title: "Location" , propertyType: .point),
+                      MTLProperty(key: "direction", title: "Direction", propertyType: .point)]
         update()
     }
     
@@ -87,7 +87,7 @@ class MTLSmudgeFilter: MTLFilter {
         uniforms.dx = Float(direction.x)
         uniforms.dy = Float(direction.y)
         
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(SmudgeUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(SmudgeUniforms), options: .cpuCacheModeWriteCombined)
     }
     
     

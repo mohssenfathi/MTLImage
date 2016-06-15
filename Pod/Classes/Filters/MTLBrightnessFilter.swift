@@ -39,7 +39,7 @@ class MTLBrightnessFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.brightness = brightness * 2.0 - 1.0
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(BrightnessUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(BrightnessUniforms), options: .cpuCacheModeWriteCombined)
     }
 
 }

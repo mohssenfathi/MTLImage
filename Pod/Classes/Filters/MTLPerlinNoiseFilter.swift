@@ -39,7 +39,7 @@ class MTLPerlinNoiseFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.scale = scale * 20
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(PerlinNoiseUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(PerlinNoiseUniforms), options: .cpuCacheModeWriteCombined)
     }
     
 }

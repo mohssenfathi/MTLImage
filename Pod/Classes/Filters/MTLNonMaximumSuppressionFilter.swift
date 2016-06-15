@@ -56,7 +56,7 @@ class MTLNonMaximumSuppressionFilter: MTLFilter {
         uniforms.texelWidth = 1.0;
         uniforms.texelHeight = 1.0;
         
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(NonMaximumSuppressionUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(NonMaximumSuppressionUniforms), options: .cpuCacheModeWriteCombined)
     }
     
 }
@@ -95,7 +95,7 @@ class MTLNonMaximumSuppressionThreshodFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.threshold = threshold/5.0 + 0.01
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(NonMaximumSuppressionThreshodUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(NonMaximumSuppressionThreshodUniforms), options: .cpuCacheModeWriteCombined)
     }
     
 }

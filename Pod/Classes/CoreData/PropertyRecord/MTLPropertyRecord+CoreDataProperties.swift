@@ -30,5 +30,5 @@ extension MTLPropertyRecord {
     @NSManaged var rect: NSValue?
     @NSManaged var color: UIColor?
     @NSManaged var selectionItems: [Int: String]?
-    @NSManaged var image: NSData?
+    @NSManaged var image: Data?
 }

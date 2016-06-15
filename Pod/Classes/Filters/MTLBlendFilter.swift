@@ -43,7 +43,7 @@ class MTLBlendFilter: MTLFilter {
         }
     }
     
-    public var contentMode: UIViewContentMode = .ScaleToFill {
+    public var contentMode: UIViewContentMode = .scaleToFill {
         didSet {
             needsUpdate = true
             update()
@@ -62,13 +62,13 @@ class MTLBlendFilter: MTLFilter {
                 blendOriginal = false
                 
                 switch contentMode {
-                case .ScaleAspectFit:
+                case .scaleAspectFit:
                     blendImage = originalBlendImage?.scaleToFit(originalImage!.size)
                     break
-                case .ScaleAspectFill:
+                case .scaleAspectFill:
                     blendImage = originalBlendImage?.scaleToFill(originalImage!.size)
                     break
-                case .Center:
+                case .center:
                     blendImage = originalBlendImage?.center(originalImage!.size)
                 default:
                     break
@@ -86,7 +86,7 @@ class MTLBlendFilter: MTLFilter {
         title = "Blend"
         uniforms.mix = 1.0 - mix
         
-        let blendModeProperty = MTLProperty(key: "blendMode", title: "Blend Mode", propertyType: .Selection)
+        let blendModeProperty = MTLProperty(key: "blendMode", title: "Blend Mode", propertyType: .selection)
         blendModeProperty.selectionItems = [0  : "Normal",
                                             1  : "Overlay",
                                             2  : "Lighten",
@@ -101,13 +101,13 @@ class MTLBlendFilter: MTLFilter {
                                             11 : "Screen",
                                             12 : "Difference" ]
         
-        let contentModeProperty = MTLProperty(key: "contentMode", title: "Content Mode", propertyType: .Selection)
+        let contentModeProperty = MTLProperty(key: "contentMode", title: "Content Mode", propertyType: .selection)
         contentModeProperty.selectionItems = [0 : "Scale To Fill",
                                               1 : "Scale Aspect Fit",
                                               2 : "Scale Aspect Fill",
                                               3 : "Center"]
         
-        properties = [MTLProperty(key: "blendImage", title: "Blend Image", propertyType: .Image),
+        properties = [MTLProperty(key: "blendImage", title: "Blend Image", propertyType: .image),
                       MTLProperty(key: "mix", title: "Mix"),
                       blendModeProperty, contentModeProperty]
         update()
@@ -121,14 +121,14 @@ class MTLBlendFilter: MTLFilter {
         if self.input == nil { return }
         uniforms.mix = mix
         uniforms.blendMode = Float(blendMode)
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(BlendUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(BlendUniforms), options: .cpuCacheModeWriteCombined)
     }
  
-    override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
+    override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         if blendTexture == nil {
             createBlendTexture()
         }
-        commandEncoder.setTexture(blendTexture, atIndex: 2)
+        commandEncoder.setTexture(blendTexture, at: 2)
     }
     
     func createBlendTexture() {

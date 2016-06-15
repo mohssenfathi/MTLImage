@@ -34,15 +34,15 @@ class MTLConvolutionFilter: MTLFilter {
         super.init(coder: aDecoder)
     }
     
-    override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
+    override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         if convolutionMatrixTexture == nil {
-            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(.R32Float, width: 3, height: 3, mipmapped: false)
-            convolutionMatrixTexture = device.newTextureWithDescriptor(textureDescriptor)
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: .r32Float, width: 3, height: 3, mipmapped: false)
+            convolutionMatrixTexture = device.newTexture(with: textureDescriptor)
             
             let f = Array(convolutionMatrix.flatten())
-            convolutionMatrixTexture!.replaceRegion(MTLRegionMake2D(0, 0, 3, 3), mipmapLevel: 0, withBytes: f, bytesPerRow: sizeof(Float) * 3)
+            convolutionMatrixTexture!.replace(MTLRegionMake2D(0, 0, 3, 3), mipmapLevel: 0, withBytes: f, bytesPerRow: sizeof(Float) * 3)
         }
-        commandEncoder.setTexture(convolutionMatrixTexture, atIndex: 2)
+        commandEncoder.setTexture(convolutionMatrixTexture, at: 2)
     }
     
 }

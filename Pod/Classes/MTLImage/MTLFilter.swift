@@ -40,7 +40,7 @@ class MTLFilter: MTLObject, NSCoding {
         set { internalTitle = newValue }
     }
     
-    private var privateIdentifier: String = NSUUID().UUIDString
+    private var privateIdentifier: String = UUID().uuidString
     public override var identifier: String! {
         get { return privateIdentifier     }
         set { privateIdentifier = newValue }
@@ -115,21 +115,21 @@ class MTLFilter: MTLObject, NSCoding {
     
     public func reset() {
         for property in properties {
-            if property.propertyType == MTLPropertyType.Value {
+            if property.propertyType == MTLPropertyType.value {
                 self.setValue(0.5, forKey: property.key)
             }
         }
     }
     
     func setupPipeline() {
-        kernelFunction = context.library?.newFunctionWithName(functionName)
+        kernelFunction = context.library?.newFunction(withName: functionName)
         if kernelFunction == nil {
             print("Failed to load kernel function")
             return
         }
         
         do {
-            pipeline = try context.device.newComputePipelineStateWithFunction(kernelFunction)
+            pipeline = try context.device.newComputePipelineState(with: kernelFunction)
         } catch {
             print("Failed to create pipeline")
         }
@@ -144,9 +144,9 @@ class MTLFilter: MTLObject, NSCoding {
         
         autoreleasepool {
             if internalTexture == nil || internalTexture!.width != inputTexture.width || internalTexture!.height != inputTexture.height {
-                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(inputTexture.pixelFormat, width:inputTexture.width,
+                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: inputTexture.pixelFormat, width:inputTexture.width,
                     height: inputTexture.height, mipmapped: false)
-                internalTexture = context.device?.newTextureWithDescriptor(textureDescriptor)
+                internalTexture = context.device?.newTexture(with: textureDescriptor)
             }
             
 //            if gcd == 0 {
@@ -162,9 +162,9 @@ class MTLFilter: MTLObject, NSCoding {
             
             let commandEncoder = commandBuffer.computeCommandEncoder()
             commandEncoder.setComputePipelineState(pipeline)
-            commandEncoder.setBuffer(uniformsBuffer, offset: 0, atIndex: 0)
-            commandEncoder.setTexture(inputTexture, atIndex: 0)
-            commandEncoder.setTexture(internalTexture, atIndex: 1)
+            commandEncoder.setBuffer(uniformsBuffer, offset: 0, at: 0)
+            commandEncoder.setTexture(inputTexture, at: 0)
+            commandEncoder.setTexture(internalTexture, at: 1)
             self.configureCommandEncoder(commandEncoder)
             commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
             commandEncoder.endEncoding()
@@ -179,7 +179,7 @@ class MTLFilter: MTLObject, NSCoding {
         }
     }
     
-    func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
+    func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         
     }
     
@@ -221,7 +221,7 @@ class MTLFilter: MTLObject, NSCoding {
         }
     }
     
-    public override func addTarget(target: MTLOutput) {
+    public override func addTarget(_ target: MTLOutput) {
         var t = target
         internalTargets.append(t)
         t.input = self
@@ -230,7 +230,7 @@ class MTLFilter: MTLObject, NSCoding {
         }
     }
     
-    public override func removeTarget(target: MTLOutput) {
+    public override func removeTarget(_ target: MTLOutput) {
         var t = target
         
         t.input = nil
@@ -249,7 +249,7 @@ class MTLFilter: MTLObject, NSCoding {
             }
         }
         
-        internalTargets.removeAtIndex(index)
+        internalTargets.remove(at: index)
         internalTexture = nil
     }
     
@@ -277,7 +277,7 @@ class MTLFilter: MTLObject, NSCoding {
         }
     }
     
-    public func filter(image: UIImage) -> UIImage? {
+    public func filter(_ image: UIImage) -> UIImage? {
         let sourcePicture = MTLPicture(image: image)
         let filterCopy = self.copy() as! MTLFilter
         sourcePicture > filterCopy
@@ -309,13 +309,13 @@ class MTLFilter: MTLObject, NSCoding {
     func updatePropertyValues() {
         propertyValues.removeAll()
         for property in properties {
-            propertyValues[property.key] = valueForKey(property.key)
+            propertyValues[property.key] = value(forKey: property.key)
         }
     }
     
     public override func copy() -> AnyObject {
         
-        let filter = try! MTLImage.filter(title.lowercaseString) as! MTLFilter
+        let filter = try! MTLImage.filter(title.lowercased()) as! MTLFilter
 
         filter.functionName = functionName
         filter.title = title
@@ -338,27 +338,27 @@ class MTLFilter: MTLObject, NSCoding {
     
 //    MARK: - NSCoding
 
-    public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(title, forKey: "title")
-        aCoder.encodeObject(functionName, forKey: "functionName")
-        aCoder.encodeObject(identifier, forKey: "identifier")
-        aCoder.encodeInteger(index, forKey: "index")
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(title, forKey: "title")
+        aCoder.encode(functionName, forKey: "functionName")
+        aCoder.encode(identifier, forKey: "identifier")
+        aCoder.encode(index, forKey: "index")
         updatePropertyValues()
-        aCoder.encodeObject(propertyValues, forKey: "propertyValues")
-        aCoder.encodeObject(properties, forKey: "properties")
+        aCoder.encode(propertyValues, forKey: "propertyValues")
+        aCoder.encode(properties, forKey: "properties")
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init()
         
-        functionName = aDecoder.decodeObjectForKey("functionName") as! String
-        identifier   = aDecoder.decodeObjectForKey("identifier") as! String
-        properties   = aDecoder.decodeObjectForKey("properties") as! [MTLProperty]
-        propertyValues = aDecoder.decodeObjectForKey("propertyValues") as! [String : AnyObject]
+        functionName = aDecoder.decodeObject(forKey: "functionName") as! String
+        identifier   = aDecoder.decodeObject(forKey: "identifier") as! String
+        properties   = aDecoder.decodeObject(forKey: "properties") as! [MTLProperty]
+        propertyValues = aDecoder.decodeObject(forKey: "propertyValues") as! [String : AnyObject]
         for property in properties {
             setValue(propertyValues[property.key], forKey: property.key)
         }
-        title = aDecoder.decodeObjectForKey("title") as! String
-        index = aDecoder.decodeIntegerForKey("index")
+        title = aDecoder.decodeObject(forKey: "title") as! String
+        index = aDecoder.decodeInteger(forKey: "index")
     }
 }

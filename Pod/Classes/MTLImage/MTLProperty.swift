@@ -10,13 +10,13 @@ import UIKit
 
 public
 enum MTLPropertyType: Int {
-    case Value = 0,
-    Bool,
-    Point,
-    Rect,
-    Color,
-    Selection,
-    Image
+    case value = 0,
+    bool,
+    point,
+    rect,
+    color,
+    selection,
+    image
 }
 
 public
@@ -34,7 +34,7 @@ class MTLProperty: NSObject, NSCoding {
         super.init()
         self.key = key
         self.title = title
-        self.propertyType = .Value
+        self.propertyType = .value
     }
     
     init(key: String, title: String, propertyType: MTLPropertyType) {
@@ -48,25 +48,25 @@ class MTLProperty: NSObject, NSCoding {
     
     //    MARK: - NSCoding
     
-    public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(title , forKey: "title")
-        aCoder.encodeObject(key, forKey: "key")
-        aCoder.encodeFloat(minimumValue, forKey: "minimumValue")
-        aCoder.encodeFloat(maximumValue, forKey: "maximumValue")
-        aCoder.encodeFloat(defaultValue, forKey: "defaultValue")
-        aCoder.encodeObject(selectionItems, forKey: "selectionItems")
-        aCoder.encodeInteger(propertyType.rawValue, forKey: "propertType")
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(title , forKey: "title")
+        aCoder.encode(key, forKey: "key")
+        aCoder.encode(minimumValue, forKey: "minimumValue")
+        aCoder.encode(maximumValue, forKey: "maximumValue")
+        aCoder.encode(defaultValue, forKey: "defaultValue")
+        aCoder.encode(selectionItems, forKey: "selectionItems")
+        aCoder.encode(propertyType.rawValue, forKey: "propertType")
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init()
-        key = aDecoder.decodeObjectForKey("key") as! String
-        title = aDecoder.decodeObjectForKey("title") as! String
-        minimumValue = aDecoder.decodeFloatForKey("minimumValue")
-        maximumValue = aDecoder.decodeFloatForKey("maximumValue")
-        defaultValue = aDecoder.decodeFloatForKey("defaultValue")
-        selectionItems = aDecoder.decodeObjectForKey("selectionItems") as? [Int: String]
-        propertyType = MTLPropertyType(rawValue: aDecoder.decodeIntegerForKey("propertyType"))
+        key = aDecoder.decodeObject(forKey: "key") as! String
+        title = aDecoder.decodeObject(forKey: "title") as! String
+        minimumValue = aDecoder.decodeFloat(forKey: "minimumValue")
+        maximumValue = aDecoder.decodeFloat(forKey: "maximumValue")
+        defaultValue = aDecoder.decodeFloat(forKey: "defaultValue")
+        selectionItems = aDecoder.decodeObject(forKey: "selectionItems") as? [Int: String]
+        propertyType = MTLPropertyType(rawValue: aDecoder.decodeInteger(forKey: "propertyType"))
     }
     
 }

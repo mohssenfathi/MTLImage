@@ -56,7 +56,7 @@ class MTLGaussianBlurFilter: MTLFilter {
 //            self.uniforms.sigma = Tools.convert(self.sigma, oldMin: 0, oldMax: 1, newMin: 0.5, newMax: 15)
 //            self.uniforms.blurRadius = 1.0
 //            self.uniforms.sigma = 0.5;
-        self.uniformsBuffer = self.device.newBufferWithBytes(&self.uniforms, length: sizeof(GaussianBlurUniforms), options: .CPUCacheModeDefaultCache)
+        self.uniformsBuffer = self.device.newBuffer(withBytes: &self.uniforms, length: sizeof(GaussianBlurUniforms), options: .cpuCacheModeWriteCombined)
     }
     
 
@@ -64,7 +64,7 @@ class MTLGaussianBlurFilter: MTLFilter {
         let radius: Float = self.uniforms.blurRadius
         let sig: Float = self.uniforms.sigma
         
-        if isnan(radius) || isnan(sig) { return }
+        if radius.isNaN || sig.isNaN { return }
         
         let size = Int(roundf(radius) * 2 + 1)
         
@@ -77,7 +77,7 @@ class MTLGaussianBlurFilter: MTLFilter {
         }
     
 //        var weights = UnsafeMutablePointer<Float>(malloc(sizeof(Float) * size * size))
-        var weights = [Float](count: size * size, repeatedValue: 0)
+        var weights = [Float](repeating: 0, count: size * size)
         
 //        var weights = [[Float]]()
 //        for i in 0 ..< size {
@@ -110,9 +110,9 @@ class MTLGaussianBlurFilter: MTLFilter {
             }
         }
         
-        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptorWithPixelFormat(.R32Float, width: size, height: size, mipmapped: false)
-        self.blurWeightTexture = self.device.newTextureWithDescriptor(textureDescriptor)
-        self.blurWeightTexture.replaceRegion(MTLRegionMake2D(0, 0, size, size), mipmapLevel: 0, withBytes: weights, bytesPerRow: sizeof(Float) * size)
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: .r32Float, width: size, height: size, mipmapped: false)
+        self.blurWeightTexture = self.device.newTexture(with: textureDescriptor)
+        self.blurWeightTexture.replace(MTLRegionMake2D(0, 0, size, size), mipmapLevel: 0, withBytes: weights, bytesPerRow: sizeof(Float) * size)
     }
 
     override public var input: MTLInput? {
@@ -121,12 +121,12 @@ class MTLGaussianBlurFilter: MTLFilter {
         }
     }
     
-    override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
+    override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
         if blurWeightTexture == nil {
             generateBlurRadius()
         }
-        commandEncoder.setTexture(blurWeightTexture, atIndex: 2)
+        commandEncoder.setTexture(blurWeightTexture, at: 2)
     }
     
 }

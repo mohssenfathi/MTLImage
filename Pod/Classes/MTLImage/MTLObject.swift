@@ -31,8 +31,8 @@ class MTLObject: NSObject, MTLInput, MTLOutput {
         set {}
     }
         
-    public func addTarget(target: MTLOutput) {}
-    public func removeTarget(target: MTLOutput) {}
+    public func addTarget(_ target: MTLOutput) {}
+    public func removeTarget(_ target: MTLOutput) {}
     public func removeAllTargets() {}
 
 //    MARK: - MTLOutput
@@ -45,7 +45,7 @@ class MTLObject: NSObject, MTLInput, MTLOutput {
     
     //    MARK: - Tools
     
-    func clamp<T: Comparable>(inout value: T, low: T, high: T) {
+    func clamp<T: Comparable>(_ value: inout T, low: T, high: T) {
         if      value < low  { value = low  }
         else if value > high { value = high }
     }

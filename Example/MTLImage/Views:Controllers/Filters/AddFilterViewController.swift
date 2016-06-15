@@ -10,14 +10,14 @@ import UIKit
 import MTLImage
 
 protocol AddFilterViewControllerDelegate {
-    func addFilterViewControllerDidSelectFilter(sender: AddFilterViewController, filter: MTLObject)
+    func addFilterViewControllerDidSelectFilter(_ sender: AddFilterViewController, filter: MTLObject)
 }
 
 class AddFilterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     var delegate: AddFilterViewControllerDelegate?
-    var filterNames = Array(MTLImage.filters).sort()
+    var filterNames = MTLImage.filters.sorted()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,24 +25,24 @@ class AddFilterViewController: UIViewController, UITableViewDataSource, UITableV
         navigationItem.title = "Add Filter"
     }
 
-    @IBAction func closeButtonPressed(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func closeButtonPressed(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
     
     
     //    MARK: - UITableView
     //    MARK: DataSource
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filterNames.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = filterNames[indexPath.row]
         return cell
     }
@@ -50,11 +50,11 @@ class AddFilterViewController: UIViewController, UITableViewDataSource, UITableV
     
     //    MARK: Delegate
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let title = filterNames[indexPath.row]
         delegate?.addFilterViewControllerDidSelectFilter(self, filter: try! MTLImage.filter(title)!)
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     

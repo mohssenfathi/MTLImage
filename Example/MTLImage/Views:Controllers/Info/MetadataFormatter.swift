@@ -14,7 +14,7 @@ class MetadataFormatter: NSObject {
 
     static let sharedFormatter = MetadataFormatter()
     
-    func formatMetadata(asset: PHAsset, completion: ((metadata: [AnyObject]) -> Void)?) {
+    func formatMetadata(_ asset: PHAsset, completion: ((metadata: [AnyObject]) -> Void)?) {
         
 //        let data = UIImageJPEGRepresentation(image, 1.0)
 //        let source = CGImageSourceCreateWithData(data!, nil)
@@ -22,16 +22,16 @@ class MetadataFormatter: NSObject {
 //        NSDictionary *metadata = [[asset_ defaultRepresentation] metadata];
         
         let editingOptions = PHContentEditingInputRequestOptions()
-        editingOptions.networkAccessAllowed = true
+        editingOptions.isNetworkAccessAllowed = true
         
-        asset.requestContentEditingInputWithOptions(editingOptions) { (contentEditingInput, info) in
-            let ciImage = CIImage(contentsOfURL: (contentEditingInput?.fullSizeImageURL)!)
+        asset.requestContentEditingInput(with: editingOptions) { (contentEditingInput, info) in
+            let ciImage = CIImage(contentsOf: (contentEditingInput?.fullSizeImageURL)!)
             let m = self.parseMetadata((ciImage?.properties)!)
             completion?(metadata: m)
         }
     }
     
-    func parseMetadata(metadata: [String: AnyObject]) -> [AnyObject] {
+    func parseMetadata(_ metadata: [String: AnyObject]) -> [AnyObject] {
         
         var array = [AnyObject]()
         if metadata["PixelHeight"] != nil {
@@ -71,7 +71,7 @@ class MetadataFormatter: NSObject {
         return array;
     }
     
-    func parseExifMetadata(exifMetadata: [String: AnyObject], formattedMetadata: [AnyObject]) {
+    func parseExifMetadata(_ exifMetadata: [String: AnyObject], formattedMetadata: [AnyObject]) {
         
         var fm = formattedMetadata
         
@@ -119,7 +119,7 @@ class MetadataFormatter: NSObject {
         
     }
 
-    func parseTiffMetadata(tiffMetadata: [String: AnyObject], formattedMetadata: [AnyObject]) {
+    func parseTiffMetadata(_ tiffMetadata: [String: AnyObject], formattedMetadata: [AnyObject]) {
         var fm = formattedMetadata
         
         if let model = tiffMetadata["Model"] {
@@ -140,19 +140,19 @@ class MetadataFormatter: NSObject {
 
 //    MARK: - Formatting
 
-    func formatShutterSpeed(duration: Float) -> String {
+    func formatShutterSpeed(_ duration: Float) -> String {
         if duration > 1.0 { return String(format: "0.2f", duration) }
         let denominator = round(1.0/duration)
         return String(format: "1/%ld s", denominator)
     }
 
-    func toBinary(input: Int) -> String {
+    func toBinary(_ input: Int) -> String {
         if input == 1 || input == 0 { return String(format: "%lu", input) }
         return String(format: "%@%lu", toBinary(input / 2), input % 2)
     }
 
-    func formatDate(date: String) -> String {
-        var components = date.componentsSeparatedByString(" ")
+    func formatDate(_ date: String) -> String {
+        var components = date.components(separatedBy: " ")
         var month = ""
         var day = ""
         var year = ""
@@ -161,14 +161,14 @@ class MetadataFormatter: NSObject {
             let dateString = components[0];
             let timeString = components[1];
             
-            components = dateString.componentsSeparatedByString(":")
+            components = dateString.components(separatedBy: ":")
             if components.count >= 3 {
                 year = components[0];
                 month = components[1];
                 day = components[2];
             }
             
-            components = timeString.componentsSeparatedByString(":")
+            components = timeString.components(separatedBy: ":")
             if (components.count >= 3) {
                 //                Handle later
             }
@@ -193,14 +193,14 @@ class MetadataFormatter: NSObject {
         return String(format: "%@ %@, %@", month, day, year)
     }
 
-    func title(orientation: UIImageOrientation) -> String {
+    func title(_ orientation: UIImageOrientation) -> String {
         switch orientation {
-        case .Up:            return "Up";
-        case .Right:         return "90˚ CW";
-        case .Left:          return "90˚ CCW";
-        case .Down:          return "Up";
-        case .RightMirrored: return "90˚ CW, Flipped";
-        case .LeftMirrored:  return "90˚ CCW, Flipped";
+        case .up:            return "Up";
+        case .right:         return "90˚ CW";
+        case .left:          return "90˚ CCW";
+        case .down:          return "Up";
+        case .rightMirrored: return "90˚ CW, Flipped";
+        case .leftMirrored:  return "90˚ CCW, Flipped";
         default: return ""
         }
     }

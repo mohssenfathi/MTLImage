@@ -18,7 +18,7 @@ extension MTLFilterRecord {
     @NSManaged var functionName: String?
     @NSManaged var title: String?
     @NSManaged var index: NSNumber?
-    @NSManaged var properties: NSOrderedSet?
+    @NSManaged var properties: OrderedSet?
     @NSManaged var host: MTLFilterGroupRecord?
 
 }

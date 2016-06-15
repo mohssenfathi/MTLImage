@@ -60,11 +60,11 @@ class MTLTransformFilter: MTLFilter {
     
     override func update() {
         if self.input == nil { return }
-        uniformsBuffer = device.newBufferWithBytes(&uniforms, length: sizeof(TransformUniforms), options: .CPUCacheModeDefaultCache)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(TransformUniforms), options: .cpuCacheModeWriteCombined)
     }
     
     
-    override func configureCommandEncoder(commandEncoder: MTLComputeCommandEncoder) {
+    override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
         
         let f = [transform.m11, transform.m12, transform.m13, transform.m14,
@@ -72,8 +72,8 @@ class MTLTransformFilter: MTLFilter {
                  transform.m31, transform.m32, transform.m33, transform.m34,
                  transform.m41, transform.m42, transform.m43, transform.m44]
         
-        transformBuffer = device.newBufferWithBytes(f, length: f.count * sizeofValue(f[0]), options: .CPUCacheModeDefaultCache)
-        commandEncoder.setBuffer(transformBuffer, offset: 0, atIndex: 1)
+        transformBuffer = device.newBuffer(withBytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
+        commandEncoder.setBuffer(transformBuffer, offset: 0, at: 1)
     }
     
 //    func updateOrthoMatrix {
