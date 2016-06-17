@@ -37,6 +37,9 @@ class MTLHistogramFilter: MTLFilter {
     
     public init() {
         super.init(functionName: "histogram")
+        
+        setupBuffers()
+        
         title = "Histogram"
         properties = []
         update()
@@ -50,31 +53,33 @@ class MTLHistogramFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         
+        let length = 255 * sizeof(Float)
+        
         if luminanceBuffer != nil {
-            let data = Data(bytesNoCopy: luminanceBuffer!.contents() as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(Float), deallocator:  .free)
-            data.copyBytes(to: luminance as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(UInt8))
-            smooth(&luminance)
+            let data = NSData(bytes: luminanceBuffer!.contents(), length: length)
+            data.getBytes(&luminance, length: length)
+//            smooth(&luminance)
             updateHistogramView(luminance)
         }
         
         if redBuffer != nil {
-            let data = Data(bytesNoCopy: redBuffer!.contents() as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(Float), deallocator: .free)
-            data.copyBytes(to: red as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(UInt8))
-            smooth(&red)
+            let data = NSData(bytes: redBuffer!.contents(), length: length)
+            data.getBytes(&red, length: length)
+//            smooth(&red)
             updateHistogramView(red)
         }
         
         if greenBuffer != nil {
-            let data = Data(bytesNoCopy: greenBuffer!.contents() as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(Float), deallocator:  .free)
-            data.copyBytes(to: green as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(UInt8))
-            smooth(&green)
+            let data = NSData(bytes: greenBuffer!.contents(), length: length)
+            data.getBytes(&green, length: length)
+//            smooth(&green)
             updateHistogramView(green)
         }
         
         if blueBuffer != nil {
-            let data = Data(bytesNoCopy: blueBuffer!.contents() as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(Float), deallocator:  .free)
-            data.copyBytes(to: blue as! UnsafeMutablePointer<UInt8>, count: 255 * sizeof(UInt8))
-            smooth(&blue)
+            let data = NSData(bytes: blueBuffer!.contents(), length: length)
+            data.getBytes(&blue, length: length)
+//            smooth(&blue)
             updateHistogramView(blue)
         }
         
@@ -82,20 +87,52 @@ class MTLHistogramFilter: MTLFilter {
         uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(HistogramUniforms), options: .cpuCacheModeWriteCombined)
     }
     
+    var luminanceBytes: UnsafeMutablePointer<Void>? = nil
+    var luminancePointer: UnsafeMutablePointer<Float>!
+    
+//    var luminanceBytes:UnsafeMutablePointer<Void>? = nil
+//    var luminancePointer: UnsafeMutablePointer<Float>!
+//    
+//    var luminanceBytes:UnsafeMutablePointer<Void>? = nil
+//    var luminancePointer: UnsafeMutablePointer<Float>!
+//    
+//    var luminanceBytes:UnsafeMutablePointer<Void>? = nil
+//    var luminancePointer: UnsafeMutablePointer<Float>!
+    
+    func setupBuffers() {
+        var alignment: UInt = 0x4000
+        var size: UInt = UInt(255) * UInt(sizeof(Float))
+        
+        // Luminance
+        posix_memalign(&luminanceBytes, Int(alignment), Int(size))
+        let pptr = OpaquePointer(luminanceBytes)
+        luminancePointer = UnsafeMutablePointer(pptr)
+        
+        for i in 0 ..< 256 {
+            luminancePointer[i] = 0.0
+        }
+        
+        luminanceBuffer = device.newBuffer(withBytesNoCopy: luminanceBytes!,
+                                           length: 255 * sizeofValue(Float),
+                                           options: .cpuCacheModeWriteCombined,
+                                           deallocator: nil)
+    }
+    
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
         
         let f = [Float](repeating: 0, count: 255)
         
-        luminanceBuffer = device.newBuffer(withBytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
-        redBuffer       = device.newBuffer(withBytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
-        greenBuffer     = device.newBuffer(withBytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
-        blueBuffer      = device.newBuffer(withBytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
-        
+//        luminanceBuffer = device.newBuffer(withBytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
+        redBuffer       = device.newBuffer(withBytes: f, length: 255 * sizeofValue(Float), options: .cpuCacheModeWriteCombined)
+        greenBuffer     = device.newBuffer(withBytes: f, length: 255 * sizeofValue(Float), options: .cpuCacheModeWriteCombined)
+        blueBuffer      = device.newBuffer(withBytes: f, length: 255 * sizeofValue(Float), options: .cpuCacheModeWriteCombined)
+
         commandEncoder.setBuffer(luminanceBuffer, offset: 0, at: 1)
         commandEncoder.setBuffer(redBuffer      , offset: 0, at: 2)
         commandEncoder.setBuffer(greenBuffer    , offset: 0, at: 3)
         commandEncoder.setBuffer(blueBuffer     , offset: 0, at: 4)
+        
     }
     
     public override func process() {

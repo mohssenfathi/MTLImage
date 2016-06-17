@@ -27,7 +27,7 @@ extension UIImage {
         let region: MTLRegion = MTLRegionMake2D(0, 0, width, height)
         texture.getBytes(imageBytes!, bytesPerRow: bytesPerRow, from: region, mipmapLevel: 0)
         
-        let data = Data(bytes: UnsafePointer<UInt8>(imageBytes!), count: imageByteCount)
+        let data = NSData(bytes: imageBytes!, length: imageByteCount)
         let provider = CGDataProvider(data: data)
     
         let bitsPerComponent = 8
@@ -52,8 +52,12 @@ extension UIImage {
     
         let imageRef = self.cgImage
 
-        let width:  Int = Int(size.width)
-        let height: Int = Int(size.height)
+        var width:  Int = Int(size.width)
+        var height: Int = Int(size.height)
+    
+        if width  == 0 { width  = Int(self.size.width ) }
+        if height == 0 { height = Int(self.size.height) }
+        
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         
         let rawData: UnsafeMutablePointer<Void> = calloc(height * width * 4, sizeof(Int))

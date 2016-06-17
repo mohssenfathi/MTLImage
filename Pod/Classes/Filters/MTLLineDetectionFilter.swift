@@ -21,8 +21,8 @@ class MTLLineDetectionFilter: MTLFilter {
     private var inputSize: CGSize?
     private let sobelEdgeDetectionThreshold = MTLSobelEdgeDetectionThresholdFilter()
     private let thetaCount: Int = 180
-    lazy private var accumulator: [UInt8] = {
-        return [UInt8](repeating: 0, count: Int(self.inputSize!.width) * self.thetaCount)
+    lazy private var accumulator: [Float] = {
+        return [Float](repeating: 0, count: Int(self.inputSize!.width) * self.thetaCount)
     }()
     
     public var sensitivity: Float = 0.5 {
@@ -57,8 +57,8 @@ class MTLLineDetectionFilter: MTLFilter {
         else {
             if accumulatorBuffer != nil {
                 let length = Int(inputSize!.width) * thetaCount
-                let data = Data(bytesNoCopy: accumulatorBuffer!.contents() as! UnsafeMutablePointer<UInt8>, count:length, deallocator: .free)
-                data.copyBytes(to: &accumulator, count: length)
+                let data = NSData(bytes: accumulatorBuffer!.contents(), length: length)
+                data.getBytes(&accumulator, length: length)
 //                print(accumulator)
                 
                 let m = accumulator.max()

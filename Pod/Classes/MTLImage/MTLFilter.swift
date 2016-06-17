@@ -15,7 +15,7 @@ func ==(left: MTLFilter, right: MTLFilter) -> Bool {
 public
 class MTLFilter: MTLObject, NSCoding {
     
-    private var propertyValues = [String : AnyObject]()
+    var propertyValues = [String : AnyObject]()
     private var internalTargets = [MTLOutput]()
     var internalTexture: MTLTexture?
     var internalInput: MTLInput?

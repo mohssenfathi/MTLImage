@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/MTLImage.git", :tag => s.version.to_s }
 
 #s.platform     = :ios, '8.0'
-  s.ios.deployment_target = '0.0'
+  s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '9.0'
   s.tvos.exclude_files = 'Pod/Classes/MTLImage/MTLCamera.swift'
   s.requires_arc = true
@@ -53,9 +53,9 @@ Pod::Spec.new do |s|
       # Basic version, without FaceDetection and maybe some others later
     end
 
-    s.subspec 'FaceDetection' do |fd|
-      fd.xcconfig   =  { 'OTHER_CFLAGS' => '$(inherited) -MTLIMAGE_FACE_DETECTION' }
-#     fd.library = 'c++'
-#     fd.frameworks = 'Accelerate', 'libc++'
+    s.subspec 'MachineLearning' do |ml|
+        ml.xcconfig =  { 'OTHER_CFLAGS' => '$(inherited) -MTLIMAGE_MACHINE_LEARNING' }
+        ml.ios.deployment_target = '10.0'
     end
+
 end

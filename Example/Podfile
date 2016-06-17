@@ -3,14 +3,13 @@ use_frameworks!
 
 target 'MTLImage_Example' do
   pod 'MTLImage', :path => '../'
-  pod 'MTLImage/FaceDetection', :path => '../'
+  pod 'MTLImage/MachineLearning', :path => '../'
   pod 'Fabric'
   pod 'Crashlytics'
 end
 
 target 'MTLImage_Tests' do
   pod 'MTLImage', :path => '../'
-  pod 'MTLImage/FaceDetection', :path => '../'
   pod 'Fabric'
   pod 'Crashlytics'
 end

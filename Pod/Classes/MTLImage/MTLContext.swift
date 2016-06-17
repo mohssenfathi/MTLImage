@@ -9,7 +9,7 @@
 import UIKit
 
 // Set to true to use compiled shaders
-let useMetalib = false
+let useMetalib = true
 
 public
 class MTLContext: NSObject {
@@ -38,7 +38,7 @@ class MTLContext: NSObject {
         if (device != nil) {
             
             #if os(tvOS)
-                if !device.supportsFeatureSet(.TVOS_GPUFamily1_v1) { return }
+                if !device.supportsFeatureSet(.tvOS_GPUFamily1_v1) { return }
             #endif
             
             #if os(iOS)

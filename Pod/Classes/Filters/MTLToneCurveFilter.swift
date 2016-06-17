@@ -130,6 +130,8 @@ class MTLToneCurveFilter: MTLFilter {
         super.init(functionName: "toneCurve")
         title = "Tone Curve"
         
+        setupToneCurveBuffer()
+        
         redCurve = getPreparedSplineCurve(redPoints)
         greenCurve = getPreparedSplineCurve(greenPoints)
         blueCurve = getPreparedSplineCurve(bluePoints)
@@ -144,6 +146,14 @@ class MTLToneCurveFilter: MTLFilter {
                       MTLProperty(key: "greenMid"    , title: "Green")]
         
         update()
+    }
+    
+    override func updatePropertyValues() {
+        super.updatePropertyValues()
+        propertyValues["compositeCurve"] = compositeCurve
+        propertyValues["redCurve"] = redCurve
+        propertyValues["greenCurve"] = greenCurve
+        propertyValues["blueCurve"] = blueCurve
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -176,11 +186,20 @@ class MTLToneCurveFilter: MTLFilter {
     
 //    MARK: - Curves
     
-    var toneCurveByteArray: [Float]!
+    var toneCurveByteArray: UnsafeMutablePointer<Void>? = nil // UnsafeMutablePointer<Void>(calloc(256 * 4, sizeof(Float)))
+    var toneCurveValuesPointer: UnsafeMutablePointer<Float>!
+    
+    func setupToneCurveBuffer() {
+        
+        var alignment:UInt = 0x4000
+        var size:UInt = UInt(256 * 3) * UInt(sizeof(Float))
+        posix_memalign(&toneCurveByteArray, Int(alignment), Int(size))
+        
+        let pptr = OpaquePointer(toneCurveByteArray)
+        toneCurveValuesPointer = UnsafeMutablePointer(pptr)
+    }
     
     func updateToneCurveBuffer() {
-        
-        toneCurveByteArray = [Float](repeating: 0.0, count: 256 * 3)
         
         if (redCurve.count >= 256 &&
             greenCurve.count >= 256 &&
@@ -195,22 +214,29 @@ class MTLToneCurveFilter: MTLFilter {
                 let fi = Float(i)
                 
                 let b: Float =  min(max(fi + Float(blueCurve[i]), minimum), maximum)
-                toneCurveByteArray[i * 3 + 2] = min(max(b + Float(compositeCurve[Int(b)]), minimum), maximum)
+                toneCurveValuesPointer?[i * 3 + 2] = min(max(b + Float(compositeCurve[Int(b)]), minimum), maximum)
                 
                 let g: Float =  min(max(fi + Float(greenCurve[i]), minimum), maximum)
-                toneCurveByteArray[i * 3 + 1] = min(max(g + Float(compositeCurve[Int(g)]), minimum), maximum)
+                toneCurveValuesPointer?[i * 3 + 1] = min(max(g + Float(compositeCurve[Int(g)]), minimum), maximum)
                 
                 let r: Float =  min(max(fi + Float(redCurve[i]), minimum), maximum)
-                toneCurveByteArray[i * 3 + 0] = min(max(r + Float(compositeCurve[Int(r)]), minimum), maximum)
+                toneCurveValuesPointer?[i * 3 + 0] = min(max(r + Float(compositeCurve[Int(r)]), minimum), maximum)
             }
         }
         else {
             print("Whaaat?")
         }
-            
-        toneCurveBuffer = device.newBuffer(withBytes: toneCurveByteArray,
-                                              length: toneCurveByteArray.count * sizeofValue(Float),
-                                             options: .cpuCacheModeWriteCombined)
+        
+        if toneCurveByteArray == nil {
+            print("ToneCurveByteArray is nil");
+            // Set buffer a different way
+            // return
+        }
+        
+        toneCurveBuffer = device.newBuffer(withBytesNoCopy: toneCurveByteArray!,
+                                           length: 256 * 4 * sizeof(Float),
+                                           options: MTLResourceOptions.cpuCacheModeWriteCombined,
+                                           deallocator: nil)
     }
     
     

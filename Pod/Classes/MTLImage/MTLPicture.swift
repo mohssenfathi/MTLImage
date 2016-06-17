@@ -30,6 +30,9 @@ class MTLPicture: NSObject, MTLInput {
 
     public var image: UIImage! {
         didSet {
+            if processingSize == CGSize.zero {
+                processingSize = image.size
+            }
             loadTexture()
         }
     }

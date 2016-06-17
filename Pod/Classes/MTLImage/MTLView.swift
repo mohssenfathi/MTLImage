@@ -72,6 +72,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     
     public var processingSize: CGSize! {
         didSet {
+            if processingSize == CGSize.zero { return }
             metalLayer.drawableSize = processingSize
         }
     }
@@ -250,6 +251,9 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate {
     
     private var currentDrawable: CAMetalDrawable?
     var drawable: CAMetalDrawable? {
+        if metalLayer.drawableSize == CGSize.zero {
+            metalLayer.drawableSize = bounds.size * UIScreen.main().scale
+        }
         if currentDrawable == nil {
             currentDrawable = metalLayer.nextDrawable()
         }
