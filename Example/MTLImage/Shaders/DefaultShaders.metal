@@ -36,3 +36,10 @@ fragment half4 fragment_main(VertexInOut        input    [[ stage_in ]],
     constexpr sampler quad_sampler;
     return tex2D.sample(quad_sampler, input.texCoord);
 }
+
+kernel void EmptyShader(texture2d<float, access::read>  inTexture     [[texture(0)]],
+                        texture2d<float, access::write> outTexture    [[texture(1)]],
+                        uint2 gid [[thread_position_in_grid]])
+{
+    outTexture.write(inTexture.read(gid), gid);
+}

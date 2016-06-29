@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
-  A work in progress...
+  A framework to simplify data processing on the GPU using Metal.
                        DESC
 
   s.homepage         = "https://github.com/<GITHUB_USERNAME>/MTLImage"
@@ -25,13 +25,12 @@ Pod::Spec.new do |s|
   s.author           = { "mohssenfathi" => "mmohssenfathi@gmail.com" }
   s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/MTLImage.git", :tag => s.version.to_s }
 
-#s.platform     = :ios, '8.0'
   s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '9.0'
   s.tvos.exclude_files = 'Pod/Classes/MTLImage/MTLCamera.swift'
   s.requires_arc = true
 
-  s.source_files = 'Pod/Classes/**/*'
+  #s.source_files = 'Pod/Classes/**/*{swift, m, h, mm, hpp, cpp, c}'
   s.resources = ['Pod/Classes/CoreData/**/*.xcdatamodeld', 'Pod/Classes/**/*.metallib', 'Pod/Assets/**/*.xcassets']
 
 # Move this to subspec later
@@ -47,14 +46,26 @@ Pod::Spec.new do |s|
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
 
-    s.default_subspec = 'Core'
+    s.default_subspecs = 'Core', 'CoreData', 'CloudKit'
 
     s.subspec 'Core' do |core|
-      # Basic version, without FaceDetection and maybe some others later
+        core.xcconfig =  { 'OTHER_CFLAGS' => '$(inherited) -MTLIMAGE_CORE' }
+        core.source_files = 'Pod/Classes/Core/**/*{swift, m, h, mm, hpp, cpp, c}'
+    end
+ 
+    s.subspec 'CloudKit' do |ck|
+        ck.xcconfig =  { 'OTHER_CFLAGS' => '$(inherited) -MTLIMAGE_CLOUD_KIT' }
+        ck.source_files = 'Pod/Classes/CloudKit/**/*{swift, m, h, mm, hpp, cpp, c}'
+    end
+
+    s.subspec 'CoreData' do |cd|
+        cd.xcconfig =  { 'OTHER_CFLAGS' => '$(inherited) -MTLIMAGE_CORE_DATA' }
+        cd.source_files = 'Pod/Classes/CoreData/**/*{swift, m, h, mm, hpp, cpp, c}'
     end
 
     s.subspec 'MachineLearning' do |ml|
         ml.xcconfig =  { 'OTHER_CFLAGS' => '$(inherited) -MTLIMAGE_MACHINE_LEARNING' }
+        ml.source_files = 'Pod/Classes/MachineLearning/**/*{swift, m, h, mm, hpp, cpp, c}'
         ml.ios.deployment_target = '10.0'
     end
 

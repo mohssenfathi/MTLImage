@@ -147,6 +147,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                 delegate?.filtersViewControllerDidSelectFilterGroup(self, filterGroup: selectedFilter)
                 performSegue(withIdentifier: "filterGroup", sender: self)
             }
+            else {
+                selectedFilter = object
+                delegate?.filtersViewControllerDidSelectFilter(self, filter: selectedFilter)
+                performSegue(withIdentifier: "settings", sender: self)
+            }
         }
     }
     
@@ -199,7 +204,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "settings" {
             settingsViewController = segue.destinationViewController as? SettingsViewController
-            settingsViewController?.filter = selectedFilter as! MTLFilter
+            settingsViewController?.filter = selectedFilter as! MTLFilter!
         }
         else if segue.identifier == "filterGroup" {
             filterGroupViewController = segue.destinationViewController as? FilterGroupViewController

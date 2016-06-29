@@ -1,25 +1,29 @@
 PODS:
-  - Crashlytics (3.7.0):
+  - Crashlytics (3.7.1):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.7)
   - MTLImage (0.1.0):
+    - MTLImage/CloudKit (= 0.1.0)
     - MTLImage/Core (= 0.1.0)
+    - MTLImage/CoreData (= 0.1.0)
+  - MTLImage/CloudKit (0.1.0)
   - MTLImage/Core (0.1.0)
-  - MTLImage/FaceDetection (0.1.0)
+  - MTLImage/CoreData (0.1.0)
 
 DEPENDENCIES:
   - Crashlytics
   - Fabric
   - MTLImage (from `../`)
-  - MTLImage/FaceDetection (from `../`)
 
 EXTERNAL SOURCES:
   MTLImage:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
+  Crashlytics: 3cdd4c9655be68032a0cf0379e0fb5ef6af22cad
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
-  MTLImage: 349597794aa4ccb65cd3af3a294a930004bc8572
+  MTLImage: 5626a8f8060dc3f92e2c4b422713bb93fda31ed6
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: ab911b0f09cb682a2416b1f1f4045732305085f4
+
+COCOAPODS: 1.0.1

@@ -117,6 +117,12 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     
         let exportBlock = {
             let data = MTLImage.archive(self.filterGroup)
+            
+            if !MFMailComposeViewController.canSendMail() {
+                print("Cannot send mail")
+                return
+            }
+            
             let composeViewController = MFMailComposeViewController()
             composeViewController.setSubject("MTLImage Export Document - " + self.filterGroup.title)
             composeViewController.mailComposeDelegate = self
