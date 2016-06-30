@@ -67,11 +67,6 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         setupBuffers()
     }
     
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-//        updateMetalLayer = true
-    }
-    
     func update(_ displayLink: CADisplayLink) {
         
         guard let input = input else { return }
@@ -117,6 +112,11 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         updateMetalLayer = true
     }
     
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        metalLayer.frame = bounds
+    }
+    
     func setupPipeline() {
         device = context.device
         library = context.library
@@ -138,8 +138,8 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     func updateMetalLayerLayout() {
         let scale = window!.screen.nativeScale
         contentScaleFactor = scale
-        metalLayer.frame = bounds
-        metalLayer.drawableSize = CGSize(width: bounds.size.width * scale, height: bounds.size.height * scale)
+//        metalLayer.drawableSize = CGSize(width: bounds.size.width * scale, height: bounds.size.height * scale)
+        metalLayer.drawableSize = metalLayer.frame.size * UIScreen.main().scale * 2.0
     }
     
     
