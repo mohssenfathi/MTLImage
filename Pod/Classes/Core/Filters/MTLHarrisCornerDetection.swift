@@ -49,7 +49,7 @@ class MTLHarrisCornerDetectionFilterGroup: MTLFilterGroup {
         let height: Int = Int(textureSize.height)
         
         let byteCount: Int = width * height * 4
-        let bytes = UnsafeMutablePointer<uint_fast8_t>(malloc(byteCount))
+        let bytes = malloc(byteCount)
         let bytesPerRow = width * 4
         
         let region: MTLRegion = MTLRegionMake2D(0, 0, width, height)
@@ -57,21 +57,23 @@ class MTLHarrisCornerDetectionFilterGroup: MTLFilterGroup {
         
         corners.removeAll()
         
-        var currentByte: Int = 0
+        let currentByte: Int = 0
 //        var cornerStorageIndex = 0
         while (currentByte < byteCount) {
+
+            // TODO: Fix this
             
-            let colorByte = bytes?[currentByte]
-            
-            if (colorByte > 0) {
-                let x = remainder(CGFloat(currentByte), textureSize.width)
-                let y = CGFloat(currentByte) / textureSize.width
-                
-                let point = CGPoint(x: x/4, y: y)
-                corners.append(point)
-            }
-            
-            currentByte = currentByte + 4
+//            let colorByte = bytes?[currentByte]
+//            
+//            if (colorByte > 0) {
+//                let x = remainder(CGFloat(currentByte), textureSize.width)
+//                let y = CGFloat(currentByte) / textureSize.width
+//                
+//                let point = CGPoint(x: x/4, y: y)
+//                corners.append(point)
+//            }
+//            
+//            currentByte = currentByte + 4
         }
         
         free(bytes)
@@ -97,7 +99,7 @@ public
 class MTLHarrisCornerDetectionOutputFilter: MTLFilter {
     
     var uniforms = HarrisCornerDetectionOutputUniforms()
-    private var originalTexture: MTLTexture?
+    var originalTexture: MTLTexture?
     
     public init() {
         super.init(functionName: "harrisCornerDetectionOutput")
@@ -112,7 +114,7 @@ class MTLHarrisCornerDetectionOutputFilter: MTLFilter {
     
     override func update() {
         if self.input == nil { return }
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(HarrisCornerDetectionOutputUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<HarrisCornerDetectionOutputUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
@@ -164,6 +166,6 @@ class MTLHarrisCornerDetectionFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.sensitivity = sensitivity
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(HarrisCornerDetectionUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<HarrisCornerDetectionUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
 }

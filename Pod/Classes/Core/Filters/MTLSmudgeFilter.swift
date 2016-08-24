@@ -87,7 +87,7 @@ class MTLSmudgeFilter: MTLFilter {
         uniforms.dx = Float(direction.x)
         uniforms.dy = Float(direction.y)
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(SmudgeUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<SmudgeUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
     

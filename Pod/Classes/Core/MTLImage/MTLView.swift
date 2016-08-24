@@ -38,13 +38,17 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     }
     
     func commonInit() {
+        
         title = "MTLView"
+        context.output = self
+        
         setupPipeline()
-        setupBuffers()
+        updateBuffers()
         setupView()
     }
     
     
+//    MARK: - Gesture Recognizers
     public override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
@@ -53,25 +57,24 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         return true
     }
     
-//    MARK: - View Layout
-    override public func didMoveToSuperview() {
-        if superview != nil {
-            displayLink = CADisplayLink(target: self, selector: #selector(MTLView.update(_:)))
-            displayLink.add(to: RunLoop.main(), forMode: RunLoopMode.commonModes.rawValue)
-        } else {
-            displayLink.invalidate()
-        }
-    }
-    
-    public func layoutView() {
-        setupBuffers()
-    }
-    
+//    MARK: - Display Link
     func update(_ displayLink: CADisplayLink) {
         
         guard let input = input else { return }
         
-        if input.needsUpdate || updateMetalLayer {
+        var shouldUpdate = input.needsUpdate
+        
+        if needsUpdateBuffers {
+            self.updateBuffers()
+            self.updateMetalLayerLayout()
+            shouldUpdate = true
+        }
+        
+//        if updateMetalLayer && self.window != nil {
+//            self.updateMetalLayerLayout()
+//        }
+        
+        if shouldUpdate {
             redraw()
         }
     }
@@ -84,18 +87,29 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         displayLink.isPaused = false
     }
     
-    override public class func layerClass() -> AnyClass {
-        return CAMetalLayer.self
+    
+//    MARK: - View Layout
+    override public func didMoveToSuperview() {
+        if superview != nil {
+            displayLink = CADisplayLink(target: self, selector: #selector(MTLView.update(_:)))
+            displayLink.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+        } else {
+            displayLink.invalidate()
+        }
+    }
+    
+    public func layoutView() {
+        updateBuffers()
     }
     
     func setupView() {
         
         contentView = MetalLayerView(frame: bounds)
-        contentView.backgroundColor = UIColor.clear()
+        contentView.backgroundColor = UIColor.clear
         contentMode = .scaleAspectFit
         
         scrollView = UIScrollView(frame: bounds)
-        scrollView.backgroundColor = UIColor.clear()
+        scrollView.backgroundColor = UIColor.clear
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 100.0
         scrollView.delegate = self
@@ -107,14 +121,17 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         metalLayer = contentView.layer as! CAMetalLayer
         metalLayer.device = device
         metalLayer.pixelFormat = MTLPixelFormat.bgra8Unorm
-//        metalLayer.drawsAsynchronously = true
+        metalLayer.drawsAsynchronously = true
+        metalLayer.frame = bounds
         
         updateMetalLayer = true
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
+        
         metalLayer.frame = bounds
+        updateMetalLayer = true
     }
     
     func setupPipeline() {
@@ -138,13 +155,14 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     func updateMetalLayerLayout() {
         let scale = window!.screen.nativeScale
         contentScaleFactor = scale
-//        metalLayer.drawableSize = CGSize(width: bounds.size.width * scale, height: bounds.size.height * scale)
-        metalLayer.drawableSize = metalLayer.frame.size * UIScreen.main().scale * 2.0
+        metalLayer.drawableSize = metalLayer.frame.size * UIScreen.main.nativeScale
+        
+        self.updateMetalLayer = false
     }
     
     
-    let kSzQuadTexCoords = 6 * sizeof(float2)
-    let kSzQuadVertices  = 6 * sizeof(float4)
+    let kSzQuadTexCoords = 6 * MemoryLayout<float2>.size
+    let kSzQuadVertices  = 6 * MemoryLayout<float4>.size
     
     let kQuadTexCoords: [float2] = [ float2(0.0, 0.0),
                                      float2(1.0, 0.0),
@@ -163,11 +181,11 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
                                     float4( 1.0, -1.0, 0.0, 1.0) ]
     
     private var needsUpdateBuffers = true
-    func setupBuffers() {
+    func updateBuffers() {
         
         if device == nil { return }
         
-        let ins = insets(contentMode: contentMode)
+        let ins = insets(contentMode)
         let x = ins.x
         let y = ins.y
 
@@ -183,9 +201,11 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         if texCoordBuffer == nil {
             texCoordBuffer = device.newBuffer(withBytes: kQuadTexCoords, length: kSzQuadTexCoords, options: MTLResourceOptions())
         }
+        
+        self.needsUpdateBuffers = false
     }
     
-    func insets(contentMode: UIViewContentMode) -> (x: Float, y: Float) {
+    func insets(_ contentMode: UIViewContentMode) -> (x: Float, y: Float) {
         
         guard let inputTexture = input?.texture else { return (0,0) }
         
@@ -214,7 +234,6 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
             }
         }
         
-        
         return (x, y)
     }
     
@@ -222,7 +241,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     private var currentDrawable: CAMetalDrawable?
     var drawable: CAMetalDrawable? {
         if metalLayer.drawableSize == CGSize.zero {
-            metalLayer.drawableSize = bounds.size * UIScreen.main().scale
+            metalLayer.drawableSize = bounds.size * UIScreen.main.scale
         }
         if currentDrawable == nil {
             currentDrawable = metalLayer.nextDrawable()
@@ -230,60 +249,41 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         return currentDrawable
     }
     
+
     func redraw() {
         
-        guard let tex = input?.texture else { return }
+        guard let tex = input?.texture   else { return }
         
-//        dispatch_semaphore_wait(self.renderSemaphore, DISPATCH_TIME_FOREVER)
-//        runAsynchronously {
-        
-            autoreleasepool {
-                    
-                guard let drawable = self.drawable else {
-                    self.renderSemaphore.signal()
-                    return
-                }
-                
-                if self.needsUpdateBuffers == true {
-                    self.setupBuffers()
-                    self.updateMetalLayerLayout()
-                    self.needsUpdateBuffers = false
-                }
-                
-                if self.updateMetalLayer == true && self.window != nil {
-                    self.updateMetalLayerLayout()
-                    self.updateMetalLayer = false
-                }
-                
-                let texture = drawable.texture
-                
-                self.renderPassDescriptor.colorAttachments[0].texture = texture
-                
-                let commandBuffer = self.commandQueue.commandBuffer()
-                commandBuffer.label = "MTLView Buffer"
-                
-                let commandEncoder = commandBuffer.renderCommandEncoder(with: self.renderPassDescriptor)
-//                commandEncoder.pushDebugGroup("Render Texture")
-                commandEncoder.setRenderPipelineState(self.pipeline)
-                commandEncoder.setVertexBuffer(self.vertexBuffer  , offset: 0, at: 0)
-                commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, at: 1)
-                commandEncoder.setFragmentTexture(tex, at: 0)
-                
-                commandEncoder.drawPrimitives(.triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
-                
-                commandEncoder.endEncoding()
-//                commandEncoder.popDebugGroup()
-                
-                commandBuffer.addCompletedHandler({ (commandBuffer) in
-//                    dispatch_semaphore_signal(self.renderSemaphore)
-                    self.currentDrawable = nil
-                })
-                
-                commandBuffer.present(drawable)
-                
-                commandBuffer.commit()
-                commandBuffer.waitUntilCompleted()
-//            }
+        context.semaphore.wait()
+
+        autoreleasepool {
+            
+            guard let drawable = self.drawable else { return }
+            let texture = drawable.texture
+            
+            self.renderPassDescriptor.colorAttachments[0].texture = texture
+            
+            let commandBuffer = self.commandQueue.commandBuffer()
+            commandBuffer.label = "MTLView Buffer"
+            
+            let commandEncoder = commandBuffer.renderCommandEncoder(with: self.renderPassDescriptor)
+            commandEncoder.setRenderPipelineState(self.pipeline)
+            commandEncoder.setVertexBuffer(self.vertexBuffer  , offset: 0, at: 0)
+            commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, at: 1)
+            commandEncoder.setFragmentTexture(tex, at: 0)
+            
+            commandEncoder.drawPrimitives(.triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
+            commandEncoder.endEncoding()
+            
+            commandBuffer.addCompletedHandler({ (commandBuffer) in
+                self.currentDrawable = nil
+                self.context.semaphore.signal()
+//                self.context.source?.didFinishProcessing()
+            })
+            
+            commandBuffer.present(drawable)
+            commandBuffer.commit()
+            commandBuffer.waitUntilCompleted()
         }
     }
     
@@ -314,7 +314,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         guard let viewSize = view?.frame.size else { return }
         
 //        let maxSize = FiltersManager.sharedManager.maxProcessingSize
-        let minSize = bounds.size * UIScreen.main().scale
+        let minSize = bounds.size * UIScreen.main.scale
         let ratio = viewSize.width / viewSize.height
         
 //        if (viewSize.width > maxSize.width || viewSize.height > maxSize.height) {
@@ -356,12 +356,9 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     }
     
     func runAsynchronously(_ block: (()->())) {
-        DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosUserInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             block()
         }
-//        dispatch_async(context.processingQueue) {
-//            block()
-//        }
     }
     
     
@@ -413,7 +410,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     
     private var updateMetalLayer = true
     
-    private var renderSemaphore: DispatchSemaphore = DispatchSemaphore(value: 3)
+//    private var renderSemaphore: DispatchSemaphore = DispatchSemaphore(value: 3)
     lazy var renderPassDescriptor: MTLRenderPassDescriptor = {
         let rpd = MTLRenderPassDescriptor()
         rpd.colorAttachments[0].clearColor = self.mtlClearColor
@@ -430,8 +427,8 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     private var mtlClearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0)
     public var clearColor: UIColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0) {
         didSet {
-            if      clearColor == UIColor.white() { mtlClearColor = MTLClearColorMake(1.0, 1.0, 1.0, 1.0) }
-            else if clearColor == UIColor.black() { mtlClearColor = MTLClearColorMake(0.0, 0.0, 0.0, 1.0) }
+            if      clearColor == UIColor.white { mtlClearColor = MTLClearColorMake(1.0, 1.0, 1.0, 1.0) }
+            else if clearColor == UIColor.black { mtlClearColor = MTLClearColorMake(0.0, 0.0, 0.0, 1.0) }
             else {
                 let components = clearColor.cgColor.components
                 mtlClearColor = MTLClearColorMake(Double((components?[0])!), Double((components?[1])!), Double((components?[2])!), Double((components?[3])!))
@@ -498,10 +495,13 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     }
 }
 
+
 class MetalLayerView: UIView {
-    internal override class func layerClass() -> AnyClass {
-        return CAMetalLayer.self
+    
+    internal override class var layerClass: AnyClass {
+        return CAMetalLayer.self.self
     }
+
 }
 
 func *(left: CGSize, right: CGFloat) -> CGSize {

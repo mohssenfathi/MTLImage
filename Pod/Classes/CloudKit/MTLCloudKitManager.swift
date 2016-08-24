@@ -21,12 +21,12 @@ class MTLCloudKitManager: NSObject {
         return nil
     }
     
-    func upload(_ filterGroup: MTLFilterGroup, container: CKContainer, completion: ((record: CKRecord?, error: NSError?) -> ())?) {
+    func upload(_ filterGroup: MTLFilterGroup, container: CKContainer, completion: ((_ record: CKRecord?, _ error: Error?) -> ())?) {
         
         let record = filterGroup.ckRecord()
         
         container.publicCloudDatabase.save(record) { (record, error) in
-            completion?(record: record, error: error)
+            completion?(record, error)
         }
     }
     
@@ -39,10 +39,10 @@ extension MTLFilterGroup {
         
         let record = CKRecord(recordType: "MTLFilterGroup")
         
-        record["identifier"]  = self.identifier
-        record["title"]       = self.title
-        record["category"]    = self.category
-        record["description"] = self.filterDescription
+        record["identifier"]  = self.identifier as CKRecordValue
+        record["title"]       = self.title as CKRecordValue
+        record["category"]    = self.category as CKRecordValue
+        record["description"] = self.filterDescription as CKRecordValue
         record["filterData"]  = filterDataAsset(MTLImage.archive(self)!)
         
         return record

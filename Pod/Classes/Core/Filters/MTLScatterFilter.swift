@@ -73,7 +73,7 @@ class MTLScatterFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.radius = radius * 40
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(ScatterUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<ScatterUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
     func updateNoiseTexture() {
@@ -110,7 +110,7 @@ class MTLScatterFilter: MTLFilter {
         let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: bitsPerComponent!, bytesPerRow: bytesPerRow!, space: colorSpace!, bitmapInfo: (bitmapInfo?.rawValue)!)
         
         context!.interpolationQuality = .high
-        context?.draw(in: CGRect(origin: CGPoint.zero, size: CGSize(width: CGFloat(width), height: CGFloat(height))), image: cgImage!)
+        context?.draw(image.cgImage!, in: CGRect(origin: CGPoint.zero, size: CGSize(width: CGFloat(width), height: CGFloat(height))))
         
         let scaledImage = context?.makeImage().flatMap { UIImage(cgImage: $0) }
         

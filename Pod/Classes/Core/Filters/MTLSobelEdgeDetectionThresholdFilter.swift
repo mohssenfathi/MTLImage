@@ -53,7 +53,7 @@ class MTLSobelEdgeDetectionThresholdFilter: MTLFilter {
         if self.input == nil { return }
         
         uniforms.threshold = threshold
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(SobelEdgeDetectionThresholdUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<SobelEdgeDetectionThresholdUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
     public override func process() {

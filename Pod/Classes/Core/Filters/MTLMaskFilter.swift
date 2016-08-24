@@ -178,7 +178,7 @@ class MTLMaskFilter: MTLFilter {
         }
         
         uniforms.brushSize = brushSize * 100
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(MaskUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<MaskUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
@@ -193,7 +193,7 @@ class MTLMaskFilter: MTLFilter {
     func updateMaskTexture() {
         let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: .r32Float, width: width, height: width, mipmapped: false)
         maskTexture = self.device.newTexture(with: textureDescriptor)
-        maskTexture!.replace(MTLRegionMake2D(0, 0, width, width), mipmapLevel: 0, withBytes: mask!, bytesPerRow: sizeof(Float) * width)
+        maskTexture!.replace(MTLRegionMake2D(0, 0, width, width), mipmapLevel: 0, withBytes: mask!, bytesPerRow: MemoryLayout<Float>.size * width)
     }
     
     override public var input: MTLInput? {

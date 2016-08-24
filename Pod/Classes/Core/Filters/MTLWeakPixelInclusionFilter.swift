@@ -30,7 +30,7 @@ class MTLWeakPixelInclusionFilter: MTLFilter {
     
     override func update() {
         if self.input == nil { return }
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(WeakPixelInclusionUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<WeakPixelInclusionUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
 }

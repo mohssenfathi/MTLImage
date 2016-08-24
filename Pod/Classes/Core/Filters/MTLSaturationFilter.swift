@@ -40,7 +40,7 @@ class MTLSaturationFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.saturation = saturation * 2.0
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(SaturationUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<SaturationUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
 //    override func configureArgumentTableWithCommandEncoder(commandEncoder: MTLComputeCommandEncoder?) {

@@ -14,7 +14,10 @@ struct ExposureUniforms {
 
 public
 class MTLExposureFilter: MTLFilter {
+    
     var uniforms = ExposureUniforms()
+    var uniformsMemory: UnsafeMutableRawPointer? = nil
+    var uniformsPointer: UnsafeMutablePointer<ExposureUniforms>!
     
     public var exposure: Float = 0.5 {
         didSet {
@@ -38,6 +41,7 @@ class MTLExposureFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.exposure = Tools.convert(exposure, oldMin: 0.0, oldMid: 0.5, oldMax: 1.0, newMin: -1.5, newMid: 0.0, newMax: 2.0)
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(ExposureUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<ExposureUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
+
 }

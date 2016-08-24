@@ -49,7 +49,7 @@ class MTLToonFilter: MTLFilter {
         if self.input == nil { return }
         uniforms.quantizationLevels = Tools.convert(quantizationLevels, oldMin: 0, oldMax: 1, newMin: 5, newMax: 15)
         uniforms.threshold = threshold * 0.8 + 0.2
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(ToonUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<ToonUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
 }

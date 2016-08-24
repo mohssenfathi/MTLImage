@@ -201,13 +201,14 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     // MARK: - Navigation
 
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
         if segue.identifier == "settings" {
-            settingsViewController = segue.destinationViewController as? SettingsViewController
+            settingsViewController = segue.destination as? SettingsViewController
             settingsViewController?.filter = selectedFilter as! MTLFilter!
         }
         else if segue.identifier == "filterGroup" {
-            filterGroupViewController = segue.destinationViewController as? FilterGroupViewController
+            filterGroupViewController = segue.destination as? FilterGroupViewController
             if selectedFilter is MTLFilterGroup {
                 filterGroupViewController?.filterGroup = selectedFilter as! MTLFilterGroup
             } else {

@@ -60,7 +60,7 @@ class MTLTransformFilter: MTLFilter {
     
     override func update() {
         if self.input == nil { return }
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(TransformUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<TransformUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
     
@@ -72,7 +72,7 @@ class MTLTransformFilter: MTLFilter {
                  transform.m31, transform.m32, transform.m33, transform.m34,
                  transform.m41, transform.m42, transform.m43, transform.m44]
         
-        transformBuffer = device.newBuffer(withBytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
+        transformBuffer = device.newBuffer(withBytes: f, length: f.count * MemoryLayout<CGFloat>.size, options: .cpuCacheModeWriteCombined)
         commandEncoder.setBuffer(transformBuffer, offset: 0, at: 1)
     }
     

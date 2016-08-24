@@ -70,7 +70,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
 
             MTLImage.upload(self.filterGroup, container: container, completion: { (record, error) in
                 if error != nil {
-                    print(error?.description)
+                    print(error)
                     return
                 }
                 
@@ -140,7 +140,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: NSError?) {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true) {
             
             if result == MFMailComposeResult.cancelled { return }
@@ -189,7 +189,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         present(alert, animated: true, completion: nil)
     }
     
-    func showUploadAlert(_ completion: ((name: String, category: String) -> ())?) {
+    func showUploadAlert(_ completion: ((_ name: String, _ category: String) -> ())?) {
         let alert = UIAlertController(title: "Name this filter group", message: nil, preferredStyle: .alert)
         
         alert.addTextField { (textField) in
@@ -219,13 +219,13 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
             
             self.dismiss(animated: true, completion: nil)
             
-            completion?(name: self.filterGroup.title, category: (categoryTextField?.text)!)
+            completion?(self.filterGroup.title, (categoryTextField?.text)!)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
             MTLImage.save(self.filterGroup, completion: { (success) in
                 self.dismiss(animated: true, completion: nil)
-                completion?(name: "", category: "")
+                completion?("", "")
             })
         }
         
@@ -315,7 +315,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
                 let histogram = filter as! MTLHistogramFilter
                 if histogram.histogramView != nil {
                     histogramView = histogram.histogramView
-                    let window = UIApplication.shared().keyWindow!
+                    let window = UIApplication.shared.keyWindow!
                     histogramView!.center = CGPoint(x: view.frame.size.width/2, y: 200)
                     window.addSubview(histogramView!)
                 }
@@ -363,18 +363,19 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
 
     // MARK: - Navigation
 
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "settings" {
-            settingsViewController = segue.destinationViewController as? SettingsViewController
+            settingsViewController = segue.destination as? SettingsViewController
             settingsViewController?.filter = selectedFilter as! MTLFilter
         }
         else if segue.identifier == "addFilter" {
-            let navigationController = segue.destinationViewController as! UINavigationController
+            let navigationController = segue.destination as! UINavigationController
             let addFilterViewController = navigationController.viewControllers.first as! AddFilterViewController
             addFilterViewController.delegate = self
         }
         else if segue.identifier == "filterGroup" {
-            let filterGroupViewController = segue.destinationViewController as! FilterGroupViewController
+            let filterGroupViewController = segue.destination as! FilterGroupViewController
             filterGroupViewController.filterGroup = selectedFilter as! MTLFilterGroup
         }
     }

@@ -11,7 +11,7 @@ import UIKit
 class InfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    var metadata: [AnyObject]!
+    var metadata: [[String:Any]]!
     
     override func viewDidLoad() {
         super.viewDidLoad()

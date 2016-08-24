@@ -33,7 +33,7 @@ class MTLVignetteFilter: MTLFilter {
         }
     }
     
-    public var color: UIColor = UIColor.black() {
+    public var color: UIColor = UIColor.black {
         didSet {
             needsUpdate = true
             update()
@@ -59,7 +59,7 @@ class MTLVignetteFilter: MTLFilter {
     public override func reset() {
         viewSize = nil
         center = CGPoint(x: 0.5, y: 0.5)
-        color = UIColor.black()
+        color = UIColor.black
         start = 0.25
         end = 0.7
     }
@@ -88,7 +88,7 @@ class MTLVignetteFilter: MTLFilter {
         if self.input == nil { return }
         
         let components = color.cgColor.components
-        if color == UIColor.white() || color == UIColor.black() {
+        if color == UIColor.white || color == UIColor.black {
             uniforms.r = Float((components?[0])!)
             uniforms.g = Float((components?[0])!)
             uniforms.b = Float((components?[0])!)
@@ -112,6 +112,6 @@ class MTLVignetteFilter: MTLFilter {
         uniforms.start = start
         uniforms.end   = end
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(VignetteUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<VignetteUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
 }

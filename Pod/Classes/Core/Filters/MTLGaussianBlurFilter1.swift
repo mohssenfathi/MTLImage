@@ -56,7 +56,7 @@ class MTLGaussianBlurFilter1: MTLFilter {
 //            self.uniforms.sigma = Tools.convert(self.sigma, oldMin: 0, oldMax: 1, newMin: 0.5, newMax: 15)
 //            self.uniforms.blurRadius = 1.0
 //            self.uniforms.sigma = 0.5;
-        self.uniformsBuffer = self.device.newBuffer(withBytes: &self.uniforms, length: sizeof(GaussianBlurUniforms), options: .cpuCacheModeWriteCombined)
+        self.uniformsBuffer = self.device.newBuffer(withBytes: &self.uniforms, length: MemoryLayout<GaussianBlurUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
 
@@ -112,7 +112,7 @@ class MTLGaussianBlurFilter1: MTLFilter {
         
         let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: .r32Float, width: size, height: size, mipmapped: false)
         self.blurWeightTexture = self.device.newTexture(with: textureDescriptor)
-        self.blurWeightTexture.replace(MTLRegionMake2D(0, 0, size, size), mipmapLevel: 0, withBytes: weights, bytesPerRow: sizeof(Float) * size)
+        self.blurWeightTexture.replace(MTLRegionMake2D(0, 0, size, size), mipmapLevel: 0, withBytes: weights, bytesPerRow: MemoryLayout<Float>.size * size)
     }
 
     override public var input: MTLInput? {

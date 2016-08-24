@@ -28,7 +28,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var currentInput: MTLInput!
     var canDrag: Bool = false
     var initialDragOffset: CGFloat = 0.0   // removes initial jump on drag
-    var metadata: [AnyObject]?
+    var metadata: [[String:Any]]?
     
     lazy var imagePickerController: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
@@ -43,11 +43,13 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.navigationItem.leftBarButtonItems = nil
         
         sourcePicture = MTLPicture(image: image)
-        sourcePicture.setProcessingSize(mtlView.bounds.size * UIScreen.main().scale, respectAspectRatio: true)
+        sourcePicture.setProcessingSize(mtlView.bounds.size * UIScreen.main.nativeScale, respectAspectRatio: true)
         mtlView.delegate = self
         currentInput = sourcePicture
         
-        currentInput --> filterGroup --> mtlView
+//        currentInput --> filterGroup --> mtlView
+        currentInput --> filterGroup
+        filterGroup --> mtlView
         
         navigationItem.title = "MTLImage"
     }
@@ -120,12 +122,12 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             if filtersBar.frame.contains(location) {
                 canDrag = true
                 initialDragOffset = (location.y - filtersContainer.frame.minY)
-                filtersViewController.navigationController?.navigationBar.barTintColor = UIColor.lightGray()
+                filtersViewController.navigationController?.navigationBar.barTintColor = UIColor.lightGray
             }
         }
         else if sender.state == .ended {
             canDrag = false
-            filtersViewController.navigationController?.navigationBar.barTintColor = UIColor .white()
+            filtersViewController.navigationController?.navigationBar.barTintColor = UIColor .white
         }
         else if sender.state == .changed && canDrag {
             let newHeight = view.frame.height - location.y + initialDragOffset
@@ -164,24 +166,27 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             currentInput = camera
         }
         
-        currentInput --> filterGroup --> mtlView
+        currentInput --> filterGroup // --> mtlView
+        filterGroup --> mtlView
         currentInput.needsUpdate = true
     }
     
 //    MARK: - Image Picker Delegate
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+                
         let url = info[UIImagePickerControllerReferenceURL] as! URL
-        guard let asset: PHAsset = PHAsset.fetchAssets(withALAssetURLs: [url], options: nil).firstObject! as PHAsset else {
+        guard let asset: PHAsset = PHAsset.fetchAssets(withALAssetURLs: [url], options: nil).firstObject else {
             return
         }
         
-        MetadataFormatter.sharedFormatter.formatMetadata(asset, completion: { (metadata) in
+        MetadataFormatter.sharedFormatter.formatMetadata(asset) { (metadata) in
             self.metadata = metadata
-        })
+        }
         
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            return
+        }
         
         sourcePicture.removeAllTargets()
         sourcePicture.image = image
@@ -193,8 +198,8 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             filterGroup.add(filtersViewController.selectedFilter)
         }
         
-        sourcePicture --> filterGroup --> mtlView
-        
+        sourcePicture --> filterGroup //--> mtlView
+        filterGroup --> mtlView
         
         dismiss(animated: true, completion: nil)
     }
@@ -216,7 +221,8 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         self.filterGroup = filterGroup as! MTLFilterGroup
         
-        currentInput --> filterGroup --> mtlView
+        currentInput --> filterGroup //--> mtlView
+        filterGroup --> mtlView
     }
     
     override func didReceiveMemoryWarning() {
@@ -226,15 +232,16 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     // MARK: - Navigation
     
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "filters" {
-            let navigationController = segue.destinationViewController as? UINavigationController
+            let navigationController = segue.destination as? UINavigationController
             filtersViewController = navigationController?.viewControllers.first as? FiltersViewController
             filtersViewController.delegate = self
             filtersViewController.filterGroup = filterGroup
         }
         if segue.identifier == "info" {
-            let navigationController = segue.destinationViewController as? UINavigationController
+            let navigationController = segue.destination as? UINavigationController
             let infoViewController = navigationController?.viewControllers.first as? InfoViewController
             infoViewController?.metadata = metadata
         }

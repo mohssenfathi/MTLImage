@@ -41,8 +41,8 @@ class MTLFilterGroup: MTLObject, NSCoding {
         set { privateIdentifier = newValue }
     }
     
-    public func filterImage(_ image: UIImage) -> UIImage? {
-        let picture = MTLPicture(image: image)
+    public func filter(_ image: UIImage) -> UIImage? {
+        var picture = MTLPicture(image: image)
         picture > self
         let filteredImage = UIImage.imageWithTexture(texture!)
         
@@ -62,6 +62,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
     }
     
     public func add(_ filter: MTLObject) {
+        
         if let last = filters.last {
             last.removeAllTargets()
             last.addTarget(filter)
@@ -247,6 +248,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
     
     public override func removeAllTargets() {
         filters.last?.removeAllTargets()
+        internalTargets.removeAll()
     }
 
     public override var needsUpdate: Bool {
@@ -314,8 +316,8 @@ class MTLFilterGroup: MTLObject, NSCoding {
 
 //    MARK: - Copying
     
-    public override func copy() -> AnyObject {
-        
+    public override func copy() -> Any {
+                
         let filterGroup = MTLFilterGroup()
         
         filterGroup.title = title
@@ -356,6 +358,28 @@ extension Array where Element: Equatable {
     mutating func removeObjectsInArray(_ array: [Element]) {
         for object in array {
             self.removeObject(object)
+        }
+    }
+}
+
+extension Array where Element: Equatable {
+    
+    public func unique() -> [Element] {
+        var arrayCopy = self
+        arrayCopy.uniqInPlace()
+        return arrayCopy
+    }
+    
+    mutating public func uniqInPlace() {
+        var seen = [Element]()
+        var index = 0
+        for element in self {
+            if seen.contains(element) {
+                remove(at: index)
+            } else {
+                seen.append(element)
+                index += 1
+            }
         }
     }
 }

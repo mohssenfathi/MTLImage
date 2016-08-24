@@ -26,31 +26,52 @@ kernel void crossHatch(texture2d<float, access::read>  inTexture  [[ texture(0) 
     float lineWidth = uniforms.lineWidth;
     
     float4 outColor = float4(1.0, 1.0, 1.0, 1.0);
-    
-    float2 size = float2(inTexture.get_width(), inTexture.get_height());
-    float x = gid.x/size.x;
-    float y = gid.y/size.y;
-    
+
     if (luminance < 1.00) {
-        if (fmod(x + y, crossHatchSpacing) <= lineWidth) {
+        if (fmod(gid.x + gid.y, crossHatchSpacing) <= lineWidth) {
             outColor = float4(0.0, 0.0, 0.0, 1.0);
         }
     }
     if (luminance < 0.75) {
-        if (fmod(x - y, crossHatchSpacing) <= lineWidth) {
+        if (fmod(gid.x - gid.y, crossHatchSpacing) <= lineWidth) {
             outColor = float4(0.0, 0.0, 0.0, 1.0);
         }
     }
     if (luminance < 0.50) {
-        if (fmod(x + y - (crossHatchSpacing / 2.0), crossHatchSpacing) <= lineWidth) {
+        if (fmod(gid.x + gid.y - (crossHatchSpacing / 2.0), crossHatchSpacing) <= lineWidth) {
             outColor = float4(0.0, 0.0, 0.0, 1.0);
         }
     }
     if (luminance < 0.3) {
-        if (fmod(x - y - (crossHatchSpacing / 2.0), crossHatchSpacing) <= lineWidth) {
+        if (fmod(gid.x - gid.y - (crossHatchSpacing / 2.0), crossHatchSpacing) <= lineWidth) {
             outColor = float4(0.0, 0.0, 0.0, 1.0);
         }
     }
+    
+//    float2 size = float2(inTexture.get_width(), inTexture.get_height());
+//    float x = gid.x/size.x;
+//    float y = gid.y/size.y;
+    
+//    if (luminance < 1.00) {
+//        if (fmod(x + y, crossHatchSpacing) <= lineWidth) {
+//            outColor = float4(0.0, 0.0, 0.0, 1.0);
+//        }
+//    }
+//    if (luminance < 0.75) {
+//        if (fmod(x - y, crossHatchSpacing) <= lineWidth) {
+//            outColor = float4(0.0, 0.0, 0.0, 1.0);
+//        }
+//    }
+//    if (luminance < 0.50) {
+//        if (fmod(x + y - (crossHatchSpacing / 2.0), crossHatchSpacing) <= lineWidth) {
+//            outColor = float4(0.0, 0.0, 0.0, 1.0);
+//        }
+//    }
+//    if (luminance < 0.3) {
+//        if (fmod(x - y - (crossHatchSpacing / 2.0), crossHatchSpacing) <= lineWidth) {
+//            outColor = float4(0.0, 0.0, 0.0, 1.0);
+//        }
+//    }
     
     outTexture.write(outColor, gid);
 }

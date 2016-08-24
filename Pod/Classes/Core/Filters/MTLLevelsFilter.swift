@@ -90,7 +90,7 @@ class MTLLevelsFilter: MTLFilter {
         uniforms.max = max
         uniforms.minOut = minOut
         uniforms.maxOut = maxOut
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(LevelsUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<LevelsUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
 
 }

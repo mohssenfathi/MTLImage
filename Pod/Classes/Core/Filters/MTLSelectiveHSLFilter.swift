@@ -72,7 +72,7 @@ class MTLSelectiveHSLFilter: MTLFilter {
 //        uniforms.magenta = magenta
         uniforms.mode = mode
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(SelectiveHSLUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<SelectiveHSLUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
     func loadColorAdjustmentTexture() {
@@ -81,7 +81,7 @@ class MTLSelectiveHSLFilter: MTLFilter {
         
         let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: .r32Float, width: size, height: 1, mipmapped: false)
         self.adjustmentsTexture = self.device.newTexture(with: textureDescriptor)
-        self.adjustmentsTexture!.replace(MTLRegionMake2D(0, 0, size, 1), mipmapLevel: 0, withBytes: adjustments, bytesPerRow: sizeof(Float) * size)
+        self.adjustmentsTexture!.replace(MTLRegionMake2D(0, 0, size, 1), mipmapLevel: 0, withBytes: adjustments, bytesPerRow: MemoryLayout<Float>.size * size)
     }
     
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {

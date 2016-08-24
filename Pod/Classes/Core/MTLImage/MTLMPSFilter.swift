@@ -15,7 +15,7 @@ class MTLMPSFilter: MTLFilter {
     var kernel: MPSKernel!
 
     public override init(functionName: String) {
-        super.init(functionName: "DefaultShaders")
+        super.init(functionName: "EmptyShader")
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -24,7 +24,9 @@ class MTLMPSFilter: MTLFilter {
     
     public override func process() {
         
-        // Look info fallback allocators
+        // TODO: Look info fallback allocators
+        
+        guard needsUpdate == true else { return }
         
         guard let inputTexture = input?.texture else {
             print("input texture nil")
@@ -44,11 +46,9 @@ class MTLMPSFilter: MTLFilter {
             let commandBuffer = context.commandQueue.commandBuffer()
             commandBuffer.label = "MTLFilter: " + title
             
-            if kernel is MPSUnaryImageKernel {
-                (kernel as! MPSUnaryImageKernel).encode(to: commandBuffer, sourceTexture: inputTexture, destinationTexture: internalTexture!)
-            }
-            
-            configureCommandBuffer(commandBuffer: commandBuffer)
+            (kernel as? MPSUnaryImageKernel)?.encode(commandBuffer: commandBuffer, sourceTexture: inputTexture, destinationTexture: internalTexture!)
+
+            configureCommandBuffer(commandBuffer)
             
             commandBuffer.addCompletedHandler({ (commandBuffer) in
                 self.needsUpdate = false
@@ -59,7 +59,7 @@ class MTLMPSFilter: MTLFilter {
         }
     }
     
-    func configureCommandBuffer(commandBuffer: MTLCommandBuffer) {
+    func configureCommandBuffer(_ commandBuffer: MTLCommandBuffer) {
         // Needs to be subclasses
     }
     

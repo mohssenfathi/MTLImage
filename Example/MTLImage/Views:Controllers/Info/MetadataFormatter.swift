@@ -14,7 +14,7 @@ class MetadataFormatter: NSObject {
 
     static let sharedFormatter = MetadataFormatter()
     
-    func formatMetadata(_ asset: PHAsset, completion: ((metadata: [AnyObject]) -> Void)?) {
+    func formatMetadata(_ asset: PHAsset, completion: ((_ metadata: [[String:Any]]) -> Void)?) {
         
 //        let data = UIImageJPEGRepresentation(image, 1.0)
 //        let source = CGImageSourceCreateWithData(data!, nil)
@@ -26,14 +26,14 @@ class MetadataFormatter: NSObject {
         
         asset.requestContentEditingInput(with: editingOptions) { (contentEditingInput, info) in
             let ciImage = CIImage(contentsOf: (contentEditingInput?.fullSizeImageURL)!)
-            let m = self.parseMetadata((ciImage?.properties)!)
-            completion?(metadata: m)
+            let m = self.parseMetadata((ciImage?.properties)! as [String : AnyObject])
+            completion?(m)
         }
     }
     
-    func parseMetadata(_ metadata: [String: AnyObject]) -> [AnyObject] {
+    func parseMetadata(_ metadata: [String: AnyObject]) -> [[String:Any]] {
         
-        var array = [AnyObject]()
+        var array = [[String:Any]]()
         if metadata["PixelHeight"] != nil {
             let resolution = String(format: "%ld x %ld px", metadata["PixelWidth"] as! Int, metadata["PixelHeight"] as! Int)
             array.append([
@@ -64,14 +64,14 @@ class MetadataFormatter: NSObject {
         if let dpiWidth = metadata["DPIWidth"] {
             array.append([
                 "title" : "DPI",
-                "value" : String(dpiWidth)
+                "value" : dpiWidth as! String
                 ])
         }
     
         return array;
     }
     
-    func parseExifMetadata(_ exifMetadata: [String: AnyObject], formattedMetadata: [AnyObject]) {
+    func parseExifMetadata(_ exifMetadata: [String: AnyObject], formattedMetadata: [[String:Any]]) {
         
         var fm = formattedMetadata
         
@@ -93,7 +93,7 @@ class MetadataFormatter: NSObject {
         }
         
         if let fNumber = exifMetadata["FNumber"] {
-            let aperture = String(format: "f/%@", String(fNumber))
+            let aperture = String(format: "f/%@", fNumber as! String)
             fm.append([
                 "title" : "aperture",
                 "value" : aperture
@@ -119,7 +119,7 @@ class MetadataFormatter: NSObject {
         
     }
 
-    func parseTiffMetadata(_ tiffMetadata: [String: AnyObject], formattedMetadata: [AnyObject]) {
+    func parseTiffMetadata(_ tiffMetadata: [String: AnyObject], formattedMetadata: [[String:Any]]) {
         var fm = formattedMetadata
         
         if let model = tiffMetadata["Model"] {

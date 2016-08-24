@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.author           = { "mohssenfathi" => "mmohssenfathi@gmail.com" }
   s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/MTLImage.git", :tag => s.version.to_s }
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
   s.tvos.deployment_target = '9.0'
   s.tvos.exclude_files = 'Pod/Classes/MTLImage/MTLCamera.swift'
   s.requires_arc = true

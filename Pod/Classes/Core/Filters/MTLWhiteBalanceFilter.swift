@@ -49,6 +49,6 @@ class MTLWhiteBalanceFilter: MTLFilter {
         if self.input == nil { return }
         uniforms.temperature = temperature * 2.0 - 1.0
         uniforms.tint        = tint        * 4.0 - 2.0
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(WhiteBalanceUnigforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<WhiteBalanceUnigforms>.size, options: .cpuCacheModeWriteCombined)
     }
 }

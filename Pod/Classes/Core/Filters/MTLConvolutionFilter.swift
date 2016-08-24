@@ -39,8 +39,8 @@ class MTLConvolutionFilter: MTLFilter {
             let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: .r32Float, width: 3, height: 3, mipmapped: false)
             convolutionMatrixTexture = device.newTexture(with: textureDescriptor)
             
-            let f = Array(convolutionMatrix.flatten())
-            convolutionMatrixTexture!.replace(MTLRegionMake2D(0, 0, 3, 3), mipmapLevel: 0, withBytes: f, bytesPerRow: sizeof(Float) * 3)
+            let f = Array(convolutionMatrix.joined())
+            convolutionMatrixTexture!.replace(MTLRegionMake2D(0, 0, 3, 3), mipmapLevel: 0, withBytes: f, bytesPerRow: MemoryLayout<Float>.size * 3)
         }
         commandEncoder.setTexture(convolutionMatrixTexture, at: 2)
     }

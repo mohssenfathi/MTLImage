@@ -63,7 +63,7 @@ class MTLCropFilter: MTLFilter {
         uniforms.height = Float(cropRegion.size.height)
         uniforms.fit = fit ? 1 : 0
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(CropUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<CropUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
     

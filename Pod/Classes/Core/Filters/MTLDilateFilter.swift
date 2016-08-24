@@ -39,22 +39,23 @@ class MTLDilateFilter: MTLMPSFilter {
     }
     
     init() {
-        super.init(functionName: "DefaultShaders")
+        super.init(functionName: "EmptyShader")
         commonInit()
     }
     
     override init(functionName: String) {
-        super.init(functionName: "DefaultShaders")
+        super.init(functionName: "EmptyShader")
         commonInit()
     }
     
     func commonInit() {
         let intense = intensity * 5.0
-        let values = [[-2.0 * intense, -intense, 0.0          ],
+        let values1 = [[-2.0 * intense, -intense, 0.0         ],
                       [-intense      , 1.0     , intense      ],
-                      [0.0           , intense , 2.0 * intense]];
+                      [0.0           , intense , 2.0 * intense]]
         
-        dilateValues = UnsafePointer<Float>(values)
+        var values = [-2.0 * intense, -intense, 0.0, -intense, 1.0 , intense, 0.0, intense , 2.0 * intense]
+        updateDilateValues(values)
         
         title = "Dilate"
         properties = [MTLProperty(key: "intensity", title: "Intensity"),
@@ -62,6 +63,10 @@ class MTLDilateFilter: MTLMPSFilter {
                       MTLProperty(key: "height", title: "Height")]
         
         update()
+    }
+    
+    func updateDilateValues(_ values: UnsafePointer<Float>!) {
+        dilateValues = values
     }
     
     override func update() {

@@ -121,11 +121,11 @@ class MTLBlendFilter: MTLFilter {
         if self.input == nil { return }
         uniforms.mix = mix
         uniforms.blendMode = Float(blendMode)
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(BlendUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<BlendUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
  
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
-        if blendTexture == nil {
+        if blendTexture == nil || blendOriginal {
             createBlendTexture()
         }
         commandEncoder.setTexture(blendTexture, at: 2)

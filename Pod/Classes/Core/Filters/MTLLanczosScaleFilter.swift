@@ -23,23 +23,23 @@ class MTLLanczosScaleFilter: MTLMPSFilter {
     }
     
     init() {
-        super.init(functionName: "DefaultShaders")
+        super.init(functionName: "EmptyShader")
         commonInit()
     }
     
     override init(functionName: String) {
-        super.init(functionName: "DefaultShaders")
+        super.init(functionName: "EmptyShader")
         commonInit()
     }
     
     func commonInit() {
         
-        title = "Dilate"
-        properties = [MTLProperty(key: "intensity", title: "Intensity"),
-                      MTLProperty(key: "width", title: "Width"),
-                      MTLProperty(key: "height", title: "Height")]
+        title = "Lanczos Scale"
+        properties = [MTLProperty(key: "scale", title: "Scale")] //,
+//                      MTLProperty(key: "width", title: "Width"),
+//                      MTLProperty(key: "height", title: "Height")]
         
-        transformPointer = withUnsafePointer(&scaleTransform, { (pointer: UnsafePointer<MPSScaleTransform>) -> UnsafePointer<MPSScaleTransform>! in
+        transformPointer = withUnsafePointer(to: &scaleTransform, { (pointer: UnsafePointer<MPSScaleTransform>) -> UnsafePointer<MPSScaleTransform>! in
             return pointer
         })
         

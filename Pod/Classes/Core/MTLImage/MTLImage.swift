@@ -26,6 +26,9 @@ public protocol MTLInput {
     func addTarget(_ target: MTLOutput)
     func removeTarget(_ target: MTLOutput)
     func removeAllTargets()
+    
+    /*  Signal from final output that texture has been displayed */
+    func didFinishProcessing()
 }
 
 public protocol MTLOutput {
@@ -38,6 +41,8 @@ public protocol MTLOutput {
 
 public
 class MTLImage: NSObject {
+   
+    #if !(TARGET_OS_SIMULATOR)
     
     public static var filters: [String] = [
          "Blend",
@@ -82,10 +87,10 @@ class MTLImage: NSObject {
     
     public class func filter(_ name: String) throws -> MTLObject? {
         switch name.lowercased() {
-            
+        
             // Core
             case "blend"                          : return MTLBlendFilter()
-            case "box blur"                            : return MTLBoxBlurFilter()
+            case "box blur"                       : return MTLBoxBlurFilter()
             case "brightness"                     : return MTLBrightnessFilter()
             case "canny edge detection"           : return MTLCannyEdgeDetectionFilterGroup()
             case "contrast"                       : return MTLContrastFilter()
@@ -127,7 +132,6 @@ class MTLImage: NSObject {
                 do    { return try! MTLImage.machineLearningFilter(name) }
                 catch { throw  MTLError.invalidFilterName                }
             
-            
             default: throw  MTLError.invalidFilterName
         }
     }
@@ -142,6 +146,8 @@ class MTLImage: NSObject {
         
         return nil
     }
+    
+    #endif
     
 }
 
@@ -161,11 +167,11 @@ extension MTLImage {
 //    MARK: - CoreData
 public
 extension MTLImage {
-    public class func save(_ filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
+    public class func save(_ filterGroup: MTLFilterGroup, completion: ((_ success: Bool) -> ())?) {
         MTLDataManager.sharedManager.save(filterGroup, completion: completion)
     }
     
-    public class func remove(_ filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
+    public class func remove(_ filterGroup: MTLFilterGroup, completion: ((_ success: Bool) -> ())?) {
         MTLDataManager.sharedManager.remove(filterGroup, completion: completion)
     }
     
@@ -189,9 +195,9 @@ extension MTLImage {
         return MTLImage.unarchive(data)
     }
     
-    public class func upload(_ filterGroup: MTLFilterGroup, container: CKContainer, completion: ((record: CKRecord?, error: NSError?) -> ())?) {
+    public class func upload(_ filterGroup: MTLFilterGroup, container: CKContainer, completion: ((_ record: CKRecord?, _ error: Error?) -> ())?) {
         MTLCloudKitManager.sharedManager.upload(filterGroup, container: container) { (record, error) in
-            completion?(record: record, error: error)
+            completion?(record, error)
         }
     }
     
@@ -200,31 +206,41 @@ extension MTLImage {
 
 //    MARK: - Overloading
 
-infix operator --> { associativity left precedence 80 }
-public func -->(left: MTLInput , right: MTLOutput) -> MTLOutput {
+infix operator --> { associativity left precedence 100 }
+
+@discardableResult
+public func --> (left: MTLInput , right: MTLOutput) -> MTLOutput {
     left.addTarget(right)
     return right
 }
+
+@discardableResult
 public func --> (left: MTLInput , right: MTLObject) -> MTLObject {
     left.addTarget(right)
     return right
 }
+
+@discardableResult
 public func --> (left: MTLObject, right: MTLObject) -> MTLObject {
     left.addTarget(right)
     return right
 }
+
+@discardableResult
 public func --> (left: MTLObject, right: MTLOutput) {
     left.addTarget(right)
 }
 
+@discardableResult
 public func + (left: MTLInput, right: MTLOutput) {
     left.addTarget(right)
 }
 
+@discardableResult
 public func > (left: MTLInput, right: MTLOutput) {
     left.addTarget(right)
 }
 
-enum MTLError: ErrorProtocol {
+enum MTLError: Error {
     case invalidFilterName
 }

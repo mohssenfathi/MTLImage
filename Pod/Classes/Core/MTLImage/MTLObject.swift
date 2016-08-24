@@ -34,13 +34,14 @@ class MTLObject: NSObject, MTLInput, MTLOutput {
     public func addTarget(_ target: MTLOutput) {}
     public func removeTarget(_ target: MTLOutput) {}
     public func removeAllTargets() {}
-
+    public func didStartProcessing() {}
+    public func didFinishProcessing() {}
+    
 //    MARK: - MTLOutput
     public var input: MTLInput? {
         get { return nil }
         set {}
     }
-    
     
     
     //    MARK: - Tools
@@ -49,4 +50,5 @@ class MTLObject: NSObject, MTLInput, MTLOutput {
         if      value < low  { value = low  }
         else if value > high { value = high }
     }
+    
 }

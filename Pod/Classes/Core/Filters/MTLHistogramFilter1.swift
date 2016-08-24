@@ -15,16 +15,16 @@ class MTLHistogramFilter1: MTLMPSFilter {
     var histogramInfo: MPSImageHistogramInfo = MPSImageHistogramInfo(numberOfHistogramEntries: 256, histogramForAlpha: true, minPixelValue: float4(0, 0, 0, 0), maxPixelValue: float4(1, 1, 1, 1))
     var histogramInfoPointer: UnsafePointer<MPSImageHistogramInfo>!
     var histogramBuffer: MTLBuffer!
-    var histogram: [Float]!
-    let length = 256 * sizeof(Float)
+    var histogram: [UInt8]!
+    let length = 256 * MemoryLayout<Float>.size
     
     public init() {
-        super.init(functionName: "DefaultShaders")
+        super.init(functionName: "EmptyShader")
         commonInit()
     }
     
     override init(functionName: String) {
-        super.init(functionName: "DefaultShaders")
+        super.init(functionName: "EmptyShader")
         commonInit()
     }
     
@@ -34,7 +34,7 @@ class MTLHistogramFilter1: MTLMPSFilter {
         properties = []
         
         histogramBuffer = context.device.newBuffer(withLength: 1000 * 1000 * 256, options: .cpuCacheModeWriteCombined)
-        histogramInfoPointer = withUnsafePointer(&histogramInfo, { (pointer: UnsafePointer<MPSImageHistogramInfo>) -> UnsafePointer<MPSImageHistogramInfo>! in
+        histogramInfoPointer = withUnsafePointer(to: &histogramInfo, { (pointer: UnsafePointer<MPSImageHistogramInfo>) -> UnsafePointer<MPSImageHistogramInfo>! in
             return pointer
         })
         kernel = MPSImageHistogram(device: context.device, histogramInfo: histogramInfoPointer)
@@ -44,15 +44,18 @@ class MTLHistogramFilter1: MTLMPSFilter {
         super.init(coder: aDecoder)
     }
     
-    override func configureCommandBuffer(commandBuffer: MTLCommandBuffer) {
-        super.configureCommandBuffer(commandBuffer: commandBuffer)
+    override func configureCommandBuffer(_ commandBuffer: MTLCommandBuffer) {
+        super.configureCommandBuffer(commandBuffer)
         
         guard let inputTexture = input?.texture else { return }
         
         (kernel as! MPSImageHistogram).encode(to: commandBuffer, sourceTexture: inputTexture, histogram: histogramBuffer, histogramOffset: 0)
         
-        let data = NSData(bytes: histogramBuffer!.contents(), length: length)
-        data.getBytes(&histogram, length: length)
+        // TODO: Fix this
+        let data = Data(bytes: histogramBuffer.contents(), count: length)
+//        data.copyBytes(to: &histogram, count: data.count)
+
+//        histogram = Tools.contents(count: length, data: histogramBuffer.contents())
         
         needsUpdate = true
     }
@@ -122,29 +125,29 @@ class MTLHistogramFilter1: MTLMPSFilter {
         view.addSubview(blueView)
         view.addSubview(luminanceView)
         
-        view.backgroundColor = UIColor.clear()
+        view.backgroundColor = UIColor.clear
         
         var bar: UIView!
         for i in 0 ..< luminance.count {
             
             bar = UIView(frame: CGRect(x: dx * CGFloat(i), y: height - 1, width: dx, height: 1))
             bar.alpha = 0.75
-            bar.backgroundColor = UIColor.white()
+            bar.backgroundColor = UIColor.white
             luminanceView.addSubview(bar)
             
             bar = UIView(frame: CGRect(x: dx * CGFloat(i), y: height - 1, width: dx, height: 1))
             bar.alpha = 0.5
-            bar.backgroundColor = UIColor.red()
+            bar.backgroundColor = UIColor.red
             redView.addSubview(bar)
             
             bar = UIView(frame: CGRect(x: dx * CGFloat(i), y: height - 1, width: dx, height: 1))
             bar.alpha = 0.5
-            bar.backgroundColor = UIColor.green()
+            bar.backgroundColor = UIColor.green
             greenView.addSubview(bar)
             
             bar = UIView(frame: CGRect(x: dx * CGFloat(i), y: height - 1, width: dx, height: 1))
             bar.alpha = 0.5
-            bar.backgroundColor = UIColor.blue()
+            bar.backgroundColor = UIColor.blue
             blueView.addSubview(bar)
             
         }

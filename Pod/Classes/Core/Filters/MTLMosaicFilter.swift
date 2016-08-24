@@ -39,7 +39,7 @@ class MTLMosaicFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.intensity = intensity * 50
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(MosaicUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<MosaicUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
 }

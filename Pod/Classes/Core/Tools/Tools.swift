@@ -32,16 +32,16 @@ extension CGFloat: Numeric {}
 public
 class Tools: NSObject {
 
-    public class func normalize<T where T: Numeric, T: Comparable>(_ value: T, min: T, max: T) -> T {
+    public class func normalize<T>(_ value: T, min: T, max: T) -> T where T: Numeric, T: Comparable {
         return Tools.convert(value, oldMin: min, oldMax: max, newMin: T(0), newMax: T(1))
     }
     
-    public class func convert<T where T: Numeric, T: Comparable>(_ value: T, oldMin: T, oldMax: T, newMin: T, newMax: T) -> T {
+    public class func convert<T>(_ value: T, oldMin: T, oldMax: T, newMin: T, newMax: T) -> T where T: Numeric, T: Comparable {
         let normalizedValue = (value - oldMin)/(oldMax - oldMin);
         return newMin + (normalizedValue * (newMax - newMin))
     }
     
-    public class func convert<T where T:Numeric, T:Comparable>(_ value: T, oldMin: T, oldMid: T, oldMax: T, newMin: T, newMid: T, newMax: T) -> T {
+    public class func convert<T>(_ value: T, oldMin: T, oldMid: T, oldMax: T, newMin: T, newMid: T, newMax: T) -> T where T:Numeric, T:Comparable {
         if (oldMin < oldMax && value < oldMid) {
             return Tools.convert(value, oldMin: oldMin, oldMax: oldMid, newMin: newMin, newMax: newMid)
         }
@@ -50,7 +50,7 @@ class Tools: NSObject {
         }
     }
     
-    private class func convert<T where T:Numeric, T: Equatable, T: Comparable>(_ value: T, oldMin: T, oldMax: T, newMin: T, newMid: T, newMax: T) -> T {
+    private class func convert<T>(_ value: T, oldMin: T, oldMax: T, newMin: T, newMid: T, newMax: T) -> T where T:Numeric, T: Equatable, T: Comparable {
         if (newMid == newMin || newMid == newMax) {
             return Tools.convert(value, oldMin: oldMin, oldMax: oldMax, newMin: newMin, newMax: newMax)
         }
@@ -73,7 +73,7 @@ class Tools: NSObject {
 //        return Tools.convert(value, oldMin: oldMin, oldMid: oldMid, oldMax: oldMax, newMin: newMin, newMid: newMid, newMax: newMax)
 //    }
     
-    private class func tabs<T where T: Numeric, T: Comparable>(_ x: T) -> T {
+    private class func tabs<T>(_ x: T) -> T where T: Numeric, T: Comparable {
         if x < T(0) { return -x }
         else        { return  x }
     }
@@ -115,20 +115,20 @@ class Tools: NSObject {
         else if value > high { value = high }
     }
     
-    public class func odd(value: inout Int) {
-        Tools.even(value: &value)
+    public class func odd(_ value: inout Int) {
+        Tools.even(&value)
         value += 1
     }
     
-    public class func even(value: inout Int) {
+    public class func even(_ value: inout Int) {
         value = value / 2 * 2
     }
     
-    public class func odd(value: Int) -> Int {
-        return Tools.even(value: value) + 1
+    public class func odd(_ value: Int) -> Int {
+        return Tools.even(value) + 1
     }
     
-    public class func even(value: Int) -> Int {
+    public class func even(_ value: Int) -> Int {
         return value / 2 * 2
     }
     
@@ -143,4 +143,15 @@ class Tools: NSObject {
             }
         }
     }
+    
+    
+    public class func contents<T>(count: Int, data: UnsafePointer<T>) -> [T] {
+        let buffer = UnsafeBufferPointer(start: data, count: count);
+        return Array(buffer)
+    }
+    
+//    func contents<T>(length: Int, data: UnsafePointer<UInt8>, _: T.Type) -> [T] {
+//        let buffer = UnsafeBufferPointer<T>(start: UnsafePointer(data), count: length/MemoryLayout<T>.stride);
+//        return Array(buffer)
+//    }
 }

@@ -47,18 +47,29 @@ class MTLCrossHatchFilter: MTLFilter {
     }
     
     override func update() {
-        if self.input == nil { return }
         
-        var chs = Tools.convert(crossHatchSpacing, oldMin: 0, oldMax: 1, newMin: 0.01, newMax: 0.08)
-        if uniformsBuffer != nil && texture != nil {
-            var singlePixelSpacing: Float!
-            if texture!.width != 0 { singlePixelSpacing = 1.0 / Float(texture!.width) }
-            else                  { singlePixelSpacing = 1.0 / 2048.0               }
-            if (chs < singlePixelSpacing) { chs = singlePixelSpacing }
-        }
+//        guard input != nil else {
+//            needsUpdate = false
+//            return
+//        }
+//        
+//        guard texture != nil else {
+//            needsUpdate = false
+//            return
+//        }
         
-        uniforms.crossHatchSpacing = chs
-        uniforms.lineWidth = Tools.convert(lineWidth, oldMin: 0, oldMax: 1, newMin: 0.001, newMax: 0.008)
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(CrossHatchUniforms), options: .cpuCacheModeWriteCombined)
+//        var chs = Tools.convert(crossHatchSpacing, oldMin: 0, oldMax: 1, newMin: 0.01, newMax: 0.08)
+
+//        if uniformsBuffer != nil {
+//            var singlePixelSpacing: Float!
+//            if texture!.width != 0 { singlePixelSpacing = 1.0 / Float(texture!.width) }
+//            else                   { singlePixelSpacing = 1.0 / 2048.0                }
+//            if (chs < singlePixelSpacing) { chs = singlePixelSpacing }
+//        }
+        
+        uniforms.crossHatchSpacing = Tools.convert(crossHatchSpacing, oldMin: 0, oldMax: 1, newMin: 20.0, newMax: 100.0)
+//        uniforms.lineWidth = Tools.convert(lineWidth, oldMin: 0, oldMax: 1, newMin: 0.001, newMax: 0.008)
+        uniforms.lineWidth = Tools.convert(lineWidth, oldMin: 0, oldMax: 1, newMin: 1.0, newMax: 8.0)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<CrossHatchUniforms>.size, options: .cpuCacheModeWriteCombined)
     }    
 }

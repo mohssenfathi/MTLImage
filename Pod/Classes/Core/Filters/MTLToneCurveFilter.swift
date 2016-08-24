@@ -150,10 +150,10 @@ class MTLToneCurveFilter: MTLFilter {
     
     override func updatePropertyValues() {
         super.updatePropertyValues()
-        propertyValues["compositeCurve"] = compositeCurve
-        propertyValues["redCurve"] = redCurve
-        propertyValues["greenCurve"] = greenCurve
-        propertyValues["blueCurve"] = blueCurve
+        propertyValues["compositeCurve"] = compositeCurve as? AnyObject
+        propertyValues["redCurve"] = redCurve as? AnyObject
+        propertyValues["greenCurve"] = greenCurve as? AnyObject
+        propertyValues["blueCurve"] = blueCurve as? AnyObject
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -170,7 +170,7 @@ class MTLToneCurveFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
 
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(ToneCurveUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<ToneCurveUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
     
@@ -186,13 +186,14 @@ class MTLToneCurveFilter: MTLFilter {
     
 //    MARK: - Curves
     
-    var toneCurveByteArray: UnsafeMutablePointer<Void>? = nil // UnsafeMutablePointer<Void>(calloc(256 * 4, sizeof(Float)))
+    var toneCurveByteArray: UnsafeMutableRawPointer? = nil
     var toneCurveValuesPointer: UnsafeMutablePointer<Float>!
     
     func setupToneCurveBuffer() {
         
         let alignment: UInt = 0x4000
-        let size: UInt = UInt(256 * 3) * UInt(sizeof(Float))
+        let size: UInt = UInt(256 * 3) * UInt(MemoryLayout<Float>.size)
+        
         posix_memalign(&toneCurveByteArray, Int(alignment), Int(size))
         
         let pptr = OpaquePointer(toneCurveByteArray)
@@ -234,8 +235,8 @@ class MTLToneCurveFilter: MTLFilter {
         }
         
         toneCurveBuffer = device.newBuffer(withBytesNoCopy: toneCurveByteArray!,
-                                           length: 256 * 4 * sizeof(Float),
-                                           options: MTLResourceOptions.cpuCacheModeWriteCombined,
+                                           length: 256 * 4 * MemoryLayout<Float>.size,
+                                           options: MTLResourceOptions.storageModeShared,
                                            deallocator: nil)
     }
     

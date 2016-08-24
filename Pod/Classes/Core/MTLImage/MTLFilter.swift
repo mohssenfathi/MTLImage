@@ -153,6 +153,7 @@ class MTLFilter: MTLObject, NSCoding {
 //                // Find the largest denominator? Using a non-divisor will cut pixels off the end
 //                gcd = Tools.gcd(inputTexture.width, b: inputTexture.height)
 //            }
+            
             // Next, try different values for x, y
             let threadgroupCounts = MTLSizeMake(8, 8, 1)
             let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
@@ -261,15 +262,17 @@ class MTLFilter: MTLObject, NSCoding {
         internalTargets.removeAll()
     }
     
+    
+    /* Informs next object in the chain that a change has occurred and 
+       that changes need to be propogated through the chain. */
+    
     private var privateNeedsUpdate = true
     public override var needsUpdate: Bool {
         set {
             privateNeedsUpdate = newValue
             if newValue == true {
-                for target in targets {
-                    if let filter = target as? MTLFilter {
-                        filter.needsUpdate = newValue
-                    }
+                for target in targets where target is MTLObject {
+                    (target as! MTLObject).needsUpdate = newValue
                 }
             }
         }
@@ -278,8 +281,17 @@ class MTLFilter: MTLObject, NSCoding {
         }
     }
     
+    
+    /**
+        Filters the provided input image
+     
+        - parameter image: The original image to be filtered
+        - returns: An image filtered by the parent or the parents sub-filters
+     */
+    
     public func filter(_ image: UIImage) -> UIImage? {
-        let sourcePicture = MTLPicture(image: image)
+    
+        var sourcePicture = MTLPicture(image: image)
         let filterCopy = self.copy() as! MTLFilter
         sourcePicture > filterCopy
         
@@ -311,12 +323,13 @@ class MTLFilter: MTLObject, NSCoding {
     func updatePropertyValues() {
         propertyValues.removeAll()
         for property in properties {
-            propertyValues[property.key] = value(forKey: property.key)
+            propertyValues[property.key] = value(forKey: property.key) as? AnyObject
         }
     }
     
-    public override func copy() -> AnyObject {
-        
+    
+    public override func copy() -> Any {
+    
         let filter = try! MTLImage.filter(title.lowercased()) as! MTLFilter
 
         filter.functionName = functionName

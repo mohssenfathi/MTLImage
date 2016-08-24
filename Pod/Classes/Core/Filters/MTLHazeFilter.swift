@@ -41,7 +41,7 @@ class MTLHazeFilter: MTLFilter {
         if self.input == nil { return }
         uniforms.distance = -fade
 //        uniforms.slope = slope  //distance * 0.6 - 0.3
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(HazeUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<HazeUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
 }

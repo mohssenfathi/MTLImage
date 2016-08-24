@@ -70,9 +70,12 @@ class MTLPicture: NSObject, MTLInput {
     
     public init(image: UIImage) {
         super.init()
+        
         self.image = image
         self.processingSize = image.size
         self.title = "MTLPicture"
+        context.source = self
+        
         loadTexture()
     }
     
@@ -86,16 +89,6 @@ class MTLPicture: NSObject, MTLInput {
         if internalTargets.count == 0 { return 1 }
         let c = length(internalTargets.first!)
         return c
-        
-//        var count: Int = 1
-//        var newCount: Int!
-//        for target in internalTargets {
-//            newCount = length(target, count: 0)
-//            if newCount > count {
-//                count = newCount
-//            }
-//        }
-//        return count
     }
     
     func length(_ target: MTLOutput) -> Int {
@@ -108,14 +101,6 @@ class MTLPicture: NSObject, MTLInput {
         } else { return 1 }
 
         return c
-        
-//        var c = count
-//        if let input = target as? MTLInput {
-//            for t in input.targets {
-//                c = c + length(target, count: c)
-//            }
-//        }
-//        return c
     }
     
 //    MARK: - MTLInput
@@ -151,15 +136,6 @@ class MTLPicture: NSObject, MTLInput {
         t.input = self
     }
     
-    public func addTarget(_ target: MTLOutput, index: Int) {
-//        var t = target
-//        internalTargets.append(t)
-//        t.input = self
-//        if let picture = source as? MTLPicture {
-//            picture.loadTexture()
-//        }
-    }
-    
     public func removeTarget(_ target: MTLOutput) {
         var t = target
         t.input = nil
@@ -189,5 +165,10 @@ class MTLPicture: NSObject, MTLInput {
         get {
             return privateNeedsUpdate
         }
+    }
+    
+    
+    public func didFinishProcessing() {
+        context.semaphore.signal()
     }
 }

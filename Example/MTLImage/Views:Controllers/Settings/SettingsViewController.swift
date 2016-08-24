@@ -181,13 +181,14 @@ SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINav
     
 //    MARK: ImagePickerController Delegate
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         for property in filter.properties {
             if property.propertyType == .image {
-                let image = info[UIImagePickerControllerOriginalImage]
-                filter.setValue(image, forKey: property.key)
-                dismiss(animated: true, completion: nil)
-                return
+                if let image: UIImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                    filter.setValue(image, forKey: property.key)
+                    dismiss(animated: true, completion: nil)
+                    return
+                }
             }
         }
         dismiss(animated: true, completion: nil)

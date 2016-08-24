@@ -16,6 +16,6 @@ extension MTLFilterGroupRecord {
 
     @NSManaged var identifier: String?
     @NSManaged var title: String?
-    @NSManaged var filters: OrderedSet?
+    @NSManaged var filters: NSOrderedSet?
 
 }

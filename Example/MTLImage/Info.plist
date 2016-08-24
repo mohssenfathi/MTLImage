@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Because just do it.</string>
+	<string>$(PRODUCT_NAME) needs to access your photos for editing</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Because just do it.</string>
+	<string>$(PRODUCT_NAME) needs to access your camera to capture photos</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>

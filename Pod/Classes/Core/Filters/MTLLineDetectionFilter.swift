@@ -21,8 +21,8 @@ class MTLLineDetectionFilter: MTLFilter {
     private var inputSize: CGSize?
     private let sobelEdgeDetectionThreshold = MTLSobelEdgeDetectionThresholdFilter()
     private let thetaCount: Int = 180
-    lazy private var accumulator: [Float] = {
-        return [Float](repeating: 0, count: Int(self.inputSize!.width) * self.thetaCount)
+    lazy private var accumulator: [UInt8] = {
+        return [UInt8](repeating: 0, count: Int(self.inputSize!.width) * self.thetaCount)
     }()
     
     public var sensitivity: Float = 0.5 {
@@ -48,6 +48,7 @@ class MTLLineDetectionFilter: MTLFilter {
         super.init(coder: aDecoder)
     }
     
+    
     override func update() {
         if self.input == nil { return }
         
@@ -57,9 +58,9 @@ class MTLLineDetectionFilter: MTLFilter {
         else {
             if accumulatorBuffer != nil {
                 let length = Int(inputSize!.width) * thetaCount
-                let data = NSData(bytes: accumulatorBuffer!.contents(), length: length)
-                data.getBytes(&accumulator, length: length)
-//                print(accumulator)
+                // TODO: Check Data.Deallocator
+                let data = Data(bytesNoCopy: accumulatorBuffer.contents(), count: length, deallocator: Data.Deallocator.none)
+                data.copyBytes(to: &accumulator, count: data.count)
                 
                 let m = accumulator.max()
                 print(m)
@@ -67,7 +68,7 @@ class MTLLineDetectionFilter: MTLFilter {
         }
         
         uniforms.sensitivity = sensitivity
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(MTLLineDetectionUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<MTLLineDetectionUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
@@ -75,7 +76,7 @@ class MTLLineDetectionFilter: MTLFilter {
         
         let accumulator = [Float](repeating: 0, count: Int(inputSize!.width) * thetaCount)
         accumulatorBuffer = device.newBuffer(withBytes: accumulator,
-                                                length: accumulator.count * sizeofValue(accumulator[0]),
+                                                length: accumulator.count * MemoryLayout<Float>.size,
                                                options: .cpuCacheModeWriteCombined)
         commandEncoder.setBuffer(accumulatorBuffer, offset: 0, at: 1)
     }

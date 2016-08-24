@@ -38,8 +38,8 @@ class SettingsCell: UITableViewCell {
     var spectrum: Bool = false {
         didSet {
             if spectrum == true {
-                slider.minimumTrackTintColor = UIColor.clear()
-                slider.maximumTrackTintColor = UIColor.clear()
+                slider.minimumTrackTintColor = UIColor.clear
+                slider.maximumTrackTintColor = UIColor.clear
                 slider.thumbTintColor = currentColor()
                 layer.insertSublayer(gradient!, at: 0)
                 layoutSubviews()
@@ -80,10 +80,10 @@ class SettingsCell: UITableViewCell {
         let gradientLayer = CAGradientLayer()
         
         var colors = [CGColor]()
-        var locations = [Float]()
+        var locations = [NSNumber]()
         for i in 1 ..< 7 {
             colors.append(UIColor(hue: (1.0/6.0) * CGFloat(i), saturation: 1.0, brightness: 1.0, alpha: 1.0).cgColor)
-            locations.append((1.0/6.0) * Float(i))
+            locations.append(NSNumber(value: (1.0/6.0) * Float(i)))
         }
         
         gradientLayer.colors     = colors

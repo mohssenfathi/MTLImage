@@ -22,21 +22,19 @@ class MTLGaussianBlurFilter: MTLMPSFilter {
     }
     
     init() {
-        super.init(functionName: "DefaultShaders")
+        super.init(functionName: "EmptyShader")
         commonInit()
     }
     
     override init(functionName: String) {
-        super.init(functionName: "DefaultShaders")
+        super.init(functionName: "EmptyShader")
         commonInit()
     }
     
     func commonInit() {
-        kernel = MPSImageGaussianBlur(device: context.device, sigma: sigma * 80)
-        (kernel as! MPSImageGaussianBlur).edgeMode = .clamp
-        
         title = "Gaussian Blur"
         properties = [MTLProperty(key: "sigma", title: "Sigma")]
+        sigma = 0.5
     }
 
     required public init?(coder aDecoder: NSCoder) {

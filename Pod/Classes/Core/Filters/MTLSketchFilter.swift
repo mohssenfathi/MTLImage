@@ -44,7 +44,7 @@ class MTLSketchFilter: MTLFilter {
 //        }
         uniforms.intensity = intense
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(SketchUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<SketchUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
 }

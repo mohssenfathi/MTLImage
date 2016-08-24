@@ -15,7 +15,7 @@ class MTLDataManager: NSObject {
     
     override init() {
         super.init()
-        NotificationCenter.default().addObserver(self, selector: #selector(MTLDataManager.modelChanged(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext)
+        NotificationCenter.default.addObserver(self, selector: #selector(MTLDataManager.modelChanged(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext)
         reloadSavedRecords()
     }
     
@@ -32,27 +32,27 @@ class MTLDataManager: NSObject {
         reloadSavedRecords()
     }
     
-    func remove(_ filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
+    func remove(_ filterGroup: MTLFilterGroup, completion: ((_ success: Bool) -> ())?) {
         if let record = filterGroupRecordWithIdentifier(filterGroup.identifier) {
             managedObjectContext.delete(record)
             saveContext()
-            completion?(success: true)
+            completion?(true)
         }
         else {
-            completion?(success: false)
+            completion?(false)
         }
     }
     
-    func save(_ filterGroup: MTLFilterGroup, completion: ((success: Bool) -> ())?) {
+    func save(_ filterGroup: MTLFilterGroup, completion: ((_ success: Bool) -> ())?) {
         if let record = filterGroupRecordWithIdentifier(filterGroup.identifier) {
             updateFilterGroupRecord(record, filterGroup: filterGroup)
-            completion?(success: true)
+            completion?(true)
             return
         }
         
         _ = filterGroupRecord(filterGroup)
         saveContext()
-        completion?(success: true)
+        completion?(true)
     }
     
     func savedFilterGroups() -> [MTLFilterGroup] {
@@ -66,7 +66,10 @@ class MTLDataManager: NSObject {
     
     func filterGroupRecordWithIdentifier(_ identifier: String) -> MTLFilterGroupRecord? {
         let records = savedRecords?.filter { $0.identifier == identifier }
-        if records?.count > 0 {
+        
+        guard records != nil else { return nil }
+        
+        if records!.count > 0 {
             return records?.first
         }
         return nil
@@ -85,7 +88,7 @@ class MTLDataManager: NSObject {
                 filterRecords.append(filterRecord(filter as! MTLFilter))
             }
         }
-        filterGroupRecord.filters = OrderedSet(array: filterRecords)
+        filterGroupRecord.filters = NSOrderedSet(array: filterRecords)
         
         saveContext()
     }
@@ -104,7 +107,7 @@ class MTLDataManager: NSObject {
                 filterRecords.append(filterRecord(filter as! MTLFilter))
             }
         }
-        filterGroupRecord.filters = OrderedSet(array: filterRecords)
+        filterGroupRecord.filters = NSOrderedSet(array: filterRecords)
         
         return filterGroupRecord
     }
@@ -123,7 +126,7 @@ class MTLDataManager: NSObject {
         for property in filter.properties {
             record = propertyRecord(property)
             
-            if let type = MTLPropertyType(rawValue: Int(record.propertyType!.intValue)) {
+            if let type = MTLPropertyType(rawValue: Int(record.propertyType!.int32Value)) {
                 switch type {
                 case .value:
                     record.value = NSNumber(value: filter.value(forKey: property.key) as! Float)
@@ -132,10 +135,10 @@ class MTLDataManager: NSObject {
                     record.bool = NSNumber(value: filter.value(forKey: property.key) as! Bool)
                     break
                 case .point:
-                    record.point = NSValue(cgPoint: filter.value(forKey: property.key)!.cgPointValue())
+                    record.point = NSValue(cgPoint: (filter.value(forKey: property.key)! as AnyObject).cgPointValue)
                     break
                 case .rect:
-                    record.rect = NSValue(cgRect: filter.value(forKey: property.key)!.cgRectValue())
+                    record.rect = NSValue(cgRect: (filter.value(forKey: property.key)! as AnyObject).cgRectValue)
                 case .color:
                     record.color = filter.value(forKey: property.key) as? UIColor
                     break
@@ -150,7 +153,7 @@ class MTLDataManager: NSObject {
             
             propertyRecords.append(record)
         }
-        filterRecord.properties = OrderedSet(array: propertyRecords)
+        filterRecord.properties = NSOrderedSet(array: propertyRecords)
         
         return filterRecord
     }
@@ -238,7 +241,7 @@ class MTLDataManager: NSObject {
     
     func property(_ propertyRecord: MTLPropertyRecord) -> MTLProperty {
 
-        let propertyType = MTLPropertyType(rawValue: (propertyRecord.propertyType?.intValue)!)
+        let propertyType = MTLPropertyType(rawValue: Int((propertyRecord.propertyType?.int32Value)!))
         
         let property = MTLProperty(key: propertyRecord.key!, title: propertyRecord.title!, propertyType: propertyType!)
         
@@ -253,13 +256,13 @@ class MTLDataManager: NSObject {
     // MARK: - Core Data stack
     
     lazy var applicationDocumentsDirectory: URL = {
-        let urls = FileManager.default().urlsForDirectory(.documentDirectory, inDomains: .userDomainMask)
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count-1]
     }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         let bundle = Bundle(for: MTLImage.classForCoder())
-        let modelURL = bundle.urlForResource("MTLImage", withExtension: "momd")!
+        let modelURL = bundle.url(forResource: "MTLImage", withExtension: "momd")!
         return NSManagedObjectModel(contentsOf: modelURL)!
     }()
     
@@ -271,8 +274,8 @@ class MTLDataManager: NSObject {
             try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         } catch {
             var dict = [String: AnyObject]()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject
             
             dict[NSUnderlyingErrorKey] = error as NSError
             let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)

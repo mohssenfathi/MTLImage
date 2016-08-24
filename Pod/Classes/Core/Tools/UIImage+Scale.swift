@@ -59,7 +59,7 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         
         let context = UIGraphicsGetCurrentContext()
-        context?.setFillColor(UIColor.clear().cgColor)
+        context?.setFillColor(UIColor.clear.cgColor)
         let rect = CGRect(x: x, y: y, width: width, height: height)
         context?.fill(rect)
         self.draw(in: rect)
@@ -82,7 +82,7 @@ extension UIImage {
         
         UIGraphicsBeginImageContextWithOptions(self.size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()
-        context?.setFillColor(UIColor.clear().cgColor)
+        context?.setFillColor(UIColor.clear.cgColor)
         let rect = CGRect(origin: CGPoint(x: x, y: y), size: size)
         context?.fill(rect)
         self.draw(in: rect)

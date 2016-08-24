@@ -11,9 +11,9 @@ import AVFoundation
 
 public
 protocol MTLCameraDelegate {
-    func mtlCameraFocusChanged(sender: MTLCamera, lensPosition: Float)
-    func mtlCameraISOChanged(sender: MTLCamera, iso: Float)
-    func mtlCameraExposureDurationChanged(sender: MTLCamera, exposureDuration: CMTime)
+    func mtlCameraFocusChanged(_ sender: MTLCamera, lensPosition: Float)
+    func mtlCameraISOChanged(_ sender: MTLCamera, iso: Float)
+    func mtlCameraExposureDurationChanged(_ sender: MTLCamera, exposureDuration: Float)
 }
 
 public
@@ -26,21 +26,110 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     /* MTLFilters added to this group will filter the camera output */
     public var filterGroup = MTLFilterGroup()
     
-    /* Capture a still photo from the capture device. TODO: Add intermediate thumbnail captured photo callback */
-    public func takePhoto(completion:((photo: UIImage?, error: NSError?) -> ())) {
+    /* Capture a still photo from the capture device. */
+//    TODO: Add intermediate thumbnail captured photo callback
+    public func takePhoto(_ completion:((_ photo: UIImage?, _ error: Error?) -> ())) {
         
-        self.stillImageOutput.captureStillImageAsynchronously(from: self.stillImageOutput.connection(withMediaType: AVMediaTypeVideo)) { (sampleBuffer, error) in
+        self.stillImageOutput.captureStillImageAsynchronously(from: self.stillImageOutput.connection(withMediaType: AVMediaTypeVideo)) { [weak self](sampleBuffer, error) in
+
             if error != nil {
-                completion(photo: nil, error: error)
+                completion(nil, error)
                 return
             }
             
-            let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-            let image = UIImage(data: imageData!)
-            completion(photo: image, error: error)
+            DispatchQueue(label: "CaptureQueue").async(execute: {
+                
+                guard let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer) else {
+                    completion(nil, error)
+                    return
+                }
+                
+                // Get original image
+                guard let image = UIImage(data: imageData) else {
+                    completion(nil, error)
+                    return
+                }
+                
+//                let orientedImage = UIImage(cgImage: image.cgImage!, scale: 0.0, orientation: .up)
+                
+                // Filter original image
+                let filterCopy = self?.filterGroup.copy() as! MTLFilterGroup
+                guard let filteredImage = filterCopy.filter(image) else {
+                    completion(nil, error)
+                    return
+                }
+                
+                completion(filteredImage, error)
+                
+            })
+        
         }
         
     }
+    
+    // Gross, I know
+    func fixOrientationOfImage(_ image: UIImage) -> UIImage? {
+        if image.imageOrientation == .up {
+            return image
+        }
+        
+        // We need to calculate the proper transformation to make the image upright.
+        // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
+        var transform: CGAffineTransform = CGAffineTransform.identity
+        
+        switch image.imageOrientation {
+        case .down, .downMirrored:
+            transform = transform.translatedBy(x: image.size.width, y: image.size.height)
+            transform = transform.rotated(by: CGFloat(M_PI))
+        case .left, .leftMirrored:
+            transform = transform.translatedBy(x: image.size.width, y: 0)
+            transform = transform.rotated(by: CGFloat(M_PI_2))
+        case .right, .rightMirrored:
+            transform = transform.translatedBy(x: 0, y: image.size.height)
+            transform = transform.rotated(by: -CGFloat(M_PI_2))
+        default:
+            break
+        }
+        
+        switch image.imageOrientation {
+        case .upMirrored, .downMirrored:
+            transform = transform.translatedBy(x: image.size.width, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+        case .leftMirrored, .rightMirrored:
+            transform = transform.translatedBy(x: image.size.height, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+        default:
+            break
+        }
+        
+        // Now we draw the underlying CGImage into a new context, applying the transform
+        // calculated above.
+        guard let context = CGContext(data: nil,
+                                      width: Int(image.size.width),
+                                      height: Int(image.size.height),
+                                      bitsPerComponent: image.cgImage!.bitsPerComponent,
+                                      bytesPerRow: 0, space: image.cgImage!.colorSpace!,
+                                      bitmapInfo: image.cgImage!.bitmapInfo.rawValue) else {
+            return nil
+        }
+        
+        context.concatenate(transform)
+        
+        switch image.imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            context.draw(image.cgImage!, in: CGRect(x: 0, y: 0, width: image.size.height, height: image.size.width))
+        default:
+            context.draw(image.cgImage!, in: CGRect(origin: .zero, size: image.size))
+        }
+        
+        // And now we just create a new UIImage from the drawing context
+        guard let CGImage = context.makeImage() else {
+            return nil
+        }
+        
+        return UIImage(cgImage: CGImage)
+    }
+    
     
     // MARK: Settings
     //    TODO: Normalize these values between 0 - 1
@@ -68,7 +157,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     
     /* Zoom */
     public var maxZoom: Float { return Float(captureDevice.activeFormat.videoMaxZoomFactor) }
-    public var zoom: Float = 1.0 {
+    public var zoom: Float = 0.0 {
         didSet {
             applyCameraSetting {
                 self.captureDevice.videoZoomFactor = CGFloat(self.zoom * 4.0 + 1.0)
@@ -82,15 +171,16 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             self.captureDevice.exposureMode = .autoExpose
         }
     }
-    private var minExposureDuration: CMTime { return captureDevice.activeFormat.minExposureDuration }
-    private var maxExposureDuration: CMTime { return captureDevice.activeFormat.maxExposureDuration }
-    public var exposureDuration: CMTime! {
+
+    var minExposureDuration: Float = 0.004
+    var maxExposureDuration: Float = 0.100 // 0.250
+    public var exposureDuration: Float = 0.01 {
         didSet {
             if captureDevice.isAdjustingExposure { return }
             applyCameraSetting {
-                let seconds = Tools.convert(self.exposureDuration.seconds, oldMin: 0, oldMax: 1,
-                                            newMin: self.minExposureDuration.seconds, newMax: self.maxExposureDuration.seconds)
-                let ed = CMTime(seconds: seconds, preferredTimescale: self.exposureDuration.timescale)
+                let seconds = Tools.convert(self.exposureDuration, oldMin: 0, oldMax: 1,
+                                            newMin: self.minExposureDuration, newMax: self.maxExposureDuration)
+                let ed = CMTime(seconds: Double(seconds), preferredTimescale: 1000 * 1000)
                 self.captureDevice.setExposureModeCustomWithDuration(ed, iso: AVCaptureISOCurrent, completionHandler: nil)
             }
         }
@@ -102,13 +192,15 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             self.captureDevice.exposureMode = .autoExpose
         }
     }
-    private var minISO: Float { return captureDevice.activeFormat.minISO }
-    private var maxISO: Float { return captureDevice.activeFormat.maxISO }
+ 
+    
+    let minIso: Float  = 29.000
+    let maxIso: Float  = 1200.0
     public var iso: Float! {
         didSet {
             if captureDevice.isAdjustingExposure { return }
             applyCameraSetting {
-                let value = Tools.convert(self.iso, oldMin: 0, oldMax: 1, newMin: self.minISO, newMax: self.maxISO)
+                let value = Tools.convert(self.iso, oldMin: 0, oldMax: 1, newMin: self.minIso, newMax: self.maxIso)
                 self.captureDevice.setExposureModeCustomWithDuration(AVCaptureExposureDurationCurrent, iso: value, completionHandler: nil)
             }
         }
@@ -154,7 +246,10 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     
     public override init() {
         super.init()
+        
         self.title = "MTLCamera"
+        context.source = self
+        
         setupAVDevice()
         setupPipeline()
         addObservers()
@@ -164,21 +259,34 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         removeObservers()
     }
     
-    let cameraContext: UnsafeMutablePointer<Void>? = nil
+    let cameraContext: UnsafeMutableRawPointer? = nil
     private func addObservers() {
+//        UIDevice.current().beginGeneratingDeviceOrientationNotifications()
+//        NotificationCenter.default().addObserver(self, selector: #selector(MTLCamera.orientationDidChange(notification:)),
+//                                                 name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        
         captureDevice.addObserver(self, forKeyPath: "exposureDuration", options: NSKeyValueObservingOptions.new, context: cameraContext)
         captureDevice.addObserver(self, forKeyPath: "lensPosition"    , options: NSKeyValueObservingOptions.new, context: cameraContext)
         captureDevice.addObserver(self, forKeyPath: "ISO"             , options: NSKeyValueObservingOptions.new, context: cameraContext)
     }
     
     private func removeObservers() {
+//        UIDevice.current().endGeneratingDeviceOrientationNotifications()
+//        NotificationCenter.default().removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        
         captureDevice.removeObserver(self, forKeyPath: "exposureDuration", context: cameraContext)
         captureDevice.removeObserver(self, forKeyPath: "lensPosition"    , context: cameraContext)
         captureDevice.removeObserver(self, forKeyPath: "ISO"             , context: cameraContext)
     }
     
-    public override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
-        
+    func orientationDidChange(_ notification: Notification) {
+//        if let connection = dataOutput.connection(withMediaType: AVMediaTypeVideo) {
+//            connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.current().orientation.rawValue)!
+//        }
+    }
+    
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    
         if captureDevice.position == .front { return }
 
         if context == cameraContext {
@@ -187,14 +295,21 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             
             switch keyPath {
             case "exposureDuration":
-                delegate?.mtlCameraExposureDurationChanged(sender: self, exposureDuration: captureDevice.exposureDuration)
+                let duration = Tools.convert(Float(captureDevice.exposureDuration.seconds),
+                                             oldMin: minExposureDuration, oldMax: maxExposureDuration,
+                                             newMin: 0, newMax: 1)
+                delegate?.mtlCameraExposureDurationChanged(self, exposureDuration: duration)
                 break
+                
             case "lensPosition":
-                delegate?.mtlCameraFocusChanged(sender: self, lensPosition: captureDevice.lensPosition)
+                delegate?.mtlCameraFocusChanged(self, lensPosition: captureDevice.lensPosition)
                 break
+                
             case "ISO":
-                delegate?.mtlCameraISOChanged(sender: self, iso: captureDevice.iso)
+                let iso = Tools.convert(captureDevice.iso, oldMin: minIso, oldMax: maxIso, newMin: 0, newMax: 1)
+                delegate?.mtlCameraISOChanged(self, iso: iso)
                 break
+                
             default: break
             }
             
@@ -243,7 +358,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             }
             
             let connection = dataOutput.connection(withMediaType: AVMediaTypeVideo)
-            connection?.videoOrientation = .portrait
+//            connection?.videoOrientation = .portrait
             
             // Set flag later to mirror preview when in .Front
             
@@ -281,7 +396,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         dataOutput = AVCaptureVideoDataOutput()
         dataOutput.videoSettings = [String(kCVPixelBufferPixelFormatTypeKey) : NSNumber(value: kCMPixelFormat_32BGRA)]
         dataOutput.alwaysDiscardsLateVideoFrames = true
-        dataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue", attributes: DispatchQueueAttributes.serial)
+        dataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
         dataOutput.setSampleBufferDelegate(self, queue: dataOutputQueue)
         if session.canAddOutput(dataOutput) {
             session.addOutput(dataOutput)
@@ -296,11 +411,12 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         let connection = dataOutput.connection(withMediaType: AVMediaTypeVideo)
         connection?.isEnabled = true
         connection?.videoOrientation = .portrait
-
+        
         session.commitConfiguration()
         
         // Initial Values
         whiteBalanceGains = captureDevice.deviceWhiteBalanceGains
+        stillImageOutput.connection(withMediaType: AVMediaTypeVideo).videoOrientation = .portrait
     }
     
     func setupPipeline() {
@@ -315,16 +431,36 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     
 //    MARK: - SampleBuffer Delegate
     
+//    let semaphore = DispatchSemaphore(value: 1)
+    
     public func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
         
-        let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-        var textureRef : Unmanaged<CVMetalTexture>?
-        let width = CVPixelBufferGetWidth(pixelBuffer!);
-        let height = CVPixelBufferGetHeight(pixelBuffer!);
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache!.takeUnretainedValue(), pixelBuffer!, nil, .bgra8Unorm, width, height, 0, &textureRef);
-        internalTexture = CVMetalTextureGetTexture((textureRef?.takeUnretainedValue())!)
-        textureRef?.release()
+//        semaphore.wait(timeout: .distantFuture)
+        
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+//            semaphore.wait(timeout: .distantFuture)
+            return
+        }
+        
+        var cvMetalTexture : CVMetalTexture?
+        let width = CVPixelBufferGetWidth(pixelBuffer);
+        let height = CVPixelBufferGetHeight(pixelBuffer);
+        
+        guard let textureCache = textureCache else {
+//            semaphore.signal()
+            return
+        }
+        
+        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer, nil, .bgra8Unorm, width, height, 0, &cvMetalTexture)
+        
+        guard let cvMetalTex = cvMetalTexture else { return }
+        internalTexture = CVMetalTextureGetTexture(cvMetalTex)
+        
         needsUpdate = true
+    }
+        
+    public func didFinishProcessing() {
+        context.semaphore.signal()
     }
     
     var internalTitle: String!
@@ -490,7 +626,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     var dataOutput: AVCaptureVideoDataOutput!
     var dataOutputQueue: DispatchQueue!
     var deviceInput: AVCaptureDeviceInput!
-    var textureCache: Unmanaged<CVMetalTextureCache>?
+    var textureCache: CVMetalTextureCache?
 
 }
 
@@ -501,7 +637,7 @@ extension MTLCamera {
     /*  Locks camera, applies settings change, then unlocks.
         Returns success                                       */
     
-    func applyCameraSetting( settings: (() -> ()) ) -> Bool {
+    func applyCameraSetting( _ settings: (() -> ()) ) -> Bool {
         if !lock() {  return false }
 
         settings()

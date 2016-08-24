@@ -17,10 +17,10 @@ class MTLHistogramFilter: MTLFilter {
     
     var uniforms = HistogramUniforms()
 
-    public var luminance = [Float](repeating: 0, count: 255)
-    public var red       = [Float](repeating: 0, count: 255)
-    public var green     = [Float](repeating: 0, count: 255)
-    public var blue      = [Float](repeating: 0, count: 255)
+    public var luminance = [UInt8](repeating: 0, count: 255)
+    public var red       = [UInt8](repeating: 0, count: 255)
+    public var green     = [UInt8](repeating: 0, count: 255)
+    public var blue      = [UInt8](repeating: 0, count: 255)
     
     var luminanceBuffer: MTLBuffer?
     var redBuffer      : MTLBuffer?
@@ -53,41 +53,41 @@ class MTLHistogramFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         
-        let length = 255 * sizeof(Float)
+        let length = 255 * MemoryLayout<Float>.size
         
         if luminanceBuffer != nil {
-            let data = NSData(bytes: luminanceBuffer!.contents(), length: length)
-            data.getBytes(&luminance, length: length)
+            let data = Data(bytes: luminanceBuffer!.contents(), count: length)
+            data.copyBytes(to: &luminance, count: data.count)
 //            smooth(&luminance)
             updateHistogramView(luminance)
         }
         
         if redBuffer != nil {
-            let data = NSData(bytes: redBuffer!.contents(), length: length)
-            data.getBytes(&red, length: length)
+            let data = Data(bytes: redBuffer!.contents(), count: length)
+            data.copyBytes(to: &red, count: data.count)
 //            smooth(&red)
             updateHistogramView(red)
         }
         
         if greenBuffer != nil {
-            let data = NSData(bytes: greenBuffer!.contents(), length: length)
-            data.getBytes(&green, length: length)
+            let data = Data(bytes: greenBuffer!.contents(), count: length)
+            data.copyBytes(to: &green, count: data.count)
 //            smooth(&green)
             updateHistogramView(green)
         }
         
         if blueBuffer != nil {
-            let data = NSData(bytes: blueBuffer!.contents(), length: length)
-            data.getBytes(&blue, length: length)
+            let data = Data(bytes: blueBuffer!.contents(), count: length)
+            data.copyBytes(to: &blue, count: data.count)
 //            smooth(&blue)
             updateHistogramView(blue)
         }
         
         uniforms.dummy = dummy
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: sizeof(HistogramUniforms), options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<HistogramUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
-    var luminanceBytes: UnsafeMutablePointer<Void>? = nil
+    var luminanceBytes: UnsafeMutableRawPointer? = nil
     var luminancePointer: UnsafeMutablePointer<Float>!
     
 //    var luminanceBytes:UnsafeMutablePointer<Void>? = nil
@@ -101,7 +101,7 @@ class MTLHistogramFilter: MTLFilter {
     
     func setupBuffers() {
         let alignment: UInt = 0x4000
-        let size: UInt = UInt(255) * UInt(sizeof(Float))
+        let size: UInt = UInt(255) * UInt(MemoryLayout<Float>.size)
         
         // Luminance
         posix_memalign(&luminanceBytes, Int(alignment), Int(size))
@@ -113,7 +113,7 @@ class MTLHistogramFilter: MTLFilter {
         }
         
         luminanceBuffer = device.newBuffer(withBytesNoCopy: luminanceBytes!,
-                                           length: 255 * sizeofValue(Float),
+                                           length: 255 * MemoryLayout<Float.Type>.size,
                                            options: .cpuCacheModeWriteCombined,
                                            deallocator: nil)
     }
@@ -124,9 +124,9 @@ class MTLHistogramFilter: MTLFilter {
         let f = [Float](repeating: 0, count: 255)
         
 //        luminanceBuffer = device.newBuffer(withBytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
-        redBuffer       = device.newBuffer(withBytes: f, length: 255 * sizeofValue(Float), options: .cpuCacheModeWriteCombined)
-        greenBuffer     = device.newBuffer(withBytes: f, length: 255 * sizeofValue(Float), options: .cpuCacheModeWriteCombined)
-        blueBuffer      = device.newBuffer(withBytes: f, length: 255 * sizeofValue(Float), options: .cpuCacheModeWriteCombined)
+        redBuffer       = device.newBuffer(withBytes: f, length: 255 * MemoryLayout<Float.Type>.size, options: .cpuCacheModeWriteCombined)
+        greenBuffer     = device.newBuffer(withBytes: f, length: 255 * MemoryLayout<Float.Type>.size, options: .cpuCacheModeWriteCombined)
+        blueBuffer      = device.newBuffer(withBytes: f, length: 255 * MemoryLayout<Float.Type>.size, options: .cpuCacheModeWriteCombined)
 
         commandEncoder.setBuffer(luminanceBuffer, offset: 0, at: 1)
         commandEncoder.setBuffer(redBuffer      , offset: 0, at: 2)
@@ -186,29 +186,29 @@ class MTLHistogramFilter: MTLFilter {
         view.addSubview(blueView)
         view.addSubview(luminanceView)
         
-        view.backgroundColor = UIColor.clear()
+        view.backgroundColor = UIColor.clear
         
         var bar: UIView!
         for i in 0 ..< luminance.count {
             
             bar = UIView(frame: CGRect(x: dx * CGFloat(i), y: height - 1, width: dx, height: 1))
             bar.alpha = 0.75
-            bar.backgroundColor = UIColor.white()
+            bar.backgroundColor = UIColor.white
             luminanceView.addSubview(bar)
             
             bar = UIView(frame: CGRect(x: dx * CGFloat(i), y: height - 1, width: dx, height: 1))
             bar.alpha = 0.5
-            bar.backgroundColor = UIColor.red()
+            bar.backgroundColor = UIColor.red
             redView.addSubview(bar)
             
             bar = UIView(frame: CGRect(x: dx * CGFloat(i), y: height - 1, width: dx, height: 1))
             bar.alpha = 0.5
-            bar.backgroundColor = UIColor.green()
+            bar.backgroundColor = UIColor.green
             greenView.addSubview(bar)
             
             bar = UIView(frame: CGRect(x: dx * CGFloat(i), y: height - 1, width: dx, height: 1))
             bar.alpha = 0.5
-            bar.backgroundColor = UIColor.blue()
+            bar.backgroundColor = UIColor.blue
             blueView.addSubview(bar)
             
         }
@@ -216,16 +216,16 @@ class MTLHistogramFilter: MTLFilter {
         histogramView = view
     }
  
-    func maximumHistogramValue() -> Float {
+    func maximumHistogramValue() -> UInt8 {
         let maxL = luminance.max()
         let maxR = red.max()
         let maxG = green.max()
         let maxB = blue.max()
         
-        return max(max(maxL!, max(maxR!, max(maxG!, maxB!))), 1)
+        return max(max(maxL!, max(maxR!, max(maxG!, maxB!))), UInt8(1))
     }
     
-    func updateHistogramView(_ values: [Float]) {
+    func updateHistogramView(_ values: [UInt8]) {
         
         let maxValue: CGFloat = CGFloat(maximumHistogramValue())
         let maxHeight = histogramView.frame.size.height * 0.8
