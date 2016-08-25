@@ -42,7 +42,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
     }
     
     public func filter(_ image: UIImage) -> UIImage? {
-        var picture = MTLPicture(image: image)
+        let picture = MTLPicture(image: image)
         picture > self
         let filteredImage = UIImage.imageWithTexture(texture!)
         

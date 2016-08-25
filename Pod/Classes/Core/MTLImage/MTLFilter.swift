@@ -291,7 +291,7 @@ class MTLFilter: MTLObject, NSCoding {
     
     public func filter(_ image: UIImage) -> UIImage? {
     
-        var sourcePicture = MTLPicture(image: image)
+        let sourcePicture = MTLPicture(image: image)
         let filterCopy = self.copy() as! MTLFilter
         sourcePicture > filterCopy
         

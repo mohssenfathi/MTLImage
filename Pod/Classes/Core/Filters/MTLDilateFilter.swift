@@ -54,7 +54,7 @@ class MTLDilateFilter: MTLMPSFilter {
                       [-intense      , 1.0     , intense      ],
                       [0.0           , intense , 2.0 * intense]]
         
-        var values = [-2.0 * intense, -intense, 0.0, -intense, 1.0 , intense, 0.0, intense , 2.0 * intense]
+        let values = [-2.0 * intense, -intense, 0.0, -intense, 1.0 , intense, 0.0, intense , 2.0 * intense]
         updateDilateValues(values)
         
         title = "Dilate"

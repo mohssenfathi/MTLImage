@@ -19,7 +19,7 @@ protocol MTLViewDelegate {
 
 public
 class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDelegate {
-
+    
     public var delegate: MTLViewDelegate?
     public var isZoomEnabled: Bool = true {
         didSet {
@@ -48,7 +48,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     }
     
     
-//    MARK: - Gesture Recognizers
+    //    MARK: - Gesture Recognizers
     public override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
@@ -57,7 +57,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         return true
     }
     
-//    MARK: - Display Link
+    //    MARK: - Display Link
     func update(_ displayLink: CADisplayLink) {
         
         guard let input = input else { return }
@@ -70,9 +70,9 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
             shouldUpdate = true
         }
         
-//        if updateMetalLayer && self.window != nil {
-//            self.updateMetalLayerLayout()
-//        }
+        //        if updateMetalLayer && self.window != nil {
+        //            self.updateMetalLayerLayout()
+        //        }
         
         if shouldUpdate {
             redraw()
@@ -88,7 +88,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     }
     
     
-//    MARK: - View Layout
+    //    MARK: - View Layout
     override public func didMoveToSuperview() {
         if superview != nil {
             displayLink = CADisplayLink(target: self, selector: #selector(MTLView.update(_:)))
@@ -167,7 +167,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     let kQuadTexCoords: [float2] = [ float2(0.0, 0.0),
                                      float2(1.0, 0.0),
                                      float2(0.0, 1.0),
-                                    
+                                     
                                      float2(1.0, 0.0),
                                      float2(0.0, 1.0),
                                      float2(1.0, 1.0) ]
@@ -188,11 +188,11 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         let ins = insets(contentMode)
         let x = ins.x
         let y = ins.y
-
+        
         kQuadVertices = [ float4(-1.0 + x,  1.0 - y, 0.0, 1.0),
                           float4( 1.0 - x,  1.0 - y, 0.0, 1.0),
                           float4(-1.0 + x, -1.0 + y, 0.0, 1.0),
-        
+                          
                           float4( 1.0 - x,  1.0 - y, 0.0, 1.0),
                           float4(-1.0 + x, -1.0 + y, 0.0, 1.0),
                           float4( 1.0 - x, -1.0 + y, 0.0, 1.0) ]
@@ -249,13 +249,13 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         return currentDrawable
     }
     
-
+    
     func redraw() {
         
         guard let tex = input?.texture   else { return }
         
         context.semaphore.wait()
-
+        
         autoreleasepool {
             
             guard let drawable = self.drawable else { return }
@@ -278,7 +278,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
             commandBuffer.addCompletedHandler({ (commandBuffer) in
                 self.currentDrawable = nil
                 self.context.semaphore.signal()
-//                self.context.source?.didFinishProcessing()
+                //                self.context.source?.didFinishProcessing()
             })
             
             commandBuffer.present(drawable)
@@ -288,14 +288,14 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     }
     
     
-//    MARK: - UIScrollView Delegate
+    //    MARK: - UIScrollView Delegate
     
     public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return isZoomEnabled ? contentView : nil
     }
     
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
-    
+        
         guard let tex = self.input?.texture else { return }
         
         let imageSize = CGSize(width: tex.width, height: tex.height)
@@ -308,18 +308,18 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         
         scrollView.contentInset = UIEdgeInsetsMake(-y, -x, -y, -x);
     }
-
+    
     public func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         
         guard let viewSize = view?.frame.size else { return }
         
-//        let maxSize = FiltersManager.sharedManager.maxProcessingSize
+        //        let maxSize = FiltersManager.sharedManager.maxProcessingSize
         let minSize = bounds.size * UIScreen.main.scale
         let ratio = viewSize.width / viewSize.height
         
-//        if (viewSize.width > maxSize.width || viewSize.height > maxSize.height) {
-//            mtlView.processingSize = CGSize(width: maxSize.width, height: maxSize.width / ratio)
-//        }
+        //        if (viewSize.width > maxSize.width || viewSize.height > maxSize.height) {
+        //            mtlView.processingSize = CGSize(width: maxSize.width, height: maxSize.width / ratio)
+        //        }
         if (viewSize.width < minSize.width || viewSize.height < minSize.height) {
             metalLayer.drawableSize = CGSize(width: minSize.width, height: minSize.width / ratio)
         }
@@ -348,7 +348,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     }
     
     
-//    MARK: - Queues
+    //    MARK: - Queues
     func runSynchronously(_ block: (()->())) {
         context.processingQueue.sync {
             block()
@@ -362,7 +362,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     }
     
     
-//    MARK: - MTLOutput
+    //    MARK: - MTLOutput
     public var input: MTLInput? {
         get {
             return self.privateInput
@@ -389,7 +389,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     }
     
     
-//    MARK: - Internal
+    //    MARK: - Internal
     private var scrollView: UIScrollView!
     private var contentView: MetalLayerView!
     private var cropFilter = MTLCropFilter()
@@ -410,7 +410,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     
     private var updateMetalLayer = true
     
-//    private var renderSemaphore: DispatchSemaphore = DispatchSemaphore(value: 3)
+    //    private var renderSemaphore: DispatchSemaphore = DispatchSemaphore(value: 3)
     lazy var renderPassDescriptor: MTLRenderPassDescriptor = {
         let rpd = MTLRenderPassDescriptor()
         rpd.colorAttachments[0].clearColor = self.mtlClearColor
@@ -422,7 +422,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     
     
     
-//    MARK: - Properties
+    //    MARK: - Properties
     
     private var mtlClearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0)
     public var clearColor: UIColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0) {
@@ -451,7 +451,9 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     public var frameRate: Int = 60 {
         didSet {
             Tools.clamp(&frameRate, low: 0, high: 60)
-            displayLink.frameInterval = 60/frameRate
+            if #available(tvOS 10.0, *) {
+                displayLink.preferredFramesPerSecond = frameRate
+            }
         }
     }
     
@@ -478,7 +480,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     
     
     
-//    MARK: - Touch Events
+    //    MARK: - Touch Events
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         delegate?.mtlViewTouchesBegan(self, touches: touches, event: event)
@@ -501,7 +503,7 @@ class MetalLayerView: UIView {
     internal override class var layerClass: AnyClass {
         return CAMetalLayer.self.self
     }
-
+    
 }
 
 func *(left: CGSize, right: CGFloat) -> CGSize {

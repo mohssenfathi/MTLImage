@@ -25,13 +25,9 @@ extension UIImage {
         guard let imageBytes = UnsafeMutableRawPointer(malloc(imageByteCount)) else { return nil }
         let bytesPerRow = width * 4
 
-//        let data = UnsafePointer<UInt8>(texture.buffer?.contents())
-        
         let region: MTLRegion = MTLRegionMake2D(0, 0, width, height)
         texture.getBytes(imageBytes, bytesPerRow: bytesPerRow, from: region, mipmapLevel: 0)
         
-//        let data = CFDataCreate(kCFAllocatorDefault, , imageByteCount)
-//        let data = Data(bytes: imageBytes, count: imageByteCount)
         let provider = CGDataProvider(dataInfo: nil, data: imageBytes, size: imageByteCount) { (rawPointer, pointer, i) in
             
         }
@@ -45,7 +41,7 @@ extension UIImage {
         
         let image = UIImage(cgImage: imageRef!, scale: 0.0, orientation: .up)
         
-        free(imageBytes)
+//        free(imageBytes)
         
         return image;
     }

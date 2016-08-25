@@ -20,14 +20,13 @@ Pod::Spec.new do |s|
   A framework to simplify data processing on the GPU using Metal.
                        DESC
 
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/MTLImage"
+  s.homepage         = "https://github.com/mohssenfathi/MTLImage"
   s.license          = 'MIT'
   s.author           = { "mohssenfathi" => "mmohssenfathi@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/MTLImage.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/mohssenfathi/MTLImage.git", :tag => s.version.to_s }
 
   s.ios.deployment_target = '9.0'
   s.tvos.deployment_target = '9.0'
-  s.tvos.exclude_files = 'Pod/Classes/MTLImage/MTLCamera.swift'
   s.requires_arc = true
 
   #s.source_files = 'Pod/Classes/**/*{swift, m, h, mm, hpp, cpp, c}'
@@ -51,6 +50,7 @@ Pod::Spec.new do |s|
     s.subspec 'Core' do |core|
         core.xcconfig =  { 'OTHER_CFLAGS' => '$(inherited) -MTLIMAGE_CORE' }
         core.source_files = 'Pod/Classes/Core/**/*{swift, m, h, mm, hpp, cpp, c}'
+        core.tvos.exclude_files = 'Pod/Classes/Core/MTLImage/MTLCamera.swift'
     end
  
     s.subspec 'CloudKit' do |ck|
