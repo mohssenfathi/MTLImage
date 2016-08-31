@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import  MetalPerformanceShaders
+import MetalPerformanceShaders
 
 public
 class MTLDigitRecognzier: MTLCNNFilter {
@@ -60,7 +60,7 @@ class MTLDigitRecognzier: MTLCNNFilter {
         // Convolution 1
         let image1Desc = MPSImageDescriptor(channelFormat: .float16, width: inputImage.width, height: inputImage.height, featureChannels: 4)
         image1 = MPSTemporaryImage(for: commandBuffer, imageDescriptor: image1Desc)
-        conv1.encode(to: commandBuffer, sourceImage: inputImage, destinationImage: outputImage!)
+        conv1.encode(commandBuffer: commandBuffer, sourceImage: inputImage, destinationImage: outputImage!)
         
         
 //        // Fully Connected 1

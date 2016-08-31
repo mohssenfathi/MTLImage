@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7477191F1EFCCC63CFF2FF7A24C3F28F"
+               BlueprintIdentifier = "AC3901935E28E39A60BE2C3BB79877AE"
                BuildableName = "MTLImage.framework"
                BlueprintName = "MTLImage"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7477191F1EFCCC63CFF2FF7A24C3F28F"
+            BlueprintIdentifier = "AC3901935E28E39A60BE2C3BB79877AE"
             BuildableName = "MTLImage.framework"
             BlueprintName = "MTLImage"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -9,6 +9,7 @@
 import UIKit
 import MetalPerformanceShaders
 
+public
 class MTLLanczosScaleFilter: MTLMPSFilter {
     
     var scaleTransform: MPSScaleTransform = MPSScaleTransform(scaleX: 1, scaleY: 1, translateX: 0, translateY: 0)

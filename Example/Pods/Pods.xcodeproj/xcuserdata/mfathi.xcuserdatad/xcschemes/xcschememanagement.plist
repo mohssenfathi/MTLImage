@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>MTLImage.default-MachineLearning.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MTLImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>7477191F1EFCCC63CFF2FF7A24C3F28F</key>
+		<key>2A7AA71ED7509B2DA07ED876539A7226</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7FC2F36EB743734392660D641F7BA61A</key>
+		<key>7C34CACB4CD0E72C05D29F77688B79E0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>94C97C3AEFC7C60FC4ACE73A9D6739F5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AC3901935E28E39A60BE2C3BB79877AE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

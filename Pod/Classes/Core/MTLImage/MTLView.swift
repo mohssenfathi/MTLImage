@@ -451,9 +451,17 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     public var frameRate: Int = 60 {
         didSet {
             Tools.clamp(&frameRate, low: 0, high: 60)
-            if #available(tvOS 10.0, *) {
-                displayLink.preferredFramesPerSecond = frameRate
-            }
+            
+            #if os(tvos)
+                if #available(tvOS 10.0, *) {
+                    displayLink.preferredFramesPerSecond = frameRate
+                } else {
+                    
+                }
+            #else
+//                displayLink.frameInterval = 60 / frameRate
+            #endif
+
         }
     }
     

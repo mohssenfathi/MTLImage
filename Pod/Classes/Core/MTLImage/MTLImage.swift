@@ -204,9 +204,8 @@ extension MTLImage {
 }
 
 
-//    MARK: - Overloading
-
-infix operator --> { associativity left precedence 100 }
+//    MARK: - Operator Overloading
+infix operator --> { associativity left precedence 150 }
 
 @discardableResult
 public func --> (left: MTLInput , right: MTLOutput) -> MTLOutput {
@@ -241,6 +240,8 @@ public func > (left: MTLInput, right: MTLOutput) {
     left.addTarget(right)
 }
 
+
+//    MARK: - Error Handling
 enum MTLError: Error {
     case invalidFilterName
 }

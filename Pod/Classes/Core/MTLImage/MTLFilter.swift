@@ -15,7 +15,7 @@ func ==(left: MTLFilter, right: MTLFilter) -> Bool {
 public
 class MTLFilter: MTLObject, NSCoding {
     
-    var propertyValues = [String : AnyObject]()
+    var propertyValues = [String : Any]()
     private var internalTargets = [MTLOutput]()
     var internalTexture: MTLTexture?
     var internalInput: MTLInput?
@@ -24,8 +24,10 @@ class MTLFilter: MTLObject, NSCoding {
     var vertexBuffer: MTLBuffer?
     var texCoordBuffer: MTLBuffer?
     var uniformsBuffer: MTLBuffer?
+
     var index: Int = 0
     var gcd: Int = 0
+
     
     public init(functionName: String) {
         super.init()
@@ -323,7 +325,7 @@ class MTLFilter: MTLObject, NSCoding {
     func updatePropertyValues() {
         propertyValues.removeAll()
         for property in properties {
-            propertyValues[property.key] = value(forKey: property.key) as? AnyObject
+            propertyValues[property.key] = value(forKey: property.key)
         }
     }
     
@@ -363,7 +365,7 @@ class MTLFilter: MTLObject, NSCoding {
         aCoder.encode(properties, forKey: "properties")
     }
     
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init()
         
         functionName = aDecoder.decodeObject(forKey: "functionName") as! String

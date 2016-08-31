@@ -9,8 +9,8 @@
 import UIKit
 import MetalPerformanceShaders
 
+public
 class MTLBoxBlurFilter: MTLMPSFilter {
-    
     
     var radius: Float = 0.5 {
         didSet {

@@ -3,21 +3,18 @@
   "version": "0.1.0",
   "summary": "GPUImage, but with Metal",
   "description": "A framework to simplify data processing on the GPU using Metal.",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/MTLImage",
+  "homepage": "https://github.com/mohssenfathi/MTLImage",
   "license": "MIT",
   "authors": {
     "mohssenfathi": "mmohssenfathi@gmail.com"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/MTLImage.git",
+    "git": "https://github.com/mohssenfathi/MTLImage.git",
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "8.0",
+    "ios": "9.0",
     "tvos": "9.0"
-  },
-  "tvos": {
-    "exclude_files": "Pod/Classes/MTLImage/MTLCamera.swift"
   },
   "requires_arc": true,
   "resources": [
@@ -37,7 +34,10 @@
       "xcconfig": {
         "OTHER_CFLAGS": "$(inherited) -MTLIMAGE_CORE"
       },
-      "source_files": "Pod/Classes/Core/**/*{swift, m, h, mm, hpp, cpp, c}"
+      "source_files": "Pod/Classes/Core/**/*{swift, m, h, mm, hpp, cpp, c}",
+      "tvos": {
+        "exclude_files": "Pod/Classes/Core/MTLImage/MTLCamera.swift"
+      }
     },
     {
       "name": "CloudKit",

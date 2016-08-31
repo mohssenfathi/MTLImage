@@ -1,9 +1,9 @@
 EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/MTLImage" "${PODS_ROOT}/Crashlytics/iOS" "${PODS_ROOT}/Fabric/iOS"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/MTLImage.default-MachineLearning" "${PODS_ROOT}/Crashlytics/iOS" "${PODS_ROOT}/Fabric/iOS"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Crashlytics" "${PODS_ROOT}/Headers/Public/Fabric"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -MTLIMAGE_CLOUD_KIT $(inherited) -MTLIMAGE_CORE $(inherited) -MTLIMAGE_CORE_DATA $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/MTLImage/MTLImage.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Crashlytics" -isystem "${PODS_ROOT}/Headers/Public/Fabric"
+OTHER_CFLAGS = $(inherited) -MTLIMAGE_CLOUD_KIT $(inherited) -MTLIMAGE_CORE $(inherited) -MTLIMAGE_CORE_DATA $(inherited) -MTLIMAGE_MACHINE_LEARNING $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/MTLImage.default-MachineLearning/MTLImage.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Crashlytics" -isystem "${PODS_ROOT}/Headers/Public/Fabric"
 OTHER_LDFLAGS = $(inherited) -ObjC -l"c++" -l"z" -framework "Crashlytics" -framework "Fabric" -framework "MTLImage" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = $BUILD_DIR
