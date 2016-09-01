@@ -61,10 +61,10 @@ class MetadataFormatter: NSObject {
                 ])
         }
         
-        if let dpiWidth = metadata["DPIWidth"] {
+        if let dpiWidth = metadata["DPIWidth"]?.stringValue {
             array.append([
                 "title" : "DPI",
-                "value" : dpiWidth as! String
+                "value" : dpiWidth
                 ])
         }
     
@@ -92,8 +92,8 @@ class MetadataFormatter: NSObject {
                 ])
         }
         
-        if let fNumber = exifMetadata["FNumber"] {
-            let aperture = String(format: "f/%@", fNumber as! String)
+        if let fNumber = exifMetadata["FNumber"]?.stringValue {
+            let aperture = String(format: "f/%@", fNumber)
             fm.append([
                 "title" : "aperture",
                 "value" : aperture

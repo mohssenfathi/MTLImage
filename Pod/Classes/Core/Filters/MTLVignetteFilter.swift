@@ -24,7 +24,6 @@ public
 class MTLVignetteFilter: MTLFilter {
 
     var uniforms = VignetteUniforms()
-    private var viewSize: CGSize?
     
     public var center: CGPoint = CGPoint(x: 0.5, y: 0.5) {
         didSet {
@@ -57,7 +56,6 @@ class MTLVignetteFilter: MTLFilter {
     }
     
     public override func reset() {
-        viewSize = nil
         center = CGPoint(x: 0.5, y: 0.5)
         color = UIColor.black
         start = 0.25
@@ -98,17 +96,16 @@ class MTLVignetteFilter: MTLFilter {
             uniforms.b = Float((components?[2])!)
         }
         
-        if viewSize != nil {
-            uniforms.x = Float(center.x/viewSize!.width)
-            uniforms.y = Float(center.y/viewSize!.height)
-        } else {
-            uniforms.x = 0.5
-            uniforms.y = 0.5
-            if let mtlView = outputView {
-                viewSize = mtlView.frame.size
-            }
-        }
-        
+//        if viewSize != nil {
+//            uniforms.x = Float(center.x/viewSize!.width)
+//            uniforms.y = Float(center.y/viewSize!.height)
+//        } else {
+//            uniforms.x = 0.5
+//            uniforms.y = 0.5
+//        }
+
+        uniforms.x = Float(center.x)
+        uniforms.y = Float(center.y)
         uniforms.start = start
         uniforms.end   = end
         

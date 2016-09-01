@@ -151,12 +151,8 @@ class MTLFilter: MTLObject, NSCoding {
                 internalTexture = context.device?.newTexture(with: textureDescriptor)
             }
             
-//            if gcd == 0 {
-//                // Find the largest denominator? Using a non-divisor will cut pixels off the end
-//                gcd = Tools.gcd(inputTexture.width, b: inputTexture.height)
-//            }
-            
-            // Next, try different values for x, y
+
+            // TODO: Determine gcd of inputTextures width and heights that is <= 22 (22 * 22 < 512 == maxThreadGroupWidth)
             let threadgroupCounts = MTLSizeMake(8, 8, 1)
             let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
             
