@@ -43,7 +43,8 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.navigationItem.leftBarButtonItems = nil
         
         sourcePicture = MTLPicture(image: image)
-        sourcePicture.setProcessingSize(mtlView.bounds.size * UIScreen.main.nativeScale, respectAspectRatio: true)
+//        sourcePicture.setProcessingSize(mtlView.bounds.size * UIScreen.main.nativeScale, respectAspectRatio: true)
+        sourcePicture.setProcessingSize(CGSize(width: 400, height: 400), respectAspectRatio: true)
         mtlView.delegate = self
         currentInput = sourcePicture
         

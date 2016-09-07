@@ -107,6 +107,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         contentView = MetalLayerView(frame: bounds)
         contentView.backgroundColor = UIColor.clear
         contentMode = .scaleAspectFit
+        contentView.parentView = self
         
         scrollView = UIScrollView(frame: bounds)
         scrollView.backgroundColor = UIColor.clear
@@ -485,33 +486,41 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
             metalLayer.drawableSize = processingSize
         }
     }
-    
-    
-    
-    //    MARK: - Touch Events
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        delegate?.mtlViewTouchesBegan(self, touches: touches, event: event)
-    }
-    
-    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        delegate?.mtlViewTouchesMoved(self, touches: touches, event: event)
-    }
-    
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        delegate?.mtlViewTouchesEnded(self, touches: touches, event: event)
-    }
 }
 
 
 class MetalLayerView: UIView {
     
+    var parentView: MTLView?
+    
     internal override class var layerClass: AnyClass {
         return CAMetalLayer.self.self
     }
     
+    //    MARK: - Touch Events
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        if let mtlView = parentView {
+            mtlView.delegate?.mtlViewTouchesBegan(mtlView, touches: touches, event: event)
+        }
+    }
+    
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        
+        if let mtlView = parentView {
+            mtlView.delegate?.mtlViewTouchesMoved(mtlView, touches: touches, event: event)
+        }
+    }
+    
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+
+        if let mtlView = parentView {
+            mtlView.delegate?.mtlViewTouchesEnded(mtlView, touches: touches, event: event)
+        }
+    }
 }
 
 func *(left: CGSize, right: CGFloat) -> CGSize {

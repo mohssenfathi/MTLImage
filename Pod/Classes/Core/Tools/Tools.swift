@@ -145,6 +145,34 @@ class Tools: NSObject {
     }
     
     
+    /**
+     Finds the largest integer that will evenly divide a
+     
+     - parameter a: The integer to be divided
+     - returns: The largest integer that evenly divides a
+     */
+    
+    public class func greatestDivisor(_ a: Int) -> Int {
+        var i = 2
+        while (a % i != 0) { i += 1 }
+        return a / i
+    }
+    
+    /**
+     Finds the largest integer that will evenly divide a and is less than `below`
+     
+     - parameter a: The integer to be divided
+     - parameter below: The maximum value of the divisor returned
+     - returns: The largest integer that evenly divides a and is less than `below`
+     */
+    public class func greatestDivisor(_ a: Int, below: Int) -> Int {
+        // Could use improvement
+        var i = below
+        while (a % i != 0 && i > 1) { i -= 1 }
+        if i <= 1 { return NSNotFound }
+        return i
+    }
+    
     public class func contents<T>(count: Int, data: UnsafePointer<T>) -> [T] {
         let buffer = UnsafeBufferPointer(start: data, count: count);
         return Array(buffer)

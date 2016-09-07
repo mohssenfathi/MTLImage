@@ -10,7 +10,7 @@ import UIKit
 import MTLImage
 
 class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,
-SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyLabel: UILabel!
@@ -38,6 +38,18 @@ SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINav
         super.viewWillAppear(animated)
         tableView.isHidden  = (filter.properties.count == 0)
         emptyLabel.isHidden = (filter.properties.count != 0)
+    }
+    
+    
+    func handleTouchAtLocation(_ location: CGPoint) {
+        
+        if filter is MTLSmudgeFilter { return } // Temp
+        
+        if touchProperty != nil {
+            let viewSize = mainViewController.mtlView.frame.size
+            let point = CGPoint(x: location.x / viewSize.width, y: location.y / viewSize.height)
+            filter.setValue(NSValue(cgPoint: point), forKey: touchProperty!.key)
+        }
     }
     
     func handlePan(_ sender: UIPanGestureRecognizer) {
@@ -86,19 +98,10 @@ SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINav
         return cell
     }
     
-    func handleTouchAtLocation(_ location: CGPoint) {
-        
-        if filter is MTLSmudgeFilter { return } // Temp
-        
-        if touchProperty != nil {
-            filter.setValue(NSValue(cgPoint: location), forKey: touchProperty!.key)
-        }
-    }
-    
     func cellIdentifier(_ propertyType: MTLPropertyType) -> String {
-        if propertyType == .selection { return "pickerCell" }
-        else if propertyType == .image { return "imageCell" }
-//         Add switchCell later...
+        if      propertyType == .selection { return "pickerCell" }
+        else if propertyType == .image     { return "imageCell"  }
+        else if propertyType == .bool      { return "toggleCell" }
         return "settingsCell"
     }
     
@@ -125,6 +128,19 @@ SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINav
             else if property.propertyType == .point {
                 settingsCell.message = "Touch preview image to adjust."
             }
+        }
+        else if cell.reuseIdentifier == "toggleCell" {
+            
+            let toggleCell: ToggleCell = cell as! ToggleCell
+            toggleCell.titleLabel.text = filter.properties[indexPath.row].title
+            toggleCell.delegate = self
+            
+            if let key = filter.properties[indexPath.row].key {
+                if let isOn = filter.value(forKey: key) as? Bool {
+                    toggleCell.toggleSwitch.isOn = isOn
+                }
+            }
+            
         }
         else if cell.reuseIdentifier == "pickerCell" {
             let pickerCell: PickerCell = cell as! PickerCell
@@ -178,6 +194,13 @@ SettingsCellDelegate, PickerCellDelegate, UIImagePickerControllerDelegate, UINav
         filter.setValue(index, forKey: property.key)
     }
     
+    // MARK: ToggleCell Delegate
+    
+    func toggleValueChanged(sender: ToggleCell, isOn: Bool) {
+        let indexPath = tableView.indexPath(for: sender)
+        let property: MTLProperty = filter.properties[(indexPath?.row)!]
+        filter.setValue(isOn, forKey: property.key)
+    }
     
 //    MARK: ImagePickerController Delegate
     

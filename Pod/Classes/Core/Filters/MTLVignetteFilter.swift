@@ -95,14 +95,6 @@ class MTLVignetteFilter: MTLFilter {
             uniforms.g = Float((components?[1])!)
             uniforms.b = Float((components?[2])!)
         }
-        
-//        if viewSize != nil {
-//            uniforms.x = Float(center.x/viewSize!.width)
-//            uniforms.y = Float(center.y/viewSize!.height)
-//        } else {
-//            uniforms.x = 0.5
-//            uniforms.y = 0.5
-//        }
 
         uniforms.x = Float(center.x)
         uniforms.y = Float(center.y)

@@ -14,7 +14,7 @@ class TestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let _ = MTLFeedForwardNeuralNetwork([2, 4, 3, 2])
+//        let _ = MTLFeedForwardNeuralNetwork([2, 4, 3, 2])
         
     }
 

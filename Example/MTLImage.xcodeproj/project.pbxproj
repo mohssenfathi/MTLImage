@@ -60,10 +60,12 @@
 		4556FC861D6F4B95005C1D14 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4556FC851D6F4B95005C1D14 /* TestViewController.swift */; };
 		455AE1F01CFB643A007702BA /* Hue.metal in Sources */ = {isa = PBXBuildFile; fileRef = 455AE1EF1CFB643A007702BA /* Hue.metal */; };
 		455AE3611CFBE8D5007702BA /* HighlightShadow.metal in Sources */ = {isa = PBXBuildFile; fileRef = 455AE3601CFBE8D5007702BA /* HighlightShadow.metal */; };
+		456DB2021D79B976002DF330 /* ToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456DB2011D79B976002DF330 /* ToggleCell.swift */; };
 		457551351D01BCAC0096D842 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 457551341D01BCAC0096D842 /* CloudKit.framework */; };
 		45764E3B1CE3906100315DA7 /* WeakPixelInclusion.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45764E3A1CE3906100315DA7 /* WeakPixelInclusion.metal */; };
 		45764E3F1CE3936C00315DA7 /* XYDerivative.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45764E3E1CE3936C00315DA7 /* XYDerivative.metal */; };
 		457A87981CECB6E500188C52 /* Scatter.metal in Sources */ = {isa = PBXBuildFile; fileRef = 457A87971CECB6E400188C52 /* Scatter.metal */; };
+		457FA3D31D789DCC008C6C35 /* LensFlare.metal in Sources */ = {isa = PBXBuildFile; fileRef = 457FA3D21D789DCC008C6C35 /* LensFlare.metal */; };
 		458EDE051CFDC71F009BA88E /* ToneCurve.metal in Sources */ = {isa = PBXBuildFile; fileRef = 458EDE041CFDC71F009BA88E /* ToneCurve.metal */; };
 		45A616811CBFD9BA00C000C7 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A616801CBFD9BA00C000C7 /* PickerCell.swift */; };
 		45EB4FC41CADF4C00018936C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EB4FC31CADF4C00018936C /* MainViewController.swift */; };
@@ -148,11 +150,13 @@
 		4556FC851D6F4B95005C1D14 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		455AE1EF1CFB643A007702BA /* Hue.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Hue.metal; sourceTree = "<group>"; };
 		455AE3601CFBE8D5007702BA /* HighlightShadow.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HighlightShadow.metal; sourceTree = "<group>"; };
+		456DB2011D79B976002DF330 /* ToggleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleCell.swift; sourceTree = "<group>"; };
 		457551331D01BCA60096D842 /* MTLImage_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MTLImage_Example.entitlements; sourceTree = "<group>"; };
 		457551341D01BCAC0096D842 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		45764E3A1CE3906100315DA7 /* WeakPixelInclusion.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = WeakPixelInclusion.metal; sourceTree = "<group>"; };
 		45764E3E1CE3936C00315DA7 /* XYDerivative.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = XYDerivative.metal; sourceTree = "<group>"; };
 		457A87971CECB6E400188C52 /* Scatter.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Scatter.metal; sourceTree = "<group>"; };
+		457FA3D21D789DCC008C6C35 /* LensFlare.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = LensFlare.metal; sourceTree = "<group>"; };
 		458EDE041CFDC71F009BA88E /* ToneCurve.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ToneCurve.metal; sourceTree = "<group>"; };
 		45A616801CBFD9BA00C000C7 /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		45BE9F871C9226010014593F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
@@ -256,6 +260,7 @@
 				455AE1EF1CFB643A007702BA /* Hue.metal */,
 				453A60A21CFB4D6000A48FEE /* HSV.metal */,
 				45F34AEC1D16CDF800BE7D0C /* UnsharpMask.metal */,
+				457FA3D21D789DCC008C6C35 /* LensFlare.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -339,6 +344,7 @@
 				45EB4FCE1CADF8CD0018936C /* SettingsViewController.swift */,
 				45EB4FD01CADFAAE0018936C /* SettingsCell.swift */,
 				45A616801CBFD9BA00C000C7 /* PickerCell.swift */,
+				456DB2011D79B976002DF330 /* ToggleCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -687,6 +693,7 @@
 				453A60A31CFB4D6000A48FEE /* HSV.metal in Sources */,
 				453FA0031CE0F58B003F9871 /* Camera.metal in Sources */,
 				453FA0081CE0F58B003F9871 /* DefaultShaders.metal in Sources */,
+				457FA3D31D789DCC008C6C35 /* LensFlare.metal in Sources */,
 				453FA01B1CE0F58B003F9871 /* Sharpen.metal in Sources */,
 				453FA0071CE0F58B003F9871 /* CrossHatch.metal in Sources */,
 				45F34AED1D16CDF800BE7D0C /* UnsharpMask.metal in Sources */,
@@ -722,6 +729,7 @@
 				453FA0131CE0F58B003F9871 /* Mask.metal in Sources */,
 				453A609C1CF7974900A48FEE /* Smudge.metal in Sources */,
 				458EDE051CFDC71F009BA88E /* ToneCurve.metal in Sources */,
+				456DB2021D79B976002DF330 /* ToggleCell.swift in Sources */,
 				4546570B1CB9BB98001E421A /* FilterGroupViewController.swift in Sources */,
 				45A616811CBFD9BA00C000C7 /* PickerCell.swift in Sources */,
 				453A60A11CFB4D1500A48FEE /* Template.metal in Sources */,
@@ -863,7 +871,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MTLImage/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -883,7 +891,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MTLImage/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";

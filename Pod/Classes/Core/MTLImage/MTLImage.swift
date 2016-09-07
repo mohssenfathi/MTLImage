@@ -39,6 +39,7 @@ public protocol MTLOutput {
     
 }
 
+
 public
 class MTLImage: NSObject {
    
@@ -64,6 +65,7 @@ class MTLImage: NSObject {
          "Invert",
          "Kuwahara",
          "Lanczos Scale",
+         "Lens Flare",
          "Levels",
          "Luminance Threshold",
          "Mask",
@@ -107,6 +109,7 @@ class MTLImage: NSObject {
             case "invert"                         : return MTLInvertFilter()
             case "kuwahara"                       : return MTLKuwaharaFilter()
             case "lanczos scale"                  : return MTLLanczosScaleFilter()
+            case "lens flare"                     : return MTLLensFlareFilter()
             case "levels"                         : return MTLLevelsFilter()
             case "luminance threshold"            : return MTLLuminanceThresholdFilter()
             case "mask"                           : return MTLMaskFilter()

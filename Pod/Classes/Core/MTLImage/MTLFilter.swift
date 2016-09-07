@@ -152,8 +152,10 @@ class MTLFilter: MTLObject, NSCoding {
             }
             
 
-            // TODO: Determine gcd of inputTextures width and heights that is <= 22 (22 * 22 < 512 == maxThreadGroupWidth)
-            let threadgroupCounts = MTLSizeMake(8, 8, 1)
+            // TODO: Make this faster
+            if inputTexture.width != Int(currentInputSize.width) && inputTexture.height != Int(currentInputSize.height) {
+                updateThreadgroupCounts(width: inputTexture.width, height: inputTexture.height)
+            }
             let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
             
             let commandBuffer = context.commandQueue.commandBuffer()
@@ -184,7 +186,7 @@ class MTLFilter: MTLObject, NSCoding {
     
     
     //    MARK: - MTLInput
-    
+
     public override var texture: MTLTexture? {
         get {
             if !enabled {
@@ -347,6 +349,19 @@ class MTLFilter: MTLObject, NSCoding {
         return filter
     }
     
+    
+    var threadgroupCounts = MTLSizeMake(8, 8, 1)
+    var currentInputSize: CGSize = CGSize.zero
+    func updateThreadgroupCounts(width: Int, height: Int) {
+        
+        currentInputSize = CGSize(width: width, height: height)
+        
+        let w = Tools.greatestDivisor(width , below: 22)
+        let h = Tools.greatestDivisor(height, below: 22)
+        
+        threadgroupCounts.width  = (w == NSNotFound) ? 8 : w
+        threadgroupCounts.height = (h == NSNotFound) ? 8 : h
+    }
     
     
 //    MARK: - NSCoding

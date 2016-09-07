@@ -7,185 +7,99 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00CAB1F0BB605732A2BB50F6083F97FF /* MTLXYDerivativeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307A98201F0B8E20B36B501A7A2F26D3 /* MTLXYDerivativeFilter.swift */; };
-		01A0212838EA235CB5994A6FA2428B04 /* MTLHarrisCornerDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38604E3C32F25232F93ABE0F9071D57F /* MTLHarrisCornerDetection.swift */; };
-		0342B2F2CEAE4E90D314A494A41D9007 /* MTLFeedForwardNeuralNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9C9572FBA0FA6F9BFC0C809C119CE /* MTLFeedForwardNeuralNetwork.swift */; };
-		036F1AEE6CEC2E2FF163927860BB95F1 /* MTLPixellateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CC41C3BAC4B4E8A7D84D8B63142529 /* MTLPixellateFilter.swift */; };
-		048F4174B18FAE4A0B8C6232CE390488 /* MTLPerlinNoiseFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D67CD30D169C35E59BC95E47B0AD4F5 /* MTLPerlinNoiseFilter.swift */; };
-		04F3B67085E63298AA7632A81245AA85 /* MTLCrossHatchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA7C8B55F5CE6827A2674AF51362993 /* MTLCrossHatchFilter.swift */; };
-		05BEB725EDF43640E2BC727A1FEAB89E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BAB538786F3BBC86968963FC0A0B91 /* Foundation.framework */; };
-		062CCE966578CE67F438A2B17D18A194 /* Pods-MTLImage_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 990567AE9031D7C8ADEEC6E93140DF00 /* Pods-MTLImage_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0DAA3659A86A9A809925BC4C47F23AD3 /* MTLImage.default-MachineLearning-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 950B290282926599E7C9FB677FA8EC57 /* MTLImage.default-MachineLearning-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1282DC7A83C710CB58E42DB948F17C37 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C638F32E94F9610BB61E4EE2D23DD835 /* CloudKit.framework */; };
-		13135B3D744F0CABE9DBACEB2D7EEF89 /* MTLInvertFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14BC7398E5AA486E9F36208BE519139 /* MTLInvertFilter.swift */; };
-		147D2A10622659F6DC009A6394A8C3FB /* MTLVignetteFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1AE1BF879115B112484910A6C2E815 /* MTLVignetteFilter.swift */; };
-		16A6F43BD82339DC904C3003FDB63335 /* MTLMaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0326DF53C405792A914879558542A4 /* MTLMaskFilter.swift */; };
-		17B070698BE56D7E979C43C5ED548E1E /* MTLTentFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124ADB9BEFA3EBA4BCC30597F3CACB0 /* MTLTentFilter.swift */; };
+		02B4DE5F650586C5D3ABCD08F94B350B /* MTLHighlightShadowFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326C71E5C1D4F5EE2970A47638D30FCC /* MTLHighlightShadowFilter.swift */; };
+		0387BD152DBE407F6AB3A16F3CE4C1DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BAB538786F3BBC86968963FC0A0B91 /* Foundation.framework */; };
+		03C206F1C6C6F7F4DA7309D38F6FEA4F /* MTLColorSelectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA933736D49FF6AF5C3E002EAAB581EF /* MTLColorSelectionFilter.swift */; };
+		063588610426714AD3F4522C303017E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BAB538786F3BBC86968963FC0A0B91 /* Foundation.framework */; };
+		06F3C27050999FDCCA3A7FFF17EE3FA6 /* MTLUnsharpMaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B00191F76EC4B499B6CC58F4C375FE1 /* MTLUnsharpMaskFilter.swift */; };
+		084D55381BF001717177F62718E72A68 /* MTLExposureFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C12DBF1AE2E5BDDECB48AAE80C63A2 /* MTLExposureFilter.swift */; };
+		09CAA863C80B372664858483EAF683DA /* MTLSketchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C733A91618EE4F9AE65FF08E76196CA /* MTLSketchFilter.swift */; };
+		0ABC01EE22A52A9A17B955A29D6D403C /* MTLPropertyRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56078EF42B191A5A8CB5698A874552E3 /* MTLPropertyRecord+CoreDataProperties.swift */; };
+		0BB35BDF0D94C2EEF87FBEDEE88F5B17 /* MTLPropertyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D155CE4456350E45FE3845E7B88378C8 /* MTLPropertyRecord.swift */; };
+		13C183678FBA9C257D5F193BC044A5D4 /* MTLCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FD3CF25BF99C90EFA47C7C36BF8C6C /* MTLCamera.swift */; };
 		19CBFC7038E11CA0400FC8F8E1931F0D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BAB538786F3BBC86968963FC0A0B91 /* Foundation.framework */; };
-		1A02B2A8ABDDE21B58E9C44D716FF648 /* MTLLineDetectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A81C5777736F0A4CAC556EF637EEAB8 /* MTLLineDetectionFilter.swift */; };
-		1AB3466065A2E019688506C831874997 /* MTLUnsharpMaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9860B6BEE4023924072D9E8F098B072 /* MTLUnsharpMaskFilter.swift */; };
-		1BBA17E7F16AD3E1DB03558AE1A3B8A3 /* MTLGaussianBlurFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D714FB2D3554085C14B66F63721D7F /* MTLGaussianBlurFilter.swift */; };
-		1C5F9439BEDCA81AE05AB3A54B07703B /* MTLConvolutionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1BADE2B547A28310496E1B00CBA831 /* MTLConvolutionFilter.swift */; };
-		1F540EDF6EA2146E6C54441728359430 /* MTLLanczosScaleFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0727AA49F84433D245327457FF95208 /* MTLLanczosScaleFilter.swift */; };
-		226D15AC0850FAF1C665D76F3B48A386 /* UIImage+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDAF6D54A5BDDD612CD9B0C994DD93A /* UIImage+Scale.swift */; };
-		23C1BC24E7BD026DBCEE8D3A47DB35AF /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0FB931780C559877A61A7D31272BF4 /* MTLFilterGroupRecord+CoreDataProperties.swift */; };
-		26F842CE5F8B085A61FFB6745A7CAD4A /* MTLCropFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3904B4A1A547A094A143496E9ADB7 /* MTLCropFilter.swift */; };
-		2764084F1370ACA79697A0A7106A3F53 /* MTLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBC817440953C0974042159CA1F2EB0 /* MTLObject.swift */; };
-		2800BE730678A0AD58FA558470524038 /* MTLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58270C209799230FE2A2693A294CAD5F /* MTLView.swift */; };
-		299ED9A1B4F098AAEC18A1CC273652FD /* MTLDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201E0159AB3F5B4956E9496B5A76E35C /* MTLDataManager.swift */; };
-		29CBC10FEB3332F735B7FFD7283339FD /* MTLWaterFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D952AB1CA97B59508816E8216E72E7F5 /* MTLWaterFilter.swift */; };
-		2B1E438E0997DDCD2ADF37E09B39F2B1 /* MTLPropertyRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716A616ECF489E7FDDB943BEF9D13A51 /* MTLPropertyRecord+CoreDataProperties.swift */; };
-		2B90C7E0CF06BC8A30CDDE095216AA90 /* MTLTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC7521F6B1320E6C92F82248454DDF2 /* MTLTypes.swift */; };
-		2BA751191E406CD098B0DA35359151A7 /* MTLWaterFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D952AB1CA97B59508816E8216E72E7F5 /* MTLWaterFilter.swift */; };
-		2ECB42BAAA7930516A6F575BB4C0382A /* MTLPolkaDotFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A0D2E489CF9512D5D93D4B4D48A59 /* MTLPolkaDotFilter.swift */; };
-		337B88251CE6A646954BD57A63C8AB29 /* MTLWhiteBalanceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA90F5C8BE98B5A1013998CF6842F87 /* MTLWhiteBalanceFilter.swift */; };
-		344FACB4AFBD463E2AA2D1F3C064FFAC /* MTLInvertFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14BC7398E5AA486E9F36208BE519139 /* MTLInvertFilter.swift */; };
-		34A329977B29A3D15FAE4C80E7858176 /* MTLLineDetectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A81C5777736F0A4CAC556EF637EEAB8 /* MTLLineDetectionFilter.swift */; };
-		36BCF2195C3DC5C1EF24A519FB952C7F /* MTLHighlightShadowFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1548D05B22F3C4A68A711BEA35D06E72 /* MTLHighlightShadowFilter.swift */; };
-		37DE5DD7EA6638B345DD78A3935BE1BD /* MTLHoughLineDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DDB18E584AD81A8332AC2E32A475F81 /* MTLHoughLineDetection.swift */; };
-		38EF416BE680341DECEE5B734DCEC4D6 /* MTLExposureFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB6558904670C7F773C4CF33F8989E7 /* MTLExposureFilter.swift */; };
-		394D04EFF50E0401E7BD104A977B4A25 /* MTLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78551DFADA6C0629E9FB10C7A05D732 /* MTLMatrix.swift */; };
-		3955FC4AB8A01364F6C66875DD8CB339 /* MTLHistogramFilter1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3BEFC5136A2D76BD83BC33E9F5D9D4 /* MTLHistogramFilter1.swift */; };
-		3A4BAFA613CF3DCBA2201DD351AD78BE /* MTLSobelEdgeDetectionThresholdFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C94D4127FB29C5A64181941A23506B /* MTLSobelEdgeDetectionThresholdFilter.swift */; };
-		3A64E31AC3E696CEB84F95858F3954F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BAB538786F3BBC86968963FC0A0B91 /* Foundation.framework */; };
-		3A8EDD5A0A0EADAB58BFA489658CBE8E /* MTLHueFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BA9C8F52EA39986D95F81A49747A15 /* MTLHueFilter.swift */; };
-		3CFC41817D2AD1129F0CD287E7775F10 /* MTLDistortionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9127527B13A07489844605A725F52F /* MTLDistortionFilter.swift */; };
-		3DEDD10FD347D4D692EEEFA72176CDDE /* UIImage+MTLTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25848A0BE44134E0EE653BB5C2612DD /* UIImage+MTLTexture.swift */; };
-		3E361E5510D138EB3AF108E1F69D296C /* MTLDilateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8E097F4B82AE77CAEF5D6718959A40 /* MTLDilateFilter.swift */; };
-		42344441B4FD0791CB46ACA512FB8ABC /* MTLContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314D25A3DB1E93EF33F7CD3DE81E7A4C /* MTLContext.swift */; };
-		42AB825DCBC715EA17C0BB88F9F84C51 /* MTLBoxBlurFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8C63951F2E5EF100683D981910A2D /* MTLBoxBlurFilter.swift */; };
-		43AAA5B2D4C46E809C9E6C9578193810 /* MTLProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D70CD7478FD348D512D6A9C1FA772B1 /* MTLProperty.swift */; };
-		4688EBD90F67A36B0314BFB5100030B3 /* MTLPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176882A8599AA6D240F33ACE8F5C26AC /* MTLPicture.swift */; };
-		4737AF5790C9E7336BCB45C95C0E996F /* MTLHSVFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEFEFF4EE774CD3CEA6F249910D302F /* MTLHSVFilter.swift */; };
-		477EE5E3AC628A1C5FCB4AA543E86E82 /* MTLBrightnessFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DB5506AA62184F0CFE9213F83C66F /* MTLBrightnessFilter.swift */; };
-		49BCEC33A84BCD1D0382E24ABBF9AC96 /* MTLProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D70CD7478FD348D512D6A9C1FA772B1 /* MTLProperty.swift */; };
-		4B421F97B450E6ABF5E543BDC216AE9A /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 152845E4B0BF06CEADD5F248286785C0 /* images.xcassets */; };
-		4BA0D2BE14E65D901F54E9247F03FB3F /* MTLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68234698CD440C8067033BE8402279AD /* MTLImage.swift */; };
-		4C2C685680E96D86F41AEB6FC0179340 /* MTLFilterGroupRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D307733B989920FD07ECDCB46AA4742 /* MTLFilterGroupRecord.swift */; };
-		4C2CF863FBE85A3E0141E89107CB2EAF /* MTLCloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CADF63B58250EB87A55811CB82B03F8 /* MTLCloudKitManager.swift */; };
-		4DD9193891F1847CB66653407623FDF6 /* MTLBlendFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63015F8DA21B794B425D1DA77F27DD97 /* MTLBlendFilter.swift */; };
-		4E0FD1C86FA056774B07A3770BDB8DB5 /* MTLSketchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB09C67144A13B5D2221D00CC8EAE87 /* MTLSketchFilter.swift */; };
-		4F4FAE81492052481935640F19C6DB78 /* MTLWeakPixelInclusionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407CFEAD317DF443FD4E42E90EFCBF83 /* MTLWeakPixelInclusionFilter.swift */; };
-		5580F65098374F5BE66627A6E2070CAC /* MTLSaturationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2D4E107A4CF53FD06191EF8054C3B9 /* MTLSaturationFilter.swift */; };
-		57B92E1B1E9F3FBC2DC906C7169BBBC6 /* MTLEmbossFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C13B71DD6CA17582F5B27A2D6348C8F /* MTLEmbossFilter.swift */; };
-		5A46445AC23136577E27BFF921B3A49F /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0FB931780C559877A61A7D31272BF4 /* MTLFilterGroupRecord+CoreDataProperties.swift */; };
-		5B28AB1462384E46ECAAA571BE5E581F /* MTLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B275A56C6379B6C0E2531CB9ED14E3 /* MTLFilter.swift */; };
-		5D8F460404C30D6B3F9BAB0E24796E73 /* MTLConvolutionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1BADE2B547A28310496E1B00CBA831 /* MTLConvolutionFilter.swift */; };
-		5DF41DF0A59962125D5F0F84239FC423 /* MTLSobelEdgeDetectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D20F51A62312DB051E0403DF63D552 /* MTLSobelEdgeDetectionFilter.swift */; };
-		5E83864342FBFC5F2E9F7812621A1AA9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BAB538786F3BBC86968963FC0A0B91 /* Foundation.framework */; };
-		5FC5C9798292A9B81CA5820D50C2090D /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 152845E4B0BF06CEADD5F248286785C0 /* images.xcassets */; };
-		6081F436E0CA67784669CD08729312EC /* MTLCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B262AED75EF724BCB5C365B5545C9C /* MTLCamera.swift */; };
-		60CA2EA2A99E38E4359902EBDA701549 /* TemplateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2851B46D2BBF56C2FE1A0261CF69FA /* TemplateFilter.swift */; };
-		61CBECEBFC2902540FB31B41D51BD5C4 /* MTLFilterGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5EF219F1044E3E1B2C1B0B10147A6B /* MTLFilterGroup.swift */; };
-		63EA8A1CAB15F8D66001B6EC3B483514 /* MTLSharpenFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17709CDBB48FD470698F7A38145C80BE /* MTLSharpenFilter.swift */; };
-		65D0A7BE03BA2F6D1B103EAE28FA1056 /* MTLBrightnessFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6DB5506AA62184F0CFE9213F83C66F /* MTLBrightnessFilter.swift */; };
-		68CFD09FF34D7EECFEE0E2C22742B18B /* MTLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B275A56C6379B6C0E2531CB9ED14E3 /* MTLFilter.swift */; };
-		698FF9FC21D8C376B59CDF22C94EA41B /* MTLDistortionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9127527B13A07489844605A725F52F /* MTLDistortionFilter.swift */; };
-		6A1028D4F291A6D6ABD90BB0D3E047FC /* MTLFilterRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90103F35555A5823BFA787CBE8D896D /* MTLFilterRecord+CoreDataProperties.swift */; };
-		6C5737D729162FA7E0AF3CF3E7DB5D57 /* MTLHistogramFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F773C00363DAF255892C74EB5F1D27E /* MTLHistogramFilter.swift */; };
-		6D20968AA5E346B2245113126382EC08 /* MTLSelectiveHSLFilter1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144537492A3320CF98DB43553DECF991 /* MTLSelectiveHSLFilter1.swift */; };
-		6DAE752ACD46B94D716898190E93364E /* MTLImage-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 11FA8725CDC5E96219AC79C379677F69 /* MTLImage-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6E47AA57BC77E26A332A5E4A3F2B3D34 /* MTLColorSelectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C143E8988865DE94EDE734436E55A /* MTLColorSelectionFilter.swift */; };
-		6FB6195697F62547D67C3412776A9F38 /* MTLToonFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1413F8E2A27A5DABD823C1F3F5F0D9 /* MTLToonFilter.swift */; };
-		70A091018E541D6FBC2A6617A00DCEC6 /* MTLScatterFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F662A010ED6A311F48788AEBDFD32E18 /* MTLScatterFilter.swift */; };
-		70A8CA3E9D2659C65C88A63B61FDD687 /* UIImage+MTLTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25848A0BE44134E0EE653BB5C2612DD /* UIImage+MTLTexture.swift */; };
-		70B19145DB65EC33CAE53DB409E13988 /* MTLHoughLineDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DDB18E584AD81A8332AC2E32A475F81 /* MTLHoughLineDetection.swift */; };
-		73791EB16C57925796D77417AE2C4010 /* MTLCrossHatchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA7C8B55F5CE6827A2674AF51362993 /* MTLCrossHatchFilter.swift */; };
-		743B41F243F2E02F6386BDCD13209EC7 /* MTLUnsharpMaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9860B6BEE4023924072D9E8F098B072 /* MTLUnsharpMaskFilter.swift */; };
-		75459651DB3CB7C59194029DB6537756 /* MTLCloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CADF63B58250EB87A55811CB82B03F8 /* MTLCloudKitManager.swift */; };
-		75DFB7C9FC4E3AAAFD57C4CA07641265 /* MTLSelectiveHSLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD41F006B896F0EB4EC41129AF10B47 /* MTLSelectiveHSLFilter.swift */; };
-		7614D110F8BF0736E01EAAC69DC166C3 /* MTLCannyEdgeDetectionFilterGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2208E5DD90B8C0FC1AECC6F581C8770 /* MTLCannyEdgeDetectionFilterGroup.swift */; };
-		773F54B91B2BE7978436ACC6AD7765FA /* MTLWeakPixelInclusionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407CFEAD317DF443FD4E42E90EFCBF83 /* MTLWeakPixelInclusionFilter.swift */; };
-		7B9749FB382032349BDE9DAAA91A84AE /* MTLPropertyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027ECFE759BEC19ADB9BC6F2EBAB3CAD /* MTLPropertyRecord.swift */; };
-		7E45D1884475E8C6A6A2CFBEE3ED8B6E /* MTLXYDerivativeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307A98201F0B8E20B36B501A7A2F26D3 /* MTLXYDerivativeFilter.swift */; };
-		7EF82702453729E9B3DEFCDC81529025 /* MTLTransformFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6297A906FF7015D8DBFAF738F2BEE3 /* MTLTransformFilter.swift */; };
-		8070E1E374ACA0E2BA384084FD80A91E /* MTLContrastFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9BB02CA946477DC2BD123C1613F3F /* MTLContrastFilter.swift */; };
-		82E9D2CB418718DD6ECD1D80A38F7D2F /* MTLCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B262AED75EF724BCB5C365B5545C9C /* MTLCamera.swift */; };
-		83654CA5B70EAA6CB3C2A7E571950654 /* MTLNonMaximumSuppressionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE0EC398D5EE3CB63A0028D8FEDE76 /* MTLNonMaximumSuppressionFilter.swift */; };
-		84246943DFC82F49C6726295DEA7DCD2 /* MTLContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314D25A3DB1E93EF33F7CD3DE81E7A4C /* MTLContext.swift */; };
-		84916B467906C6583F6099D94E51D0BF /* MTLMosaicFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EEBA2A430EC117B6F7EF23885F2B0 /* MTLMosaicFilter.swift */; };
-		876C8271F26E0215E7AFD5D48EED628A /* MTLSmudgeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5FD64D02E5E55E5AD6EE177479AA2 /* MTLSmudgeFilter.swift */; };
-		8978F3AA5480F859B74F373CA3A17918 /* MTLCropFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA3904B4A1A547A094A143496E9ADB7 /* MTLCropFilter.swift */; };
+		1D82BD9501C6436FAB504B13B2AA1370 /* MTLWeakPixelInclusionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B07BB155C708231DB79885EBDC48848 /* MTLWeakPixelInclusionFilter.swift */; };
+		2495514D2733229E4C0407AA13BF77C9 /* Pods-MTLImage_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B825C029516AC3A225926C6BFBC3103 /* Pods-MTLImage_Example-dummy.m */; };
+		27666F9FB354FD8C3C53884F1533370F /* MTLContrastFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A04E75F0AD02C842F67DB7A3BA7EC /* MTLContrastFilter.swift */; };
+		28FF73B8457A177193EFE85A5E3AFD91 /* MTLSharpenFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31541AAB145F7E1072C41687AABAAAF /* MTLSharpenFilter.swift */; };
+		2955476C2628C06ACB4CC0D0B4F1507E /* MTLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF9B5C945C9A04EADEECB841D8016CF /* MTLMatrix.swift */; };
+		2C24C0E360B6787D7F40DE1E4208C716 /* MTLPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ADDC2A4D786E789C3089E3F7893A86 /* MTLPicture.swift */; };
+		39C26EE155CA99425BE5C889B8E3A450 /* MTLFilterGroupRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499CC1827C4D3C744E8F4BAE21595772 /* MTLFilterGroupRecord.swift */; };
+		3C635CB64BCC5CBC40C9E6BDB3AF53D4 /* MTLMPSFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FD682C0C295E343B107913EB49B468 /* MTLMPSFilter.swift */; };
+		3D2679902E6A317983EAF6A0CAD6F48B /* MTLXYDerivativeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4DF2E20B24323464002110A066AC4 /* MTLXYDerivativeFilter.swift */; };
+		3E2B4EF157DE769B055F8D8E3583A4D3 /* MTLScatterFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27396420054A7F60C3E77153239C01F7 /* MTLScatterFilter.swift */; };
+		417DBF89F144A99B235C75E32F034058 /* MTLHoughLineDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435EC7DB403BE3A779F7A72A2438175D /* MTLHoughLineDetection.swift */; };
+		4482891749DF994FD7E6CE597292FEA3 /* MTLInvertFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1CAD7CAFF0C53F11C9DAEA131F4FDB /* MTLInvertFilter.swift */; };
+		4A01C2183270C4B679913305F74A6473 /* MTLGaussianBlurFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0399B1181F308E43E6875402F88EAD72 /* MTLGaussianBlurFilter.swift */; };
+		4B47814570706594D56281ABFFF40464 /* MTLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E01C41F83C4A95A3E7E5D50C797A1C /* MTLView.swift */; };
+		4D1FF216F78060CC5A5385AB9AF6A281 /* MTLMosaicFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4136894A41E5D8570097C90337B8254 /* MTLMosaicFilter.swift */; };
+		52DD45D10CD277E7EB83FE1478903512 /* MTLDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209440833D50173EDF548579B423114 /* MTLDataManager.swift */; };
+		5487F84061D3EFA234B8F8940FBFF84D /* MTLGaussianBlurFilter1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5813F6B51EE186EABBA2BE46EF7955 /* MTLGaussianBlurFilter1.swift */; };
+		550BE0071432934C170A5CA5DA702444 /* MTLToneCurveFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420BAAF848A04F730A70624AF3814F1 /* MTLToneCurveFilter.swift */; };
+		56817DC42F2659AE0E4FB52EAFBAA09E /* MTLNonMaximumSuppressionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F716403F66DFD85486D315ABDAE205 /* MTLNonMaximumSuppressionFilter.swift */; };
+		582AD356ECDE67FBFAD74AA64C5B3071 /* MTLTransformFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C216C98299E194BC9AD94128761EC67 /* MTLTransformFilter.swift */; };
+		5DC9AB047D2CDFF2EF3EAC9902185F98 /* MTLCloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E895C94E120BF6E0D8A7945A86AEC79 /* MTLCloudKitManager.swift */; };
+		5F73F9CB013A8D018CB7C7D975290762 /* MTLConvolutionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B17DC17AE3F8E6C82D7D0B1FC54D85A /* MTLConvolutionFilter.swift */; };
+		66690E6DF2DE826CA78EBE8776384F43 /* MTLSelectiveHSLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912179CF1C60ABAC037F2BC7E99BF1FA /* MTLSelectiveHSLFilter.swift */; };
+		70D54379B7CFF71E6F5A8F6764246E2C /* MTLTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88992A58574A1D5D1FDCEFDFB16EE72 /* MTLTypes.swift */; };
+		72D5C43213537E3D97181E1D1752018B /* MTLLineDetectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F22405F7159EB43062F55BD82923C7A /* MTLLineDetectionFilter.swift */; };
+		7549EAC73B295F7E4AE451A03FE5C7DE /* MTLDilateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E45B57F7DD30A3968AEC6A0BA1C007 /* MTLDilateFilter.swift */; };
+		7719EC6594B0815C15CF06F5A376901F /* MTLFilterRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0F54C026B20307A5618CA30BE9DE1A /* MTLFilterRecord.swift */; };
+		79F68EBC59706D1AF1822605C2299198 /* MTLBoxBlurFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543B8F0E5F3B468ED9CFF5A59F1E6824 /* MTLBoxBlurFilter.swift */; };
+		7C324260C2E60CE40CB413839A88BF0D /* MTLVignetteFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA544FCCE516CD280A1F9F221FF043E /* MTLVignetteFilter.swift */; };
+		7D348CC9217938FFFDD388CF1714B5EA /* Pods-MTLImage_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 990567AE9031D7C8ADEEC6E93140DF00 /* Pods-MTLImage_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		836734D841FDF4415C6B5D6AE6010C7E /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB2FF4B5F65DDB059B07D477A611E7ED /* images.xcassets */; };
+		83801B21E6C7A3EED00420C7FC2FF7BF /* MTLImage-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F8EC04F09F3205791D94759A0393D2C /* MTLImage-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		88DCE6232356832E2A14FB57DB8B6A47 /* MTLHistogramFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D694F4D7517CB67C53480A9F4DD30DC6 /* MTLHistogramFilter.swift */; };
 		89D3722F5DCB8C553AE642FFD791CD7C /* Pods-MTLImage_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BA5C0326BC77C4FAB5058519F153B12D /* Pods-MTLImage_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		89D9E27BFB964A18C357647301AEA003 /* MTLNonMaximumSuppressionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCE0EC398D5EE3CB63A0028D8FEDE76 /* MTLNonMaximumSuppressionFilter.swift */; };
-		8A19D7E3FD375950447C250A3868F40C /* MTLMPSFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32574E3886DB0A6A0839F39E2FF4FBA5 /* MTLMPSFilter.swift */; };
-		8E03BA6945227BC0CD7DA4C24DB161A3 /* MTLSketchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB09C67144A13B5D2221D00CC8EAE87 /* MTLSketchFilter.swift */; };
-		9047DF72E960FD7483269D196762401B /* MTLGaussianBlurFilter1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9955CFC4F6F26EB9F55B668DEF4E942 /* MTLGaussianBlurFilter1.swift */; };
-		90C09DA172B9EE9B20EE85FE73C9D2A5 /* MTLScatterFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F662A010ED6A311F48788AEBDFD32E18 /* MTLScatterFilter.swift */; };
-		910BB50D41CDFB5BC0930E94553E417A /* MTLDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201E0159AB3F5B4956E9496B5A76E35C /* MTLDataManager.swift */; };
-		939BAE6213B49C70533DCE55A1AF53C0 /* MTLHueFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BA9C8F52EA39986D95F81A49747A15 /* MTLHueFilter.swift */; };
-		94220701DD7EDA4850D24EA9D6E270D6 /* MTLFilterGroupRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D307733B989920FD07ECDCB46AA4742 /* MTLFilterGroupRecord.swift */; };
-		9468CF0B0C8B4A1B6112234E91D6E7A7 /* MTLMPSFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32574E3886DB0A6A0839F39E2FF4FBA5 /* MTLMPSFilter.swift */; };
-		95466F01C32C1B4E0228F984F256DE95 /* MTLFilterRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90103F35555A5823BFA787CBE8D896D /* MTLFilterRecord+CoreDataProperties.swift */; };
-		96C54F8572231A2F3401EA714C99E638 /* MTLSaturationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2D4E107A4CF53FD06191EF8054C3B9 /* MTLSaturationFilter.swift */; };
-		9CD2DC5984CAD147790439A30A08DC3B /* TemplateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2851B46D2BBF56C2FE1A0261CF69FA /* TemplateFilter.swift */; };
-		9EB974F0B59DB8B701107E4D3C90BC9F /* MTLGaussianBlurFilter1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9955CFC4F6F26EB9F55B668DEF4E942 /* MTLGaussianBlurFilter1.swift */; };
+		8B2A4A342832B5B3B82D3E684FD77BA8 /* MTLContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA366F461E754D6C7E6747CD1A5D609 /* MTLContext.swift */; };
+		8B5BF7503F990B75B48A6BBDBD0A6B02 /* default.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 91A2E603EB1A99E7E1F7894260721A5F /* default.metallib */; };
+		8C69799833CF23C9EE0EC3D184E34EBA /* MTLSobelEdgeDetectionThresholdFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F376C390E96B7DC0495536EAE177AFDE /* MTLSobelEdgeDetectionThresholdFilter.swift */; };
+		8E3A2017E4771B6CF8BF193A141BE201 /* MTLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3500A090FB264D496F96B99EE606407C /* MTLFilter.swift */; };
+		8EACB674723C003376037B5BCDEA9618 /* MTLLanczosScaleFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EBC3FC7C12404DCB1DBFEF3A4DF121 /* MTLLanczosScaleFilter.swift */; };
+		8F88071F929F5AA4DA7A925D5502E1DF /* MTLHistogramFilter1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6367A324A2A9E903B5303E3FD0F72B4B /* MTLHistogramFilter1.swift */; };
+		900F03D0529140D7BD2761E11367D153 /* MTLOilPaintFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B811EADFBFB3FB8D566D3BE2CC5D0F4B /* MTLOilPaintFilter.swift */; };
+		936E49053F6A888552FD2592C2FCB8C4 /* MTLImage-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF4FF9B1BFA40851EB3ED639875C2C3 /* MTLImage-dummy.m */; };
+		938C6881CF0C29B412FC3F18D0828EF6 /* MTLHueFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C230FDD7B88FAD20969B0D82DBE0079 /* MTLHueFilter.swift */; };
+		94DF7E789B7BDE0D7F1FF26C975BFCC6 /* MTLLensFlareFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A89260A8CA01348E3998C7973553A5D /* MTLLensFlareFilter.swift */; };
+		95A544DD5A927F8089BE5F60393950AD /* MTLCrossHatchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703B2242623BB0B4CD33156232102805 /* MTLCrossHatchFilter.swift */; };
 		9FB0A4439ACFFF09167D98D7B4108019 /* Pods-MTLImage_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1337DAFF61C581D87CBE52D9A9C0CDE6 /* Pods-MTLImage_Tests-dummy.m */; };
-		9FEC3F15C85275E8C8C89AD77A9FE28D /* MTLSharpenFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17709CDBB48FD470698F7A38145C80BE /* MTLSharpenFilter.swift */; };
-		A2636789ABBBB564ADA2E8187A5FE5E9 /* MTLFilterRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2D1BA062D7D19103029A2613673E63 /* MTLFilterRecord.swift */; };
-		A2773061C44C23EB1905F5C98CF5991D /* MTLVignetteFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1AE1BF879115B112484910A6C2E815 /* MTLVignetteFilter.swift */; };
-		A3C9285F7CF09B2E92B6761F21D3B5B2 /* MTLDilateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8E097F4B82AE77CAEF5D6718959A40 /* MTLDilateFilter.swift */; };
-		A4444E1BAE28B3412A5F1546EFB61295 /* MTLEmbossFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C13B71DD6CA17582F5B27A2D6348C8F /* MTLEmbossFilter.swift */; };
-		A50E9059650351A05C83092BDEB7A898 /* MTLKuwaharaFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F29E3339B53FD85230F13C23E971F /* MTLKuwaharaFilter.swift */; };
-		A684B58A4F5AF9935E6DEB00411563D8 /* MTLImage-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 894C683EEDAF94DD76DF0F770F07F61A /* MTLImage-dummy.m */; };
-		A7F6A17D0CF795066F8C864795E08390 /* MTLKuwaharaFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F29E3339B53FD85230F13C23E971F /* MTLKuwaharaFilter.swift */; };
-		ABCDE662DF0DFD1866741F111C04EAD8 /* MTLToneCurveFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1307779375617B389BF5F4E2CFD06E0A /* MTLToneCurveFilter.swift */; };
-		AE4223E37F45B8DB8358F85963614B12 /* MTLPerlinNoiseFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D67CD30D169C35E59BC95E47B0AD4F5 /* MTLPerlinNoiseFilter.swift */; };
-		AEFA98DEA01403D6017B1E75C7805A22 /* MTLPropertyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027ECFE759BEC19ADB9BC6F2EBAB3CAD /* MTLPropertyRecord.swift */; };
-		B13F14789ED8FA743BC87DE1609EA364 /* MTLGaussianBlurFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D714FB2D3554085C14B66F63721D7F /* MTLGaussianBlurFilter.swift */; };
-		B329F983F13C0E9D2F5614F1EC13356E /* MTLPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176882A8599AA6D240F33ACE8F5C26AC /* MTLPicture.swift */; };
-		B3F64DD56FD1F6F923B2D07E8045C775 /* MTLMaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0326DF53C405792A914879558542A4 /* MTLMaskFilter.swift */; };
-		B4091555C9CE50EB94AAB3F1792527DF /* MTLSobelEdgeDetectionThresholdFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C94D4127FB29C5A64181941A23506B /* MTLSobelEdgeDetectionThresholdFilter.swift */; };
-		B4B16CF0892AFA39DCDB12BFCD8075D2 /* UIImage+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDAF6D54A5BDDD612CD9B0C994DD93A /* UIImage+Scale.swift */; };
-		B846816DDDC9A94EF67798612D5BAE51 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F20009E16D295BB11150C12C644557 /* Tools.swift */; };
-		B9E381BD3FAC39569457D4DD0D91AC56 /* MTLWhiteBalanceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA90F5C8BE98B5A1013998CF6842F87 /* MTLWhiteBalanceFilter.swift */; };
-		BA646D07643340CBDF18054206AB40D5 /* MTLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68234698CD440C8067033BE8402279AD /* MTLImage.swift */; };
-		BD3DFE6D0FADE33791B73C052107C7E1 /* MTLLanczosScaleFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0727AA49F84433D245327457FF95208 /* MTLLanczosScaleFilter.swift */; };
-		C05B01D57B188B60BE2174C99DC97F95 /* MTLLevelsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78C4CCF4438F1AE4145BF3FBDB02144 /* MTLLevelsFilter.swift */; };
-		C1346F47A1ACB99D590C959858B1CFD5 /* MTLPolkaDotFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A0D2E489CF9512D5D93D4B4D48A59 /* MTLPolkaDotFilter.swift */; };
-		C2E6F20496290E40206F84DF68754AD1 /* MTLLuminanceThresholdFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633DBA2E303F317936DE32E5F5768D44 /* MTLLuminanceThresholdFilter.swift */; };
-		C4736E5E4E9DFFC553D1A3856E6C6AE3 /* MTLOilPaintFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628C8342FED5BB86A6776BBC1F365A5A /* MTLOilPaintFilter.swift */; };
-		C682DA2547B8E736D52B46A109211B31 /* MTLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78551DFADA6C0629E9FB10C7A05D732 /* MTLMatrix.swift */; };
-		C6CB6D726A28039DE18B34D16FF3C0CC /* MTLLuminanceThresholdFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633DBA2E303F317936DE32E5F5768D44 /* MTLLuminanceThresholdFilter.swift */; };
-		C7411F184C79D93D82EF10D9C42C1115 /* MTLTransformFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6297A906FF7015D8DBFAF738F2BEE3 /* MTLTransformFilter.swift */; };
-		C8887CE551AE27C5B39B413E0B39C467 /* MTLHazeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0E0C7E6E78863E2D5DBFB2F44BB0F4 /* MTLHazeFilter.swift */; };
-		C94FE58E8F711858F223536E4F24A819 /* MTLFilterRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2D1BA062D7D19103029A2613673E63 /* MTLFilterRecord.swift */; };
-		C9634AF9AB9AA11948384E0D0A697B81 /* MTLBlendFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63015F8DA21B794B425D1DA77F27DD97 /* MTLBlendFilter.swift */; };
-		C9E4E77F28A9C5A9064BA2560E640734 /* MTLSmudgeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5FD64D02E5E55E5AD6EE177479AA2 /* MTLSmudgeFilter.swift */; };
-		CA931CA99171102D447B79E0FE86FA88 /* MTLExposureFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB6558904670C7F773C4CF33F8989E7 /* MTLExposureFilter.swift */; };
-		CE6314A2D90535A4580C589983767D54 /* default.metallib in Resources */ = {isa = PBXBuildFile; fileRef = C329B96AA6F893F4EF292E9DC3BD2571 /* default.metallib */; };
-		CE980B7D8C0BF4D3FAD2B23308835CE3 /* MTLColorSelectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C143E8988865DE94EDE734436E55A /* MTLColorSelectionFilter.swift */; };
-		CF949D025AB97D0718942EC333A572E0 /* Pods-MTLImage_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B825C029516AC3A225926C6BFBC3103 /* Pods-MTLImage_Example-dummy.m */; };
-		D089092199DCFB3C04029EE364E6174C /* MTLHistogramFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F773C00363DAF255892C74EB5F1D27E /* MTLHistogramFilter.swift */; };
-		D61CA2CAD7CC023B8D4BAB9019777222 /* MTLToonFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1413F8E2A27A5DABD823C1F3F5F0D9 /* MTLToonFilter.swift */; };
-		D6F021E76B6EE349D2E906A4867165F6 /* MTLSobelEdgeDetectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D20F51A62312DB051E0403DF63D552 /* MTLSobelEdgeDetectionFilter.swift */; };
-		D7FC3C8012866839EC3EEFE43E4607D1 /* MTLPixellateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CC41C3BAC4B4E8A7D84D8B63142529 /* MTLPixellateFilter.swift */; };
-		D9BB7591DC49DFDA1E097585619C8A09 /* MTLHSVFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEFEFF4EE774CD3CEA6F249910D302F /* MTLHSVFilter.swift */; };
-		DFB4FCCF7085265236E3CB08A5B02879 /* MTLTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC7521F6B1320E6C92F82248454DDF2 /* MTLTypes.swift */; };
-		DFB60787EDD208D6B908AC596CF9CB14 /* MTLPropertyRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716A616ECF489E7FDDB943BEF9D13A51 /* MTLPropertyRecord+CoreDataProperties.swift */; };
-		E5CB8BF161A795B7EFE824F5547C355A /* MTLCannyEdgeDetectionFilterGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2208E5DD90B8C0FC1AECC6F581C8770 /* MTLCannyEdgeDetectionFilterGroup.swift */; };
-		E5D8BA572B030BF0F2A6A8B0FA4EEB4C /* MTLSelectiveHSLFilter1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144537492A3320CF98DB43553DECF991 /* MTLSelectiveHSLFilter1.swift */; };
-		E90C58EEE6BE9B6CA65B7F820EF787C5 /* MTLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58270C209799230FE2A2693A294CAD5F /* MTLView.swift */; };
-		E978B4217A45F985994AABEBD5A4C4C3 /* MTLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBC817440953C0974042159CA1F2EB0 /* MTLObject.swift */; };
-		EA5F6C1785687F8B1684405279FCB0BE /* MTLHazeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0E0C7E6E78863E2D5DBFB2F44BB0F4 /* MTLHazeFilter.swift */; };
-		EB39C4EBF8EC95974762AEB143BF6EAB /* MTLContrastFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9BB02CA946477DC2BD123C1613F3F /* MTLContrastFilter.swift */; };
-		EB69E8954CCD96A9BEC485AFD986798F /* MTLBoxBlurFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E8C63951F2E5EF100683D981910A2D /* MTLBoxBlurFilter.swift */; };
-		EDF92CC869DB6A685034156AB8B42212 /* MTLTentFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124ADB9BEFA3EBA4BCC30597F3CACB0 /* MTLTentFilter.swift */; };
-		EE1BCCD3836507A16A6BBAED1A477C4E /* MTLHistogramFilter1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3BEFC5136A2D76BD83BC33E9F5D9D4 /* MTLHistogramFilter1.swift */; };
-		EE2360AD3B199DFDEC0121482B61054B /* MTLToneCurveFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1307779375617B389BF5F4E2CFD06E0A /* MTLToneCurveFilter.swift */; };
-		F2247F2609C0F324CFF1EA400BAA3105 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C638F32E94F9610BB61E4EE2D23DD835 /* CloudKit.framework */; };
-		F29790840BD77616531E6B4E08409ADF /* MTLHighlightShadowFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1548D05B22F3C4A68A711BEA35D06E72 /* MTLHighlightShadowFilter.swift */; };
-		F35410B3C86BC03D2109535EABF78247 /* MTLMosaicFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EEBA2A430EC117B6F7EF23885F2B0 /* MTLMosaicFilter.swift */; };
-		F43496C815EAB836F4A239BC32E63F57 /* MTLFilterGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5EF219F1044E3E1B2C1B0B10147A6B /* MTLFilterGroup.swift */; };
-		F7D4B3120693A92D47BE49274FE22D3E /* MTLHarrisCornerDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38604E3C32F25232F93ABE0F9071D57F /* MTLHarrisCornerDetection.swift */; };
-		F869C52CD3E68A5F9AFA7BDBFF422A69 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F20009E16D295BB11150C12C644557 /* Tools.swift */; };
-		F89D1B6DB05C9B3252654F7A8254AA9E /* default.metallib in Resources */ = {isa = PBXBuildFile; fileRef = C329B96AA6F893F4EF292E9DC3BD2571 /* default.metallib */; };
-		F9CB08A78BD9E427E4FB3EB32806195E /* MTLOilPaintFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628C8342FED5BB86A6776BBC1F365A5A /* MTLOilPaintFilter.swift */; };
-		FABE0E0361FA4C06476461F4EAC496E4 /* MTLImage.default-MachineLearning-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E254634234F530F78DFD9E4F34805BFC /* MTLImage.default-MachineLearning-dummy.m */; };
-		FD117911EED3F434A1E129CD73C6C29A /* MTLImage.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = C3865C6E589F7445818C8462B0A6B3EB /* MTLImage.xcdatamodeld */; };
-		FD8A985C30EFF45FE6430C0D4366EDF9 /* MTLLevelsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78C4CCF4438F1AE4145BF3FBDB02144 /* MTLLevelsFilter.swift */; };
-		FDF6D7B4BC359743F2538B6090A753A6 /* MTLSelectiveHSLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD41F006B896F0EB4EC41129AF10B47 /* MTLSelectiveHSLFilter.swift */; };
-		FE1989EAE72401FC24C3521671B274A5 /* MTLImage.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = C3865C6E589F7445818C8462B0A6B3EB /* MTLImage.xcdatamodeld */; };
+		A8638EB531C7AA3E9C3CFBCBA29780DF /* MTLLuminanceThresholdFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81546E2CB508CAA52EDA54C4244D8D5A /* MTLLuminanceThresholdFilter.swift */; };
+		AA8738CBA40F3CE65C728693589186E3 /* MTLTentFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B1D900EF128C93FEC732E778A58B51 /* MTLTentFilter.swift */; };
+		AD292024BCAEB52D8E981C657BF7C2F8 /* MTLEmbossFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9630F7AA35307DE53AC104EF35AB4411 /* MTLEmbossFilter.swift */; };
+		AF113D7ABAA375465B1B4AA70270F7DC /* MTLSmudgeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56764CB5A421926B6952FE6A26CEFB6E /* MTLSmudgeFilter.swift */; };
+		B0093EFC370831D89DF6ABC2C170E894 /* MTLSaturationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7723E78F61FF6FC702197E5C638B4F4 /* MTLSaturationFilter.swift */; };
+		B35C8F4BA2A8BE253A64E59B7809C8F5 /* MTLSobelEdgeDetectionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA5BAD8AB235E1F1A1F42A9E18A450D /* MTLSobelEdgeDetectionFilter.swift */; };
+		B363E853D83479724EC4FBB77DCF9D48 /* MTLPerlinNoiseFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E56B4B5BC96C205EB974F607DA00460 /* MTLPerlinNoiseFilter.swift */; };
+		B3F65C486589FD13ECBE7BDE8EEE3CF3 /* MTLFilterGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D6E07C8DF4AE9ED735EE88B12A6034 /* MTLFilterGroup.swift */; };
+		B9E68572A1404067C1C3CA232D0E9862 /* MTLHSVFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F00C29242F73FC1DE0C1D3A34ED906A /* MTLHSVFilter.swift */; };
+		BA7C06F80F64CA65071BF66E51D8F19F /* MTLHarrisCornerDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571075B66C0F8D259FF82C93AE821A39 /* MTLHarrisCornerDetection.swift */; };
+		BC07C073F3A95CA7AEEFFB8CDC61446C /* MTLPixellateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9615D7998BB9FCB1442FC13BB4A4D0 /* MTLPixellateFilter.swift */; };
+		BC29F28B29D26F7D37C406C3F163EEB0 /* MTLHazeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F464447D63EBD9D2C1BF97DD23BEA84B /* MTLHazeFilter.swift */; };
+		C06F0A0B840212252948122B7A1C900A /* MTLProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB2A87084C45809D326D768CCEDCADE /* MTLProperty.swift */; };
+		C23EEA2B868E347CEC2690FDF23140AB /* MTLFilterRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BADCE1C2E1921AA52F87BBA3B24E16 /* MTLFilterRecord+CoreDataProperties.swift */; };
+		C38E6762C4672B82D8745EE8A11FA443 /* MTLImage.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = FAF1C21DAA78F4F7B0187E58EA7DE94A /* MTLImage.xcdatamodeld */; };
+		C5E15D39F8F1E59CC7E4C041A93D9984 /* UIImage+MTLTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24AC1091CF02975E5CDB72BF488C4AD /* UIImage+MTLTexture.swift */; };
+		C76252E93B6AEA9365567CF29A4E83AA /* MTLWhiteBalanceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CD9C895E150C3E25B17C9B54DE54F5 /* MTLWhiteBalanceFilter.swift */; };
+		C82A6A2CC0CC303F02902C46E0ABD005 /* MTLCropFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F4847F77E4F47331BCA990B3BF211F /* MTLCropFilter.swift */; };
+		CDBA48DDBF0F5C34C566897DA61E3EAD /* MTLToonFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C08CA492E709AB0BA77E630A725898 /* MTLToonFilter.swift */; };
+		CE2EB0906A4866CF25F767C1186F7FB7 /* MTLLevelsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875FEF80FB6296890E901084697FA038 /* MTLLevelsFilter.swift */; };
+		D1BA3E99C292B2F22FE3D4E1F44E4B2B /* UIImage+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C442CAEAD93AD5D16974359ABDBC5C /* UIImage+Scale.swift */; };
+		D50EDC377EA8A635A58F8B488FA939A1 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BBCE778664F40EA56ED045DA57C9A4 /* Tools.swift */; };
+		D5ACFD65880EB81FDD9E57F3C3A342B5 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C638F32E94F9610BB61E4EE2D23DD835 /* CloudKit.framework */; };
+		D8DA01A89FC01C42DDF62A1D25295677 /* MTLCannyEdgeDetectionFilterGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805A5EDCEC0E5CF5C175EB2147CA2789 /* MTLCannyEdgeDetectionFilterGroup.swift */; };
+		DB0DA1EF5B8DDCAD11FD5BD9D3A6D019 /* MTLPolkaDotFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46737B50C0E212F0933B9F3516DFAA1D /* MTLPolkaDotFilter.swift */; };
+		E4598F8DCC0F94BD0FB9ACCC19C4B030 /* MTLDistortionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B491126B10E921CADDCE24AFCC7E26 /* MTLDistortionFilter.swift */; };
+		E4639B65D48A11FAFE1AE5F109E2A379 /* MTLBlendFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B4194401EBA06B54F3F4403F82A9B /* MTLBlendFilter.swift */; };
+		E8A2DEA947B9D0E9F495F4A529241262 /* MTLMaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E84B218A7CB5AC642C562D1E303E3A /* MTLMaskFilter.swift */; };
+		E9729D877ADAEDEFDAE293511AD942D2 /* MTLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162B94FE4E4044199B6E010D820E1A21 /* MTLImage.swift */; };
+		EE18AFE98549327714E3B1256772C559 /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6842C73556448065A67CA48D7ED02BB /* MTLFilterGroupRecord+CoreDataProperties.swift */; };
+		F2639AB8DF41804C48CF9206AFFDCB4A /* MTLSelectiveHSLFilter1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28B63B4123A595DE9BEDDEC345E015F /* MTLSelectiveHSLFilter1.swift */; };
+		FA51F49077D608CB2038DC53F1453EF6 /* TemplateFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8150A6203D951D3403E7556C6590F637 /* TemplateFilter.swift */; };
+		FACB4C5947D5EC3CC9769C9378E48E5F /* MTLBrightnessFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E0F8760636F5919D4A4BC0FF361856 /* MTLBrightnessFilter.swift */; };
+		FAE8B59FB4ADB839392BAEA8D85948DA /* MTLWaterFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862BFAA94C2DA5CBFB5D48161CD92994 /* MTLWaterFilter.swift */; };
+		FB8C6AF2A3877E5632010FC58595ACFA /* MTLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE833D6A293E2B15C87E9A22F099CB22 /* MTLObject.swift */; };
+		FDD2059EB522F24BE62D283F06CF2B93 /* MTLKuwaharaFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907AB57E76EA3FA32CCACDFB5C4B451B /* MTLKuwaharaFilter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -193,161 +107,155 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = AC3901935E28E39A60BE2C3BB79877AE;
+			remoteGlobalIDString = CA754A0DD89E799F5D0A4D6CC20A46CD;
 			remoteInfo = MTLImage;
 		};
-		B42043826569CA973948BBA15FE9E46C /* PBXContainerItemProxy */ = {
+		73731656378702D820A3D0C2030FCCD6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7C34CACB4CD0E72C05D29F77688B79E0;
-			remoteInfo = "MTLImage.default-MachineLearning";
+			remoteGlobalIDString = CA754A0DD89E799F5D0A4D6CC20A46CD;
+			remoteInfo = MTLImage;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		027ECFE759BEC19ADB9BC6F2EBAB3CAD /* MTLPropertyRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPropertyRecord.swift; sourceTree = "<group>"; };
-		06F20009E16D295BB11150C12C644557 /* Tools.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
-		0A1BADE2B547A28310496E1B00CBA831 /* MTLConvolutionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLConvolutionFilter.swift; sourceTree = "<group>"; };
-		0C2D1BA062D7D19103029A2613673E63 /* MTLFilterRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilterRecord.swift; sourceTree = "<group>"; };
-		0D70CD7478FD348D512D6A9C1FA772B1 /* MTLProperty.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLProperty.swift; sourceTree = "<group>"; };
-		11FA8725CDC5E96219AC79C379677F69 /* MTLImage-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MTLImage-umbrella.h"; sourceTree = "<group>"; };
-		1307779375617B389BF5F4E2CFD06E0A /* MTLToneCurveFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLToneCurveFilter.swift; sourceTree = "<group>"; };
+		01C12DBF1AE2E5BDDECB48AAE80C63A2 /* MTLExposureFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLExposureFilter.swift; sourceTree = "<group>"; };
+		0399B1181F308E43E6875402F88EAD72 /* MTLGaussianBlurFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLGaussianBlurFilter.swift; sourceTree = "<group>"; };
+		0F00C29242F73FC1DE0C1D3A34ED906A /* MTLHSVFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHSVFilter.swift; sourceTree = "<group>"; };
+		0F8EC04F09F3205791D94759A0393D2C /* MTLImage-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MTLImage-umbrella.h"; sourceTree = "<group>"; };
+		103B4194401EBA06B54F3F4403F82A9B /* MTLBlendFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLBlendFilter.swift; sourceTree = "<group>"; };
 		1337DAFF61C581D87CBE52D9A9C0CDE6 /* Pods-MTLImage_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MTLImage_Tests-dummy.m"; sourceTree = "<group>"; };
-		144537492A3320CF98DB43553DECF991 /* MTLSelectiveHSLFilter1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSelectiveHSLFilter1.swift; sourceTree = "<group>"; };
-		152845E4B0BF06CEADD5F248286785C0 /* images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
-		1548D05B22F3C4A68A711BEA35D06E72 /* MTLHighlightShadowFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHighlightShadowFilter.swift; sourceTree = "<group>"; };
-		176882A8599AA6D240F33ACE8F5C26AC /* MTLPicture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPicture.swift; sourceTree = "<group>"; };
-		17709CDBB48FD470698F7A38145C80BE /* MTLSharpenFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSharpenFilter.swift; sourceTree = "<group>"; };
-		18C92335CFF25A37CA215F9D3028BE1C /* default.metallib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "archive.metal-library"; path = default.metallib; sourceTree = "<group>"; };
-		1A1413F8E2A27A5DABD823C1F3F5F0D9 /* MTLToonFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLToonFilter.swift; sourceTree = "<group>"; };
-		1B1AE1BF879115B112484910A6C2E815 /* MTLVignetteFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLVignetteFilter.swift; sourceTree = "<group>"; };
-		1E3BEFC5136A2D76BD83BC33E9F5D9D4 /* MTLHistogramFilter1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHistogramFilter1.swift; sourceTree = "<group>"; };
+		162B94FE4E4044199B6E010D820E1A21 /* MTLImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLImage.swift; sourceTree = "<group>"; };
+		1B07BB155C708231DB79885EBDC48848 /* MTLWeakPixelInclusionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLWeakPixelInclusionFilter.swift; sourceTree = "<group>"; };
+		1C216C98299E194BC9AD94128761EC67 /* MTLTransformFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLTransformFilter.swift; sourceTree = "<group>"; };
+		1F22405F7159EB43062F55BD82923C7A /* MTLLineDetectionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLLineDetectionFilter.swift; sourceTree = "<group>"; };
 		200C81134ACADBF4B01AF7F1C51DE9EC /* Crashlytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Crashlytics.h; path = iOS/Crashlytics.framework/Headers/Crashlytics.h; sourceTree = "<group>"; };
-		201E0159AB3F5B4956E9496B5A76E35C /* MTLDataManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLDataManager.swift; sourceTree = "<group>"; };
 		22D8BAEC594D5A75040BC51C31CE8D65 /* Pods-MTLImage_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MTLImage_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		23CC41C3BAC4B4E8A7D84D8B63142529 /* MTLPixellateFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPixellateFilter.swift; sourceTree = "<group>"; };
-		24D3EF6DF58C2C62F5989BB3DB2E3958 /* MTLImage.default-MachineLearning.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "MTLImage.default-MachineLearning.xcconfig"; path = "../MTLImage.default-MachineLearning/MTLImage.default-MachineLearning.xcconfig"; sourceTree = "<group>"; };
-		29B38686806AB366EB44DAB9310FD76D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../MTLImage.default-MachineLearning/Info.plist"; sourceTree = "<group>"; };
+		27396420054A7F60C3E77153239C01F7 /* MTLScatterFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLScatterFilter.swift; sourceTree = "<group>"; };
 		29DE526E5B1D3B37719460B12B391B91 /* CLSLogging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSLogging.h; path = iOS/Crashlytics.framework/Headers/CLSLogging.h; sourceTree = "<group>"; };
-		2DDB18E584AD81A8332AC2E32A475F81 /* MTLHoughLineDetection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHoughLineDetection.swift; sourceTree = "<group>"; };
-		2F6DB5506AA62184F0CFE9213F83C66F /* MTLBrightnessFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLBrightnessFilter.swift; sourceTree = "<group>"; };
-		307A98201F0B8E20B36B501A7A2F26D3 /* MTLXYDerivativeFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLXYDerivativeFilter.swift; sourceTree = "<group>"; };
-		314D25A3DB1E93EF33F7CD3DE81E7A4C /* MTLContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLContext.swift; sourceTree = "<group>"; };
-		32574E3886DB0A6A0839F39E2FF4FBA5 /* MTLMPSFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLMPSFilter.swift; sourceTree = "<group>"; };
-		38604E3C32F25232F93ABE0F9071D57F /* MTLHarrisCornerDetection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHarrisCornerDetection.swift; sourceTree = "<group>"; };
-		393EEBA2A430EC117B6F7EF23885F2B0 /* MTLMosaicFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLMosaicFilter.swift; sourceTree = "<group>"; };
-		3A0326DF53C405792A914879558542A4 /* MTLMaskFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLMaskFilter.swift; sourceTree = "<group>"; };
-		3BA9C9572FBA0FA6F9BFC0C809C119CE /* MTLFeedForwardNeuralNetwork.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFeedForwardNeuralNetwork.swift; sourceTree = "<group>"; };
-		3DD41F006B896F0EB4EC41129AF10B47 /* MTLSelectiveHSLFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSelectiveHSLFilter.swift; sourceTree = "<group>"; };
-		3FDAF6D54A5BDDD612CD9B0C994DD93A /* UIImage+Scale.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+Scale.swift"; sourceTree = "<group>"; };
-		407CFEAD317DF443FD4E42E90EFCBF83 /* MTLWeakPixelInclusionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLWeakPixelInclusionFilter.swift; sourceTree = "<group>"; };
+		2AA5BAD8AB235E1F1A1F42A9E18A450D /* MTLSobelEdgeDetectionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSobelEdgeDetectionFilter.swift; sourceTree = "<group>"; };
+		2B00191F76EC4B499B6CC58F4C375FE1 /* MTLUnsharpMaskFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLUnsharpMaskFilter.swift; sourceTree = "<group>"; };
+		326C71E5C1D4F5EE2970A47638D30FCC /* MTLHighlightShadowFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHighlightShadowFilter.swift; sourceTree = "<group>"; };
+		33FD3CF25BF99C90EFA47C7C36BF8C6C /* MTLCamera.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCamera.swift; sourceTree = "<group>"; };
+		3500A090FB264D496F96B99EE606407C /* MTLFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilter.swift; sourceTree = "<group>"; };
+		3B5813F6B51EE186EABBA2BE46EF7955 /* MTLGaussianBlurFilter1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLGaussianBlurFilter1.swift; sourceTree = "<group>"; };
+		3CF4FF9B1BFA40851EB3ED639875C2C3 /* MTLImage-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MTLImage-dummy.m"; sourceTree = "<group>"; };
+		40B1D900EF128C93FEC732E778A58B51 /* MTLTentFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLTentFilter.swift; sourceTree = "<group>"; };
+		435EC7DB403BE3A779F7A72A2438175D /* MTLHoughLineDetection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHoughLineDetection.swift; sourceTree = "<group>"; };
+		46737B50C0E212F0933B9F3516DFAA1D /* MTLPolkaDotFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPolkaDotFilter.swift; sourceTree = "<group>"; };
+		46E0F8760636F5919D4A4BC0FF361856 /* MTLBrightnessFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLBrightnessFilter.swift; sourceTree = "<group>"; };
+		47E45B57F7DD30A3968AEC6A0BA1C007 /* MTLDilateFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLDilateFilter.swift; sourceTree = "<group>"; };
 		494C290BDBEAED23BA5743A3CE2FA0D1 /* FABAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FABAttributes.h; path = iOS/Fabric.framework/Headers/FABAttributes.h; sourceTree = "<group>"; };
-		4A81C5777736F0A4CAC556EF637EEAB8 /* MTLLineDetectionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLLineDetectionFilter.swift; sourceTree = "<group>"; };
-		5124ADB9BEFA3EBA4BCC30597F3CACB0 /* MTLTentFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLTentFilter.swift; sourceTree = "<group>"; };
+		499CC1827C4D3C744E8F4BAE21595772 /* MTLFilterGroupRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilterGroupRecord.swift; sourceTree = "<group>"; };
+		4C733A91618EE4F9AE65FF08E76196CA /* MTLSketchFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSketchFilter.swift; sourceTree = "<group>"; };
+		4F5955EF88DB85A4437B2EEE3A4AEE4B /* Pods_MTLImage_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTLImage_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		509AFF3B9B0F02999E274D62A84F147F /* MTLImage.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = MTLImage.modulemap; sourceTree = "<group>"; };
 		512BBF0D23718643382CCE4F33594357 /* Pods-MTLImage_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MTLImage_Example-resources.sh"; sourceTree = "<group>"; };
 		513A7C4599BEB890CABCCFEDAA9F6F1A /* Pods-MTLImage_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MTLImage_Tests-resources.sh"; sourceTree = "<group>"; };
-		55C9BB02CA946477DC2BD123C1613F3F /* MTLContrastFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLContrastFilter.swift; sourceTree = "<group>"; };
-		563A0D2E489CF9512D5D93D4B4D48A59 /* MTLPolkaDotFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPolkaDotFilter.swift; sourceTree = "<group>"; };
-		58243AD5615E514B619AA5E506E6B9C9 /* MTLImage.default-MachineLearning-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MTLImage.default-MachineLearning-prefix.pch"; path = "../MTLImage.default-MachineLearning/MTLImage.default-MachineLearning-prefix.pch"; sourceTree = "<group>"; };
-		58270C209799230FE2A2693A294CAD5F /* MTLView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLView.swift; sourceTree = "<group>"; };
-		59B275A56C6379B6C0E2531CB9ED14E3 /* MTLFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilter.swift; sourceTree = "<group>"; };
+		5378950414C4185A8D302D444AFC1DF8 /* MTLImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MTLImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5420BAAF848A04F730A70624AF3814F1 /* MTLToneCurveFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLToneCurveFilter.swift; sourceTree = "<group>"; };
+		543B8F0E5F3B468ED9CFF5A59F1E6824 /* MTLBoxBlurFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLBoxBlurFilter.swift; sourceTree = "<group>"; };
+		56078EF42B191A5A8CB5698A874552E3 /* MTLPropertyRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "MTLPropertyRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		56764CB5A421926B6952FE6A26CEFB6E /* MTLSmudgeFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSmudgeFilter.swift; sourceTree = "<group>"; };
+		571075B66C0F8D259FF82C93AE821A39 /* MTLHarrisCornerDetection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHarrisCornerDetection.swift; sourceTree = "<group>"; };
 		5B0AC4555A08701A9F1760172610E0AF /* ANSCompatibility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANSCompatibility.h; path = iOS/Crashlytics.framework/Headers/ANSCompatibility.h; sourceTree = "<group>"; };
-		5E2851B46D2BBF56C2FE1A0261CF69FA /* TemplateFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TemplateFilter.swift; sourceTree = "<group>"; };
-		5F0E0C7E6E78863E2D5DBFB2F44BB0F4 /* MTLHazeFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHazeFilter.swift; sourceTree = "<group>"; };
-		628C8342FED5BB86A6776BBC1F365A5A /* MTLOilPaintFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLOilPaintFilter.swift; sourceTree = "<group>"; };
-		63015F8DA21B794B425D1DA77F27DD97 /* MTLBlendFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLBlendFilter.swift; sourceTree = "<group>"; };
-		633DBA2E303F317936DE32E5F5768D44 /* MTLLuminanceThresholdFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLLuminanceThresholdFilter.swift; sourceTree = "<group>"; };
+		5FE3CFFA334713634D92B63977413DDF /* MTLImage.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = MTLImage.xcdatamodel; sourceTree = "<group>"; };
+		62E1F75E922C46B7F1E20318F9FB47DA /* MTLImage-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MTLImage-prefix.pch"; sourceTree = "<group>"; };
+		6367A324A2A9E903B5303E3FD0F72B4B /* MTLHistogramFilter1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHistogramFilter1.swift; sourceTree = "<group>"; };
 		63F63CEAEDBE19A6C275EA08CF59C0F3 /* Pods-MTLImage_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MTLImage_Tests.modulemap"; sourceTree = "<group>"; };
-		68234698CD440C8067033BE8402279AD /* MTLImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLImage.swift; sourceTree = "<group>"; };
-		69C94D4127FB29C5A64181941A23506B /* MTLSobelEdgeDetectionThresholdFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSobelEdgeDetectionThresholdFilter.swift; sourceTree = "<group>"; };
-		6AC7521F6B1320E6C92F82248454DDF2 /* MTLTypes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLTypes.swift; sourceTree = "<group>"; };
-		6C13B71DD6CA17582F5B27A2D6348C8F /* MTLEmbossFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLEmbossFilter.swift; sourceTree = "<group>"; };
-		6D67CD30D169C35E59BC95E47B0AD4F5 /* MTLPerlinNoiseFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPerlinNoiseFilter.swift; sourceTree = "<group>"; };
+		6B17DC17AE3F8E6C82D7D0B1FC54D85A /* MTLConvolutionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLConvolutionFilter.swift; sourceTree = "<group>"; };
+		6E56B4B5BC96C205EB974F607DA00460 /* MTLPerlinNoiseFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPerlinNoiseFilter.swift; sourceTree = "<group>"; };
 		6EE0F01CBFACD1410D54CFE1787E2462 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		716A616ECF489E7FDDB943BEF9D13A51 /* MTLPropertyRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "MTLPropertyRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		77D714FB2D3554085C14B66F63721D7F /* MTLGaussianBlurFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLGaussianBlurFilter.swift; sourceTree = "<group>"; };
-		7A60474AAB928809A532F0E4D4EFE31C /* MTLImage-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MTLImage-prefix.pch"; sourceTree = "<group>"; };
-		7A8C143E8988865DE94EDE734436E55A /* MTLColorSelectionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLColorSelectionFilter.swift; sourceTree = "<group>"; };
-		7E8E097F4B82AE77CAEF5D6718959A40 /* MTLDilateFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLDilateFilter.swift; sourceTree = "<group>"; };
+		703B2242623BB0B4CD33156232102805 /* MTLCrossHatchFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCrossHatchFilter.swift; sourceTree = "<group>"; };
+		74ADDC2A4D786E789C3089E3F7893A86 /* MTLPicture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPicture.swift; sourceTree = "<group>"; };
+		7A1A04E75F0AD02C842F67DB7A3BA7EC /* MTLContrastFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLContrastFilter.swift; sourceTree = "<group>"; };
+		7A89260A8CA01348E3998C7973553A5D /* MTLLensFlareFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLLensFlareFilter.swift; sourceTree = "<group>"; };
+		7E0F54C026B20307A5618CA30BE9DE1A /* MTLFilterRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilterRecord.swift; sourceTree = "<group>"; };
+		7E895C94E120BF6E0D8A7945A86AEC79 /* MTLCloudKitManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCloudKitManager.swift; sourceTree = "<group>"; };
+		7EA4DF2E20B24323464002110A066AC4 /* MTLXYDerivativeFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLXYDerivativeFilter.swift; sourceTree = "<group>"; };
 		7F436608614BB0CD48E472A46B5954A4 /* Pods-MTLImage_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MTLImage_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		805A5EDCEC0E5CF5C175EB2147CA2789 /* MTLCannyEdgeDetectionFilterGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCannyEdgeDetectionFilterGroup.swift; sourceTree = "<group>"; };
+		8150A6203D951D3403E7556C6590F637 /* TemplateFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TemplateFilter.swift; sourceTree = "<group>"; };
+		81546E2CB508CAA52EDA54C4244D8D5A /* MTLLuminanceThresholdFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLLuminanceThresholdFilter.swift; sourceTree = "<group>"; };
 		82981FB005A4ED4C556297735FD4ACED /* Fabric.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Fabric.h; path = iOS/Fabric.framework/Headers/Fabric.h; sourceTree = "<group>"; };
+		83BBCE778664F40EA56ED045DA57C9A4 /* Tools.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		856A7EF81F93DD33C78FA7140067110C /* CLSReport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSReport.h; path = iOS/Crashlytics.framework/Headers/CLSReport.h; sourceTree = "<group>"; };
-		87A5FD64D02E5E55E5AD6EE177479AA2 /* MTLSmudgeFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSmudgeFilter.swift; sourceTree = "<group>"; };
-		894C683EEDAF94DD76DF0F770F07F61A /* MTLImage-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MTLImage-dummy.m"; sourceTree = "<group>"; };
+		862BFAA94C2DA5CBFB5D48161CD92994 /* MTLWaterFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLWaterFilter.swift; sourceTree = "<group>"; };
+		875FEF80FB6296890E901084697FA038 /* MTLLevelsFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLLevelsFilter.swift; sourceTree = "<group>"; };
+		89E01C41F83C4A95A3E7E5D50C797A1C /* MTLView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLView.swift; sourceTree = "<group>"; };
 		8B825C029516AC3A225926C6BFBC3103 /* Pods-MTLImage_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MTLImage_Example-dummy.m"; sourceTree = "<group>"; };
-		8C0FB931780C559877A61A7D31272BF4 /* MTLFilterGroupRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "MTLFilterGroupRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		8C2F4786CA62D4F683234FE284E51EEB /* MTLImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MTLImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8CD1A77448D3C894E8A7BFC9FC26504B /* MTLImage.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = MTLImage.xcdatamodel; sourceTree = "<group>"; };
-		8D307733B989920FD07ECDCB46AA4742 /* MTLFilterGroupRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilterGroupRecord.swift; sourceTree = "<group>"; };
-		8DB09C67144A13B5D2221D00CC8EAE87 /* MTLSketchFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSketchFilter.swift; sourceTree = "<group>"; };
+		8C4DD26A47CB8B76FAAA5619E37DA8A6 /* MTLImage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MTLImage.xcconfig; sourceTree = "<group>"; };
+		8CA366F461E754D6C7E6747CD1A5D609 /* MTLContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLContext.swift; sourceTree = "<group>"; };
 		8DB331D62E03B90D571016097AB0A7E0 /* CLSAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSAttributes.h; path = iOS/Crashlytics.framework/Headers/CLSAttributes.h; sourceTree = "<group>"; };
-		8F773C00363DAF255892C74EB5F1D27E /* MTLHistogramFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHistogramFilter.swift; sourceTree = "<group>"; };
+		907AB57E76EA3FA32CCACDFB5C4B451B /* MTLKuwaharaFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLKuwaharaFilter.swift; sourceTree = "<group>"; };
+		912179CF1C60ABAC037F2BC7E99BF1FA /* MTLSelectiveHSLFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSelectiveHSLFilter.swift; sourceTree = "<group>"; };
+		91A2E603EB1A99E7E1F7894260721A5F /* default.metallib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "archive.metal-library"; path = default.metallib; sourceTree = "<group>"; };
+		91B491126B10E921CADDCE24AFCC7E26 /* MTLDistortionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLDistortionFilter.swift; sourceTree = "<group>"; };
 		92972CC1C216B42A9AB4B6EABB27FC16 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = iOS/Fabric.framework; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		950B290282926599E7C9FB677FA8EC57 /* MTLImage.default-MachineLearning-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MTLImage.default-MachineLearning-umbrella.h"; path = "../MTLImage.default-MachineLearning/MTLImage.default-MachineLearning-umbrella.h"; sourceTree = "<group>"; };
+		9630F7AA35307DE53AC104EF35AB4411 /* MTLEmbossFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLEmbossFilter.swift; sourceTree = "<group>"; };
 		990567AE9031D7C8ADEEC6E93140DF00 /* Pods-MTLImage_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MTLImage_Example-umbrella.h"; sourceTree = "<group>"; };
-		9A1362A67D9A2C72D5AA130A89D088E2 /* MTLImage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MTLImage.xcconfig; sourceTree = "<group>"; };
-		9A5EF219F1044E3E1B2C1B0B10147A6B /* MTLFilterGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilterGroup.swift; sourceTree = "<group>"; };
-		9CADF63B58250EB87A55811CB82B03F8 /* MTLCloudKitManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCloudKitManager.swift; sourceTree = "<group>"; };
-		9E9127527B13A07489844605A725F52F /* MTLDistortionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLDistortionFilter.swift; sourceTree = "<group>"; };
-		A18E1E255D59449CEE6639586AB7F59F /* Pods_MTLImage_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTLImage_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A29B0A81D611857C739F4AC5057AA7BA /* MTLImage.default-MachineLearning.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "MTLImage.default-MachineLearning.modulemap"; path = "../MTLImage.default-MachineLearning/MTLImage.default-MachineLearning.modulemap"; sourceTree = "<group>"; };
+		9914045A37AE9A5763DE9ED36C8B6093 /* Pods_MTLImage_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTLImage_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C230FDD7B88FAD20969B0D82DBE0079 /* MTLHueFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHueFilter.swift; sourceTree = "<group>"; };
+		A1C442CAEAD93AD5D16974359ABDBC5C /* UIImage+Scale.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+Scale.swift"; sourceTree = "<group>"; };
+		A24AC1091CF02975E5CDB72BF488C4AD /* UIImage+MTLTexture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+MTLTexture.swift"; sourceTree = "<group>"; };
+		A5F716403F66DFD85486D315ABDAE205 /* MTLNonMaximumSuppressionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLNonMaximumSuppressionFilter.swift; sourceTree = "<group>"; };
 		A61E08527EFC3DBEDD4BFA0B5C45104C /* Answers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Answers.h; path = iOS/Crashlytics.framework/Headers/Answers.h; sourceTree = "<group>"; };
+		A7723E78F61FF6FC702197E5C638B4F4 /* MTLSaturationFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSaturationFilter.swift; sourceTree = "<group>"; };
+		A8AE72A2C2FFD3680B9FAC69B1189CBD /* default.metallib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "archive.metal-library"; path = default.metallib; sourceTree = "<group>"; };
 		A8F00A22AD9EAB104F13731323A4BACD /* Pods-MTLImage_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MTLImage_Example.release.xcconfig"; sourceTree = "<group>"; };
-		AABD1EAD29963504C461A1B2FD0AA5F5 /* MTLImage.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = MTLImage.modulemap; sourceTree = "<group>"; };
-		ADA7C8B55F5CE6827A2674AF51362993 /* MTLCrossHatchFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCrossHatchFilter.swift; sourceTree = "<group>"; };
-		B0727AA49F84433D245327457FF95208 /* MTLLanczosScaleFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLLanczosScaleFilter.swift; sourceTree = "<group>"; };
-		B14BC7398E5AA486E9F36208BE519139 /* MTLInvertFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLInvertFilter.swift; sourceTree = "<group>"; };
+		A9341F48A7766D5B1875D0546EA4FC86 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9BADCE1C2E1921AA52F87BBA3B24E16 /* MTLFilterRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "MTLFilterRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AA933736D49FF6AF5C3E002EAAB581EF /* MTLColorSelectionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLColorSelectionFilter.swift; sourceTree = "<group>"; };
+		AB9615D7998BB9FCB1442FC13BB4A4D0 /* MTLPixellateFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPixellateFilter.swift; sourceTree = "<group>"; };
+		ACA544FCCE516CD280A1F9F221FF043E /* MTLVignetteFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLVignetteFilter.swift; sourceTree = "<group>"; };
+		AE1CAD7CAFF0C53F11C9DAEA131F4FDB /* MTLInvertFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLInvertFilter.swift; sourceTree = "<group>"; };
+		B0CD9C895E150C3E25B17C9B54DE54F5 /* MTLWhiteBalanceFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLWhiteBalanceFilter.swift; sourceTree = "<group>"; };
+		B31541AAB145F7E1072C41687AABAAAF /* MTLSharpenFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSharpenFilter.swift; sourceTree = "<group>"; };
 		B66705766F70A098A2D9A035B1EEB307 /* Pods-MTLImage_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MTLImage_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		B811EADFBFB3FB8D566D3BE2CC5D0F4B /* MTLOilPaintFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLOilPaintFilter.swift; sourceTree = "<group>"; };
 		BA5C0326BC77C4FAB5058519F153B12D /* Pods-MTLImage_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MTLImage_Tests-umbrella.h"; sourceTree = "<group>"; };
-		BBCE0EC398D5EE3CB63A0028D8FEDE76 /* MTLNonMaximumSuppressionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLNonMaximumSuppressionFilter.swift; sourceTree = "<group>"; };
-		BC6297A906FF7015D8DBFAF738F2BEE3 /* MTLTransformFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLTransformFilter.swift; sourceTree = "<group>"; };
-		C25848A0BE44134E0EE653BB5C2612DD /* UIImage+MTLTexture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+MTLTexture.swift"; sourceTree = "<group>"; };
-		C329B96AA6F893F4EF292E9DC3BD2571 /* default.metallib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "archive.metal-library"; path = default.metallib; sourceTree = "<group>"; };
+		BB2FF4B5F65DDB059B07D477A611E7ED /* images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		C638F32E94F9610BB61E4EE2D23DD835 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
-		C7D20F51A62312DB051E0403DF63D552 /* MTLSobelEdgeDetectionFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSobelEdgeDetectionFilter.swift; sourceTree = "<group>"; };
-		C8B262AED75EF724BCB5C365B5545C9C /* MTLCamera.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCamera.swift; sourceTree = "<group>"; };
-		CAB6558904670C7F773C4CF33F8989E7 /* MTLExposureFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLExposureFilter.swift; sourceTree = "<group>"; };
-		CCEFEFF4EE774CD3CEA6F249910D302F /* MTLHSVFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHSVFilter.swift; sourceTree = "<group>"; };
-		CFA90F5C8BE98B5A1013998CF6842F87 /* MTLWhiteBalanceFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLWhiteBalanceFilter.swift; sourceTree = "<group>"; };
+		C8E84B218A7CB5AC642C562D1E303E3A /* MTLMaskFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLMaskFilter.swift; sourceTree = "<group>"; };
+		CBB2A87084C45809D326D768CCEDCADE /* MTLProperty.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLProperty.swift; sourceTree = "<group>"; };
+		D155CE4456350E45FE3845E7B88378C8 /* MTLPropertyRecord.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLPropertyRecord.swift; sourceTree = "<group>"; };
+		D1F4847F77E4F47331BCA990B3BF211F /* MTLCropFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCropFilter.swift; sourceTree = "<group>"; };
 		D2BAB538786F3BBC86968963FC0A0B91 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D421F630D61FC84ED86D4D297494B18B /* Pods-MTLImage_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MTLImage_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		D42C03076B250D79E6163C87E49C945B /* Pods-MTLImage_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MTLImage_Example-frameworks.sh"; sourceTree = "<group>"; };
 		D535DE3FC1EE294E4A9E0A729FB78099 /* Pods-MTLImage_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MTLImage_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		D6E8C63951F2E5EF100683D981910A2D /* MTLBoxBlurFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLBoxBlurFilter.swift; sourceTree = "<group>"; };
-		D78551DFADA6C0629E9FB10C7A05D732 /* MTLMatrix.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLMatrix.swift; sourceTree = "<group>"; };
-		D78C4CCF4438F1AE4145BF3FBDB02144 /* MTLLevelsFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLLevelsFilter.swift; sourceTree = "<group>"; };
-		D94BDC8B4D192A24863C77E06612BA50 /* MTLImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MTLImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D952AB1CA97B59508816E8216E72E7F5 /* MTLWaterFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLWaterFilter.swift; sourceTree = "<group>"; };
-		D9860B6BEE4023924072D9E8F098B072 /* MTLUnsharpMaskFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLUnsharpMaskFilter.swift; sourceTree = "<group>"; };
-		D9955CFC4F6F26EB9F55B668DEF4E942 /* MTLGaussianBlurFilter1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLGaussianBlurFilter1.swift; sourceTree = "<group>"; };
+		D694F4D7517CB67C53480A9F4DD30DC6 /* MTLHistogramFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHistogramFilter.swift; sourceTree = "<group>"; };
+		D9FD682C0C295E343B107913EB49B468 /* MTLMPSFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLMPSFilter.swift; sourceTree = "<group>"; };
 		DBA48C54AB315A7317F3DD387EF04883 /* CLSStackFrame.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSStackFrame.h; path = iOS/Crashlytics.framework/Headers/CLSStackFrame.h; sourceTree = "<group>"; };
 		DBF0C469D368387D4305D6FBC0D45DBE /* Pods-MTLImage_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MTLImage_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		DC2D4E107A4CF53FD06191EF8054C3B9 /* MTLSaturationFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSaturationFilter.swift; sourceTree = "<group>"; };
-		DC9E56F4F2FEE076EBBCA4BA98F6AA0E /* Pods_MTLImage_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTLImage_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DDA3904B4A1A547A094A143496E9ADB7 /* MTLCropFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCropFilter.swift; sourceTree = "<group>"; };
 		DF56A257BB834FA685F096CB9FD477F2 /* Pods-MTLImage_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MTLImage_Example.modulemap"; sourceTree = "<group>"; };
 		E10E9297698842E3A3F6229C42E37F93 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E184419F78493FDBBE1CCD3655DE83A5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E2208E5DD90B8C0FC1AECC6F581C8770 /* MTLCannyEdgeDetectionFilterGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCannyEdgeDetectionFilterGroup.swift; sourceTree = "<group>"; };
-		E254634234F530F78DFD9E4F34805BFC /* MTLImage.default-MachineLearning-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MTLImage.default-MachineLearning-dummy.m"; path = "../MTLImage.default-MachineLearning/MTLImage.default-MachineLearning-dummy.m"; sourceTree = "<group>"; };
-		E58F29E3339B53FD85230F13C23E971F /* MTLKuwaharaFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLKuwaharaFilter.swift; sourceTree = "<group>"; };
-		E90103F35555A5823BFA787CBE8D896D /* MTLFilterRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "MTLFilterRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E209440833D50173EDF548579B423114 /* MTLDataManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLDataManager.swift; sourceTree = "<group>"; };
+		E2D6E07C8DF4AE9ED735EE88B12A6034 /* MTLFilterGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLFilterGroup.swift; sourceTree = "<group>"; };
+		E4136894A41E5D8570097C90337B8254 /* MTLMosaicFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLMosaicFilter.swift; sourceTree = "<group>"; };
+		E6842C73556448065A67CA48D7ED02BB /* MTLFilterGroupRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "MTLFilterGroupRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E8C08CA492E709AB0BA77E630A725898 /* MTLToonFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLToonFilter.swift; sourceTree = "<group>"; };
 		EAC88243AB9F702F3015F7068842116A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = iOS/Crashlytics.framework; sourceTree = "<group>"; };
-		F1BA9C8F52EA39986D95F81A49747A15 /* MTLHueFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHueFilter.swift; sourceTree = "<group>"; };
+		ECF9B5C945C9A04EADEECB841D8016CF /* MTLMatrix.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLMatrix.swift; sourceTree = "<group>"; };
+		EE833D6A293E2B15C87E9A22F099CB22 /* MTLObject.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLObject.swift; sourceTree = "<group>"; };
+		F28B63B4123A595DE9BEDDEC345E015F /* MTLSelectiveHSLFilter1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSelectiveHSLFilter1.swift; sourceTree = "<group>"; };
 		F33056EE9C473BE561F43602A2603A77 /* Pods-MTLImage_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MTLImage_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		F662A010ED6A311F48788AEBDFD32E18 /* MTLScatterFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLScatterFilter.swift; sourceTree = "<group>"; };
+		F376C390E96B7DC0495536EAE177AFDE /* MTLSobelEdgeDetectionThresholdFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSobelEdgeDetectionThresholdFilter.swift; sourceTree = "<group>"; };
+		F464447D63EBD9D2C1BF97DD23BEA84B /* MTLHazeFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHazeFilter.swift; sourceTree = "<group>"; };
 		F88670808863AF79C7367E682F0F377A /* Pods-MTLImage_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MTLImage_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		FFBC817440953C0974042159CA1F2EB0 /* MTLObject.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLObject.swift; sourceTree = "<group>"; };
+		F88992A58574A1D5D1FDCEFDFB16EE72 /* MTLTypes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLTypes.swift; sourceTree = "<group>"; };
+		F9EBC3FC7C12404DCB1DBFEF3A4DF121 /* MTLLanczosScaleFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLLanczosScaleFilter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0BE01EB2905AFE1C0DD6953BB363918F /* Frameworks */ = {
+		1012D91AA831BCD6D9AB5E9234F4F8DE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E83864342FBFC5F2E9F7812621A1AA9 /* Foundation.framework in Frameworks */,
+				D5ACFD65880EB81FDD9E57F3C3A342B5 /* CloudKit.framework in Frameworks */,
+				0387BD152DBE407F6AB3A16F3CE4C1DB /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,61 +267,42 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		57A0387D761D9B29607C4E1A89C33CFC /* Frameworks */ = {
+		B0EAB22DC8D230CBC15CAA03644861B7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2247F2609C0F324CFF1EA400BAA3105 /* CloudKit.framework in Frameworks */,
-				3A64E31AC3E696CEB84F95858F3954F0 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D12B6D6014B8BA8D036B9491AEF88086 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1282DC7A83C710CB58E42DB948F17C37 /* CloudKit.framework in Frameworks */,
-				05BEB725EDF43640E2BC727A1FEAB89E /* Foundation.framework in Frameworks */,
+				063588610426714AD3F4522C303017E5 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0126E5E63E1D2C0C781DC82FA5D07B95 /* Pod */ = {
+		02E309C178B97B98BA9FED71E26C6242 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				9A2B54F9FFAD57F262E65E6D3159B90A /* Classes */,
+				EACBF2987609F03F88862BFBF7C2263B /* Assets */,
+				25D38B84F3EF8390D5D1BB8B1AEAB2AF /* Classes */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
 		};
-		0FADAE862BAD2C7DD44C6BC41F581A68 /* MachineLearning */ = {
+		08A9B60067F7EF2FCEBDB1169EE02765 /* FilterRecord */ = {
 			isa = PBXGroup;
 			children = (
-				3BA9C9572FBA0FA6F9BFC0C809C119CE /* MTLFeedForwardNeuralNetwork.swift */,
+				7E0F54C026B20307A5618CA30BE9DE1A /* MTLFilterRecord.swift */,
+				A9BADCE1C2E1921AA52F87BBA3B24E16 /* MTLFilterRecord+CoreDataProperties.swift */,
 			);
-			path = MachineLearning;
+			path = FilterRecord;
 			sourceTree = "<group>";
 		};
-		1959B036B1912BD1381057BB32D7A864 /* MTLImage */ = {
+		08F65182D0B8ED573D6EB6DFA44A7928 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				C8B262AED75EF724BCB5C365B5545C9C /* MTLCamera.swift */,
-				314D25A3DB1E93EF33F7CD3DE81E7A4C /* MTLContext.swift */,
-				201E0159AB3F5B4956E9496B5A76E35C /* MTLDataManager.swift */,
-				59B275A56C6379B6C0E2531CB9ED14E3 /* MTLFilter.swift */,
-				9A5EF219F1044E3E1B2C1B0B10147A6B /* MTLFilterGroup.swift */,
-				68234698CD440C8067033BE8402279AD /* MTLImage.swift */,
-				D78551DFADA6C0629E9FB10C7A05D732 /* MTLMatrix.swift */,
-				32574E3886DB0A6A0839F39E2FF4FBA5 /* MTLMPSFilter.swift */,
-				FFBC817440953C0974042159CA1F2EB0 /* MTLObject.swift */,
-				176882A8599AA6D240F33ACE8F5C26AC /* MTLPicture.swift */,
-				0D70CD7478FD348D512D6A9C1FA772B1 /* MTLProperty.swift */,
-				6AC7521F6B1320E6C92F82248454DDF2 /* MTLTypes.swift */,
-				58270C209799230FE2A2693A294CAD5F /* MTLView.swift */,
+				A8AE72A2C2FFD3680B9FAC69B1189CBD /* default.metallib */,
+				A16B4D32D41215BD95A1814AC2A933A1 /* Shaders */,
 			);
-			path = MTLImage;
+			path = Core;
 			sourceTree = "<group>";
 		};
 		1DECF7299F0875E9BCB9492390207331 /* Pods */ = {
@@ -425,23 +314,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		2132A84E92B0977B35E00CE7D4F0A3E9 /* CoreData */ = {
+		25D38B84F3EF8390D5D1BB8B1AEAB2AF /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				26AC11E1D014A97139E09DECC60C096A /* FilterGroupRecord */,
-				62FE5157E8B96616CB02406111AFDC4F /* FilterRecord */,
-				9709E2A53FE359149D6CF6F87BA3075B /* PropertyRecord */,
+				08F65182D0B8ED573D6EB6DFA44A7928 /* Core */,
+				B52FE254D070AB81092E696B9584A0E9 /* CoreData */,
 			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
-		26AC11E1D014A97139E09DECC60C096A /* FilterGroupRecord */ = {
-			isa = PBXGroup;
-			children = (
-				8D307733B989920FD07ECDCB46AA4742 /* MTLFilterGroupRecord.swift */,
-				8C0FB931780C559877A61A7D31272BF4 /* MTLFilterGroupRecord+CoreDataProperties.swift */,
-			);
-			path = FilterGroupRecord;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		26F9D6AB1F30C869A5F58AF8EF5A99C8 /* Crashlytics */ = {
@@ -459,29 +338,12 @@
 			path = Crashlytics;
 			sourceTree = "<group>";
 		};
-		2789B6121CFB46FDF5B72008C29C391B /* CoreData */ = {
+		2CD99F9A94376BD9F922431D39663AB1 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				C3865C6E589F7445818C8462B0A6B3EB /* MTLImage.xcdatamodeld */,
+				35D6E0BD94B2D92BEE723C847A4E8433 /* Classes */,
 			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
-		281202D48D0FC3CFDC64F9869548C950 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				F41FDBECF848EB9F31C0E12E91A7B6A9 /* Core */,
-				2789B6121CFB46FDF5B72008C29C391B /* CoreData */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		2924ECEC57E974E92A62B95E03108A63 /* CloudKit */ = {
-			isa = PBXGroup;
-			children = (
-				9CADF63B58250EB87A55811CB82B03F8 /* MTLCloudKitManager.swift */,
-			);
-			path = CloudKit;
+			path = Pod;
 			sourceTree = "<group>";
 		};
 		2DDA681774534EB985F60A3418A4C908 /* Frameworks */ = {
@@ -492,15 +354,44 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		31A1A1831657FB4251D5E146A8D020C3 /* Products */ = {
+		2EAA0EF76DBBA529783ED6444CD78478 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				D94BDC8B4D192A24863C77E06612BA50 /* MTLImage.framework */,
-				8C2F4786CA62D4F683234FE284E51EEB /* MTLImage.framework */,
-				A18E1E255D59449CEE6639586AB7F59F /* Pods_MTLImage_Example.framework */,
-				DC9E56F4F2FEE076EBBCA4BA98F6AA0E /* Pods_MTLImage_Tests.framework */,
+				83BBCE778664F40EA56ED045DA57C9A4 /* Tools.swift */,
+				A24AC1091CF02975E5CDB72BF488C4AD /* UIImage+MTLTexture.swift */,
+				A1C442CAEAD93AD5D16974359ABDBC5C /* UIImage+Scale.swift */,
 			);
-			name = Products;
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		333DCEC7ACAA47C10BDC4A56B31B021B /* PropertyRecord */ = {
+			isa = PBXGroup;
+			children = (
+				D155CE4456350E45FE3845E7B88378C8 /* MTLPropertyRecord.swift */,
+				56078EF42B191A5A8CB5698A874552E3 /* MTLPropertyRecord+CoreDataProperties.swift */,
+			);
+			path = PropertyRecord;
+			sourceTree = "<group>";
+		};
+		35D6E0BD94B2D92BEE723C847A4E8433 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				BFC023C027F40E3D611A274F71BB711E /* CoreData */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		380382C6B9E6EB558E5D156C2BB3B1E2 /* MTLImage */ = {
+			isa = PBXGroup;
+			children = (
+				792B2765E8480099D877E5EA1ED27A9C /* CloudKit */,
+				77BA36C4DC2404AE113A897A73BF89B7 /* Core */,
+				A8D514E8F9D4D2A20AD21B96A90CE20B /* CoreData */,
+				ADCC1986F5277C32F02A9A1155A14BB6 /* Resources */,
+				FC85AD615EC67F9338B1C90976CF8752 /* Support Files */,
+			);
+			name = MTLImage;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		3E99937ED2BDC8A5F85520616CAC1CDA /* iOS */ = {
@@ -520,12 +411,68 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		437CC790BA8A2536F5CD2095FC7121CF /* Pod */ = {
+		4E5D09E73344FF09D3C2ACE1466ECE3E /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				B62BFE71A1F6468B3F6FD6ADEAC2A6B1 /* Classes */,
+				103B4194401EBA06B54F3F4403F82A9B /* MTLBlendFilter.swift */,
+				543B8F0E5F3B468ED9CFF5A59F1E6824 /* MTLBoxBlurFilter.swift */,
+				46E0F8760636F5919D4A4BC0FF361856 /* MTLBrightnessFilter.swift */,
+				805A5EDCEC0E5CF5C175EB2147CA2789 /* MTLCannyEdgeDetectionFilterGroup.swift */,
+				AA933736D49FF6AF5C3E002EAAB581EF /* MTLColorSelectionFilter.swift */,
+				7A1A04E75F0AD02C842F67DB7A3BA7EC /* MTLContrastFilter.swift */,
+				6B17DC17AE3F8E6C82D7D0B1FC54D85A /* MTLConvolutionFilter.swift */,
+				D1F4847F77E4F47331BCA990B3BF211F /* MTLCropFilter.swift */,
+				703B2242623BB0B4CD33156232102805 /* MTLCrossHatchFilter.swift */,
+				47E45B57F7DD30A3968AEC6A0BA1C007 /* MTLDilateFilter.swift */,
+				91B491126B10E921CADDCE24AFCC7E26 /* MTLDistortionFilter.swift */,
+				9630F7AA35307DE53AC104EF35AB4411 /* MTLEmbossFilter.swift */,
+				01C12DBF1AE2E5BDDECB48AAE80C63A2 /* MTLExposureFilter.swift */,
+				0399B1181F308E43E6875402F88EAD72 /* MTLGaussianBlurFilter.swift */,
+				3B5813F6B51EE186EABBA2BE46EF7955 /* MTLGaussianBlurFilter1.swift */,
+				571075B66C0F8D259FF82C93AE821A39 /* MTLHarrisCornerDetection.swift */,
+				F464447D63EBD9D2C1BF97DD23BEA84B /* MTLHazeFilter.swift */,
+				326C71E5C1D4F5EE2970A47638D30FCC /* MTLHighlightShadowFilter.swift */,
+				D694F4D7517CB67C53480A9F4DD30DC6 /* MTLHistogramFilter.swift */,
+				6367A324A2A9E903B5303E3FD0F72B4B /* MTLHistogramFilter1.swift */,
+				435EC7DB403BE3A779F7A72A2438175D /* MTLHoughLineDetection.swift */,
+				0F00C29242F73FC1DE0C1D3A34ED906A /* MTLHSVFilter.swift */,
+				9C230FDD7B88FAD20969B0D82DBE0079 /* MTLHueFilter.swift */,
+				AE1CAD7CAFF0C53F11C9DAEA131F4FDB /* MTLInvertFilter.swift */,
+				907AB57E76EA3FA32CCACDFB5C4B451B /* MTLKuwaharaFilter.swift */,
+				F9EBC3FC7C12404DCB1DBFEF3A4DF121 /* MTLLanczosScaleFilter.swift */,
+				7A89260A8CA01348E3998C7973553A5D /* MTLLensFlareFilter.swift */,
+				875FEF80FB6296890E901084697FA038 /* MTLLevelsFilter.swift */,
+				1F22405F7159EB43062F55BD82923C7A /* MTLLineDetectionFilter.swift */,
+				81546E2CB508CAA52EDA54C4244D8D5A /* MTLLuminanceThresholdFilter.swift */,
+				C8E84B218A7CB5AC642C562D1E303E3A /* MTLMaskFilter.swift */,
+				E4136894A41E5D8570097C90337B8254 /* MTLMosaicFilter.swift */,
+				A5F716403F66DFD85486D315ABDAE205 /* MTLNonMaximumSuppressionFilter.swift */,
+				B811EADFBFB3FB8D566D3BE2CC5D0F4B /* MTLOilPaintFilter.swift */,
+				6E56B4B5BC96C205EB974F607DA00460 /* MTLPerlinNoiseFilter.swift */,
+				AB9615D7998BB9FCB1442FC13BB4A4D0 /* MTLPixellateFilter.swift */,
+				46737B50C0E212F0933B9F3516DFAA1D /* MTLPolkaDotFilter.swift */,
+				A7723E78F61FF6FC702197E5C638B4F4 /* MTLSaturationFilter.swift */,
+				27396420054A7F60C3E77153239C01F7 /* MTLScatterFilter.swift */,
+				912179CF1C60ABAC037F2BC7E99BF1FA /* MTLSelectiveHSLFilter.swift */,
+				F28B63B4123A595DE9BEDDEC345E015F /* MTLSelectiveHSLFilter1.swift */,
+				B31541AAB145F7E1072C41687AABAAAF /* MTLSharpenFilter.swift */,
+				4C733A91618EE4F9AE65FF08E76196CA /* MTLSketchFilter.swift */,
+				56764CB5A421926B6952FE6A26CEFB6E /* MTLSmudgeFilter.swift */,
+				2AA5BAD8AB235E1F1A1F42A9E18A450D /* MTLSobelEdgeDetectionFilter.swift */,
+				F376C390E96B7DC0495536EAE177AFDE /* MTLSobelEdgeDetectionThresholdFilter.swift */,
+				40B1D900EF128C93FEC732E778A58B51 /* MTLTentFilter.swift */,
+				5420BAAF848A04F730A70624AF3814F1 /* MTLToneCurveFilter.swift */,
+				E8C08CA492E709AB0BA77E630A725898 /* MTLToonFilter.swift */,
+				1C216C98299E194BC9AD94128761EC67 /* MTLTransformFilter.swift */,
+				2B00191F76EC4B499B6CC58F4C375FE1 /* MTLUnsharpMaskFilter.swift */,
+				ACA544FCCE516CD280A1F9F221FF043E /* MTLVignetteFilter.swift */,
+				862BFAA94C2DA5CBFB5D48161CD92994 /* MTLWaterFilter.swift */,
+				1B07BB155C708231DB79885EBDC48848 /* MTLWeakPixelInclusionFilter.swift */,
+				B0CD9C895E150C3E25B17C9B54DE54F5 /* MTLWhiteBalanceFilter.swift */,
+				7EA4DF2E20B24323464002110A066AC4 /* MTLXYDerivativeFilter.swift */,
+				8150A6203D951D3403E7556C6590F637 /* TemplateFilter.swift */,
 			);
-			path = Pod;
+			path = Filters;
 			sourceTree = "<group>";
 		};
 		51A0C5F3A3BB98B76D333341C08ECD42 /* Pods-MTLImage_Example */ = {
@@ -546,149 +493,80 @@
 			path = "Target Support Files/Pods-MTLImage_Example";
 			sourceTree = "<group>";
 		};
-		5250EDAFA6F30876D95E84545DFB67A0 /* Filters */ = {
+		6550E4DC6795B2B75D588AE883464D3B /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				63015F8DA21B794B425D1DA77F27DD97 /* MTLBlendFilter.swift */,
-				D6E8C63951F2E5EF100683D981910A2D /* MTLBoxBlurFilter.swift */,
-				2F6DB5506AA62184F0CFE9213F83C66F /* MTLBrightnessFilter.swift */,
-				E2208E5DD90B8C0FC1AECC6F581C8770 /* MTLCannyEdgeDetectionFilterGroup.swift */,
-				7A8C143E8988865DE94EDE734436E55A /* MTLColorSelectionFilter.swift */,
-				55C9BB02CA946477DC2BD123C1613F3F /* MTLContrastFilter.swift */,
-				0A1BADE2B547A28310496E1B00CBA831 /* MTLConvolutionFilter.swift */,
-				DDA3904B4A1A547A094A143496E9ADB7 /* MTLCropFilter.swift */,
-				ADA7C8B55F5CE6827A2674AF51362993 /* MTLCrossHatchFilter.swift */,
-				7E8E097F4B82AE77CAEF5D6718959A40 /* MTLDilateFilter.swift */,
-				9E9127527B13A07489844605A725F52F /* MTLDistortionFilter.swift */,
-				6C13B71DD6CA17582F5B27A2D6348C8F /* MTLEmbossFilter.swift */,
-				CAB6558904670C7F773C4CF33F8989E7 /* MTLExposureFilter.swift */,
-				77D714FB2D3554085C14B66F63721D7F /* MTLGaussianBlurFilter.swift */,
-				D9955CFC4F6F26EB9F55B668DEF4E942 /* MTLGaussianBlurFilter1.swift */,
-				38604E3C32F25232F93ABE0F9071D57F /* MTLHarrisCornerDetection.swift */,
-				5F0E0C7E6E78863E2D5DBFB2F44BB0F4 /* MTLHazeFilter.swift */,
-				1548D05B22F3C4A68A711BEA35D06E72 /* MTLHighlightShadowFilter.swift */,
-				8F773C00363DAF255892C74EB5F1D27E /* MTLHistogramFilter.swift */,
-				1E3BEFC5136A2D76BD83BC33E9F5D9D4 /* MTLHistogramFilter1.swift */,
-				2DDB18E584AD81A8332AC2E32A475F81 /* MTLHoughLineDetection.swift */,
-				CCEFEFF4EE774CD3CEA6F249910D302F /* MTLHSVFilter.swift */,
-				F1BA9C8F52EA39986D95F81A49747A15 /* MTLHueFilter.swift */,
-				B14BC7398E5AA486E9F36208BE519139 /* MTLInvertFilter.swift */,
-				E58F29E3339B53FD85230F13C23E971F /* MTLKuwaharaFilter.swift */,
-				B0727AA49F84433D245327457FF95208 /* MTLLanczosScaleFilter.swift */,
-				D78C4CCF4438F1AE4145BF3FBDB02144 /* MTLLevelsFilter.swift */,
-				4A81C5777736F0A4CAC556EF637EEAB8 /* MTLLineDetectionFilter.swift */,
-				633DBA2E303F317936DE32E5F5768D44 /* MTLLuminanceThresholdFilter.swift */,
-				3A0326DF53C405792A914879558542A4 /* MTLMaskFilter.swift */,
-				393EEBA2A430EC117B6F7EF23885F2B0 /* MTLMosaicFilter.swift */,
-				BBCE0EC398D5EE3CB63A0028D8FEDE76 /* MTLNonMaximumSuppressionFilter.swift */,
-				628C8342FED5BB86A6776BBC1F365A5A /* MTLOilPaintFilter.swift */,
-				6D67CD30D169C35E59BC95E47B0AD4F5 /* MTLPerlinNoiseFilter.swift */,
-				23CC41C3BAC4B4E8A7D84D8B63142529 /* MTLPixellateFilter.swift */,
-				563A0D2E489CF9512D5D93D4B4D48A59 /* MTLPolkaDotFilter.swift */,
-				DC2D4E107A4CF53FD06191EF8054C3B9 /* MTLSaturationFilter.swift */,
-				F662A010ED6A311F48788AEBDFD32E18 /* MTLScatterFilter.swift */,
-				3DD41F006B896F0EB4EC41129AF10B47 /* MTLSelectiveHSLFilter.swift */,
-				144537492A3320CF98DB43553DECF991 /* MTLSelectiveHSLFilter1.swift */,
-				17709CDBB48FD470698F7A38145C80BE /* MTLSharpenFilter.swift */,
-				8DB09C67144A13B5D2221D00CC8EAE87 /* MTLSketchFilter.swift */,
-				87A5FD64D02E5E55E5AD6EE177479AA2 /* MTLSmudgeFilter.swift */,
-				C7D20F51A62312DB051E0403DF63D552 /* MTLSobelEdgeDetectionFilter.swift */,
-				69C94D4127FB29C5A64181941A23506B /* MTLSobelEdgeDetectionThresholdFilter.swift */,
-				5124ADB9BEFA3EBA4BCC30597F3CACB0 /* MTLTentFilter.swift */,
-				1307779375617B389BF5F4E2CFD06E0A /* MTLToneCurveFilter.swift */,
-				1A1413F8E2A27A5DABD823C1F3F5F0D9 /* MTLToonFilter.swift */,
-				BC6297A906FF7015D8DBFAF738F2BEE3 /* MTLTransformFilter.swift */,
-				D9860B6BEE4023924072D9E8F098B072 /* MTLUnsharpMaskFilter.swift */,
-				1B1AE1BF879115B112484910A6C2E815 /* MTLVignetteFilter.swift */,
-				D952AB1CA97B59508816E8216E72E7F5 /* MTLWaterFilter.swift */,
-				407CFEAD317DF443FD4E42E90EFCBF83 /* MTLWeakPixelInclusionFilter.swift */,
-				CFA90F5C8BE98B5A1013998CF6842F87 /* MTLWhiteBalanceFilter.swift */,
-				307A98201F0B8E20B36B501A7A2F26D3 /* MTLXYDerivativeFilter.swift */,
-				5E2851B46D2BBF56C2FE1A0261CF69FA /* TemplateFilter.swift */,
+				4E5D09E73344FF09D3C2ACE1466ECE3E /* Filters */,
+				7D13F5453F72F1FE581871E04AA8DB14 /* MTLImage */,
+				2EAA0EF76DBBA529783ED6444CD78478 /* Tools */,
 			);
-			path = Filters;
+			path = Core;
 			sourceTree = "<group>";
 		};
-		5E52AF80EF228E998ABA30AF513E6C1D /* Pod */ = {
+		77BA36C4DC2404AE113A897A73BF89B7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				EA2FDC1E201701BE261628234CC79310 /* Classes */,
+				E6A237A7826B112EDC7F58EE3D913438 /* Pod */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		792B2765E8480099D877E5EA1ED27A9C /* CloudKit */ = {
+			isa = PBXGroup;
+			children = (
+				7C620F19645C017503F6E847A453D6E6 /* Pod */,
+			);
+			name = CloudKit;
+			sourceTree = "<group>";
+		};
+		7C620F19645C017503F6E847A453D6E6 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				F29430094555E67B026ED901CE18D8FC /* Classes */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
 		};
-		62FE5157E8B96616CB02406111AFDC4F /* FilterRecord */ = {
+		7D13F5453F72F1FE581871E04AA8DB14 /* MTLImage */ = {
 			isa = PBXGroup;
 			children = (
-				0C2D1BA062D7D19103029A2613673E63 /* MTLFilterRecord.swift */,
-				E90103F35555A5823BFA787CBE8D896D /* MTLFilterRecord+CoreDataProperties.swift */,
+				33FD3CF25BF99C90EFA47C7C36BF8C6C /* MTLCamera.swift */,
+				8CA366F461E754D6C7E6747CD1A5D609 /* MTLContext.swift */,
+				E209440833D50173EDF548579B423114 /* MTLDataManager.swift */,
+				3500A090FB264D496F96B99EE606407C /* MTLFilter.swift */,
+				E2D6E07C8DF4AE9ED735EE88B12A6034 /* MTLFilterGroup.swift */,
+				162B94FE4E4044199B6E010D820E1A21 /* MTLImage.swift */,
+				ECF9B5C945C9A04EADEECB841D8016CF /* MTLMatrix.swift */,
+				D9FD682C0C295E343B107913EB49B468 /* MTLMPSFilter.swift */,
+				EE833D6A293E2B15C87E9A22F099CB22 /* MTLObject.swift */,
+				74ADDC2A4D786E789C3089E3F7893A86 /* MTLPicture.swift */,
+				CBB2A87084C45809D326D768CCEDCADE /* MTLProperty.swift */,
+				F88992A58574A1D5D1FDCEFDFB16EE72 /* MTLTypes.swift */,
+				89E01C41F83C4A95A3E7E5D50C797A1C /* MTLView.swift */,
 			);
-			path = FilterRecord;
+			path = MTLImage;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				ECB9587A9AD3333319CCE65504C2E2E1 /* Development Pods */,
+				D4B30DFA1AF0C0A5345B0FA6623ACE88 /* Development Pods */,
 				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
 				1DECF7299F0875E9BCB9492390207331 /* Pods */,
-				31A1A1831657FB4251D5E146A8D020C3 /* Products */,
+				8EA52D1C81D807617C7AD223A6C9F6DB /* Products */,
 				A027D9F65891A07607F70F8A22B0B3BA /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		826084C39877FF82B8D9027268E48126 /* Pod */ = {
+		8EA52D1C81D807617C7AD223A6C9F6DB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B79C72AB18B28B22AC98B09E10D963D4 /* Classes */,
+				5378950414C4185A8D302D444AFC1DF8 /* MTLImage.framework */,
+				9914045A37AE9A5763DE9ED36C8B6093 /* Pods_MTLImage_Example.framework */,
+				4F5955EF88DB85A4437B2EEE3A4AEE4B /* Pods_MTLImage_Tests.framework */,
 			);
-			path = Pod;
-			sourceTree = "<group>";
-		};
-		8EA2BF2B70F81027A4D0D8CBB0A617A1 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				29B38686806AB366EB44DAB9310FD76D /* Info.plist */,
-				E184419F78493FDBBE1CCD3655DE83A5 /* Info.plist */,
-				AABD1EAD29963504C461A1B2FD0AA5F5 /* MTLImage.modulemap */,
-				9A1362A67D9A2C72D5AA130A89D088E2 /* MTLImage.xcconfig */,
-				894C683EEDAF94DD76DF0F770F07F61A /* MTLImage-dummy.m */,
-				7A60474AAB928809A532F0E4D4EFE31C /* MTLImage-prefix.pch */,
-				11FA8725CDC5E96219AC79C379677F69 /* MTLImage-umbrella.h */,
-				A29B0A81D611857C739F4AC5057AA7BA /* MTLImage.default-MachineLearning.modulemap */,
-				24D3EF6DF58C2C62F5989BB3DB2E3958 /* MTLImage.default-MachineLearning.xcconfig */,
-				E254634234F530F78DFD9E4F34805BFC /* MTLImage.default-MachineLearning-dummy.m */,
-				58243AD5615E514B619AA5E506E6B9C9 /* MTLImage.default-MachineLearning-prefix.pch */,
-				950B290282926599E7C9FB677FA8EC57 /* MTLImage.default-MachineLearning-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/MTLImage";
-			sourceTree = "<group>";
-		};
-		8FB2590EB237A33760D43011182D33F0 /* CloudKit */ = {
-			isa = PBXGroup;
-			children = (
-				0126E5E63E1D2C0C781DC82FA5D07B95 /* Pod */,
-			);
-			name = CloudKit;
-			sourceTree = "<group>";
-		};
-		9709E2A53FE359149D6CF6F87BA3075B /* PropertyRecord */ = {
-			isa = PBXGroup;
-			children = (
-				027ECFE759BEC19ADB9BC6F2EBAB3CAD /* MTLPropertyRecord.swift */,
-				716A616ECF489E7FDDB943BEF9D13A51 /* MTLPropertyRecord+CoreDataProperties.swift */,
-			);
-			path = PropertyRecord;
-			sourceTree = "<group>";
-		};
-		9A2B54F9FFAD57F262E65E6D3159B90A /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				2924ECEC57E974E92A62B95E03108A63 /* CloudKit */,
-			);
-			path = Classes;
+			name = Products;
 			sourceTree = "<group>";
 		};
 		A027D9F65891A07607F70F8A22B0B3BA /* Targets Support Files */ = {
@@ -700,40 +578,36 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		A53D60C5B582F704FDB33A7EEB9C5B38 /* Assets */ = {
+		A16B4D32D41215BD95A1814AC2A933A1 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				152845E4B0BF06CEADD5F248286785C0 /* images.xcassets */,
-			);
-			path = Assets;
-			sourceTree = "<group>";
-		};
-		A7B5DF40E15D1CC16F19665A0E2D5D21 /* Shaders */ = {
-			isa = PBXGroup;
-			children = (
-				C329B96AA6F893F4EF292E9DC3BD2571 /* default.metallib */,
+				91A2E603EB1A99E7E1F7894260721A5F /* default.metallib */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
 		};
-		ACF86D2CEAFB651582FA6F979F06E6AB /* Tools */ = {
+		A1F7D5E969C34A7688885531B8A9137C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				06F20009E16D295BB11150C12C644557 /* Tools.swift */,
-				C25848A0BE44134E0EE653BB5C2612DD /* UIImage+MTLTexture.swift */,
-				3FDAF6D54A5BDDD612CD9B0C994DD93A /* UIImage+Scale.swift */,
+				6550E4DC6795B2B75D588AE883464D3B /* Core */,
 			);
-			path = Tools;
+			path = Classes;
 			sourceTree = "<group>";
 		};
-		ADD9F3D68FDB8AFB124E89839AF209B1 /* Core */ = {
+		A8D514E8F9D4D2A20AD21B96A90CE20B /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				5250EDAFA6F30876D95E84545DFB67A0 /* Filters */,
-				1959B036B1912BD1381057BB32D7A864 /* MTLImage */,
-				ACF86D2CEAFB651582FA6F979F06E6AB /* Tools */,
+				2CD99F9A94376BD9F922431D39663AB1 /* Pod */,
 			);
-			path = Core;
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		ADCC1986F5277C32F02A9A1155A14BB6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				02E309C178B97B98BA9FED71E26C6242 /* Pod */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		B4BB48D33630B002A5C0BBE6BC94339D /* Pods-MTLImage_Tests */ = {
@@ -754,42 +628,31 @@
 			path = "Target Support Files/Pods-MTLImage_Tests";
 			sourceTree = "<group>";
 		};
-		B62BFE71A1F6468B3F6FD6ADEAC2A6B1 /* Classes */ = {
+		B52FE254D070AB81092E696B9584A0E9 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				ADD9F3D68FDB8AFB124E89839AF209B1 /* Core */,
+				FAF1C21DAA78F4F7B0187E58EA7DE94A /* MTLImage.xcdatamodeld */,
 			);
-			path = Classes;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
-		B79C72AB18B28B22AC98B09E10D963D4 /* Classes */ = {
+		B7CFDC85C96CCAC5BF448FFAD2DF7CBA /* FilterGroupRecord */ = {
 			isa = PBXGroup;
 			children = (
-				2132A84E92B0977B35E00CE7D4F0A3E9 /* CoreData */,
+				499CC1827C4D3C744E8F4BAE21595772 /* MTLFilterGroupRecord.swift */,
+				E6842C73556448065A67CA48D7ED02BB /* MTLFilterGroupRecord+CoreDataProperties.swift */,
 			);
-			path = Classes;
+			path = FilterGroupRecord;
 			sourceTree = "<group>";
 		};
-		BA758C63927D1CCA0CA78E10AD934618 /* Core */ = {
+		BFC023C027F40E3D611A274F71BB711E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				437CC790BA8A2536F5CD2095FC7121CF /* Pod */,
+				B7CFDC85C96CCAC5BF448FFAD2DF7CBA /* FilterGroupRecord */,
+				08A9B60067F7EF2FCEBDB1169EE02765 /* FilterRecord */,
+				333DCEC7ACAA47C10BDC4A56B31B021B /* PropertyRecord */,
 			);
-			name = Core;
-			sourceTree = "<group>";
-		};
-		C8BC1A017D8CE905F1E389BBEC3933AC /* MTLImage */ = {
-			isa = PBXGroup;
-			children = (
-				8FB2590EB237A33760D43011182D33F0 /* CloudKit */,
-				BA758C63927D1CCA0CA78E10AD934618 /* Core */,
-				D5116BB4FEBD54D2974E7106C9852AB3 /* CoreData */,
-				D99652968D68A2794B1F2AAE8062A960 /* MachineLearning */,
-				E3A79D8C2DCA308BB3714F1ABEF4E06D /* Resources */,
-				8EA2BF2B70F81027A4D0D8CBB0A617A1 /* Support Files */,
-			);
-			name = MTLImage;
-			path = ../..;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		D479A0301687E2A8F6F67D392B8551D2 /* Fabric */ = {
@@ -802,20 +665,12 @@
 			path = Fabric;
 			sourceTree = "<group>";
 		};
-		D5116BB4FEBD54D2974E7106C9852AB3 /* CoreData */ = {
+		D4B30DFA1AF0C0A5345B0FA6623ACE88 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				826084C39877FF82B8D9027268E48126 /* Pod */,
+				380382C6B9E6EB558E5D156C2BB3B1E2 /* MTLImage */,
 			);
-			name = CoreData;
-			sourceTree = "<group>";
-		};
-		D99652968D68A2794B1F2AAE8062A960 /* MachineLearning */ = {
-			isa = PBXGroup;
-			children = (
-				5E52AF80EF228E998ABA30AF513E6C1D /* Pod */,
-			);
-			name = MachineLearning;
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		E268B07786115FF5D5DFF396150E695F /* Frameworks */ = {
@@ -826,72 +681,68 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E3A79D8C2DCA308BB3714F1ABEF4E06D /* Resources */ = {
+		E6A237A7826B112EDC7F58EE3D913438 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				F995933288FAE4E95A783736E16084A2 /* Pod */,
+				A1F7D5E969C34A7688885531B8A9137C /* Classes */,
 			);
-			name = Resources;
+			path = Pod;
 			sourceTree = "<group>";
 		};
-		EA2FDC1E201701BE261628234CC79310 /* Classes */ = {
+		EACBF2987609F03F88862BFBF7C2263B /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				0FADAE862BAD2C7DD44C6BC41F581A68 /* MachineLearning */,
+				BB2FF4B5F65DDB059B07D477A611E7ED /* images.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		F29430094555E67B026ED901CE18D8FC /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				FD05083169843E615CF1F0CA4A153C79 /* CloudKit */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		ECB9587A9AD3333319CCE65504C2E2E1 /* Development Pods */ = {
+		FC85AD615EC67F9338B1C90976CF8752 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				C8BC1A017D8CE905F1E389BBEC3933AC /* MTLImage */,
+				A9341F48A7766D5B1875D0546EA4FC86 /* Info.plist */,
+				509AFF3B9B0F02999E274D62A84F147F /* MTLImage.modulemap */,
+				8C4DD26A47CB8B76FAAA5619E37DA8A6 /* MTLImage.xcconfig */,
+				3CF4FF9B1BFA40851EB3ED639875C2C3 /* MTLImage-dummy.m */,
+				62E1F75E922C46B7F1E20318F9FB47DA /* MTLImage-prefix.pch */,
+				0F8EC04F09F3205791D94759A0393D2C /* MTLImage-umbrella.h */,
 			);
-			name = "Development Pods";
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/MTLImage";
 			sourceTree = "<group>";
 		};
-		F41FDBECF848EB9F31C0E12E91A7B6A9 /* Core */ = {
+		FD05083169843E615CF1F0CA4A153C79 /* CloudKit */ = {
 			isa = PBXGroup;
 			children = (
-				18C92335CFF25A37CA215F9D3028BE1C /* default.metallib */,
-				A7B5DF40E15D1CC16F19665A0E2D5D21 /* Shaders */,
+				7E895C94E120BF6E0D8A7945A86AEC79 /* MTLCloudKitManager.swift */,
 			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		F995933288FAE4E95A783736E16084A2 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				A53D60C5B582F704FDB33A7EEB9C5B38 /* Assets */,
-				281202D48D0FC3CFDC64F9869548C950 /* Classes */,
-			);
-			path = Pod;
+			path = CloudKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		41895E1EBA527D736D2AAFDAC2198993 /* Headers */ = {
+		8B9623ED22307278EA0F189E7B280BE1 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				062CCE966578CE67F438A2B17D18A194 /* Pods-MTLImage_Example-umbrella.h in Headers */,
+				7D348CC9217938FFFDD388CF1714B5EA /* Pods-MTLImage_Example-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		45F2DC27E258B2D036198C9F4AE98BBA /* Headers */ = {
+		D948CAC9F6644C65C36E479E2A6038FE /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DAE752ACD46B94D716898190E93364E /* MTLImage-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6F373CB70037080F91F8D31827C6E0C0 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0DAA3659A86A9A809925BC4C47F23AD3 /* MTLImage.default-MachineLearning-umbrella.h in Headers */,
+				83801B21E6C7A3EED00420C7FC2FF7BF /* MTLImage-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,40 +757,22 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		2A7AA71ED7509B2DA07ED876539A7226 /* Pods-MTLImage_Example */ = {
+		7FC2F36EB743734392660D641F7BA61A /* Pods-MTLImage_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5A2AAFE73CAB6B994A11B8C3DDDC6E83 /* Build configuration list for PBXNativeTarget "Pods-MTLImage_Example" */;
+			buildConfigurationList = F1BD91DC119E988BD730BABDE346B990 /* Build configuration list for PBXNativeTarget "Pods-MTLImage_Example" */;
 			buildPhases = (
-				F80619DA179C3DC986352577332C086A /* Sources */,
-				0BE01EB2905AFE1C0DD6953BB363918F /* Frameworks */,
-				41895E1EBA527D736D2AAFDAC2198993 /* Headers */,
+				68E4A346EAF95DD43DDEA8749F8492A9 /* Sources */,
+				B0EAB22DC8D230CBC15CAA03644861B7 /* Frameworks */,
+				8B9623ED22307278EA0F189E7B280BE1 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CDD7D4956BAC86F3D29FD15ABD6E8B5A /* PBXTargetDependency */,
+				E0BE0EA17DE46CBF6F6926A351CCDB1A /* PBXTargetDependency */,
 			);
 			name = "Pods-MTLImage_Example";
 			productName = "Pods-MTLImage_Example";
-			productReference = A18E1E255D59449CEE6639586AB7F59F /* Pods_MTLImage_Example.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		7C34CACB4CD0E72C05D29F77688B79E0 /* MTLImage.default-MachineLearning */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4B04C4EAAAB0BFD1FFFF7E2D960E034A /* Build configuration list for PBXNativeTarget "MTLImage.default-MachineLearning" */;
-			buildPhases = (
-				2C1CD2B4C0E01D836C8D1DE1F4346A34 /* Sources */,
-				D12B6D6014B8BA8D036B9491AEF88086 /* Frameworks */,
-				83B13514ED70E1235B423AA14ED81280 /* Resources */,
-				6F373CB70037080F91F8D31827C6E0C0 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "MTLImage.default-MachineLearning";
-			productName = "MTLImage.default-MachineLearning";
-			productReference = 8C2F4786CA62D4F683234FE284E51EEB /* MTLImage.framework */;
+			productReference = 9914045A37AE9A5763DE9ED36C8B6093 /* Pods_MTLImage_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		94C97C3AEFC7C60FC4ACE73A9D6739F5 /* Pods-MTLImage_Tests */ = {
@@ -957,17 +790,17 @@
 			);
 			name = "Pods-MTLImage_Tests";
 			productName = "Pods-MTLImage_Tests";
-			productReference = DC9E56F4F2FEE076EBBCA4BA98F6AA0E /* Pods_MTLImage_Tests.framework */;
+			productReference = 4F5955EF88DB85A4437B2EEE3A4AEE4B /* Pods_MTLImage_Tests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		AC3901935E28E39A60BE2C3BB79877AE /* MTLImage */ = {
+		CA754A0DD89E799F5D0A4D6CC20A46CD /* MTLImage */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BC5DD09AB5373A1A83C9DE22CDF04AF4 /* Build configuration list for PBXNativeTarget "MTLImage" */;
+			buildConfigurationList = 33620630FFEC0CF980C2933CC9A5DA69 /* Build configuration list for PBXNativeTarget "MTLImage" */;
 			buildPhases = (
-				F16B64DBD15ED75A711E2433532EE6A4 /* Sources */,
-				57A0387D761D9B29607C4E1A89C33CFC /* Frameworks */,
-				0A51626436BA8CFFD5AB46F765056A17 /* Resources */,
-				45F2DC27E258B2D036198C9F4AE98BBA /* Headers */,
+				DBDF02DE729B67865C41DE12D19C961A /* Sources */,
+				1012D91AA831BCD6D9AB5E9234F4F8DE /* Frameworks */,
+				2C6619323DFF16E974D75C1FB2EE0A8E /* Resources */,
+				D948CAC9F6644C65C36E479E2A6038FE /* Headers */,
 			);
 			buildRules = (
 			);
@@ -975,7 +808,7 @@
 			);
 			name = MTLImage;
 			productName = MTLImage;
-			productReference = D94BDC8B4D192A24863C77E06612BA50 /* MTLImage.framework */;
+			productReference = 5378950414C4185A8D302D444AFC1DF8 /* MTLImage.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -987,16 +820,13 @@
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
-					2A7AA71ED7509B2DA07ED876539A7226 = {
-						LastSwiftMigration = 0800;
-					};
-					7C34CACB4CD0E72C05D29F77688B79E0 = {
+					7FC2F36EB743734392660D641F7BA61A = {
 						LastSwiftMigration = 0800;
 					};
 					94C97C3AEFC7C60FC4ACE73A9D6739F5 = {
 						LastSwiftMigration = 0800;
 					};
-					AC3901935E28E39A60BE2C3BB79877AE = {
+					CA754A0DD89E799F5D0A4D6CC20A46CD = {
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -1009,129 +839,37 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 31A1A1831657FB4251D5E146A8D020C3 /* Products */;
+			productRefGroup = 8EA52D1C81D807617C7AD223A6C9F6DB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AC3901935E28E39A60BE2C3BB79877AE /* MTLImage */,
-				7C34CACB4CD0E72C05D29F77688B79E0 /* MTLImage.default-MachineLearning */,
-				2A7AA71ED7509B2DA07ED876539A7226 /* Pods-MTLImage_Example */,
+				CA754A0DD89E799F5D0A4D6CC20A46CD /* MTLImage */,
+				7FC2F36EB743734392660D641F7BA61A /* Pods-MTLImage_Example */,
 				94C97C3AEFC7C60FC4ACE73A9D6739F5 /* Pods-MTLImage_Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0A51626436BA8CFFD5AB46F765056A17 /* Resources */ = {
+		2C6619323DFF16E974D75C1FB2EE0A8E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE6314A2D90535A4580C589983767D54 /* default.metallib in Resources */,
-				CE6314A2D90535A4580C589983767D54 /* default.metallib in Resources */,
-				5FC5C9798292A9B81CA5820D50C2090D /* images.xcassets in Resources */,
-				FD117911EED3F434A1E129CD73C6C29A /* MTLImage.xcdatamodeld in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83B13514ED70E1235B423AA14ED81280 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F89D1B6DB05C9B3252654F7A8254AA9E /* default.metallib in Resources */,
-				F89D1B6DB05C9B3252654F7A8254AA9E /* default.metallib in Resources */,
-				4B421F97B450E6ABF5E543BDC216AE9A /* images.xcassets in Resources */,
-				FE1989EAE72401FC24C3521671B274A5 /* MTLImage.xcdatamodeld in Resources */,
+				8B5BF7503F990B75B48A6BBDBD0A6B02 /* default.metallib in Resources */,
+				8B5BF7503F990B75B48A6BBDBD0A6B02 /* default.metallib in Resources */,
+				836734D841FDF4415C6B5D6AE6010C7E /* images.xcassets in Resources */,
+				C38E6762C4672B82D8745EE8A11FA443 /* MTLImage.xcdatamodeld in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2C1CD2B4C0E01D836C8D1DE1F4346A34 /* Sources */ = {
+		68E4A346EAF95DD43DDEA8749F8492A9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9634AF9AB9AA11948384E0D0A697B81 /* MTLBlendFilter.swift in Sources */,
-				42AB825DCBC715EA17C0BB88F9F84C51 /* MTLBoxBlurFilter.swift in Sources */,
-				65D0A7BE03BA2F6D1B103EAE28FA1056 /* MTLBrightnessFilter.swift in Sources */,
-				82E9D2CB418718DD6ECD1D80A38F7D2F /* MTLCamera.swift in Sources */,
-				7614D110F8BF0736E01EAAC69DC166C3 /* MTLCannyEdgeDetectionFilterGroup.swift in Sources */,
-				4C2CF863FBE85A3E0141E89107CB2EAF /* MTLCloudKitManager.swift in Sources */,
-				6E47AA57BC77E26A332A5E4A3F2B3D34 /* MTLColorSelectionFilter.swift in Sources */,
-				84246943DFC82F49C6726295DEA7DCD2 /* MTLContext.swift in Sources */,
-				8070E1E374ACA0E2BA384084FD80A91E /* MTLContrastFilter.swift in Sources */,
-				1C5F9439BEDCA81AE05AB3A54B07703B /* MTLConvolutionFilter.swift in Sources */,
-				26F842CE5F8B085A61FFB6745A7CAD4A /* MTLCropFilter.swift in Sources */,
-				73791EB16C57925796D77417AE2C4010 /* MTLCrossHatchFilter.swift in Sources */,
-				299ED9A1B4F098AAEC18A1CC273652FD /* MTLDataManager.swift in Sources */,
-				A3C9285F7CF09B2E92B6761F21D3B5B2 /* MTLDilateFilter.swift in Sources */,
-				698FF9FC21D8C376B59CDF22C94EA41B /* MTLDistortionFilter.swift in Sources */,
-				57B92E1B1E9F3FBC2DC906C7169BBBC6 /* MTLEmbossFilter.swift in Sources */,
-				38EF416BE680341DECEE5B734DCEC4D6 /* MTLExposureFilter.swift in Sources */,
-				0342B2F2CEAE4E90D314A494A41D9007 /* MTLFeedForwardNeuralNetwork.swift in Sources */,
-				5B28AB1462384E46ECAAA571BE5E581F /* MTLFilter.swift in Sources */,
-				F43496C815EAB836F4A239BC32E63F57 /* MTLFilterGroup.swift in Sources */,
-				5A46445AC23136577E27BFF921B3A49F /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */,
-				4C2C685680E96D86F41AEB6FC0179340 /* MTLFilterGroupRecord.swift in Sources */,
-				95466F01C32C1B4E0228F984F256DE95 /* MTLFilterRecord+CoreDataProperties.swift in Sources */,
-				A2636789ABBBB564ADA2E8187A5FE5E9 /* MTLFilterRecord.swift in Sources */,
-				B13F14789ED8FA743BC87DE1609EA364 /* MTLGaussianBlurFilter.swift in Sources */,
-				9EB974F0B59DB8B701107E4D3C90BC9F /* MTLGaussianBlurFilter1.swift in Sources */,
-				01A0212838EA235CB5994A6FA2428B04 /* MTLHarrisCornerDetection.swift in Sources */,
-				EA5F6C1785687F8B1684405279FCB0BE /* MTLHazeFilter.swift in Sources */,
-				F29790840BD77616531E6B4E08409ADF /* MTLHighlightShadowFilter.swift in Sources */,
-				6C5737D729162FA7E0AF3CF3E7DB5D57 /* MTLHistogramFilter.swift in Sources */,
-				EE1BCCD3836507A16A6BBAED1A477C4E /* MTLHistogramFilter1.swift in Sources */,
-				70B19145DB65EC33CAE53DB409E13988 /* MTLHoughLineDetection.swift in Sources */,
-				D9BB7591DC49DFDA1E097585619C8A09 /* MTLHSVFilter.swift in Sources */,
-				3A8EDD5A0A0EADAB58BFA489658CBE8E /* MTLHueFilter.swift in Sources */,
-				FABE0E0361FA4C06476461F4EAC496E4 /* MTLImage.default-MachineLearning-dummy.m in Sources */,
-				4BA0D2BE14E65D901F54E9247F03FB3F /* MTLImage.swift in Sources */,
-				344FACB4AFBD463E2AA2D1F3C064FFAC /* MTLInvertFilter.swift in Sources */,
-				A7F6A17D0CF795066F8C864795E08390 /* MTLKuwaharaFilter.swift in Sources */,
-				BD3DFE6D0FADE33791B73C052107C7E1 /* MTLLanczosScaleFilter.swift in Sources */,
-				FD8A985C30EFF45FE6430C0D4366EDF9 /* MTLLevelsFilter.swift in Sources */,
-				1A02B2A8ABDDE21B58E9C44D716FF648 /* MTLLineDetectionFilter.swift in Sources */,
-				C2E6F20496290E40206F84DF68754AD1 /* MTLLuminanceThresholdFilter.swift in Sources */,
-				B3F64DD56FD1F6F923B2D07E8045C775 /* MTLMaskFilter.swift in Sources */,
-				C682DA2547B8E736D52B46A109211B31 /* MTLMatrix.swift in Sources */,
-				F35410B3C86BC03D2109535EABF78247 /* MTLMosaicFilter.swift in Sources */,
-				9468CF0B0C8B4A1B6112234E91D6E7A7 /* MTLMPSFilter.swift in Sources */,
-				89D9E27BFB964A18C357647301AEA003 /* MTLNonMaximumSuppressionFilter.swift in Sources */,
-				E978B4217A45F985994AABEBD5A4C4C3 /* MTLObject.swift in Sources */,
-				C4736E5E4E9DFFC553D1A3856E6C6AE3 /* MTLOilPaintFilter.swift in Sources */,
-				AE4223E37F45B8DB8358F85963614B12 /* MTLPerlinNoiseFilter.swift in Sources */,
-				4688EBD90F67A36B0314BFB5100030B3 /* MTLPicture.swift in Sources */,
-				036F1AEE6CEC2E2FF163927860BB95F1 /* MTLPixellateFilter.swift in Sources */,
-				2ECB42BAAA7930516A6F575BB4C0382A /* MTLPolkaDotFilter.swift in Sources */,
-				49BCEC33A84BCD1D0382E24ABBF9AC96 /* MTLProperty.swift in Sources */,
-				2B1E438E0997DDCD2ADF37E09B39F2B1 /* MTLPropertyRecord+CoreDataProperties.swift in Sources */,
-				AEFA98DEA01403D6017B1E75C7805A22 /* MTLPropertyRecord.swift in Sources */,
-				96C54F8572231A2F3401EA714C99E638 /* MTLSaturationFilter.swift in Sources */,
-				90C09DA172B9EE9B20EE85FE73C9D2A5 /* MTLScatterFilter.swift in Sources */,
-				FDF6D7B4BC359743F2538B6090A753A6 /* MTLSelectiveHSLFilter.swift in Sources */,
-				6D20968AA5E346B2245113126382EC08 /* MTLSelectiveHSLFilter1.swift in Sources */,
-				9FEC3F15C85275E8C8C89AD77A9FE28D /* MTLSharpenFilter.swift in Sources */,
-				8E03BA6945227BC0CD7DA4C24DB161A3 /* MTLSketchFilter.swift in Sources */,
-				876C8271F26E0215E7AFD5D48EED628A /* MTLSmudgeFilter.swift in Sources */,
-				5DF41DF0A59962125D5F0F84239FC423 /* MTLSobelEdgeDetectionFilter.swift in Sources */,
-				B4091555C9CE50EB94AAB3F1792527DF /* MTLSobelEdgeDetectionThresholdFilter.swift in Sources */,
-				EDF92CC869DB6A685034156AB8B42212 /* MTLTentFilter.swift in Sources */,
-				EE2360AD3B199DFDEC0121482B61054B /* MTLToneCurveFilter.swift in Sources */,
-				D61CA2CAD7CC023B8D4BAB9019777222 /* MTLToonFilter.swift in Sources */,
-				7EF82702453729E9B3DEFCDC81529025 /* MTLTransformFilter.swift in Sources */,
-				2B90C7E0CF06BC8A30CDDE095216AA90 /* MTLTypes.swift in Sources */,
-				743B41F243F2E02F6386BDCD13209EC7 /* MTLUnsharpMaskFilter.swift in Sources */,
-				E90C58EEE6BE9B6CA65B7F820EF787C5 /* MTLView.swift in Sources */,
-				A2773061C44C23EB1905F5C98CF5991D /* MTLVignetteFilter.swift in Sources */,
-				29CBC10FEB3332F735B7FFD7283339FD /* MTLWaterFilter.swift in Sources */,
-				773F54B91B2BE7978436ACC6AD7765FA /* MTLWeakPixelInclusionFilter.swift in Sources */,
-				B9E381BD3FAC39569457D4DD0D91AC56 /* MTLWhiteBalanceFilter.swift in Sources */,
-				00CAB1F0BB605732A2BB50F6083F97FF /* MTLXYDerivativeFilter.swift in Sources */,
-				9CD2DC5984CAD147790439A30A08DC3B /* TemplateFilter.swift in Sources */,
-				F869C52CD3E68A5F9AFA7BDBFF422A69 /* Tools.swift in Sources */,
-				70A8CA3E9D2659C65C88A63B61FDD687 /* UIImage+MTLTexture.swift in Sources */,
-				226D15AC0850FAF1C665D76F3B48A386 /* UIImage+Scale.swift in Sources */,
+				2495514D2733229E4C0407AA13BF77C9 /* Pods-MTLImage_Example-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1143,98 +881,91 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F16B64DBD15ED75A711E2433532EE6A4 /* Sources */ = {
+		DBDF02DE729B67865C41DE12D19C961A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DD9193891F1847CB66653407623FDF6 /* MTLBlendFilter.swift in Sources */,
-				EB69E8954CCD96A9BEC485AFD986798F /* MTLBoxBlurFilter.swift in Sources */,
-				477EE5E3AC628A1C5FCB4AA543E86E82 /* MTLBrightnessFilter.swift in Sources */,
-				6081F436E0CA67784669CD08729312EC /* MTLCamera.swift in Sources */,
-				E5CB8BF161A795B7EFE824F5547C355A /* MTLCannyEdgeDetectionFilterGroup.swift in Sources */,
-				75459651DB3CB7C59194029DB6537756 /* MTLCloudKitManager.swift in Sources */,
-				CE980B7D8C0BF4D3FAD2B23308835CE3 /* MTLColorSelectionFilter.swift in Sources */,
-				42344441B4FD0791CB46ACA512FB8ABC /* MTLContext.swift in Sources */,
-				EB39C4EBF8EC95974762AEB143BF6EAB /* MTLContrastFilter.swift in Sources */,
-				5D8F460404C30D6B3F9BAB0E24796E73 /* MTLConvolutionFilter.swift in Sources */,
-				8978F3AA5480F859B74F373CA3A17918 /* MTLCropFilter.swift in Sources */,
-				04F3B67085E63298AA7632A81245AA85 /* MTLCrossHatchFilter.swift in Sources */,
-				910BB50D41CDFB5BC0930E94553E417A /* MTLDataManager.swift in Sources */,
-				3E361E5510D138EB3AF108E1F69D296C /* MTLDilateFilter.swift in Sources */,
-				3CFC41817D2AD1129F0CD287E7775F10 /* MTLDistortionFilter.swift in Sources */,
-				A4444E1BAE28B3412A5F1546EFB61295 /* MTLEmbossFilter.swift in Sources */,
-				CA931CA99171102D447B79E0FE86FA88 /* MTLExposureFilter.swift in Sources */,
-				68CFD09FF34D7EECFEE0E2C22742B18B /* MTLFilter.swift in Sources */,
-				61CBECEBFC2902540FB31B41D51BD5C4 /* MTLFilterGroup.swift in Sources */,
-				23C1BC24E7BD026DBCEE8D3A47DB35AF /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */,
-				94220701DD7EDA4850D24EA9D6E270D6 /* MTLFilterGroupRecord.swift in Sources */,
-				6A1028D4F291A6D6ABD90BB0D3E047FC /* MTLFilterRecord+CoreDataProperties.swift in Sources */,
-				C94FE58E8F711858F223536E4F24A819 /* MTLFilterRecord.swift in Sources */,
-				1BBA17E7F16AD3E1DB03558AE1A3B8A3 /* MTLGaussianBlurFilter.swift in Sources */,
-				9047DF72E960FD7483269D196762401B /* MTLGaussianBlurFilter1.swift in Sources */,
-				F7D4B3120693A92D47BE49274FE22D3E /* MTLHarrisCornerDetection.swift in Sources */,
-				C8887CE551AE27C5B39B413E0B39C467 /* MTLHazeFilter.swift in Sources */,
-				36BCF2195C3DC5C1EF24A519FB952C7F /* MTLHighlightShadowFilter.swift in Sources */,
-				D089092199DCFB3C04029EE364E6174C /* MTLHistogramFilter.swift in Sources */,
-				3955FC4AB8A01364F6C66875DD8CB339 /* MTLHistogramFilter1.swift in Sources */,
-				37DE5DD7EA6638B345DD78A3935BE1BD /* MTLHoughLineDetection.swift in Sources */,
-				4737AF5790C9E7336BCB45C95C0E996F /* MTLHSVFilter.swift in Sources */,
-				939BAE6213B49C70533DCE55A1AF53C0 /* MTLHueFilter.swift in Sources */,
-				A684B58A4F5AF9935E6DEB00411563D8 /* MTLImage-dummy.m in Sources */,
-				BA646D07643340CBDF18054206AB40D5 /* MTLImage.swift in Sources */,
-				13135B3D744F0CABE9DBACEB2D7EEF89 /* MTLInvertFilter.swift in Sources */,
-				A50E9059650351A05C83092BDEB7A898 /* MTLKuwaharaFilter.swift in Sources */,
-				1F540EDF6EA2146E6C54441728359430 /* MTLLanczosScaleFilter.swift in Sources */,
-				C05B01D57B188B60BE2174C99DC97F95 /* MTLLevelsFilter.swift in Sources */,
-				34A329977B29A3D15FAE4C80E7858176 /* MTLLineDetectionFilter.swift in Sources */,
-				C6CB6D726A28039DE18B34D16FF3C0CC /* MTLLuminanceThresholdFilter.swift in Sources */,
-				16A6F43BD82339DC904C3003FDB63335 /* MTLMaskFilter.swift in Sources */,
-				394D04EFF50E0401E7BD104A977B4A25 /* MTLMatrix.swift in Sources */,
-				84916B467906C6583F6099D94E51D0BF /* MTLMosaicFilter.swift in Sources */,
-				8A19D7E3FD375950447C250A3868F40C /* MTLMPSFilter.swift in Sources */,
-				83654CA5B70EAA6CB3C2A7E571950654 /* MTLNonMaximumSuppressionFilter.swift in Sources */,
-				2764084F1370ACA79697A0A7106A3F53 /* MTLObject.swift in Sources */,
-				F9CB08A78BD9E427E4FB3EB32806195E /* MTLOilPaintFilter.swift in Sources */,
-				048F4174B18FAE4A0B8C6232CE390488 /* MTLPerlinNoiseFilter.swift in Sources */,
-				B329F983F13C0E9D2F5614F1EC13356E /* MTLPicture.swift in Sources */,
-				D7FC3C8012866839EC3EEFE43E4607D1 /* MTLPixellateFilter.swift in Sources */,
-				C1346F47A1ACB99D590C959858B1CFD5 /* MTLPolkaDotFilter.swift in Sources */,
-				43AAA5B2D4C46E809C9E6C9578193810 /* MTLProperty.swift in Sources */,
-				DFB60787EDD208D6B908AC596CF9CB14 /* MTLPropertyRecord+CoreDataProperties.swift in Sources */,
-				7B9749FB382032349BDE9DAAA91A84AE /* MTLPropertyRecord.swift in Sources */,
-				5580F65098374F5BE66627A6E2070CAC /* MTLSaturationFilter.swift in Sources */,
-				70A091018E541D6FBC2A6617A00DCEC6 /* MTLScatterFilter.swift in Sources */,
-				75DFB7C9FC4E3AAAFD57C4CA07641265 /* MTLSelectiveHSLFilter.swift in Sources */,
-				E5D8BA572B030BF0F2A6A8B0FA4EEB4C /* MTLSelectiveHSLFilter1.swift in Sources */,
-				63EA8A1CAB15F8D66001B6EC3B483514 /* MTLSharpenFilter.swift in Sources */,
-				4E0FD1C86FA056774B07A3770BDB8DB5 /* MTLSketchFilter.swift in Sources */,
-				C9E4E77F28A9C5A9064BA2560E640734 /* MTLSmudgeFilter.swift in Sources */,
-				D6F021E76B6EE349D2E906A4867165F6 /* MTLSobelEdgeDetectionFilter.swift in Sources */,
-				3A4BAFA613CF3DCBA2201DD351AD78BE /* MTLSobelEdgeDetectionThresholdFilter.swift in Sources */,
-				17B070698BE56D7E979C43C5ED548E1E /* MTLTentFilter.swift in Sources */,
-				ABCDE662DF0DFD1866741F111C04EAD8 /* MTLToneCurveFilter.swift in Sources */,
-				6FB6195697F62547D67C3412776A9F38 /* MTLToonFilter.swift in Sources */,
-				C7411F184C79D93D82EF10D9C42C1115 /* MTLTransformFilter.swift in Sources */,
-				DFB4FCCF7085265236E3CB08A5B02879 /* MTLTypes.swift in Sources */,
-				1AB3466065A2E019688506C831874997 /* MTLUnsharpMaskFilter.swift in Sources */,
-				2800BE730678A0AD58FA558470524038 /* MTLView.swift in Sources */,
-				147D2A10622659F6DC009A6394A8C3FB /* MTLVignetteFilter.swift in Sources */,
-				2BA751191E406CD098B0DA35359151A7 /* MTLWaterFilter.swift in Sources */,
-				4F4FAE81492052481935640F19C6DB78 /* MTLWeakPixelInclusionFilter.swift in Sources */,
-				337B88251CE6A646954BD57A63C8AB29 /* MTLWhiteBalanceFilter.swift in Sources */,
-				7E45D1884475E8C6A6A2CFBEE3ED8B6E /* MTLXYDerivativeFilter.swift in Sources */,
-				60CA2EA2A99E38E4359902EBDA701549 /* TemplateFilter.swift in Sources */,
-				B846816DDDC9A94EF67798612D5BAE51 /* Tools.swift in Sources */,
-				3DEDD10FD347D4D692EEEFA72176CDDE /* UIImage+MTLTexture.swift in Sources */,
-				B4B16CF0892AFA39DCDB12BFCD8075D2 /* UIImage+Scale.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F80619DA179C3DC986352577332C086A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CF949D025AB97D0718942EC333A572E0 /* Pods-MTLImage_Example-dummy.m in Sources */,
+				E4639B65D48A11FAFE1AE5F109E2A379 /* MTLBlendFilter.swift in Sources */,
+				79F68EBC59706D1AF1822605C2299198 /* MTLBoxBlurFilter.swift in Sources */,
+				FACB4C5947D5EC3CC9769C9378E48E5F /* MTLBrightnessFilter.swift in Sources */,
+				13C183678FBA9C257D5F193BC044A5D4 /* MTLCamera.swift in Sources */,
+				D8DA01A89FC01C42DDF62A1D25295677 /* MTLCannyEdgeDetectionFilterGroup.swift in Sources */,
+				5DC9AB047D2CDFF2EF3EAC9902185F98 /* MTLCloudKitManager.swift in Sources */,
+				03C206F1C6C6F7F4DA7309D38F6FEA4F /* MTLColorSelectionFilter.swift in Sources */,
+				8B2A4A342832B5B3B82D3E684FD77BA8 /* MTLContext.swift in Sources */,
+				27666F9FB354FD8C3C53884F1533370F /* MTLContrastFilter.swift in Sources */,
+				5F73F9CB013A8D018CB7C7D975290762 /* MTLConvolutionFilter.swift in Sources */,
+				C82A6A2CC0CC303F02902C46E0ABD005 /* MTLCropFilter.swift in Sources */,
+				95A544DD5A927F8089BE5F60393950AD /* MTLCrossHatchFilter.swift in Sources */,
+				52DD45D10CD277E7EB83FE1478903512 /* MTLDataManager.swift in Sources */,
+				7549EAC73B295F7E4AE451A03FE5C7DE /* MTLDilateFilter.swift in Sources */,
+				E4598F8DCC0F94BD0FB9ACCC19C4B030 /* MTLDistortionFilter.swift in Sources */,
+				AD292024BCAEB52D8E981C657BF7C2F8 /* MTLEmbossFilter.swift in Sources */,
+				084D55381BF001717177F62718E72A68 /* MTLExposureFilter.swift in Sources */,
+				8E3A2017E4771B6CF8BF193A141BE201 /* MTLFilter.swift in Sources */,
+				B3F65C486589FD13ECBE7BDE8EEE3CF3 /* MTLFilterGroup.swift in Sources */,
+				EE18AFE98549327714E3B1256772C559 /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */,
+				39C26EE155CA99425BE5C889B8E3A450 /* MTLFilterGroupRecord.swift in Sources */,
+				C23EEA2B868E347CEC2690FDF23140AB /* MTLFilterRecord+CoreDataProperties.swift in Sources */,
+				7719EC6594B0815C15CF06F5A376901F /* MTLFilterRecord.swift in Sources */,
+				4A01C2183270C4B679913305F74A6473 /* MTLGaussianBlurFilter.swift in Sources */,
+				5487F84061D3EFA234B8F8940FBFF84D /* MTLGaussianBlurFilter1.swift in Sources */,
+				BA7C06F80F64CA65071BF66E51D8F19F /* MTLHarrisCornerDetection.swift in Sources */,
+				BC29F28B29D26F7D37C406C3F163EEB0 /* MTLHazeFilter.swift in Sources */,
+				02B4DE5F650586C5D3ABCD08F94B350B /* MTLHighlightShadowFilter.swift in Sources */,
+				88DCE6232356832E2A14FB57DB8B6A47 /* MTLHistogramFilter.swift in Sources */,
+				8F88071F929F5AA4DA7A925D5502E1DF /* MTLHistogramFilter1.swift in Sources */,
+				417DBF89F144A99B235C75E32F034058 /* MTLHoughLineDetection.swift in Sources */,
+				B9E68572A1404067C1C3CA232D0E9862 /* MTLHSVFilter.swift in Sources */,
+				938C6881CF0C29B412FC3F18D0828EF6 /* MTLHueFilter.swift in Sources */,
+				936E49053F6A888552FD2592C2FCB8C4 /* MTLImage-dummy.m in Sources */,
+				E9729D877ADAEDEFDAE293511AD942D2 /* MTLImage.swift in Sources */,
+				4482891749DF994FD7E6CE597292FEA3 /* MTLInvertFilter.swift in Sources */,
+				FDD2059EB522F24BE62D283F06CF2B93 /* MTLKuwaharaFilter.swift in Sources */,
+				8EACB674723C003376037B5BCDEA9618 /* MTLLanczosScaleFilter.swift in Sources */,
+				94DF7E789B7BDE0D7F1FF26C975BFCC6 /* MTLLensFlareFilter.swift in Sources */,
+				CE2EB0906A4866CF25F767C1186F7FB7 /* MTLLevelsFilter.swift in Sources */,
+				72D5C43213537E3D97181E1D1752018B /* MTLLineDetectionFilter.swift in Sources */,
+				A8638EB531C7AA3E9C3CFBCBA29780DF /* MTLLuminanceThresholdFilter.swift in Sources */,
+				E8A2DEA947B9D0E9F495F4A529241262 /* MTLMaskFilter.swift in Sources */,
+				2955476C2628C06ACB4CC0D0B4F1507E /* MTLMatrix.swift in Sources */,
+				4D1FF216F78060CC5A5385AB9AF6A281 /* MTLMosaicFilter.swift in Sources */,
+				3C635CB64BCC5CBC40C9E6BDB3AF53D4 /* MTLMPSFilter.swift in Sources */,
+				56817DC42F2659AE0E4FB52EAFBAA09E /* MTLNonMaximumSuppressionFilter.swift in Sources */,
+				FB8C6AF2A3877E5632010FC58595ACFA /* MTLObject.swift in Sources */,
+				900F03D0529140D7BD2761E11367D153 /* MTLOilPaintFilter.swift in Sources */,
+				B363E853D83479724EC4FBB77DCF9D48 /* MTLPerlinNoiseFilter.swift in Sources */,
+				2C24C0E360B6787D7F40DE1E4208C716 /* MTLPicture.swift in Sources */,
+				BC07C073F3A95CA7AEEFFB8CDC61446C /* MTLPixellateFilter.swift in Sources */,
+				DB0DA1EF5B8DDCAD11FD5BD9D3A6D019 /* MTLPolkaDotFilter.swift in Sources */,
+				C06F0A0B840212252948122B7A1C900A /* MTLProperty.swift in Sources */,
+				0ABC01EE22A52A9A17B955A29D6D403C /* MTLPropertyRecord+CoreDataProperties.swift in Sources */,
+				0BB35BDF0D94C2EEF87FBEDEE88F5B17 /* MTLPropertyRecord.swift in Sources */,
+				B0093EFC370831D89DF6ABC2C170E894 /* MTLSaturationFilter.swift in Sources */,
+				3E2B4EF157DE769B055F8D8E3583A4D3 /* MTLScatterFilter.swift in Sources */,
+				66690E6DF2DE826CA78EBE8776384F43 /* MTLSelectiveHSLFilter.swift in Sources */,
+				F2639AB8DF41804C48CF9206AFFDCB4A /* MTLSelectiveHSLFilter1.swift in Sources */,
+				28FF73B8457A177193EFE85A5E3AFD91 /* MTLSharpenFilter.swift in Sources */,
+				09CAA863C80B372664858483EAF683DA /* MTLSketchFilter.swift in Sources */,
+				AF113D7ABAA375465B1B4AA70270F7DC /* MTLSmudgeFilter.swift in Sources */,
+				B35C8F4BA2A8BE253A64E59B7809C8F5 /* MTLSobelEdgeDetectionFilter.swift in Sources */,
+				8C69799833CF23C9EE0EC3D184E34EBA /* MTLSobelEdgeDetectionThresholdFilter.swift in Sources */,
+				AA8738CBA40F3CE65C728693589186E3 /* MTLTentFilter.swift in Sources */,
+				550BE0071432934C170A5CA5DA702444 /* MTLToneCurveFilter.swift in Sources */,
+				CDBA48DDBF0F5C34C566897DA61E3EAD /* MTLToonFilter.swift in Sources */,
+				582AD356ECDE67FBFAD74AA64C5B3071 /* MTLTransformFilter.swift in Sources */,
+				70D54379B7CFF71E6F5A8F6764246E2C /* MTLTypes.swift in Sources */,
+				06F3C27050999FDCCA3A7FFF17EE3FA6 /* MTLUnsharpMaskFilter.swift in Sources */,
+				4B47814570706594D56281ABFFF40464 /* MTLView.swift in Sources */,
+				7C324260C2E60CE40CB413839A88BF0D /* MTLVignetteFilter.swift in Sources */,
+				FAE8B59FB4ADB839392BAEA8D85948DA /* MTLWaterFilter.swift in Sources */,
+				1D82BD9501C6436FAB504B13B2AA1370 /* MTLWeakPixelInclusionFilter.swift in Sources */,
+				C76252E93B6AEA9365567CF29A4E83AA /* MTLWhiteBalanceFilter.swift in Sources */,
+				3D2679902E6A317983EAF6A0CAD6F48B /* MTLXYDerivativeFilter.swift in Sources */,
+				FA51F49077D608CB2038DC53F1453EF6 /* TemplateFilter.swift in Sources */,
+				D50EDC377EA8A635A58F8B488FA939A1 /* Tools.swift in Sources */,
+				C5E15D39F8F1E59CC7E4C041A93D9984 /* UIImage+MTLTexture.swift in Sources */,
+				D1BA3E99C292B2F22FE3D4E1F44E4B2B /* UIImage+Scale.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1244,25 +975,25 @@
 		5FC2134ADD3C73F72C79DC4D5FC25168 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MTLImage;
-			target = AC3901935E28E39A60BE2C3BB79877AE /* MTLImage */;
+			target = CA754A0DD89E799F5D0A4D6CC20A46CD /* MTLImage */;
 			targetProxy = 2A4AE885E9341189D9CED293CFAEE37F /* PBXContainerItemProxy */;
 		};
-		CDD7D4956BAC86F3D29FD15ABD6E8B5A /* PBXTargetDependency */ = {
+		E0BE0EA17DE46CBF6F6926A351CCDB1A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "MTLImage.default-MachineLearning";
-			target = 7C34CACB4CD0E72C05D29F77688B79E0 /* MTLImage.default-MachineLearning */;
-			targetProxy = B42043826569CA973948BBA15FE9E46C /* PBXContainerItemProxy */;
+			name = MTLImage;
+			target = CA754A0DD89E799F5D0A4D6CC20A46CD /* MTLImage */;
+			targetProxy = 73731656378702D820A3D0C2030FCCD6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		339F59A3E5086A612A105C3133AADE40 /* Release */ = {
+		12810B491180E7A7843847E6BE103605 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A8F00A22AD9EAB104F13731323A4BACD /* Pods-MTLImage_Example.release.xcconfig */;
+			baseConfigurationReference = 22D8BAEC594D5A75040BC51C31CE8D65 /* Pods-MTLImage_Example.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1275,7 +1006,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -1283,12 +1014,13 @@
 				PRODUCT_NAME = Pods_MTLImage_Example;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		42287DDF97330524BA3EF220F0276DA6 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1362,9 +1094,9 @@
 			};
 			name = Release;
 		};
-		6A552DC0179842FEFF84F31F9D354BD5 /* Release */ = {
+		7AC7D6FFA78D2DC82012E007443C4871 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24D3EF6DF58C2C62F5989BB3DB2E3958 /* MTLImage.default-MachineLearning.xcconfig */;
+			baseConfigurationReference = A8F00A22AD9EAB104F13731323A4BACD /* Pods-MTLImage_Example.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -1375,14 +1107,18 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MTLImage.default-MachineLearning/MTLImage.default-MachineLearning-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MTLImage.default-MachineLearning/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-MTLImage_Example/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/MTLImage.default-MachineLearning/MTLImage.default-MachineLearning.modulemap";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = MTLImage;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_MTLImage_Example;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -1392,9 +1128,9 @@
 			};
 			name = Release;
 		};
-		7B06EC0E7DB5487C64CFBC41BC44D254 /* Debug */ = {
+		9C2BF5DC0A592181056210241938C571 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A1362A67D9A2C72D5AA130A89D088E2 /* MTLImage.xcconfig */;
+			baseConfigurationReference = 8C4DD26A47CB8B76FAAA5619E37DA8A6 /* MTLImage.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -1500,40 +1236,9 @@
 			};
 			name = Debug;
 		};
-		AFB0282C3E43B5FAECDEA7BCA2E20FD8 /* Debug */ = {
+		B34423DAA07633AD59B4EB1D9D3D1B10 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24D3EF6DF58C2C62F5989BB3DB2E3958 /* MTLImage.default-MachineLearning.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MTLImage.default-MachineLearning/MTLImage.default-MachineLearning-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MTLImage.default-MachineLearning/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/MTLImage.default-MachineLearning/MTLImage.default-MachineLearning.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = MTLImage;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		B3580C4B4B188FD76B99D4731CF04B0F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A1362A67D9A2C72D5AA130A89D088E2 /* MTLImage.xcconfig */;
+			baseConfigurationReference = 8C4DD26A47CB8B76FAAA5619E37DA8A6 /* MTLImage.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -1561,41 +1266,6 @@
 			};
 			name = Release;
 		};
-		E3D8CC25D62DD521A3359F7E703C9218 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22D8BAEC594D5A75040BC51C31CE8D65 /* Pods-MTLImage_Example.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-MTLImage_Example/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_MTLImage_Example;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1608,20 +1278,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4B04C4EAAAB0BFD1FFFF7E2D960E034A /* Build configuration list for PBXNativeTarget "MTLImage.default-MachineLearning" */ = {
+		33620630FFEC0CF980C2933CC9A5DA69 /* Build configuration list for PBXNativeTarget "MTLImage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AFB0282C3E43B5FAECDEA7BCA2E20FD8 /* Debug */,
-				6A552DC0179842FEFF84F31F9D354BD5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5A2AAFE73CAB6B994A11B8C3DDDC6E83 /* Build configuration list for PBXNativeTarget "Pods-MTLImage_Example" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E3D8CC25D62DD521A3359F7E703C9218 /* Debug */,
-				339F59A3E5086A612A105C3133AADE40 /* Release */,
+				9C2BF5DC0A592181056210241938C571 /* Debug */,
+				B34423DAA07633AD59B4EB1D9D3D1B10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1635,11 +1296,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BC5DD09AB5373A1A83C9DE22CDF04AF4 /* Build configuration list for PBXNativeTarget "MTLImage" */ = {
+		F1BD91DC119E988BD730BABDE346B990 /* Build configuration list for PBXNativeTarget "Pods-MTLImage_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7B06EC0E7DB5487C64CFBC41BC44D254 /* Debug */,
-				B3580C4B4B188FD76B99D4731CF04B0F /* Release */,
+				12810B491180E7A7843847E6BE103605 /* Debug */,
+				7AC7D6FFA78D2DC82012E007443C4871 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1647,12 +1308,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		C3865C6E589F7445818C8462B0A6B3EB /* MTLImage.xcdatamodeld */ = {
+		FAF1C21DAA78F4F7B0187E58EA7DE94A /* MTLImage.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				8CD1A77448D3C894E8A7BFC9FC26504B /* MTLImage.xcdatamodel */,
+				5FE3CFFA334713634D92B63977413DDF /* MTLImage.xcdatamodel */,
 			);
-			currentVersion = 8CD1A77448D3C894E8A7BFC9FC26504B /* MTLImage.xcdatamodel */;
+			currentVersion = 5FE3CFFA334713634D92B63977413DDF /* MTLImage.xcdatamodel */;
 			path = MTLImage.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
