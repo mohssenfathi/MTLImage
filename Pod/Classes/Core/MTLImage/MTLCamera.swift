@@ -28,7 +28,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     
     /* Capture a still photo from the capture device. */
 //    TODO: Add intermediate thumbnail captured photo callback
-    public func takePhoto(_ completion:((_ photo: UIImage?, _ error: Error?) -> ())) {
+    public func takePhoto(_ completion:@escaping ((_ photo: UIImage?, _ error: Error?) -> ())) {
         
         self.stillImageOutput.captureStillImageAsynchronously(from: self.stillImageOutput.connection(withMediaType: AVMediaTypeVideo)) { [weak self](sampleBuffer, error) in
 
@@ -68,7 +68,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     }
     
     // Gross, I know
-    func fixOrientationOfImage(_ image: UIImage) -> UIImage? {
+    func fixOrientation(_ image: UIImage) -> UIImage? {
         if image.imageOrientation == .up {
             return image
         }
@@ -358,9 +358,8 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             }
             
             let connection = dataOutput.connection(withMediaType: AVMediaTypeVideo)
-//            connection?.videoOrientation = .portrait
-            
-            // Set flag later to mirror preview when in .Front
+            connection?.videoOrientation = .portrait
+            connection?.isVideoMirrored = (capturePosition == .front)
             
             session.commitConfiguration()
         }
@@ -420,9 +419,9 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     }
     
     func setupPipeline() {
-        kernelFunction = context.library?.newFunction(withName: "camera")
+        kernelFunction = context.library?.makeFunction(name: "camera")
         do {
-            pipeline = try context.device.newComputePipelineState(with: kernelFunction)
+            pipeline = try context.device.makeComputePipelineState(function: kernelFunction)
         } catch {
             print("Failed to create pipeline")
         }
@@ -535,20 +534,20 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         
         if videoTexture == nil { return }
         if internalTexture == nil || internalTexture!.width != videoTexture.width || internalTexture!.height != videoTexture.height {
-            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: videoTexture.pixelFormat, width:videoTexture.width, height: videoTexture.height, mipmapped: false)
-            internalTexture = context.device?.newTexture(with: textureDescriptor)
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: videoTexture.pixelFormat, width:videoTexture.width, height: videoTexture.height, mipmapped: false)
+            internalTexture = context.device?.makeTexture(descriptor: textureDescriptor)
         }
         
         let threadgroupCounts = MTLSizeMake(16, 16, 1)
         let threadgroups = MTLSizeMake(videoTexture.width / threadgroupCounts.width,
                                        videoTexture.height / threadgroupCounts.height, 1)
         
-        let commandBuffer = context.commandQueue.commandBuffer()
+        let commandBuffer = context.commandQueue.makeCommandBuffer()
         commandBuffer.addCompletedHandler { (commandBuffer) in
             self.needsUpdate = false
         }
         
-        let commandEncoder = commandBuffer.computeCommandEncoder()
+        let commandEncoder = commandBuffer.makeComputeCommandEncoder()
         commandEncoder.setComputePipelineState(pipeline)
         
         commandEncoder.setTexture(videoTexture, at: 0)

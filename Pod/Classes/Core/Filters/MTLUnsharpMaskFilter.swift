@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct UnsharpMaskUniforms {
+struct UnsharpMaskUniforms: Uniforms {
     var intensity: Float = 0.5;
 }
 
@@ -50,7 +50,7 @@ class MTLUnsharpMaskFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.intensity = Tools.convert(intensity, oldMin: 0, oldMid: 0.4, oldMax: 1, newMin: 0.5, newMid: 1.0, newMax: 2.3)
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<UnsharpMaskUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {

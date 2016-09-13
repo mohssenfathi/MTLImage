@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct CrossHatchUniforms {
+struct CrossHatchUniforms: Uniforms {
     var crossHatchSpacing: Float = 0.03;
     var lineWidth: Float = 0.003;
 }
@@ -70,6 +70,6 @@ class MTLCrossHatchFilter: MTLFilter {
         uniforms.crossHatchSpacing = Tools.convert(crossHatchSpacing, oldMin: 0, oldMax: 1, newMin: 20.0, newMax: 100.0)
 //        uniforms.lineWidth = Tools.convert(lineWidth, oldMin: 0, oldMax: 1, newMin: 0.001, newMax: 0.008)
         uniforms.lineWidth = Tools.convert(lineWidth, oldMin: 0, oldMax: 1, newMin: 1.0, newMax: 8.0)
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<CrossHatchUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }    
 }

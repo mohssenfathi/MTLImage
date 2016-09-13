@@ -12,77 +12,120 @@ import Metal
 
 extension UIImage {
     
-    class func imageWithTexture(_ texture: MTLTexture) -> UIImage? {
-        
-        let pixelFormat = MTLPixelFormat(rawValue: texture.pixelFormat.rawValue)
-        if pixelFormat != .rgba8Unorm { return nil }
-        
-        let imageSize = CGSize(width: texture.width, height: texture.height)
-        let width:Int = Int(imageSize.width)
-        let height: Int = Int(imageSize.height)
-        
-        let imageByteCount: Int = width * height * 4
-        guard let imageBytes = UnsafeMutableRawPointer(malloc(imageByteCount)) else { return nil }
-        let bytesPerRow = width * 4
-
-        let region: MTLRegion = MTLRegionMake2D(0, 0, width, height)
-        texture.getBytes(imageBytes, bytesPerRow: bytesPerRow, from: region, mipmapLevel: 0)
-        
-        let provider = CGDataProvider(dataInfo: nil, data: imageBytes, size: imageByteCount) { (rawPointer, pointer, i) in
-            
-        }
-    
-        let bitsPerComponent = 8
-        let bitsPerPixel = 32
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue).union(.byteOrder32Big)
-        let renderingIntent = CGColorRenderingIntent.defaultIntent
-        let imageRef = CGImage(width: width, height: height, bitsPerComponent: bitsPerComponent, bitsPerPixel: bitsPerPixel, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo, provider: provider!, decode: nil, shouldInterpolate: false, intent: renderingIntent)
-        
-        let image = UIImage(cgImage: imageRef!, scale: 0.0, orientation: .up)
-        
-//        free(imageBytes)
-        
-        return image;
-    }
-    
     func texture(_ device: MTLDevice) -> MTLTexture? {
         return texture(device, flip: false, size: size)
     }
     
     func texture(_ device: MTLDevice, flip: Bool, size: CGSize) -> MTLTexture? {
     
-        let imageRef = self.cgImage
-
         var width:  Int = Int(size.width)
         var height: Int = Int(size.height)
-    
+
         if width  == 0 { width  = Int(self.size.width ) }
         if height == 0 { height = Int(self.size.height) }
+
+        let bytesPerPixel = 4
+        let bytesPerRow = bytesPerPixel * width
+
+        let (context, cgImage, data) = imageData(with: CGSize(width: width, height: height))
         
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm, width: width, height: height, mipmapped: false)
+        let texture = device.makeTexture(descriptor: textureDescriptor)
+        let region = MTLRegionMake2D(0, 0, width, height)
+        texture.replace(region: region, mipmapLevel: 0, withBytes: data!, bytesPerRow: bytesPerRow)
         
+        free(data)
+        
+        return texture
+    }
+    
+    func rotationAngle(_ orientation: UIImageOrientation) -> CGFloat {
+        
+        var angle: CGFloat = 0.0
+        
+        switch orientation {
+        case .down : angle = 180.0; break
+        case .right: angle = 90.0 ; break
+        case .left : angle = 270.0; break
+        default: break
+        }
+        
+        return CGFloat.pi * angle / 180.0
+    }
+    
+    func imageData(with size: CGSize) -> (CGContext?, CGImage?, UnsafeMutableRawPointer?) {
+    
+        guard let cgImage = cgImage else { return (nil, nil, nil) }
+        
+        var transform: CGAffineTransform = .identity
+    
+        switch (imageOrientation) {
+
+        case .down, .downMirrored:
+            transform = transform.translatedBy(x: size.width, y: size.height)
+            transform = transform.rotated(by: CGFloat.pi)
+            break;
+    
+        case .left, .leftMirrored:
+            transform = transform.translatedBy(x: size.width, y: 0)
+            transform = transform.rotated(by: CGFloat.pi/2.0)
+            break;
+    
+    
+        case .right, .rightMirrored:
+            transform = transform.translatedBy(x: 0, y: size.height)
+            transform = transform.rotated(by: -CGFloat.pi/2.0)
+            break;
+            
+        default: break;
+        }
+
+        
+        switch (imageOrientation) {
+            
+        case .upMirrored, .downMirrored:
+            transform = transform.translatedBy(x: size.width, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+            break;
+            
+        case .leftMirrored, .rightMirrored:
+            transform = transform.translatedBy(x: size.height, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+            break;
+            
+        default: break;
+        }
+
+//        guard let context = CGContext(data: data,
+//                                width: Int(size.width), height: Int(size.height),
+//                                bitsPerComponent: cgImage.bitsPerComponent,
+//                                bytesPerRow: cgImage.bytesPerRow,
+//                                space: cgImage.colorSpace!,
+//                                bitmapInfo: cgImage.bitmapInfo.rawValue) else { return (nil, nil) }
+
+        let width:  Int = Int(size.width)
+        let height: Int = Int(size.height)
         let rawData: UnsafeMutableRawPointer = calloc(height * width * 4, MemoryLayout<Int>.size)
         let bytesPerPixel = 4
         let bytesPerRow = bytesPerPixel * width
         let bitsPerCompoment = 8
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue).union(CGBitmapInfo.byteOrder32Big)
-        let bitmapContext = CGContext(data: rawData, width: width, height: height, bitsPerComponent: bitsPerCompoment, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
-
-        if flip {
-            bitmapContext?.translateBy(x: 0, y: CGFloat(height))
-            bitmapContext?.scaleBy(x: 1, y: -1)
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        guard let context = CGContext(data: rawData, width: width, height: height, bitsPerComponent: bitsPerCompoment,
+                                      bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue) else {
+                                        return (nil, nil, nil)
         }
         
-        bitmapContext?.draw(imageRef!, in: CGRect(x: 0, y: 0, width: CGFloat(width), height: CGFloat(height)))
+        context.concatenate(transform)
+    
         
-        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: .rgba8Unorm, width: width, height: height, mipmapped: false)
-        let texture = device.newTexture(with: textureDescriptor)
-        let region = MTLRegionMake2D(0, 0, width, height)
-        texture.replace(region, mipmapLevel: 0, withBytes: rawData, bytesPerRow: bytesPerRow)
-        
-        free(rawData)
-        
-        return texture
+        switch (self.imageOrientation) {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            context.draw(cgImage, in: CGRect(x: 0, y: 0, width: height, height: width))
+        default:
+            context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
+        }
+
+        return (context, context.makeImage(), rawData)
     }
 }

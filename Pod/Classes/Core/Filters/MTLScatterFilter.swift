@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ScatterUniforms {
+struct ScatterUniforms: Uniforms {
     var radius: Float = 0.5
 }
 
@@ -73,7 +73,7 @@ class MTLScatterFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.radius = radius * 40
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<ScatterUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
     func updateNoiseTexture() {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct LuminanceThresholdUniforms {
+struct LuminanceThresholdUniforms : Uniforms{
     var threshold: Float = 0.5;
 }
 
@@ -39,7 +39,7 @@ class MTLLuminanceThresholdFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.threshold = threshold
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<LuminanceThresholdUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }

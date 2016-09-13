@@ -21,7 +21,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
             guard texture != nil else {
                 return nil
             }
-            return UIImage.imageWithTexture(texture!)
+            return texture!.image()
         }
     }
     
@@ -42,9 +42,11 @@ class MTLFilterGroup: MTLObject, NSCoding {
     }
     
     public func filter(_ image: UIImage) -> UIImage? {
-        let picture = MTLPicture(image: image)
-        picture > self
-        let filteredImage = UIImage.imageWithTexture(texture!)
+        
+        let picture = MTLPicture(image: image.copy() as! UIImage)
+        picture --> self
+        
+        let filteredImage = texture!.image()
         
         picture.removeAllTargets()
                 
@@ -67,7 +69,9 @@ class MTLFilterGroup: MTLObject, NSCoding {
             last.removeAllTargets()
             last.addTarget(filter)
         } else {
+            let currentInput = input
             input?.removeAllTargets() // Might not want to do this
+            input = currentInput
             input?.addTarget(filter)
         }
         
@@ -110,7 +114,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
         filter.removeAllTargets()
         
         for target in targets {
-            input!.addTarget(target)
+            input?.addTarget(target)
         }
 
         filters.removeObject(filter)

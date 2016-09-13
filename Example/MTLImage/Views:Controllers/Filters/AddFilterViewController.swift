@@ -38,12 +38,12 @@ class AddFilterViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filterNames.count
+        return filterNames.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = filterNames[indexPath.row]
+        cell.textLabel?.text = (indexPath.row == 0) ? "New Filter Group" : filterNames[indexPath.row - 1]
         return cell
     }
     
@@ -52,7 +52,14 @@ class AddFilterViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let title = filterNames[indexPath.row]
+        
+        if indexPath.row == 0 {
+            delegate?.addFilterViewControllerDidSelectFilter(self, filter: MTLFilterGroup())
+            dismiss(animated: true, completion: nil)
+            return
+        }
+        
+        let title = filterNames[indexPath.row - 1]
         delegate?.addFilterViewControllerDidSelectFilter(self, filter: try! MTLImage.filter(title)!)
         dismiss(animated: true, completion: nil)
     }

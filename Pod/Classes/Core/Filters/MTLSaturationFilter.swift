@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct SaturationUniforms {
+struct SaturationUniforms: Uniforms {
     var saturation: Float = 0.5
 }
 
@@ -40,7 +40,7 @@ class MTLSaturationFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.saturation = saturation * 2.0
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<SaturationUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 //    override func configureArgumentTableWithCommandEncoder(commandEncoder: MTLComputeCommandEncoder?) {

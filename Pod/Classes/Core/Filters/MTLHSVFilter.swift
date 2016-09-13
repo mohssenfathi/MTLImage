@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct HSVUniforms {
+struct HSVUniforms: Uniforms {
     var hue: Float = 0.5
     var saturation: Float = 0.5
     var vibrancy: Float = 0.5
@@ -63,7 +63,7 @@ class MTLHSVFilter: MTLFilter {
         uniforms.saturation = saturation
         uniforms.vibrancy = vibrancy
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<HSVUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }

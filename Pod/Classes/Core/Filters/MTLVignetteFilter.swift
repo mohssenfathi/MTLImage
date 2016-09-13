@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct VignetteUniforms {
+struct VignetteUniforms: Uniforms {
     var x: Float = 0.0
     var y: Float = 0.0
     
@@ -101,6 +101,6 @@ class MTLVignetteFilter: MTLFilter {
         uniforms.start = start
         uniforms.end   = end
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<VignetteUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct LevelsUniforms {
+struct LevelsUniforms: Uniforms {
     var min: Float = 0.0
     var mid: Float = 0.5
     var max: Float = 1.0
@@ -90,7 +90,7 @@ class MTLLevelsFilter: MTLFilter {
         uniforms.max = max
         uniforms.minOut = minOut
         uniforms.maxOut = maxOut
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<LevelsUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
 
 }

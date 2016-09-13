@@ -49,6 +49,7 @@
 		453FA0261CE36F2D003F9871 /* NonMaximumSuppression.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453FA0251CE36F2D003F9871 /* NonMaximumSuppression.metal */; };
 		453FA02C1CE37683003F9871 /* HarrisCornerDetection.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453FA02B1CE37683003F9871 /* HarrisCornerDetection.metal */; };
 		4544E8181CD278D0009115B7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4544E8171CD278D0009115B7 /* MessageUI.framework */; };
+		4544EEBB1D83360D0028EE53 /* Voronoi.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4544EEBA1D83360D0028EE53 /* Voronoi.metal */; };
 		4545D6401CD312570067A498 /* Retro in Resources */ = {isa = PBXBuildFile; fileRef = 4545D63F1CD312570067A498 /* Retro */; };
 		4546570B1CB9BB98001E421A /* FilterGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546570A1CB9BB98001E421A /* FilterGroupViewController.swift */; };
 		4546570D1CB9BE98001E421A /* AddFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546570C1CB9BE98001E421A /* AddFilterViewController.swift */; };
@@ -139,6 +140,7 @@
 		453FA0251CE36F2D003F9871 /* NonMaximumSuppression.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = NonMaximumSuppression.metal; sourceTree = "<group>"; };
 		453FA02B1CE37683003F9871 /* HarrisCornerDetection.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = HarrisCornerDetection.metal; sourceTree = "<group>"; };
 		4544E8171CD278D0009115B7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		4544EEBA1D83360D0028EE53 /* Voronoi.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Voronoi.metal; sourceTree = "<group>"; };
 		4545D63F1CD312570067A498 /* Retro */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Retro; sourceTree = "<group>"; };
 		4546570A1CB9BB98001E421A /* FilterGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterGroupViewController.swift; path = Filters/FilterGroupViewController.swift; sourceTree = "<group>"; };
 		4546570C1CB9BE98001E421A /* AddFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddFilterViewController.swift; path = Filters/AddFilterViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				453A60A21CFB4D6000A48FEE /* HSV.metal */,
 				45F34AEC1D16CDF800BE7D0C /* UnsharpMask.metal */,
 				457FA3D21D789DCC008C6C35 /* LensFlare.metal */,
+				4544EEBA1D83360D0028EE53 /* Voronoi.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -725,6 +728,7 @@
 				45764E3B1CE3906100315DA7 /* WeakPixelInclusion.metal in Sources */,
 				453FA0161CE0F58B003F9871 /* PerlinNoise.metal in Sources */,
 				453FA0091CE0F58B003F9871 /* Distortion.metal in Sources */,
+				4544EEBB1D83360D0028EE53 /* Voronoi.metal in Sources */,
 				453FA0181CE0F58B003F9871 /* PolkaDot.metal in Sources */,
 				453FA0131CE0F58B003F9871 /* Mask.metal in Sources */,
 				453A609C1CF7974900A48FEE /* Smudge.metal in Sources */,

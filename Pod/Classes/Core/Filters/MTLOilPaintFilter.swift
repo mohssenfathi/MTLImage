@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct OilPaintUniforms {
+struct OilPaintUniforms: Uniforms {
     
 }
 
@@ -39,7 +39,7 @@ class MTLOilPaintFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<OilPaintUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }

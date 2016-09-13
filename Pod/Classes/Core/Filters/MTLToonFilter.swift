@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ToonUniforms {
+struct ToonUniforms: Uniforms {
     var quantizationLevels: Float = 0.5;
     var threshold: Float = 0.0
 }
@@ -49,7 +49,7 @@ class MTLToonFilter: MTLFilter {
         if self.input == nil { return }
         uniforms.quantizationLevels = Tools.convert(quantizationLevels, oldMin: 0, oldMax: 1, newMin: 5, newMax: 15)
         uniforms.threshold = threshold * 0.8 + 0.2
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<ToonUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }

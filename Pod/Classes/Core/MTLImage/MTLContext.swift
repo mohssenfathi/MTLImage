@@ -20,7 +20,7 @@ class MTLContext: NSObject {
     var processingQueue: DispatchQueue!    
     var needsUpdate: Bool = true
 
-    let semaphore = DispatchSemaphore(value: 1)
+    let semaphore = DispatchSemaphore(value: 3)
     
     var source: MTLInput?
     var output: MTLOutput?
@@ -50,7 +50,7 @@ class MTLContext: NSObject {
             #endif
         
             loadLibrary()
-            self.commandQueue = self.device.newCommandQueue()
+            self.commandQueue = self.device.makeCommandQueue()
             self.processingQueue = DispatchQueue(label: "MTLImageProcessQueue")
 //            DispatchQueue(label: "MTLImageProcessQueue", attributes: DispatchQueueAttributes.concurrent)
         } else {
@@ -61,14 +61,8 @@ class MTLContext: NSObject {
     
     func loadLibrary() {
         if useMetalib {
-            do {
-                let bundle = Bundle(for: MTLImage.classForCoder())
-                let path = bundle.path(forResource: "default", ofType: "metallib")
-                try internalLibrary = self.device.newLibrary(withFile: path!)
-            } catch {
-                print(error)
-                //                    self.library = self.device.newDefaultLibrary()
-            }
+            internalLibrary = MTLLib.sharedLibrary(device: device)
+            assert(internalLibrary != nil)
         }
         else {
             internalLibrary = self.device.newDefaultLibrary()
@@ -76,4 +70,25 @@ class MTLContext: NSObject {
 
     }
     
+    
+    /* Returns the full filter chain not including source and output (only first targets for now)
+     TODO: Include filters with multiple targets
+     */
+    var filterChain: [MTLObject] {
+        
+        guard let source = source else {
+            return []
+        }
+        
+        var chain = [MTLObject]()
+        var object = source.targets.first as? MTLObject
+        
+        while object != nil {
+            chain.append(object!)
+            object = object?.targets.first as? MTLObject
+        }
+        
+        return chain
+    }
+
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ToneCurveUniforms {
+struct ToneCurveUniforms: Uniforms {
     
 }
 
@@ -170,7 +170,7 @@ class MTLToneCurveFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
 
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<ToneCurveUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
     
@@ -202,6 +202,10 @@ class MTLToneCurveFilter: MTLFilter {
     
     func updateToneCurveBuffer() {
         
+        if toneCurveValuesPointer == nil {
+            setupToneCurveBuffer()
+        }
+        
         if (redCurve.count >= 256 &&
             greenCurve.count >= 256 &&
             blueCurve.count >= 256 &&
@@ -230,11 +234,9 @@ class MTLToneCurveFilter: MTLFilter {
         
         if toneCurveByteArray == nil {
             print("ToneCurveByteArray is nil");
-            // Set buffer a different way
-            // return
         }
         
-        toneCurveBuffer = device.newBuffer(withBytesNoCopy: toneCurveByteArray!,
+        toneCurveBuffer = device.makeBuffer(bytesNoCopy: toneCurveByteArray!,
                                            length: 256 * 4 * MemoryLayout<Float>.size,
                                            options: MTLResourceOptions.storageModeShared,
                                            deallocator: nil)

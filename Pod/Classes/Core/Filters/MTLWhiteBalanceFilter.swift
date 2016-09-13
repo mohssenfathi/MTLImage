@@ -8,14 +8,15 @@
 
 import UIKit
 
-struct WhiteBalanceUnigforms {
+struct WhiteBalanceUniforms: Uniforms {
     var temperature: Float = 0.5;
     var tint: Float = 0.5;
 }
 
 public
 class MTLWhiteBalanceFilter: MTLFilter {
-    var uniforms = WhiteBalanceUnigforms()
+    
+    var uniforms = WhiteBalanceUniforms()
     
     public var temperature: Float = 0.5 {
         didSet {
@@ -49,6 +50,6 @@ class MTLWhiteBalanceFilter: MTLFilter {
         if self.input == nil { return }
         uniforms.temperature = temperature * 2.0 - 1.0
         uniforms.tint        = tint        * 4.0 - 2.0
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<WhiteBalanceUnigforms>.size, options: .cpuCacheModeWriteCombined)
+                updateUniforms(uniforms: uniforms)
     }
 }

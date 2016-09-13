@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct HazeUniforms {
+struct HazeUniforms: Uniforms {
     var distance: Float = 0.5
     var slope: Float = 0.5;
 }
@@ -41,7 +41,7 @@ class MTLHazeFilter: MTLFilter {
         if self.input == nil { return }
         uniforms.distance = -fade
 //        uniforms.slope = slope  //distance * 0.6 - 0.3
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<HazeUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }

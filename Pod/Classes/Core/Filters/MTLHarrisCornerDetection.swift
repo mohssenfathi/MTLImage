@@ -114,7 +114,7 @@ class MTLHarrisCornerDetectionOutputFilter: MTLFilter {
     
     override func update() {
         if self.input == nil { return }
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<HarrisCornerDetectionOutputUniforms>.size, options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.makeBuffer(bytes: &uniforms, length: MemoryLayout<HarrisCornerDetectionOutputUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
@@ -166,6 +166,6 @@ class MTLHarrisCornerDetectionFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.sensitivity = sensitivity
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<HarrisCornerDetectionUniforms>.size, options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.makeBuffer(bytes: &uniforms, length: MemoryLayout<HarrisCornerDetectionUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
 }

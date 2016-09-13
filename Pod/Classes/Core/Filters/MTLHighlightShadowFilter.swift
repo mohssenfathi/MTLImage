@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct HighlightShadowUniforms {
+struct HighlightShadowUniforms: Uniforms {
     var highlights: Float = 1.0
     var shadows   : Float = 0.0
 }
@@ -50,7 +50,7 @@ class MTLHighlightShadowFilter: MTLFilter {
         if self.input == nil { return }
         uniforms.highlights = highlights
         uniforms.shadows = shadows
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<HighlightShadowUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct SharpenUniforms {
+struct SharpenUniforms: Uniforms {
     var sharpness: Float = 0.0;
 }
 
@@ -38,7 +38,7 @@ class MTLSharpenFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.sharpness = sharpness * 4.0
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<SharpenUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
 
 }

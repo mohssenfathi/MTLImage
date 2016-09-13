@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct BrightnessUniforms {
+struct BrightnessUniforms: Uniforms {
     var brightness: Float = 0.5;
 }
 
@@ -39,7 +39,7 @@ class MTLBrightnessFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.brightness = brightness * 2.0 - 1.0
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<BrightnessUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
 
 }

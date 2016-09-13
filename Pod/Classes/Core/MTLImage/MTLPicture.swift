@@ -7,14 +7,22 @@
 //
 
 import UIKit
+import MetalKit
 
 public
 class MTLPicture: NSObject, MTLInput {
 
     private var internalTargets = [MTLOutput]()
     private var internalTexture: MTLTexture!
-    var internalContext: MTLContext = MTLContext()
+    var internalContext: MTLContext! = MTLContext()
     var pipeline: MTLComputePipelineState!
+    var textureLoader: MTKTextureLoader!
+    
+    deinit {
+        removeAllTargets()
+        image = nil
+        internalContext = nil
+    }
     
     var internalTitle: String!
     public var title: String {
@@ -71,9 +79,10 @@ class MTLPicture: NSObject, MTLInput {
     public init(image: UIImage) {
         super.init()
         
+        self.title = "MTLPicture"
         self.image = image
         self.processingSize = image.size
-        self.title = "MTLPicture"
+        self.textureLoader = MTKTextureLoader(device: context.device)
         context.source = self
         
         loadTexture()
@@ -82,6 +91,14 @@ class MTLPicture: NSObject, MTLInput {
     func loadTexture() {
         let flip = false
         self.internalTexture = image.texture(device, flip: flip, size: processingSize)
+//        if let cgImage = image.cgImage {
+//            do {
+//                try self.internalTexture = textureLoader.newTexture(with: cgImage, options: nil)
+//            }
+//            catch {
+//                print(error)
+//            }
+//        }
     }
     
     func chainLength() -> Int {

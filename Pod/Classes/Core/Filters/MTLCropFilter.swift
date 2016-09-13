@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct CropUniforms {
+struct CropUniforms: Uniforms {
     var x: Float = 0.0
     var y: Float = 0.0
     var width: Float = 0.0
@@ -63,7 +63,7 @@ class MTLCropFilter: MTLFilter {
         uniforms.height = Float(cropRegion.size.height)
         uniforms.fit = fit ? 1 : 0
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<CropUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
     
@@ -80,11 +80,11 @@ class MTLCropFilter: MTLFilter {
         
         if newWidth <= 1 || newHeight <= 1 { return }
         
-        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: .rgba8Unorm, width: newWidth, height: newHeight, mipmapped: false)
-        let newTexture = device.newTexture(with: textureDescriptor)
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm, width: newWidth, height: newHeight, mipmapped: false)
+        let newTexture = device.makeTexture(descriptor: textureDescriptor)
         
-        let commandBuffer = self.context.commandQueue.commandBuffer()
-        let blitCommandEncoder = commandBuffer.blitCommandEncoder()
+        let commandBuffer = self.context.commandQueue.makeCommandBuffer()
+        let blitCommandEncoder = commandBuffer.makeBlitCommandEncoder()
         
         blitCommandEncoder.copy(from: inputTexture,
                                            sourceSlice: 0,

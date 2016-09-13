@@ -1,5 +1,5 @@
 framework module MTLImage {
-  umbrella header "MTLImage-umbrella.h"
+  umbrella header "MTLImage-iOS10.0-umbrella.h"
 
   export *
   module * { export * }

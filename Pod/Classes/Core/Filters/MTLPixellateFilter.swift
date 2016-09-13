@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct PixellateUniforms {
+struct PixellateUniforms: Uniforms {
     var dotRadius: Float = 0.5;
     var aspectRatio: Float = 0.6667
     var fractionalWidthOfPixel: Float = 0.02
@@ -48,7 +48,7 @@ class MTLPixellateFilter: MTLFilter {
 //        }
         
         uniforms.dotRadius = Tools.convert(dotRadius, oldMin: 0, oldMax: 1, newMin: 0.01, newMax: 3)
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<PixellateUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
     override public var input: MTLInput? {

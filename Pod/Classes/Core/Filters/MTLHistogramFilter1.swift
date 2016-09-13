@@ -33,7 +33,7 @@ class MTLHistogramFilter1: MTLMPSFilter {
         title = "Histogram"
         properties = []
         
-        histogramBuffer = context.device.newBuffer(withLength: 1000 * 1000 * 256, options: .cpuCacheModeWriteCombined)
+        histogramBuffer = context.device.makeBuffer(length: 1000 * 1000 * 256, options: .cpuCacheModeWriteCombined)
         histogramInfoPointer = withUnsafePointer(to: &histogramInfo, { (pointer: UnsafePointer<MPSImageHistogramInfo>) -> UnsafePointer<MPSImageHistogramInfo>! in
             return pointer
         })

@@ -39,6 +39,9 @@ public protocol MTLOutput {
     
 }
 
+public protocol Uniforms {
+
+}
 
 public
 class MTLImage: NSObject {
@@ -49,11 +52,9 @@ class MTLImage: NSObject {
          "Blend",
          "Box Blur",
          "Brightness",
-         "Canny Edge Detection",
          "Contrast",
          "Crop",
          "Cross Hatch",
-         "Digit Recognizer",
          "Dilate",
          "Emboss",
          "Exposure",
@@ -80,8 +81,10 @@ class MTLImage: NSObject {
          "Tent",
          "Tone Curve",
          "Toon",
+         "Transform",
          "Unsharp Mask",
          "Vignette",
+         "Voronoi",
          "Water",
          "White Balance",
          "XY Derivative"
@@ -94,7 +97,6 @@ class MTLImage: NSObject {
             case "blend"                          : return MTLBlendFilter()
             case "box blur"                       : return MTLBoxBlurFilter()
             case "brightness"                     : return MTLBrightnessFilter()
-            case "canny edge detection"           : return MTLCannyEdgeDetectionFilterGroup()
             case "contrast"                       : return MTLContrastFilter()
             case "crop"                           : return MTLCropFilter()
             case "cross hatch"                    : return MTLCrossHatchFilter()
@@ -124,8 +126,10 @@ class MTLImage: NSObject {
             case "tent"                           : return MTLTentFilter()
             case "tone curve"                     : return MTLToneCurveFilter()
             case "toon"                           : return MTLToonFilter()
+            case "transform"                      : return MTLTransformFilter()
             case "unsharp mask"                   : return MTLUnsharpMaskFilter()
             case "vignette"                       : return MTLVignetteFilter()
+            case "voronoi"                        : return MTLVoronoiFilter()
             case "water"                          : return MTLWaterFilter()
             case "white balance"                  : return MTLWhiteBalanceFilter()
             case "xy derivative"                  : return MTLXYDerivativeFilter()
@@ -208,7 +212,12 @@ extension MTLImage {
 
 
 //    MARK: - Operator Overloading
-infix operator --> { associativity left precedence 150 }
+
+precedencegroup ChainPrecedence {
+    associativity: left
+}
+
+infix operator --> : ChainPrecedence
 
 @discardableResult
 public func --> (left: MTLInput , right: MTLOutput) -> MTLOutput {

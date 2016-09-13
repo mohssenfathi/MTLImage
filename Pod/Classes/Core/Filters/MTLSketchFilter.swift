@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct SketchUniforms {
+struct SketchUniforms: Uniforms {
     var intensity: Float = 0.5;
 }
 
@@ -44,7 +44,7 @@ class MTLSketchFilter: MTLFilter {
 //        }
         uniforms.intensity = intense
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<SketchUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }

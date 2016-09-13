@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct SmudgeUniforms {
+struct SmudgeUniforms: Uniforms {
     var radius: Float = 0.5
     var x: Float = 0.0
     var y: Float = 0.0
@@ -87,7 +87,7 @@ class MTLSmudgeFilter: MTLFilter {
         uniforms.dx = Float(direction.x)
         uniforms.dy = Float(direction.y)
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<SmudgeUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
     

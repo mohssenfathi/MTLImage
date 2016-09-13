@@ -4,7 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>MTLImage.xcscheme</key>
+		<key>MTLImage-iOS10.0.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MTLImage-iOS9.0.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>7FC2F36EB743734392660D641F7BA61A</key>
+		<key>26EA31BDBF2971FD0C1B7C10833BE845</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>94C97C3AEFC7C60FC4ACE73A9D6739F5</key>
+		<key>3B1F94ACF5E0AE6034E00099A2F29A27</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CA754A0DD89E799F5D0A4D6CC20A46CD</key>
+		<key>B64108EC549B4B602E80B07DC038F204</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F890C3C7BB4480874ECDE1A591B68BAC</key>
 		<dict>
 			<key>primary</key>
 			<true/>

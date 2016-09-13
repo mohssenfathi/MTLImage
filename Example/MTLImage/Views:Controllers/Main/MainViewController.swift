@@ -44,13 +44,11 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         sourcePicture = MTLPicture(image: image)
 //        sourcePicture.setProcessingSize(mtlView.bounds.size * UIScreen.main.nativeScale, respectAspectRatio: true)
-        sourcePicture.setProcessingSize(CGSize(width: 400, height: 400), respectAspectRatio: true)
+        sourcePicture.setProcessingSize(CGSize(width: 750, height: 750), respectAspectRatio: true)
         mtlView.delegate = self
         currentInput = sourcePicture
         
-//        currentInput --> filterGroup --> mtlView
-        currentInput --> filterGroup
-        filterGroup --> mtlView
+        currentInput --> filterGroup --> mtlView
         
         navigationItem.title = "MTLImage"
     }
@@ -167,8 +165,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             currentInput = camera
         }
         
-        currentInput --> filterGroup // --> mtlView
-        filterGroup --> mtlView
+        currentInput --> filterGroup --> mtlView
         currentInput.needsUpdate = true
     }
     
@@ -199,8 +196,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             filterGroup.add(filtersViewController.selectedFilter)
         }
         
-        sourcePicture --> filterGroup //--> mtlView
-        filterGroup --> mtlView
+        sourcePicture --> filterGroup --> mtlView
         
         dismiss(animated: true, completion: nil)
     }
@@ -222,8 +218,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         self.filterGroup = filterGroup as! MTLFilterGroup
         
-        currentInput --> filterGroup //--> mtlView
-        filterGroup --> mtlView
+        currentInput --> filterGroup --> mtlView
     }
     
     override func didReceiveMemoryWarning() {

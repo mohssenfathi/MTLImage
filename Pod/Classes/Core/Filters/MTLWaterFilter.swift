@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct WaterUniforms {
+struct WaterUniforms: Uniforms {
     var time: Float = 0.0
     var speed: Float = 0.5
     var frequency: Float = 0.5
@@ -89,7 +89,7 @@ class MTLWaterFilter: MTLFilter {
         uniforms.intence = intence * 500.0 + 400.0
         uniforms.time += 1.0/60.0
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<WaterUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
 
 }

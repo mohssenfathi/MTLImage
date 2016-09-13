@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct HueUniforms {
+struct HueUniforms: Uniforms {
     var hue: Float = 0.0
 }
 
@@ -39,7 +39,7 @@ class MTLHueFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.hue = fmodf(hue * 360.0, 360.0) * Float(M_PI / 180);
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<HueUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }

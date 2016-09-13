@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct WeakPixelInclusionUniforms {
+struct WeakPixelInclusionUniforms: Uniforms {
     
 }
 
@@ -30,7 +30,7 @@ class MTLWeakPixelInclusionFilter: MTLFilter {
     
     override func update() {
         if self.input == nil { return }
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<WeakPixelInclusionUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }

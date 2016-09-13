@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct PerlinNoiseUniforms {
+struct PerlinNoiseUniforms: Uniforms {
     var scale: Float = 0.5
 }
 
@@ -39,7 +39,7 @@ class MTLPerlinNoiseFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.scale = scale * 20
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<PerlinNoiseUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }

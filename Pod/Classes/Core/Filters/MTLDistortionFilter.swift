@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct DistortionUniforms {
+struct DistortionUniforms: Uniforms {
     var centerX: Float = 0.5;
     var centerY: Float = 0.5;
 }
@@ -50,7 +50,7 @@ class MTLDistortionFilter: MTLFilter {
         if self.input == nil { return }
         uniforms.centerX = x
         uniforms.centerY = y
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<DistortionUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }

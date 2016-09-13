@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct SobelEdgeDetectionThresholdUniforms {
+struct SobelEdgeDetectionThresholdUniforms: Uniforms {
     var threshold: Float = 0.5;
 }
 
@@ -53,7 +53,7 @@ class MTLSobelEdgeDetectionThresholdFilter: MTLFilter {
         if self.input == nil { return }
         
         uniforms.threshold = threshold
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<SobelEdgeDetectionThresholdUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
     public override func process() {

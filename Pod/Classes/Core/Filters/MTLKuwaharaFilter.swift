@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct KuwaharaUniforms {
+struct KuwaharaUniforms: Uniforms {
     var radius: Float = 0.5
 }
 
@@ -39,6 +39,6 @@ class MTLKuwaharaFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.radius = round(Tools.convert(radius, oldMin: 0, oldMax: 1, newMin: 1, newMax: 10))
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<KuwaharaUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
 }

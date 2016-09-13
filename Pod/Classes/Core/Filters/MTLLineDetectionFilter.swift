@@ -68,14 +68,14 @@ class MTLLineDetectionFilter: MTLFilter {
         }
         
         uniforms.sensitivity = sensitivity
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<MTLLineDetectionUniforms>.size, options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.makeBuffer(bytes: &uniforms, length: MemoryLayout<MTLLineDetectionUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
         
         let accumulator = [Float](repeating: 0, count: Int(inputSize!.width) * thetaCount)
-        accumulatorBuffer = device.newBuffer(withBytes: accumulator,
+        accumulatorBuffer = device.makeBuffer(bytes: accumulator,
                                                 length: accumulator.count * MemoryLayout<Float>.size,
                                                options: .cpuCacheModeWriteCombined)
         commandEncoder.setBuffer(accumulatorBuffer, offset: 0, at: 1)

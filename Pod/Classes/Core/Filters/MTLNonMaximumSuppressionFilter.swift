@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct NonMaximumSuppressionUniforms {
+struct NonMaximumSuppressionUniforms: Uniforms {
     var texelWidth: Float = 0.5;
     var texelHeight: Float = 0.5;
     var lowerThreshold: Float = 0.5;
@@ -56,7 +56,7 @@ class MTLNonMaximumSuppressionFilter: MTLFilter {
         uniforms.texelWidth = 1.0;
         uniforms.texelHeight = 1.0;
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<NonMaximumSuppressionUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }
@@ -64,7 +64,7 @@ class MTLNonMaximumSuppressionFilter: MTLFilter {
 
 // Threshold
 
-struct NonMaximumSuppressionThreshodUniforms {
+struct NonMaximumSuppressionThreshodUniforms: Uniforms {
     var threshold: Float = 0.5;
 }
 
@@ -95,7 +95,7 @@ class MTLNonMaximumSuppressionThreshodFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.threshold = threshold/5.0 + 0.01
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<NonMaximumSuppressionThreshodUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }

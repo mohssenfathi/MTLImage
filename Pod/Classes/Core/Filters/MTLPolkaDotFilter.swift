@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct PolkaDotUniforms {
+struct PolkaDotUniforms: Uniforms {
     var dotRadius: Float = 0.0
 }
 
@@ -39,6 +39,6 @@ class MTLPolkaDotFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.dotRadius = Tools.convert(dotRadius, oldMin: 0, oldMax: 1, newMin: 0.05, newMax: 0.5)
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<PolkaDotUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
 }

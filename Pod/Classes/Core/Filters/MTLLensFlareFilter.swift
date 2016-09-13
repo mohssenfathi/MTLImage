@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct MTLLensFlareUniforms {
+struct MTLLensFlareUniforms: Uniforms {
     var r: Float = 1.0
     var g: Float = 1.0
     var b: Float = 1.0
@@ -102,6 +102,6 @@ class MTLLensFlareFilter: MTLFilter {
         uniforms.brightness = brightness/10.0;
         uniforms.showSun = showSun ? 1 : 0
         
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<MTLLensFlareUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
 }

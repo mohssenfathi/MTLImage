@@ -47,7 +47,6 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         setupView()
     }
     
-    
     //    MARK: - Gesture Recognizers
     public override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
@@ -138,8 +137,8 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     func setupPipeline() {
         device = context.device
         library = context.library
-        vertexFunction   = library.newFunction(withName: "vertex_main")
-        fragmentFunction = library.newFunction(withName: "fragment_main")
+        vertexFunction   = library.makeFunction(name: "vertex_main")
+        fragmentFunction = library.makeFunction(name: "fragment_main")
         
         let pipelineDescriptor = MTLRenderPipelineDescriptor()
         pipelineDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
@@ -147,18 +146,21 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         pipelineDescriptor.fragmentFunction = fragmentFunction
         
         do {
-            pipeline = try device.newRenderPipelineState(with: pipelineDescriptor)
+            pipeline = try device.makeRenderPipelineState(descriptor: pipelineDescriptor)
         } catch {
             print("Failed to create pipeline")
         }
     }
     
     func updateMetalLayerLayout() {
-        let scale = window!.screen.nativeScale
-        contentScaleFactor = scale
-        metalLayer.drawableSize = metalLayer.frame.size * UIScreen.main.nativeScale
         
-        self.updateMetalLayer = false
+//        guard window != nil else { return }
+        
+//        let scale = window!.screen.nativeScale
+//        contentScaleFactor = scale
+//        metalLayer.drawableSize = metalLayer.frame.size * UIScreen.main.nativeScale
+//        
+//        self.updateMetalLayer = false
     }
     
     
@@ -198,9 +200,9 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
                           float4(-1.0 + x, -1.0 + y, 0.0, 1.0),
                           float4( 1.0 - x, -1.0 + y, 0.0, 1.0) ]
         
-        vertexBuffer = device.newBuffer(withBytes: kQuadVertices , length: kSzQuadVertices , options: MTLResourceOptions())
+        vertexBuffer = device.makeBuffer(bytes: kQuadVertices , length: kSzQuadVertices , options: MTLResourceOptions())
         if texCoordBuffer == nil {
-            texCoordBuffer = device.newBuffer(withBytes: kQuadTexCoords, length: kSzQuadTexCoords, options: MTLResourceOptions())
+            texCoordBuffer = device.makeBuffer(bytes: kQuadTexCoords, length: kSzQuadTexCoords, options: MTLResourceOptions())
         }
         
         self.needsUpdateBuffers = false
@@ -238,7 +240,6 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         return (x, y)
     }
     
-    
     private var currentDrawable: CAMetalDrawable?
     var drawable: CAMetalDrawable? {
         if metalLayer.drawableSize == CGSize.zero {
@@ -253,39 +254,46 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     
     func redraw() {
         
-        guard let tex = input?.texture   else { return }
-        
         context.semaphore.wait()
         
-        autoreleasepool {
+        context.processingQueue.async {
             
-            guard let drawable = self.drawable else { return }
-            let texture = drawable.texture
-            
-            self.renderPassDescriptor.colorAttachments[0].texture = texture
-            
-            let commandBuffer = self.commandQueue.commandBuffer()
-            commandBuffer.label = "MTLView Buffer"
-            
-            let commandEncoder = commandBuffer.renderCommandEncoder(with: self.renderPassDescriptor)
-            commandEncoder.setRenderPipelineState(self.pipeline)
-            commandEncoder.setVertexBuffer(self.vertexBuffer  , offset: 0, at: 0)
-            commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, at: 1)
-            commandEncoder.setFragmentTexture(tex, at: 0)
-            
-            commandEncoder.drawPrimitives(.triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
-            commandEncoder.endEncoding()
-            
-            commandBuffer.addCompletedHandler({ (commandBuffer) in
-                self.currentDrawable = nil
+            guard let tex = self.input?.texture else {
                 self.context.semaphore.signal()
-                //                self.context.source?.didFinishProcessing()
-            })
+                return
+            }
             
-            commandBuffer.present(drawable)
-            commandBuffer.commit()
-            commandBuffer.waitUntilCompleted()
+            autoreleasepool {
+                
+                guard let drawable = self.drawable else { return }
+                let texture = drawable.texture
+                
+                self.renderPassDescriptor.colorAttachments[0].texture = texture
+                
+                let commandBuffer = self.commandQueue.makeCommandBuffer()
+                commandBuffer.label = "MTLView Buffer"
+                
+                let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: self.renderPassDescriptor)
+                commandEncoder.setRenderPipelineState(self.pipeline)
+                commandEncoder.setVertexBuffer(self.vertexBuffer  , offset: 0, at: 0)
+                commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, at: 1)
+                commandEncoder.setFragmentTexture(tex, at: 0)
+                
+                commandEncoder.drawPrimitives(type: .triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
+                commandEncoder.endEncoding()
+                
+                commandBuffer.addCompletedHandler({ (commandBuffer) in
+                    self.currentDrawable = nil
+                    self.context.semaphore.signal()
+                    //                                self.context.source?.didFinishProcessing()
+                })
+                
+                commandBuffer.present(drawable)
+                commandBuffer.commit()
+                commandBuffer.waitUntilCompleted()
+            }   
         }
+        
     }
     
     
@@ -356,7 +364,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         }
     }
     
-    func runAsynchronously(_ block: (()->())) {
+    func runAsynchronously(_ block: @escaping (()->())) {
         DispatchQueue.global(qos: .userInitiated).async {
             block()
         }
@@ -406,7 +414,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     var texCoordBuffer: MTLBuffer!
     
     lazy var commandQueue: MTLCommandQueue! = {
-        return self.device.newCommandQueue()
+        return self.device.makeCommandQueue()
     }()
     
     private var updateMetalLayer = true
@@ -420,9 +428,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
         return rpd
     }()
     
-    
-    
-    
+
     //    MARK: - Properties
     
     private var mtlClearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0)
@@ -494,7 +500,14 @@ class MetalLayerView: UIView {
     var parentView: MTLView?
     
     internal override class var layerClass: AnyClass {
-        return CAMetalLayer.self.self
+        return CAMetalLayer.self
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let scale = window?.screen.scale ?? UIScreen.main.nativeScale
+        (layer as! CAMetalLayer).drawableSize = bounds.size * scale
     }
     
     //    MARK: - Touch Events

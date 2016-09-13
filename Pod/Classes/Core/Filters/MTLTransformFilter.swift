@@ -8,41 +8,40 @@
 
 import UIKit
 
-struct TransformUniforms {
+struct TransformUniforms: Uniforms {
     
 }
 
 public
 class MTLTransformFilter: MTLFilter {
-    
-    var transform: CATransform3D = CATransform3DMakeScale(1.5, 1.5, 1.0) { // CATransform3DIdentity {
+
+    var transform: CGAffineTransform = CGAffineTransform.identity { // CGAffineTransform(rotationAngle: CGFloat.pi/4) {
         didSet {
             needsUpdate = true
-            update()
         }
     }
+    
+//    var transform: CATransform3D = CATransform3DMakeScale(1.5, 1.5, 1.0) { // CATransform3DIdentity {
+//        didSet {
+//            needsUpdate = true
+//        }
+//    }
     
     var transformBuffer: MTLBuffer?
     
     var uniforms = TransformUniforms()
     
-    public var scale: Float = 0.5 {
+    public var scale: Float = 0.0 {
         didSet {
             clamp(&scale, low: 0, high: 1)
-//            let val = CGFloat(scale) * 2.0
-//            transform = CATransform3DMakeScale(val, val, 1.0)
             needsUpdate = true
-            update()
         }
     }
     
-    public var rotation: Float = 0.5 {
+    public var angle: Float = 0.5 {
         didSet {
-            clamp(&scale, low: 0, high: 1)
-//            let val = CGFloat(rotation) - 1.0
-//            transform = CATransform3DMakeRotation(val, 0.0, 0.0, 1.0)
+            clamp(&angle, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -50,7 +49,7 @@ class MTLTransformFilter: MTLFilter {
         super.init(functionName: "transform")
         title = "Transform"
         properties = [MTLProperty(key: "scale", title: "Scale"),
-                      MTLProperty(key: "rotation", title: "Rotation")]
+                      MTLProperty(key: "angle", title: "Rotation")]
         update()
     }
     
@@ -60,20 +59,32 @@ class MTLTransformFilter: MTLFilter {
     
     override func update() {
         if self.input == nil { return }
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<TransformUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
     
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
         
-        let f = [transform.m11, transform.m12, transform.m13, transform.m14,
-                 transform.m21, transform.m22, transform.m23, transform.m24,
-                 transform.m31, transform.m32, transform.m33, transform.m34,
-                 transform.m41, transform.m42, transform.m43, transform.m44]
+        let s = 1.0 / (1.0 + CGFloat(scale * 10.0))
+        let a = CGFloat((angle - 0.5) * 360.0) * CGFloat.pi / 180.0
         
-        transformBuffer = device.newBuffer(withBytes: f, length: f.count * MemoryLayout<CGFloat>.size, options: .cpuCacheModeWriteCombined)
+        transform = CGAffineTransform.identity
+        transform = transform.rotated(by: a)
+        transform = transform.scaledBy(x: s, y: s)
+        
+        let f: [Float] = [Float(transform.a), Float(transform.b), Float(transform.c),
+                          Float(transform.d), Float(transform.tx), Float(transform.ty)]
+        
+        print(atan2(transform.b, transform.a)) //"\(transform.a)   \(transform.b)")
+        
+        transformBuffer = device.makeBuffer(bytes: f, length: f.count * MemoryLayout<Float>.size, options: .cpuCacheModeWriteCombined)
         commandEncoder.setBuffer(transformBuffer, offset: 0, at: 1)
+        
+//        let f = [transform.m11, transform.m12, transform.m13, transform.m14,
+//                 transform.m21, transform.m22, transform.m23, transform.m24,
+//                 transform.m31, transform.m32, transform.m33, transform.m34,
+//                 transform.m41, transform.m42, transform.m43, transform.m44]
     }
     
 //    func updateOrthoMatrix {

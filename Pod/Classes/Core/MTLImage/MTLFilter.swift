@@ -15,20 +15,33 @@ func ==(left: MTLFilter, right: MTLFilter) -> Bool {
 public
 class MTLFilter: MTLObject, NSCoding {
     
-    var propertyValues = [String : Any]()
     private var internalTargets = [MTLOutput]()
+    var propertyValues = [String : Any]()
     var internalTexture: MTLTexture?
     var internalInput: MTLInput?
     var pipeline: MTLComputePipelineState!
     var kernelFunction: MTLFunction!
     var vertexBuffer: MTLBuffer?
     var texCoordBuffer: MTLBuffer?
+    
+    // MARK: - Uniforms
     var uniformsBuffer: MTLBuffer?
-
+    var bufferProvider: MTLBufferProvider? = nil
+    
+    func updateUniforms<U: Uniforms>(uniforms: U) {
+        
+        if bufferProvider == nil {
+            bufferProvider = MTLBufferProvider(device: context.device, bufferSize: MemoryLayout<U>.size)
+        }
+        
+        var uni = uniforms
+        uniformsBuffer = device.makeBuffer(bytes: &uni, length: MemoryLayout<U>.size, options: .cpuCacheModeWriteCombined)
+//        uniformsBuffer = bufferProvider?.nextBuffer(uniforms: &uni)
+    }
+    
     var index: Int = 0
     var gcd: Int = 0
 
-    
     public init(functionName: String) {
         super.init()
         self.functionName = functionName
@@ -102,12 +115,12 @@ class MTLFilter: MTLObject, NSCoding {
         }
     }
     
-    public var image: UIImage {
+    public var image: UIImage? {
         get {
             if needsUpdate == true {
                 process()
             }
-            return UIImage.imageWithTexture(texture!)!
+            return texture!.image()
         }
     }
     
@@ -124,14 +137,14 @@ class MTLFilter: MTLObject, NSCoding {
     }
     
     func setupPipeline() {
-        kernelFunction = context.library?.newFunction(withName: functionName)
+        kernelFunction = context.library?.makeFunction(name: functionName)
         if kernelFunction == nil {
             print("Failed to load kernel function: " + functionName)
             return
         }
         
         do {
-            pipeline = try context.device.newComputePipelineState(with: kernelFunction)
+            pipeline = try context.device.makeComputePipelineState(function: kernelFunction)
         } catch {
             print("Failed to create pipeline")
         }
@@ -145,12 +158,12 @@ class MTLFilter: MTLObject, NSCoding {
         }
         
         autoreleasepool {
-            if internalTexture == nil || internalTexture!.width != inputTexture.width || internalTexture!.height != inputTexture.height {
-                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(with: inputTexture.pixelFormat, width:inputTexture.width,
-                    height: inputTexture.height, mipmapped: false)
-                internalTexture = context.device?.newTexture(with: textureDescriptor)
-            }
             
+            if internalTexture == nil || internalTexture!.width != inputTexture.width || internalTexture!.height != inputTexture.height {
+                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat, width:inputTexture.width,
+                    height: inputTexture.height, mipmapped: false)
+                internalTexture = context.device?.makeTexture(descriptor: textureDescriptor)
+            }
 
             // TODO: Make this faster
             if inputTexture.width != Int(currentInputSize.width) && inputTexture.height != Int(currentInputSize.height) {
@@ -158,10 +171,10 @@ class MTLFilter: MTLObject, NSCoding {
             }
             let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
             
-            let commandBuffer = context.commandQueue.commandBuffer()
-            commandBuffer.label = "MTLFilter: " + title
+            let commandBuffer = context.commandQueue.makeCommandBuffer()
+//            commandBuffer.label = "MTLFilter: " + title
             
-            let commandEncoder = commandBuffer.computeCommandEncoder()
+            let commandEncoder = commandBuffer.makeComputeCommandEncoder()
             commandEncoder.setComputePipelineState(pipeline)
             commandEncoder.setBuffer(uniformsBuffer, offset: 0, at: 0)
             commandEncoder.setTexture(inputTexture, at: 0)
@@ -169,14 +182,13 @@ class MTLFilter: MTLObject, NSCoding {
             self.configureCommandEncoder(commandEncoder)
             commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
             commandEncoder.endEncoding()
-            
+
             commandBuffer.addCompletedHandler({ (commandBuffer) in
                 self.needsUpdate = false
             })
             
             commandBuffer.commit()
             commandBuffer.waitUntilCompleted()
-            
         }
     }
     
@@ -237,7 +249,7 @@ class MTLFilter: MTLObject, NSCoding {
         
         t.input = nil
         
-        var index: Int!
+        var index: Int = NSNotFound
         if let filter = target as? MTLFilter {
             for i in 0 ..< internalTargets.count {
                 if let f = internalTargets[i] as? MTLFilter {
@@ -251,7 +263,9 @@ class MTLFilter: MTLObject, NSCoding {
             }
         }
         
-        internalTargets.remove(at: index)
+        if index != NSNotFound {
+            internalTargets.remove(at: index)
+        }
         internalTexture = nil
     }
     
@@ -293,13 +307,14 @@ class MTLFilter: MTLObject, NSCoding {
     
         let sourcePicture = MTLPicture(image: image)
         let filterCopy = self.copy() as! MTLFilter
-        sourcePicture > filterCopy
+        sourcePicture --> filterCopy
         
         guard let tex = filterCopy.texture else {
             return nil
         }
         
-        let image = UIImage.imageWithTexture(tex)
+        let image = tex.image()!
+        
         return image
     }
     
@@ -359,8 +374,9 @@ class MTLFilter: MTLObject, NSCoding {
         let w = Tools.greatestDivisor(width , below: 22)
         let h = Tools.greatestDivisor(height, below: 22)
         
-        threadgroupCounts.width  = (w == NSNotFound) ? 8 : w
-        threadgroupCounts.height = (h == NSNotFound) ? 8 : h
+        // TODO: Setting this to 1 will be slow. Find a way ro resize the input texture to be a factor of 8
+        threadgroupCounts.width  = (w == NSNotFound) ? 1 : w
+        threadgroupCounts.height = (h == NSNotFound) ? 1 : h
     }
     
     

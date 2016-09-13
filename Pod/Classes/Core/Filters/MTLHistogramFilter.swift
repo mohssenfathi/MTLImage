@@ -84,7 +84,7 @@ class MTLHistogramFilter: MTLFilter {
         }
         
         uniforms.dummy = dummy
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<HistogramUniforms>.size, options: .cpuCacheModeWriteCombined)
+        uniformsBuffer = device.makeBuffer(bytes: &uniforms, length: MemoryLayout<HistogramUniforms>.size, options: .cpuCacheModeWriteCombined)
     }
     
     var luminanceBytes: UnsafeMutableRawPointer? = nil
@@ -112,7 +112,7 @@ class MTLHistogramFilter: MTLFilter {
             luminancePointer[i] = 0.0
         }
         
-        luminanceBuffer = device.newBuffer(withBytesNoCopy: luminanceBytes!,
+        luminanceBuffer = device.makeBuffer(bytesNoCopy: luminanceBytes!,
                                            length: 255 * MemoryLayout<Float.Type>.size,
                                            options: .cpuCacheModeWriteCombined,
                                            deallocator: nil)
@@ -123,10 +123,10 @@ class MTLHistogramFilter: MTLFilter {
         
         let f = [Float](repeating: 0, count: 255)
         
-//        luminanceBuffer = device.newBuffer(withBytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
-        redBuffer       = device.newBuffer(withBytes: f, length: 255 * MemoryLayout<Float.Type>.size, options: .cpuCacheModeWriteCombined)
-        greenBuffer     = device.newBuffer(withBytes: f, length: 255 * MemoryLayout<Float.Type>.size, options: .cpuCacheModeWriteCombined)
-        blueBuffer      = device.newBuffer(withBytes: f, length: 255 * MemoryLayout<Float.Type>.size, options: .cpuCacheModeWriteCombined)
+//        luminanceBuffer = device.makeBuffer(bytes: f, length: f.count * sizeofValue(f[0]), options: .cpuCacheModeWriteCombined)
+        redBuffer       = device.makeBuffer(bytes: f, length: 255 * MemoryLayout<Float.Type>.size, options: .cpuCacheModeWriteCombined)
+        greenBuffer     = device.makeBuffer(bytes: f, length: 255 * MemoryLayout<Float.Type>.size, options: .cpuCacheModeWriteCombined)
+        blueBuffer      = device.makeBuffer(bytes: f, length: 255 * MemoryLayout<Float.Type>.size, options: .cpuCacheModeWriteCombined)
 
         commandEncoder.setBuffer(luminanceBuffer, offset: 0, at: 1)
         commandEncoder.setBuffer(redBuffer      , offset: 0, at: 2)

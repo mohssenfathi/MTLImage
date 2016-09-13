@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct SobelEdgeDetectionUniforms {
+struct SobelEdgeDetectionUniforms: Uniforms {
     var edgeStrength: Float = 0.5;
 }
 
@@ -39,7 +39,7 @@ class MTLSobelEdgeDetectionFilter: MTLFilter {
     override func update() {
         if self.input == nil { return }
         uniforms.edgeStrength = edgeStrength * 3.0 + 0.2
-        uniformsBuffer = device.newBuffer(withBytes: &uniforms, length: MemoryLayout<SobelEdgeDetectionUniforms>.size, options: .cpuCacheModeWriteCombined)
+        updateUniforms(uniforms: uniforms)
     }
     
 }
