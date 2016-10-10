@@ -25,12 +25,12 @@ class MTLBoxBlurFilter: MTLMPSFilter {
     
     
     init() {
-        super.init(functionName: "EmptyShader")
+        super.init(functionName: nil)
         commonInit()
     }
     
-    override init(functionName: String) {
-        super.init(functionName: "EmptyShader")
+    override init(functionName: String?) {
+        super.init(functionName: nil)
         commonInit()
     }
     

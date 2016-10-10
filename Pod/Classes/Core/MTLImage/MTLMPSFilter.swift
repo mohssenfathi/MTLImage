@@ -14,8 +14,8 @@ class MTLMPSFilter: MTLFilter {
     
     var kernel: MPSKernel!
 
-    public override init(functionName: String) {
-        super.init(functionName: "EmptyShader")
+    public override init(functionName: String?) {
+        super.init(functionName: nil)
     }
     
     required public init?(coder aDecoder: NSCoder) {

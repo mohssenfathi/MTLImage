@@ -52,6 +52,7 @@ class MTLImage: NSObject {
          "Blend",
          "Box Blur",
          "Brightness",
+         "Buffer",
          "Contrast",
          "Crop",
          "Cross Hatch",
@@ -97,6 +98,7 @@ class MTLImage: NSObject {
             case "blend"                          : return MTLBlendFilter()
             case "box blur"                       : return MTLBoxBlurFilter()
             case "brightness"                     : return MTLBrightnessFilter()
+            case "buffer"                         : return Buffer()
             case "contrast"                       : return MTLContrastFilter()
             case "crop"                           : return MTLCropFilter()
             case "cross hatch"                    : return MTLCrossHatchFilter()

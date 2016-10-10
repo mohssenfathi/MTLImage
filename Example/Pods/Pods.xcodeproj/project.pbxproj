@@ -62,6 +62,8 @@
 		3CB5409C7C3D9DD269E63AD50B43AD87 /* MTLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77913A473720B50C9A18D2F075A9D564 /* MTLView.swift */; };
 		3E922D140F88DC7EB9EF1642F978DCE7 /* MTLConvolutionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF70D4083D5AE85CB6F45479266F9D9 /* MTLConvolutionFilter.swift */; };
 		40214CEB7919D5C9CF217DC1F098CB03 /* MTLTransformFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29475D57066116A42CC309420491DD29 /* MTLTransformFilter.swift */; };
+		4523D3AB1D886D150092183F /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4523D3AA1D886D150092183F /* Buffer.swift */; };
+		4523D3AC1D8870BE0092183F /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4523D3AA1D886D150092183F /* Buffer.swift */; };
 		455B286E1B70D4515CC197FD650E0B1A /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C108F44A7D99E2F6E742258B26E0BBB1 /* MTLFilterGroupRecord+CoreDataProperties.swift */; };
 		46328C335DFC92255B8B0BB93DE9D856 /* MTLBrightnessFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D9B0F6204E01C544AE42599B81A84F /* MTLBrightnessFilter.swift */; };
 		46441EBD8D70148B9762AFEA234B0578 /* MTLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58D8FB787B9E7DC7BFF0F7F81A59642 /* MTLImage.swift */; };
@@ -247,6 +249,7 @@
 		399085420C3475FF924FA3A9468D5D41 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../MTLImage-iOS9.0/Info.plist"; sourceTree = "<group>"; };
 		3CA962CA686F0E1C427231FF66833AE1 /* MTLImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MTLImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		429EC4FA8D8292CC745FF41F4D563977 /* MTLCrossHatchFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCrossHatchFilter.swift; sourceTree = "<group>"; };
+		4523D3AA1D886D150092183F /* Buffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buffer.swift; sourceTree = "<group>"; };
 		46B17363FCAB03CBF9F31E6A57044502 /* MTLSelectiveHSLFilter1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLSelectiveHSLFilter1.swift; sourceTree = "<group>"; };
 		49453D5F13739EEEF4D5F97A95DB6677 /* MTLHueFilter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLHueFilter.swift; sourceTree = "<group>"; };
 		494C290BDBEAED23BA5743A3CE2FA0D1 /* FABAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FABAttributes.h; path = iOS/Fabric.framework/Headers/FABAttributes.h; sourceTree = "<group>"; };
@@ -784,6 +787,7 @@
 				DB7140C655D5F88787FAC9050A41F820 /* MTLLevelsFilter.swift */,
 				BAF4AD63C36B784E99DA3B436D3653C6 /* MTLLineDetectionFilter.swift */,
 				4FE4E55ECAC0AC5A2046712BF0231118 /* MTLLuminanceThresholdFilter.swift */,
+				4523D3AA1D886D150092183F /* Buffer.swift */,
 				175D5F557A4F17345243D96EEBF7C910 /* MTLMaskFilter.swift */,
 				2FC43223478528AB46E69243DC5384FF /* MTLMosaicFilter.swift */,
 				A588856D74174A9ECEF6E0E7B638DD3E /* MTLNonMaximumSuppressionFilter.swift */,
@@ -1089,6 +1093,7 @@
 				F10F260B9C0CF402EE954584AF465729 /* MTLMaskFilter.swift in Sources */,
 				13693893C3F2BD821C962077E435B0E7 /* MTLMatrix.swift in Sources */,
 				695C687D47C04F14FFE79A80A80A2D42 /* MTLMosaicFilter.swift in Sources */,
+				4523D3AC1D8870BE0092183F /* Buffer.swift in Sources */,
 				54FD8E74B76D71933ACBF0F2A109035B /* MTLMPSFilter.swift in Sources */,
 				D4483C8412FE4B71342212632990CC6E /* MTLNonMaximumSuppressionFilter.swift in Sources */,
 				68B0469EDA724E9AF4BB7AB8E9C6F209 /* MTLObject.swift in Sources */,
@@ -1193,6 +1198,7 @@
 				C7824CE136343C890EAA4770BAC00E4A /* MTLProperty.swift in Sources */,
 				006D840D9086E368EBFF9A4C9C50247B /* MTLPropertyRecord+CoreDataProperties.swift in Sources */,
 				F085164DB57AAC4784208000F1A386F0 /* MTLPropertyRecord.swift in Sources */,
+				4523D3AB1D886D150092183F /* Buffer.swift in Sources */,
 				291D2BEFDE9064EC7CEF27301B84545D /* MTLSaturationFilter.swift in Sources */,
 				2A33238148C723A610506A805F0A2DF0 /* MTLScatterFilter.swift in Sources */,
 				34868A5FC9A72857EA9C8D59D0992735 /* MTLSelectiveHSLFilter.swift in Sources */,

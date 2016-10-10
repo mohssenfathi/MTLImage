@@ -42,9 +42,12 @@ class MTLFilter: MTLObject, NSCoding {
     var index: Int = 0
     var gcd: Int = 0
 
-    public init(functionName: String) {
+    public init(functionName: String?) {
         super.init()
-        self.functionName = functionName
+        
+        var name = functionName ?? "EmptyShader"
+        if name == "" { name = "EmptyShader" }
+        self.functionName = name
     }
     
     public var enabled: Bool = true

@@ -146,7 +146,9 @@ class MTLDataManager: NSObject {
                     record.value =  NSNumber(value: filter.value(forKey: property.key) as! Int)
                     break
                 case .image:
-                    record.image = UIImageJPEGRepresentation(filter.value(forKey: property.key) as! UIImage, 1.0)
+                    if let image = filter.value(forKey: property.key) as? UIImage {
+                        record.image = UIImageJPEGRepresentation(image, 1.0)
+                    }
                     break
                 }
             }
@@ -227,8 +229,10 @@ class MTLDataManager: NSObject {
                     filter.setValue(propertyRecord.value?.intValue, forKey: propertyRecord.key!)
                     break
                 case .image:
-                    if let image = UIImage(data: propertyRecord.image! as Data) {
-                        filter.setValue(image, forKey: propertyRecord.key!)
+                    if let data = propertyRecord.image {
+                        if let image = UIImage(data: data) {
+                            filter.setValue(image, forKey: propertyRecord.key!)
+                        }
                     }
                     break
                 }
