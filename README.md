@@ -1,3 +1,7 @@
+## Warning
+
+This is a very early stage framework that is not ready for production use. However, feel free to poke around. Feedback is always appreciated.
+
 # MTLImage
 
 [![CI Status](http://img.shields.io/travis/mohssenfathi/MTLImage.svg?style=flat)](https://travis-ci.org/mohssenfathi/MTLImage)
