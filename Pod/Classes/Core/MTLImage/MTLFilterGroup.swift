@@ -26,21 +26,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
     }
     
     public var filters = [MTLObject]()
-    var internalInput: MTLInput?
-    var internalTargets = [MTLOutput]()
-    
-    var internalTitle: String!
-    public override var title: String {
-        get { return internalTitle }
-        set { internalTitle = newValue }
-    }
-    
-    private var privateIdentifier: String = UUID().uuidString
-    public override var identifier: String! {
-        get { return privateIdentifier     }
-        set { privateIdentifier = newValue }
-    }
-    
+        
     public func filter(_ image: UIImage) -> UIImage? {
         
         let picture = MTLPicture(image: image.copy() as! UIImage)
@@ -207,7 +193,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
     }
     
 //    MARK: - MTLInput
-    
+        
     public override var texture: MTLTexture? {
         get {
             if filters.count > 0 {
@@ -220,18 +206,6 @@ class MTLFilterGroup: MTLObject, NSCoding {
     public override var context: MTLContext  {
         get {
             return (filters.first?.context)!
-        }
-    }
-    
-    public override var device : MTLDevice   {
-        get {
-            return context.device
-        }
-    }
-    
-    public override var targets: [MTLOutput] {
-        get {
-            return internalTargets
         }
     }
     

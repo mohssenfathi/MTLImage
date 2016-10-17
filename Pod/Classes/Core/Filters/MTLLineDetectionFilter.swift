@@ -29,7 +29,6 @@ class MTLLineDetectionFilter: MTLFilter {
         didSet {
             clamp(&sensitivity, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -93,7 +92,7 @@ class MTLLineDetectionFilter: MTLFilter {
         set {
             if newValue?.identifier != sobelEdgeDetectionThreshold.identifier {
                 sobelEdgeDetectionThreshold.input = newValue
-                setupPipeline()
+                reload()
                 update()
             }
         }

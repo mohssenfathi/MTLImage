@@ -24,7 +24,6 @@ class MTLCropFilter: MTLFilter {
     public var fit: Bool = true {
         didSet {
             needsUpdate = true
-            update()
         }
     }
 
@@ -37,7 +36,6 @@ class MTLCropFilter: MTLFilter {
             
             internalTexture = nil
             needsUpdate = true
-            update()
         }
     }
     
@@ -80,7 +78,7 @@ class MTLCropFilter: MTLFilter {
         
         if newWidth <= 1 || newHeight <= 1 { return }
         
-        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm, width: newWidth, height: newHeight, mipmapped: false)
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: newWidth, height: newHeight, mipmapped: false)
         let newTexture = device.makeTexture(descriptor: textureDescriptor)
         
         let commandBuffer = self.context.commandQueue.makeCommandBuffer()

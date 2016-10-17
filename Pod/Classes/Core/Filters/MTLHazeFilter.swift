@@ -22,7 +22,6 @@ class MTLHazeFilter: MTLFilter {
         didSet {
             clamp(&fade, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

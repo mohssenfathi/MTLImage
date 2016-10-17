@@ -25,14 +25,12 @@ class MTLSelectiveHSLFilter: MTLFilter {
         didSet {
             clamp(&mode, low: 0, high: 3)
             needsUpdate = true
-            update()
         }
     }
     
     public var adjustments: [Float] = [Float](repeating: 0.0, count: 7) {
         didSet {
             needsUpdate = true
-            update()
         }
     }
     

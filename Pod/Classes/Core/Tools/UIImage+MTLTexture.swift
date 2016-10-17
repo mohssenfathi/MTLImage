@@ -8,10 +8,24 @@
 
 #if !(TARGET_OS_SIMULATOR)
 import Metal
+import MetalKit
 #endif
 
 extension UIImage {
     
+//    func texture(_ device: MTLDevice) -> MTLTexture? {
+//        
+//        let textureLoader = MTKTextureLoader(device: device)
+//        
+//        guard let cgImage = self.cgImage else {
+//            print("Error loading CGImage")
+//            return nil
+//        }
+//        
+//        let options = [ MTKTextureLoaderOptionSRGB : NSNumber(value: false) ]
+//        return try? textureLoader.newTexture(with: cgImage, options: options)
+//    }
+
     func texture(_ device: MTLDevice) -> MTLTexture? {
         return texture(device, flip: false, size: size)
     }
@@ -29,7 +43,7 @@ extension UIImage {
 
         let (context, cgImage, data) = imageData(with: CGSize(width: width, height: height))
         
-        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm, width: width, height: height, mipmapped: false)
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm /*.rgba8Unorm*/, width: width, height: height, mipmapped: false)
         let texture = device.makeTexture(descriptor: textureDescriptor)
         let region = MTLRegionMake2D(0, 0, width, height)
         texture.replace(region: region, mipmapLevel: 0, withBytes: data!, bytesPerRow: bytesPerRow)
@@ -109,7 +123,8 @@ extension UIImage {
         let bytesPerPixel = 4
         let bytesPerRow = bytesPerPixel * width
         let bitsPerCompoment = 8
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue).union(CGBitmapInfo.byteOrder32Big)
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue).union(CGBitmapInfo.byteOrder32Little)
+        // CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue).union(CGBitmapInfo.byteOrder32Big)
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         guard let context = CGContext(data: rawData, width: width, height: height, bitsPerComponent: bitsPerCompoment,
                                       bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue) else {

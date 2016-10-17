@@ -24,7 +24,6 @@ class MTLLevelsFilter: MTLFilter {
         didSet {
             clamp(&min, low: 0, high: mid)
             needsUpdate = true
-            update()
         }
     }
     
@@ -32,7 +31,6 @@ class MTLLevelsFilter: MTLFilter {
         didSet {
             clamp(&mid, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -40,7 +38,6 @@ class MTLLevelsFilter: MTLFilter {
         didSet {
             clamp(&max, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -48,7 +45,6 @@ class MTLLevelsFilter: MTLFilter {
         didSet {
             clamp(&minOut, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -56,7 +52,6 @@ class MTLLevelsFilter: MTLFilter {
         didSet {
             clamp(&maxOut, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

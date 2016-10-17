@@ -18,8 +18,7 @@ protocol MTLCameraDelegate {
 
 public
 class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegate, AVCapturePhotoCaptureDelegate {
-    
-    
+
     /* For relaying changes in the 'Settings' section */
     public var delegate: MTLCameraDelegate?
     
@@ -249,6 +248,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         
         self.title = "MTLCamera"
         context.source = self
+        context.continuousUpdate = true
         
         setupAVDevice()
         setupPipeline()
@@ -574,6 +574,10 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         get {
             return internalContext
         }
+    }
+    
+    public var commandBuffer: MTLCommandBuffer {
+        return context.commandQueue.makeCommandBuffer()
     }
     
     public var device: MTLDevice {

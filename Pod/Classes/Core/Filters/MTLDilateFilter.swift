@@ -18,7 +18,6 @@ class MTLDilateFilter: MTLMPSFilter {
         didSet {
             clamp(&width, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -26,7 +25,6 @@ class MTLDilateFilter: MTLMPSFilter {
         didSet {
             clamp(&height, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

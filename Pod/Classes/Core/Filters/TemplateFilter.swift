@@ -21,7 +21,6 @@ class TemplateFilter: MTLFilter {
         didSet {
             clamp(&someProperty, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

@@ -22,7 +22,6 @@ class MTLCrossHatchFilter: MTLFilter {
         didSet {
             clamp(&crossHatchSpacing, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -30,7 +29,6 @@ class MTLCrossHatchFilter: MTLFilter {
         didSet {
             clamp(&lineWidth, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

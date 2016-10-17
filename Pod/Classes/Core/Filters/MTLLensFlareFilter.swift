@@ -31,21 +31,18 @@ class MTLLensFlareFilter: MTLFilter {
     public var color: UIColor = UIColor.white {
         didSet {
             needsUpdate = true
-            update()
         }
     }
     
     public var angle: CGPoint = CGPoint(x: 0.5, y: 0.5) {
         didSet {
             needsUpdate = true
-            update()
         }
     }
     
     public var center: CGPoint = CGPoint(x: 0.5, y: 0.5) {
         didSet {
             needsUpdate = true
-            update()
         }
     }
     
@@ -53,14 +50,12 @@ class MTLLensFlareFilter: MTLFilter {
         didSet {
             clamp(&brightness, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
     public var showSun: Bool = true {
         didSet {
             needsUpdate = true
-            update()
         }
     }
     

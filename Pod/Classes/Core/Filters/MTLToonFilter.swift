@@ -21,7 +21,6 @@ class MTLToonFilter: MTLFilter {
         didSet {
             clamp(&quantizationLevels, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -29,7 +28,6 @@ class MTLToonFilter: MTLFilter {
         didSet {
             clamp(&threshold, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

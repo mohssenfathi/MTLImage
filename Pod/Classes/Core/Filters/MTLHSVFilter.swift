@@ -23,7 +23,6 @@ class MTLHSVFilter: MTLFilter {
         didSet {
             clamp(&hue, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -31,7 +30,6 @@ class MTLHSVFilter: MTLFilter {
         didSet {
             clamp(&saturation, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -39,7 +37,6 @@ class MTLHSVFilter: MTLFilter {
         didSet {
             clamp(&vibrancy, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

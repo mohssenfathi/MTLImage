@@ -28,10 +28,7 @@ class MTLMPSFilter: MTLFilter {
         
         guard needsUpdate == true else { return }
         
-        guard let inputTexture = input?.texture else {
-            print("input texture nil")
-            return
-        }
+        guard let inputTexture = input?.texture else { return }
         
         autoreleasepool {
             if internalTexture == nil || internalTexture!.width != inputTexture.width || internalTexture!.height != inputTexture.height {

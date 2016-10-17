@@ -21,7 +21,6 @@ class MTLStraightenFilter: MTLFilter {
         didSet {
             clamp(&angle, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

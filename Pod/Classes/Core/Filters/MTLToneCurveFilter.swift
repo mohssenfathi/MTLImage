@@ -26,7 +26,6 @@ class MTLToneCurveFilter: MTLFilter {
             compositeCurve = getPreparedSplineCurve(compositePoints)
             toneCurveBuffer = nil
             needsUpdate = true
-            update()
         }
     }
     
@@ -37,7 +36,6 @@ class MTLToneCurveFilter: MTLFilter {
             compositeCurve = getPreparedSplineCurve(compositePoints)
             toneCurveBuffer = nil
             needsUpdate = true
-            update()
         }
     }
     
@@ -48,7 +46,6 @@ class MTLToneCurveFilter: MTLFilter {
             compositeCurve = getPreparedSplineCurve(compositePoints)
             toneCurveBuffer = nil
             needsUpdate = true
-            update()
         }
     }
     
@@ -59,7 +56,6 @@ class MTLToneCurveFilter: MTLFilter {
             redCurve = getPreparedSplineCurve(redPoints)
             toneCurveBuffer = nil
             needsUpdate = true
-            update()
         }
     }
     
@@ -70,7 +66,6 @@ class MTLToneCurveFilter: MTLFilter {
             greenCurve = getPreparedSplineCurve(greenPoints)
             toneCurveBuffer = nil
             needsUpdate = true
-            update()
         }
     }
     
@@ -81,7 +76,6 @@ class MTLToneCurveFilter: MTLFilter {
             blueCurve = getPreparedSplineCurve(bluePoints)
             toneCurveBuffer = nil
             needsUpdate = true
-            update()
         }
     }
     

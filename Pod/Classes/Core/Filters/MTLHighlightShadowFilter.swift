@@ -22,7 +22,6 @@ class MTLHighlightShadowFilter: MTLFilter {
         didSet {
             clamp(&highlights, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -30,7 +29,6 @@ class MTLHighlightShadowFilter: MTLFilter {
         didSet {
             clamp(&shadows, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

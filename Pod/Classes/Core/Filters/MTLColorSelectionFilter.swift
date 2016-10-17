@@ -34,7 +34,6 @@ class MTLColorSelectionFilter: MTLFilter {
                       MTLProperty(key: "blue"   , title: "Blue"   ),
                       MTLProperty(key: "purple" , title: "Purple" ),
                       MTLProperty(key: "magenta", title: "Magenta")]
-        update()
     }
     
     required public init?(coder aDecoder: NSCoder) {

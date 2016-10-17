@@ -26,7 +26,6 @@ class MTLSmudgeFilter: MTLFilter {
         didSet {
             clamp(&radius, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -34,14 +33,12 @@ class MTLSmudgeFilter: MTLFilter {
         didSet {
             clamp(&radius, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
     public var location: CGPoint = CGPoint.zero {
         didSet {
             needsUpdate = true
-            update()
         }
     }
     
@@ -50,7 +47,6 @@ class MTLSmudgeFilter: MTLFilter {
 //            direction.x = direction.x < 0 ? -1 : 1
 //            direction.y = direction.y < 0 ? -1 : 1
             needsUpdate = true
-            update()
         }
     }
     

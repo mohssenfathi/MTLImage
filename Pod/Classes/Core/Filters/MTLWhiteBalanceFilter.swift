@@ -22,7 +22,6 @@ class MTLWhiteBalanceFilter: MTLFilter {
         didSet {
             clamp(&temperature, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -30,7 +29,6 @@ class MTLWhiteBalanceFilter: MTLFilter {
         didSet {
             clamp(&tint, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

@@ -22,14 +22,12 @@ class MTLSobelEdgeDetectionThresholdFilter: MTLFilter {
         didSet {
             clamp(&threshold, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
     public var edgeStrength: Float = 0.0 {
         didSet {
             sobelEdgeDetectionFilter.edgeStrength = edgeStrength
-            update()
         }
     }
     
@@ -68,7 +66,7 @@ class MTLSobelEdgeDetectionThresholdFilter: MTLFilter {
         set {
             if newValue?.identifier != sobelEdgeDetectionFilter.identifier {
                 sobelEdgeDetectionFilter.input = newValue
-                setupPipeline()
+                reload()
                 update()
             }
         }

@@ -18,6 +18,7 @@ public protocol MTLInput {
     var context: MTLContext  { get }
     var device : MTLDevice   { get }
     var targets: [MTLOutput] { get }
+    var commandBuffer: MTLCommandBuffer { get }
     
     var title      : String  { get set }
     var identifier : String! { get set }
@@ -26,9 +27,6 @@ public protocol MTLInput {
     func addTarget(_ target: MTLOutput)
     func removeTarget(_ target: MTLOutput)
     func removeAllTargets()
-    
-    /*  Signal from final output that texture has been displayed */
-    func didFinishProcessing()
 }
 
 public protocol MTLOutput {

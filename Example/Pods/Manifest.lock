@@ -1,7 +1,7 @@
 PODS:
-  - Crashlytics (3.8.1):
+  - Crashlytics (3.8.2):
     - Fabric (~> 1.6.3)
-  - Fabric (1.6.8)
+  - Fabric (1.6.10)
   - MTLImage (0.1.0):
     - MTLImage/CloudKit (= 0.1.0)
     - MTLImage/Core (= 0.1.0)
@@ -20,8 +20,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Crashlytics: 4391d8df0b125345e9f209c5db6e7f40a6a8435d
-  Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
+  Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
+  Fabric: c73f371ee543e3f0b80608f2674750e4910d1669
   MTLImage: 863d8fb2b83d1cf39e4942f5db3b4d74af45c4de
 
 PODFILE CHECKSUM: 1a70ff85dddce6946be9bd41090ab8a26438d85a

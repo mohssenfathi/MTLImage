@@ -22,7 +22,6 @@ class MTLDistortionFilter: MTLFilter {
         didSet {
             clamp(&x, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -30,7 +29,6 @@ class MTLDistortionFilter: MTLFilter {
         didSet {
             clamp(&y, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

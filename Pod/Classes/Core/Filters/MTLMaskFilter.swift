@@ -30,7 +30,6 @@ class MTLMaskFilter: MTLFilter {
         didSet {
             clamp(&brushSize, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
@@ -54,7 +53,6 @@ class MTLMaskFilter: MTLFilter {
             updateMask(point, value: 0.0)
             originalTexture = nil
             needsUpdate = true
-            update()
         }
     }
     

@@ -21,7 +21,6 @@ class MTLSobelEdgeDetectionFilter: MTLFilter {
         didSet {
             clamp(&edgeStrength, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

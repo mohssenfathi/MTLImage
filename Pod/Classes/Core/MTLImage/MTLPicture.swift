@@ -89,16 +89,12 @@ class MTLPicture: NSObject, MTLInput {
     }
     
     func loadTexture() {
-        let flip = false
-        self.internalTexture = image.texture(device, flip: flip, size: processingSize)
-//        if let cgImage = image.cgImage {
-//            do {
-//                try self.internalTexture = textureLoader.newTexture(with: cgImage, options: nil)
-//            }
-//            catch {
-//                print(error)
-//            }
+
+        self.internalTexture = image.texture(device, flip: false, size: processingSize)
+//        if let texture = image.texture(device, flip: false, size: processingSize) {
+//            self.internalTexture = texture.makeTextureView(pixelFormat: texture.pixelFormat)
 //        }
+        
     }
     
     func chainLength() -> Int {
@@ -140,6 +136,10 @@ class MTLPicture: NSObject, MTLInput {
         }
     }
     
+    public var commandBuffer: MTLCommandBuffer {
+        return context.commandQueue.makeCommandBuffer()
+    }
+    
     public var targets: [MTLOutput] {
         get {
             return internalTargets
@@ -175,6 +175,9 @@ class MTLPicture: NSObject, MTLInput {
                 for target in targets {
                     if let filter = target as? MTLFilter {
                         filter.needsUpdate = true
+                    }
+                    else if let view = target as? MTLView {
+                        view.setNeedsDisplay()
                     }
                 }
             }

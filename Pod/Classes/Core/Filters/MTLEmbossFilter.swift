@@ -15,7 +15,6 @@ class MTLEmbossFilter: MTLConvolutionFilter {
         didSet {
             clamp(&intensity, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

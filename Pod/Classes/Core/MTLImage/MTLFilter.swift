@@ -15,10 +15,7 @@ func ==(left: MTLFilter, right: MTLFilter) -> Bool {
 public
 class MTLFilter: MTLObject, NSCoding {
     
-    private var internalTargets = [MTLOutput]()
     var propertyValues = [String : Any]()
-    var internalTexture: MTLTexture?
-    var internalInput: MTLInput?
     var pipeline: MTLComputePipelineState!
     var kernelFunction: MTLFunction!
     var vertexBuffer: MTLBuffer?
@@ -48,43 +45,6 @@ class MTLFilter: MTLObject, NSCoding {
         var name = functionName ?? "EmptyShader"
         if name == "" { name = "EmptyShader" }
         self.functionName = name
-    }
-    
-    public var enabled: Bool = true
-    
-    var internalTitle: String!
-    public override var title: String {
-        get { return internalTitle }
-        set { internalTitle = newValue }
-    }
-    
-    private var privateIdentifier: String = UUID().uuidString
-    public override var identifier: String! {
-        get { return privateIdentifier     }
-        set { privateIdentifier = newValue }
-    }
-    
-    var source: MTLInput? {
-        get {
-            var inp: MTLInput? = input
-            while inp != nil {
-                
-                if let sourcePicture = inp as? MTLPicture {
-                    return sourcePicture
-                }
-                
-                #if !os(tvOS)
-                    if let camera = inp as? MTLCamera {
-                        return camera
-                    }
-                #endif
-                
-                if inp is MTLOutput {
-                    inp = (inp as? MTLOutput)?.input
-                }
-            }
-            return nil
-        }
     }
     
     var outputView: MTLView? {
@@ -127,10 +87,6 @@ class MTLFilter: MTLObject, NSCoding {
         }
     }
     
-    func update() {
-        
-    }
-    
     public func reset() {
         for property in properties {
             if property.propertyType == MTLPropertyType.value {
@@ -139,7 +95,8 @@ class MTLFilter: MTLObject, NSCoding {
         }
     }
     
-    func setupPipeline() {
+    override func reload() {
+    
         kernelFunction = context.library?.makeFunction(name: functionName)
         if kernelFunction == nil {
             print("Failed to load kernel function: " + functionName)
@@ -151,14 +108,13 @@ class MTLFilter: MTLObject, NSCoding {
         } catch {
             print("Failed to create pipeline")
         }
+        
     }
     
-    public func process() {
+    
+    public override func process() {
         
-        guard let inputTexture = input?.texture else {
-            print("input texture nil")
-            return
-        }
+        guard let inputTexture = input?.texture else { return }
         
         autoreleasepool {
             
@@ -175,127 +131,34 @@ class MTLFilter: MTLObject, NSCoding {
             let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
             
             let commandBuffer = context.commandQueue.makeCommandBuffer()
-//            commandBuffer.label = "MTLFilter: " + title
+//            guard let commandBuffer = input?.commandBuffer else { return }
             
             let commandEncoder = commandBuffer.makeComputeCommandEncoder()
             commandEncoder.setComputePipelineState(pipeline)
             commandEncoder.setBuffer(uniformsBuffer, offset: 0, at: 0)
             commandEncoder.setTexture(inputTexture, at: 0)
             commandEncoder.setTexture(internalTexture, at: 1)
+            
             self.configureCommandEncoder(commandEncoder)
+            
             commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
             commandEncoder.endEncoding()
 
-            commandBuffer.addCompletedHandler({ (commandBuffer) in
-                self.needsUpdate = false
-            })
+//            if !(targets.first is MTLInput) {
             
-            commandBuffer.commit()
-            commandBuffer.waitUntilCompleted()
+                commandBuffer.addCompletedHandler({ (commandBuffer) in
+                    self.needsUpdate = false
+//                    self.context.refreshCurrentCommandBuffer()
+                })
+                
+                commandBuffer.commit()
+                commandBuffer.waitUntilCompleted()
+//            }
         }
     }
     
     func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         
-    }
-    
-    
-    //    MARK: - MTLInput
-
-    public override var texture: MTLTexture? {
-        get {
-            if !enabled {
-                return input?.texture
-            }
-            
-            if needsUpdate == true {
-                update()
-                process()
-            }
-            
-            return internalTexture
-        }
-    }
-    
-    public override var context: MTLContext {
-        get {
-            if internalInput != nil {
-                return internalInput!.context
-            }
-            return MTLContext()
-        }
-    }
-    
-    public override var device: MTLDevice {
-        get {
-            return context.device
-        }
-    }
-    
-    public override var targets: [MTLOutput] {
-        get {
-            return internalTargets
-        }
-    }
-    
-    public override func addTarget(_ target: MTLOutput) {
-        var t = target
-        internalTargets.append(t)
-        t.input = self
-        if let picture = source as? MTLPicture {
-            picture.loadTexture()
-        }
-    }
-    
-    public override func removeTarget(_ target: MTLOutput) {
-        var t = target
-        
-        t.input = nil
-        
-        var index: Int = NSNotFound
-        if let filter = target as? MTLFilter {
-            for i in 0 ..< internalTargets.count {
-                if let f = internalTargets[i] as? MTLFilter {
-                    if f == filter { index = i }
-                }
-            }
-        }
-        else if t is MTLView {
-            for i in 0 ..< internalTargets.count {
-                if internalTargets[i] is MTLView { index = i }
-            }
-        }
-        
-        if index != NSNotFound {
-            internalTargets.remove(at: index)
-        }
-        internalTexture = nil
-    }
-    
-    public override func removeAllTargets() {
-        for var target in internalTargets {
-            target.input = nil
-        }
-        internalTargets.removeAll()
-    }
-    
-    
-    /* Informs next object in the chain that a change has occurred and 
-       that changes need to be propogated through the chain. */
-    
-    private var privateNeedsUpdate = true
-    public override var needsUpdate: Bool {
-        set {
-            privateNeedsUpdate = newValue
-            if newValue == true {
-                for target in targets where target is MTLObject {
-                    (target as! MTLObject).needsUpdate = newValue
-                }
-            }
-        }
-        get {
-            return privateNeedsUpdate
-        }
     }
     
     
@@ -321,21 +184,6 @@ class MTLFilter: MTLObject, NSCoding {
         return image
     }
     
-    
-    //    MARK: - MTLOutput
-    
-    public override var input: MTLInput? {
-        get {
-            return internalInput
-        }
-        set {
-            if newValue != nil {
-                internalInput = newValue
-                setupPipeline()
-                update()
-            }
-        }
-    }
     
     
     func updatePropertyValues() {

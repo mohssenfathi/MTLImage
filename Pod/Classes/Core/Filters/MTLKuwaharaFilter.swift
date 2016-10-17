@@ -21,7 +21,6 @@ class MTLKuwaharaFilter: MTLFilter {
         didSet {
             clamp(&radius, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

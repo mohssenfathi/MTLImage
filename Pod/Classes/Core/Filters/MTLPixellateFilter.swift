@@ -24,7 +24,6 @@ class MTLPixellateFilter: MTLFilter {
         didSet {
             clamp(&dotRadius, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

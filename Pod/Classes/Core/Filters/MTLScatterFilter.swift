@@ -24,7 +24,6 @@ class MTLScatterFilter: MTLFilter {
             clamp(&radius, low: 0, high: 1)
             noiseTexture = nil
             needsUpdate = true
-            update()
         }
     }
     
@@ -34,7 +33,6 @@ class MTLScatterFilter: MTLFilter {
             noiseFilter.scale = scale/50.0
             noiseTexture = nil
             needsUpdate = true
-            update()
         }
     }
     

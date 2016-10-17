@@ -28,14 +28,12 @@ class MTLVignetteFilter: MTLFilter {
     public var center: CGPoint = CGPoint(x: 0.5, y: 0.5) {
         didSet {
             needsUpdate = true
-            update()
         }
     }
     
     public var color: UIColor = UIColor.black {
         didSet {
             needsUpdate = true
-            update()
         }
     }
     
@@ -43,7 +41,6 @@ class MTLVignetteFilter: MTLFilter {
         didSet {
             clamp(&start, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

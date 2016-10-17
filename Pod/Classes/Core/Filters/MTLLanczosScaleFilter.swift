@@ -19,7 +19,6 @@ class MTLLanczosScaleFilter: MTLMPSFilter {
         didSet {
             clamp(&scale, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

@@ -23,7 +23,6 @@ class MTLExposureFilter: MTLFilter {
         didSet {
             clamp(&exposure, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

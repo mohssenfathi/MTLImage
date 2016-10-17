@@ -20,7 +20,6 @@ class MTLSharpenFilter: MTLFilter {
         didSet {
             clamp(&sharpness, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

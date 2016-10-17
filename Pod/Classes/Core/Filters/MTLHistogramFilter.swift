@@ -31,7 +31,6 @@ class MTLHistogramFilter: MTLFilter {
         didSet {
             clamp(&dummy, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     

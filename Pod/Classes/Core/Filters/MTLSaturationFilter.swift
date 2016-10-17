@@ -21,7 +21,6 @@ class MTLSaturationFilter: MTLFilter {
         didSet {
             clamp(&saturation, low: 0, high: 1)
             needsUpdate = true
-            update()
         }
     }
     
