@@ -1,5 +1,5 @@
 //
-//  MTLMPSFilter.swift
+//  MPS.swift
 //  Pods
 //
 //  Created by Mohssen Fathi on 6/17/16.
@@ -10,7 +10,7 @@ import UIKit
 import  MetalPerformanceShaders
 
 public
-class MTLMPSFilter: MTLFilter {
+class MPS: MTLFilter {
     
     var kernel: MPSKernel!
 

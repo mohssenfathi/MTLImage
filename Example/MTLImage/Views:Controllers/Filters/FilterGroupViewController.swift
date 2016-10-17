@@ -311,8 +311,8 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     
 //        Temp test for histogram
         if histogramView == nil {
-            if filter is MTLHistogramFilter {
-                let histogram = filter as! MTLHistogramFilter
+            if filter is Histogram {
+                let histogram = filter as! Histogram
                 if histogram.histogramView != nil {
                     histogramView = histogram.histogramView
                     let window = UIApplication.shared.keyWindow!

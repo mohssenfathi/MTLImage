@@ -43,7 +43,7 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
     
     func handleTouchAtLocation(_ location: CGPoint) {
         
-        if filter is MTLSmudgeFilter { return } // Temp
+        if filter is Smudge { return } // Temp
         
         if touchProperty != nil {
             let viewSize = mainViewController.mtlView.frame.size
@@ -58,7 +58,7 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
         let location    = sender.location(in: sender.view)
 //        let velocity    = sender.velocityInView(sender.view)
         
-        if let smudgeFilter = filter as? MTLSmudgeFilter {
+        if let smudgeFilter = filter as? Smudge {
             smudgeFilter.location = location
             smudgeFilter.direction = translation
 //            smudgeFilter.force = Float(max(velocity.x, velocity.y))

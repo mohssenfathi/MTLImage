@@ -11,14 +11,14 @@ import Metal
 import MetalKit
 
 public
-protocol MTLViewDelegate {
-    func mtlViewTouchesBegan(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?)
-    func mtlViewTouchesMoved(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?)
-    func mtlViewTouchesEnded(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?)
+protocol MTLViewDelegate1 {
+    func mtlViewTouchesBegan(_ sender: MTLView1, touches: Set<UITouch>, event: UIEvent?)
+    func mtlViewTouchesMoved(_ sender: MTLView1, touches: Set<UITouch>, event: UIEvent?)
+    func mtlViewTouchesEnded(_ sender: MTLView1, touches: Set<UITouch>, event: UIEvent?)
 }
 
 public
-class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDelegate {
+class MTLView1: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     public var delegate: MTLViewDelegate?
     public var isZoomEnabled: Bool = true {
@@ -90,7 +90,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     //    MARK: - View Layout
     override public func didMoveToSuperview() {
         if superview != nil {
-            displayLink = CADisplayLink(target: self, selector: #selector(MTLView.update(_:)))
+            displayLink = CADisplayLink(target: self, selector: #selector(MTLView1.update(_:)))
             displayLink.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
         } else {
             displayLink.invalidate()
@@ -401,7 +401,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
     //    MARK: - Internal
     private var scrollView: UIScrollView!
     private var contentView: MetalLayerView!
-    private var cropFilter = MTLCropFilter()
+    private var cropFilter = Crop()
     private var privateInput: MTLInput?
     var displayLink: CADisplayLink!
     var device: MTLDevice!
@@ -497,7 +497,7 @@ class MTLView: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDeleg
 
 class MetalLayerView: UIView {
     
-    var parentView: MTLView?
+    var parentView: MTLView1?
     
     internal override class var layerClass: AnyClass {
         return CAMetalLayer.self
@@ -509,7 +509,8 @@ class MetalLayerView: UIView {
         let scale = window?.screen.scale ?? UIScreen.main.nativeScale
         (layer as! CAMetalLayer).drawableSize = bounds.size * scale
     }
-    
+   
+    /*
     //    MARK: - Touch Events
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -534,6 +535,7 @@ class MetalLayerView: UIView {
             mtlView.delegate?.mtlViewTouchesEnded(mtlView, touches: touches, event: event)
         }
     }
+ */
 }
 
 func *(left: CGSize, right: CGFloat) -> CGSize {
