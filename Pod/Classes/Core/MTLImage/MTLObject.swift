@@ -8,19 +8,15 @@
 
 public
 class MTLObject: NSObject, MTLOutput {
+    
+    public var title: String = ""
+    public var identifier: String = UUID().uuidString
 
-    // MARK: - Subclassing
-    
-    func update() {
-        
-    }
-    
-    func process() {
-        
-    }
-    
-    func reload() {
-        
+    public var continuousUpdate: Bool {
+        guard let input = input else {
+            return false
+        }
+        return input.continuousUpdate
     }
     
     
@@ -30,14 +26,7 @@ class MTLObject: NSObject, MTLOutput {
     var internalInput: MTLInput?
     var internalTexture: MTLTexture?
     var internalTargets = [MTLOutput]()
-    
-    var internalTitle: String = ""
-    var internalIdentifier: String = UUID().uuidString
     var internalNeedsUpdate = true
-    
-    
-//    public func didStartProcessing() {}
-//    public func didFinishProcessing() {}
     
     var source: MTLInput? {
         get {
@@ -125,14 +114,27 @@ class MTLObject: NSObject, MTLOutput {
         return context.commandQueue.makeCommandBuffer()
     }
     
+    
+    
+    
+    
+    // MARK: - Subclassing
+    
+    func update() {
+        
+    }
+    
+    func process() {
+        
+    }
+    
+    func reload() {
+        
+    }
 }
 
 extension MTLObject: MTLInput {
     
-    public var title: String {
-        get { return internalTitle     }
-        set { internalTitle = newValue }
-    }
     
     public var texture: MTLTexture? {
         
@@ -167,12 +169,6 @@ extension MTLObject: MTLInput {
     public var targets: [MTLOutput] {
         return internalTargets
     }
-    
-    public var identifier: String! {
-        get { return internalIdentifier     }
-        set { internalIdentifier = newValue }
-    }
-    
     
     /* Informs next object in the chain that a change has occurred and
      that changes need to be propogated through the chain. */

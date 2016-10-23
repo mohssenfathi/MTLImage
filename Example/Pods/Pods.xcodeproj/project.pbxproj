@@ -71,8 +71,10 @@
 		444DB397EC523D83815F73F21D167E39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BAB538786F3BBC86968963FC0A0B91 /* Foundation.framework */; };
 		4520D10A1842886C6CB0F051F418F1D6 /* Brightness.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E5D90AFD218EB679221E72BBF48347 /* Brightness.swift */; };
 		45A4696CF661300C0B439B36A0379061 /* MTLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D184FE4566EDD7F131EFED4C77CA64F /* MTLFilter.swift */; };
+		45EF7D521DB7A22B00474871 /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF7D511DB7A22B00474871 /* Mask.swift */; };
+		45EF7D531DB7A84B00474871 /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF7D511DB7A22B00474871 /* Mask.swift */; };
 		46F4B1A9BD2A879961844921DB3F66FA /* NonMaximumSuppression.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4AF887E5ECDE48D8BFCCA3D88DDB04 /* NonMaximumSuppression.swift */; };
-		48600C20C1185A18780988CD380A3305 /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3D9B90B11F70CF490FC3D65D0C45E6 /* Mask.swift */; };
+		48600C20C1185A18780988CD380A3305 /* Mask1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3D9B90B11F70CF490FC3D65D0C45E6 /* Mask1.swift */; };
 		493CABFF877BEFC67E270186CA60CCC7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BAB538786F3BBC86968963FC0A0B91 /* Foundation.framework */; };
 		4965CDE3093330C35CF6B6866CA93F1F /* MTLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D184FE4566EDD7F131EFED4C77CA64F /* MTLFilter.swift */; };
 		4CA312C1E4F84A49317EC6386D64073B /* Sketch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63575B3071B5CFDEFE831F3F8547F8C0 /* Sketch.swift */; };
@@ -100,7 +102,7 @@
 		664569B152C3BDDB701DE0304C23014F /* MTLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D537B1227C90AC71EBF686D180835FA9 /* MTLImage.swift */; };
 		67ACD195C15623DF5860712D138A0206 /* Pods-MTLImage_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 990567AE9031D7C8ADEEC6E93140DF00 /* Pods-MTLImage_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		682C19C3DB6D9E08E3C81F5370A42600 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD03F34AC80BE0CDBAAE7A4EB5378EF /* Buffer.swift */; };
-		683E22A1DDE82058094D8E0D1F8009CB /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3D9B90B11F70CF490FC3D65D0C45E6 /* Mask.swift */; };
+		683E22A1DDE82058094D8E0D1F8009CB /* Mask1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3D9B90B11F70CF490FC3D65D0C45E6 /* Mask1.swift */; };
 		69A9D482FFF39AC4A743F2C6D5F6D8D2 /* LuminanceThreshold.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188DC13CDC5DECA23CD94105F32C843 /* LuminanceThreshold.swift */; };
 		6CF74940ADEF05F2A7F7EBBA4D17EC5B /* MTLImage-iOS9.0-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A12933BA1389528081FB72B7D2245C0C /* MTLImage-iOS9.0-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DFD2E311D04885C9BD67A46682B53F4 /* MTLMPSFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04E84718B10392ADF9F053390833B0 /* MTLMPSFilter.swift */; };
@@ -253,6 +255,7 @@
 		3C758924DF37395EEB5020C7A62D4D5A /* UIImage+MTLTexture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+MTLTexture.swift"; sourceTree = "<group>"; };
 		3CA962CA686F0E1C427231FF66833AE1 /* MTLImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MTLImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41F71965B3118D184A73304354C19B42 /* MTLTypes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLTypes.swift; sourceTree = "<group>"; };
+		45EF7D511DB7A22B00474871 /* Mask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mask.swift; sourceTree = "<group>"; };
 		494C290BDBEAED23BA5743A3CE2FA0D1 /* FABAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FABAttributes.h; path = iOS/Fabric.framework/Headers/FABAttributes.h; sourceTree = "<group>"; };
 		49BA9EBB435AC80CC9AFEB3B15AB2571 /* UnsharpMask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UnsharpMask.swift; sourceTree = "<group>"; };
 		4FA699CEB137B31F0FB3899AC0B64640 /* MTLImage-iOS9.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MTLImage-iOS9.0-prefix.pch"; path = "../MTLImage-iOS9.0/MTLImage-iOS9.0-prefix.pch"; sourceTree = "<group>"; };
@@ -268,7 +271,7 @@
 		63F63CEAEDBE19A6C275EA08CF59C0F3 /* Pods-MTLImage_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MTLImage_Tests.modulemap"; sourceTree = "<group>"; };
 		66B460779288475F4A2CB0A301C83659 /* CrossHatch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CrossHatch.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6918D0C344DBC17D088B2695A80922F3 /* MTLCamera.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCamera.swift; sourceTree = "<group>"; };
-		6A3D9B90B11F70CF490FC3D65D0C45E6 /* Mask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Mask.swift; sourceTree = "<group>"; };
+		6A3D9B90B11F70CF490FC3D65D0C45E6 /* Mask1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Mask1.swift; sourceTree = "<group>"; };
 		6D21903266D266511DDAECA52BB30B95 /* Contrast.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Contrast.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6EE0F01CBFACD1410D54CFE1787E2462 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6FCABDBB30786C102D4A8AFA2F6FA8BA /* WhiteBalance.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WhiteBalance.swift; sourceTree = "<group>"; };
@@ -620,7 +623,8 @@
 				35700BBFB2D936B63E0F31FD9DA966D9 /* Levels.swift */,
 				084799ABDDF466098612B0CAC7A52740 /* LineDetection.swift */,
 				A188DC13CDC5DECA23CD94105F32C843 /* LuminanceThreshold.swift */,
-				6A3D9B90B11F70CF490FC3D65D0C45E6 /* Mask.swift */,
+				6A3D9B90B11F70CF490FC3D65D0C45E6 /* Mask1.swift */,
+				45EF7D511DB7A22B00474871 /* Mask.swift */,
 				8A154A25F8BE15BC4DAF26BCAA02DCB4 /* Mosaic.swift */,
 				FF4AF887E5ECDE48D8BFCCA3D88DDB04 /* NonMaximumSuppression.swift */,
 				60669C7A788CD8F87A5CB1C2B79E8FE2 /* OilPaint.swift */,
@@ -1075,6 +1079,7 @@
 				A4B80186B0D98DD8654C7F1926D2A0D3 /* ColorSelection.swift in Sources */,
 				ACF478F58258CCF5319C18B1570AFAF2 /* MTLContext.swift in Sources */,
 				3FACC345CBB31D414B126163C0A267F4 /* Contrast.swift in Sources */,
+				45EF7D521DB7A22B00474871 /* Mask.swift in Sources */,
 				66058709BAAE25174ED8EC9A165EBF81 /* Convolution.swift in Sources */,
 				09D032C7C5E8EB08A206FFDE193B9529 /* Crop.swift in Sources */,
 				EFD641DABC80CDA8B5CE4CAEC0DC6283 /* CrossHatch.swift in Sources */,
@@ -1109,7 +1114,7 @@
 				5F80BB344993645F61A7E65D48FC2513 /* MTLLib.swift in Sources */,
 				5AF5C13B3FA64004709BEB5B941C9925 /* LineDetection.swift in Sources */,
 				69A9D482FFF39AC4A743F2C6D5F6D8D2 /* LuminanceThreshold.swift in Sources */,
-				48600C20C1185A18780988CD380A3305 /* Mask.swift in Sources */,
+				48600C20C1185A18780988CD380A3305 /* Mask1.swift in Sources */,
 				42E0DAA94059418B989653ED59D0566C /* MTLMatrix.swift in Sources */,
 				614FED4A48EEDC7D6641CAEF45002487 /* Mosaic.swift in Sources */,
 				6DFD2E311D04885C9BD67A46682B53F4 /* MTLMPSFilter.swift in Sources */,
@@ -1170,6 +1175,7 @@
 				328F8549D0BDCC69FEA29B1F05E09F35 /* ColorSelection.swift in Sources */,
 				DB1DBD3C61557F5129C6A2BC27762113 /* MTLContext.swift in Sources */,
 				87BB94D3C04D50114F33DC8ACE05DEBF /* Contrast.swift in Sources */,
+				45EF7D531DB7A84B00474871 /* Mask.swift in Sources */,
 				5B19E78993C4301D0651E44377601AC5 /* Convolution.swift in Sources */,
 				37D92DEFBDBCA2903A1C089CC1567230 /* Crop.swift in Sources */,
 				17E1F41E6DF053976C31C46278DAF594 /* CrossHatch.swift in Sources */,
@@ -1204,7 +1210,7 @@
 				38468E76A17FB684F8F737DB8FA44071 /* MTLLib.swift in Sources */,
 				18B20A1A769A5DAC4D025D3D559D945B /* LineDetection.swift in Sources */,
 				C6867BA53BF5E007224468F14E1371E0 /* LuminanceThreshold.swift in Sources */,
-				683E22A1DDE82058094D8E0D1F8009CB /* Mask.swift in Sources */,
+				683E22A1DDE82058094D8E0D1F8009CB /* Mask1.swift in Sources */,
 				081A8121FC9CC093796426D40E83775B /* MTLMatrix.swift in Sources */,
 				F0699C9BFE8A07ECEA9E6A523F3D584A /* Mosaic.swift in Sources */,
 				5B557AB8E128DB403BF640C24F728048 /* MTLMPSFilter.swift in Sources */,

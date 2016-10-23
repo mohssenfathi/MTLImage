@@ -91,5 +91,8 @@ class Water: MTLFilter {
         
         updateUniforms(uniforms: uniforms)
     }
-
+    
+    override public var continuousUpdate: Bool {
+        return true
+    }
 }

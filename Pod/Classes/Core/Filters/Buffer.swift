@@ -46,26 +46,9 @@ class Buffer: MTLFilter {
         }
     }
     
-    public override var texture: MTLTexture? {
-        get {
-            
-            if !enabled {
-                return input?.texture
-            }
-            
-            if needsUpdate == true {
-                update()
-                process()
-            }
-            
-            if textureQueue.count == maxBuffers {
-                return textureQueue.popLast()
-                
-            }
-            return input?.texture
-        }
-        
-    }
+    
+    // TODO: set texture property to queue.last
+    
     
     func texture(bytes: UnsafeMutableRawPointer) -> MTLTexture? {
         

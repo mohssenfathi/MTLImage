@@ -131,7 +131,6 @@ class MTLFilter: MTLObject, NSCoding {
             let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
             
             let commandBuffer = context.commandQueue.makeCommandBuffer()
-//            guard let commandBuffer = input?.commandBuffer else { return }
             
             let commandEncoder = commandBuffer.makeComputeCommandEncoder()
             commandEncoder.setComputePipelineState(pipeline)
@@ -144,16 +143,12 @@ class MTLFilter: MTLObject, NSCoding {
             commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
             commandEncoder.endEncoding()
 
-//            if !(targets.first is MTLInput) {
+            commandBuffer.addCompletedHandler({ (commandBuffer) in
+                self.needsUpdate = false
+            })
             
-                commandBuffer.addCompletedHandler({ (commandBuffer) in
-                    self.needsUpdate = false
-//                    self.context.refreshCurrentCommandBuffer()
-                })
-                
-                commandBuffer.commit()
-                commandBuffer.waitUntilCompleted()
-//            }
+            commandBuffer.commit()
+            commandBuffer.waitUntilCompleted()
         }
     }
     

@@ -19,6 +19,9 @@ protocol MTLViewDelegate1 {
 
 public
 class MTLView1: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDelegate {
+
+    
+    public var identifier: String = UUID().uuidString
     
     public var delegate: MTLViewDelegate?
     public var isZoomEnabled: Bool = true {
@@ -449,11 +452,6 @@ class MTLView1: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDele
         set { internalTitle = newValue }
     }
     
-    private var privateIdentifier: String = UUID().uuidString
-    public var identifier: String! {
-        get { return privateIdentifier     }
-        set { privateIdentifier = newValue }
-    }
     
     public var frameRate: Int = 60 {
         didSet {

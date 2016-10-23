@@ -55,4 +55,7 @@ class Voronoi: MTLFilter {
         updateUniforms(uniforms: uniforms)
     }
     
+    public override var continuousUpdate: Bool {
+        return true
+    }
 }

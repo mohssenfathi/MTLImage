@@ -140,7 +140,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             if object is MTLFilter {
                 selectedFilter = object as! MTLFilter
                 delegate?.filtersViewControllerDidSelectFilter(self, filter: selectedFilter)
-                performSegue(withIdentifier: "settings", sender: self)
+                self.performSegue(withIdentifier: "settings", sender: self)
             }
             else if object is MTLFilterGroup {
                 selectedFilter = object as! MTLFilterGroup

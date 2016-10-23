@@ -18,6 +18,14 @@ protocol MTLCameraDelegate {
 
 public
 class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegate, AVCapturePhotoCaptureDelegate {
+    
+
+    public var title: String = "Camera"
+    public var identifier: String = UUID().uuidString
+
+    public var continuousUpdate: Bool {
+        return true
+    }
 
     /* For relaying changes in the 'Settings' section */
     public var delegate: MTLCameraDelegate?
@@ -246,9 +254,8 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     public override init() {
         super.init()
         
-        self.title = "MTLCamera"
+        title = "MTLCamera"
         context.source = self
-        context.continuousUpdate = true
         
         setupAVDevice()
         setupPipeline()
@@ -460,18 +467,6 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         
     public func didFinishProcessing() {
         context.semaphore.signal()
-    }
-    
-    var internalTitle: String!
-    public var title: String {
-        get { return internalTitle }
-        set { internalTitle = newValue }
-    }
-    
-    private var privateIdentifier: String = UUID().uuidString
-    public var identifier: String! {
-        get { return privateIdentifier     }
-        set { privateIdentifier = newValue }
     }
     
     public var processingSize: CGSize! {

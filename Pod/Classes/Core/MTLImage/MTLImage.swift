@@ -20,9 +20,10 @@ public protocol MTLInput {
     var targets: [MTLOutput] { get }
     var commandBuffer: MTLCommandBuffer { get }
     
-    var title      : String  { get set }
-    var identifier : String! { get set }
-    var needsUpdate: Bool    { get set }
+    var title      : String { get set }
+    var identifier : String { get set }
+    var needsUpdate: Bool   { get set }
+    var continuousUpdate: Bool { get }
     
     func addTarget(_ target: MTLOutput)
     func removeTarget(_ target: MTLOutput)
@@ -33,8 +34,7 @@ public protocol MTLOutput {
     
     var input     : MTLInput? { get set }
     var title     : String    { get set }
-    var identifier: String!   { get set }
-    
+    var identifier: String    { get set }
 }
 
 public protocol Uniforms {

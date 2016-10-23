@@ -2,11 +2,9 @@
 //  Mask.swift
 //  Pods
 //
-//  Created by Mohssen Fathi on 4/16/16.
+//  Created by Mohssen Fathi on 10/19/16.
 //
 //
-
-import UIKit
 
 struct MaskUniforms: Uniforms {
     var brushSize: Float = 0.25
@@ -16,15 +14,8 @@ struct MaskUniforms: Uniforms {
 
 public
 class Mask: MTLFilter {
+
     var uniforms = MaskUniforms()
-    
-    private var viewSize: CGSize?
-    private var imageSize: CGSize?
-    private var maskTexture: MTLTexture?
-    private var originalTexture: MTLTexture?
-    private var mask: [Float]?
-    private var width: Int = 1000
-    private var lastPoint: CGPoint?
     
     public var brushSize: Float = 0.25 {
         didSet {
@@ -33,97 +24,127 @@ class Mask: MTLFilter {
         }
     }
     
-//    public var add: CGPoint = CGPointZero {
-//        didSet {
-//            updateMask(add, value: 1.0) // Add a bool property later for this
-//            needsUpdate = true
-//        }
-//    }
-    
-    public var point: CGPoint = CGPoint.zero {
+    public var hardness: Float = 0.5 {
         didSet {
-            
-            lastPoint = oldValue
-            if distance(oldValue, point2: point) > 20  { lastPoint = nil }
-            
-            if viewSize != nil {
-                clamp(&point.x, low: 0, high: viewSize!.width)
-                clamp(&point.y, low: 0, high: viewSize!.height)
-            }
-            updateMask(point, value: 0.0)
-            originalTexture = nil
+            clamp(&hardness, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public override func reset() {
-        mask = [Float](repeating: 1.0, count: width * width)
-        point = CGPoint.zero
+    public var point: CGPoint = CGPoint(x: 0.5, y: 0.5) {
+        didSet {
+            clamp(&point.x, low: 0.0, high: 1.0)
+            clamp(&point.y, low: 0.0, high: 1.0)
+            needsUpdate = true
+        }
+    }
+    
+    public var add: Bool = false {
+        didSet {
+            needsUpdate = true
+        }
+    }
+ 
+    
+    public init() {
+        super.init(functionName: "mask")
+        
+        title = "Mask"
+        
+        properties = [MTLProperty(key: "point"    , title: "Point"      , propertyType: .point),
+                      MTLProperty(key: "add"      , title: "Add"        , propertyType: .bool),
+                      MTLProperty(key: "brushSize", title: "Brush Size"),
+                      MTLProperty(key: "hardness" , title: "Hardness"  )]
+                      
+        
+        mask = [Float](repeating: 1.0, count: Int(size.width * size.height))
+            //[[Float]](repeating: [Float](repeating: 1.0, count: Int(size.width)), count: Int(size.height))
+        
         update()
     }
     
-    func updateMask(_ point: CGPoint, value: Float) {  // recieves point relative to output view
-        // Change to generics later
-        if viewSize == nil { return }
-        
-        let radius = CGFloat(brushSize * 50.0)
-        
-        let cx = Tools.convert(point.x, oldMin: 0.0, oldMax: viewSize!.height, newMin: 1.0, newMax: CGFloat(width))
-        let cy = Tools.convert(point.y, oldMin: 0.0, oldMax: viewSize!.width, newMin: 1.0, newMax: CGFloat(width))
-        
-        if lastPoint != nil {
-            let lx = Tools.convert(lastPoint!.x, oldMin: 0.0, oldMax: viewSize!.width , newMin: 0.0, newMax: CGFloat(width))
-            let ly = Tools.convert(lastPoint!.y, oldMin: 0.0, oldMax: viewSize!.height, newMin: 0.0, newMax: CGFloat(width))
-            
-            let dx = fabs(lx - cx)
-            let dy = fabs(ly - cy)
-//            let dy2 = 2 * dy
-//            let dydx2 = (dy2 - (2 * dx))
-            let m = dy/dx
-//            let b = ly - m * lx
-
-            let xDir: CGFloat = cx > lx ? 1.0 : -1.0
-            let yDir: CGFloat = cy > ly ? 1.0 : -1.0
-            
-            var x = lx
-            var y = ly
-            
-            if m < 1.0 {
-                while (xDir > 0 && x <= cx) || (xDir < 0 && x >= cx) {
-                    clearPoint(CGPoint(x: x, y: round(y)), radius: radius)
-                    x += radius/2 * xDir
-                    y += radius/2 * m
-                }
-            }
-            else {
-                clearPoint(CGPoint(x: round(x), y: y), radius: radius)
-                y += radius/2 * yDir
-                x += (radius/2 * xDir)/m
-            }
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
+        super.configureCommandEncoder(commandEncoder)
+     
+        if needsUpdate == true {
+            updateMaskTexture()
         }
-        else {
-            clearPoint(CGPoint(x: cx, y: cy), radius: radius)
-        }
+        
+        commandEncoder.setTexture(maskTexture, at: 2)
+        commandEncoder.setTexture(originalTexture, at: 3)
+    }
+    
+    func updateMaskTexture() {
+        
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .r32Float,
+                                                                         width: Int(size.width),
+                                                                         height: Int(size.height),
+                                                                         mipmapped: false)
+        
+        maskTexture = self.device.makeTexture(descriptor: textureDescriptor)
+        
+        maskTexture!.replace(region: MTLRegionMake2D(0, 0, Int(size.width), Int(size.height)),
+                             mipmapLevel: 0,
+                             withBytes: mask,
+                             bytesPerRow: MemoryLayout<Float>.size * Int(size.width))
+    }
+    
+    override func update() {
+        super.update()
+        
+        // TODO: Move this inside the shader later
+        
+        let radius = CGFloat(brushSize / 4.0)
+        clearPoint(point, radius: radius)
+        
+//        var minX = max(0     , Int((point.x - radius) * size.width))
+//        let maxX = min(width , Int((point.x + radius) * size.width))
+//        var minY = max(0     , Int((point.y - radius) * size.height))
+//        let maxY = max(height, Int((point.y + radius) * size.height))
+//        
+//        let x = Int(point.x) * width
+//        let y = Int(point.y) * height
+//        
+//        let value: Float = mask[y][x]
+//        let change = add ? (1.0 - value) * hardness : -(value * hardness)
+//        
+//        for i in minY ..< maxY {
+//            for j in minX ..< maxX {
+//                
+//                mask[i][j] += change
+//                clamp(&mask[i][j], low: 0.0, high: 1.0)
+//                
+//            }
+//        }
     }
     
     func clearPoint(_ point: CGPoint, radius: CGFloat) {
+        
+        let width  = Int(size.width)
+        let height = Int(size.height)
+
+        
         var starti = Int(point.x - radius)
         var startj = Int(point.y - radius)
         var endi   = Int(point.x + radius)
         var endj   = Int(point.y + radius)
         
         clamp(&starti, low: 0, high: width)
-        clamp(&startj, low: 0, high: width)
+        clamp(&startj, low: 0, high: height)
         clamp(&endi  , low: 0, high: width)
-        clamp(&endj  , low: 0, high: width)
+        clamp(&endj  , low: 0, high: height)
         
         var currentValue: CGFloat!
         for i in starti ..< endi {
             for j in startj ..< endj {
                 let dist = distance(CGPoint(x: i, y: j), point2: point)
                 if dist < radius {
-                    currentValue = CGFloat(mask![j * width + i])
-                    mask![j * width + i] = Float(min(pow(dist/radius, 2), currentValue)) //do max if add
+                    currentValue = CGFloat(mask[j * width + i])
+                    mask[j * width + i] = Float(min(pow(dist/radius, 2), currentValue)) //do max if add
                 }
             }
         }
@@ -133,72 +154,35 @@ class Mask: MTLFilter {
         return sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2))
     }
     
-    public init() {
-        super.init(functionName: "mask")
-        title = "Mask"
-        properties = [MTLProperty(key: "brushSize", title: "Brush Size"),
-                      MTLProperty(key: "point"    , title: "Point", propertyType: .point)]
-        mask = [Float](repeating: 1.0, count: width * width)
-        update()
-    }
     
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override func update() {
-        if self.input == nil { return }
+    override func reload() {
+        super.reload()
         
-        if originalTexture == nil {
-            if let inputFilter = input as? MTLFilter {
-                if inputFilter.input != nil {
-                    originalTexture = inputFilter.input?.texture
-                }
-                else {
-                    originalTexture = inputFilter.texture
-                }
-            } else if let sourcePicture = input as? MTLPicture {
-                originalTexture = sourcePicture.texture
-            }
-        }
-        
-        if imageSize != nil && viewSize != nil {
-            uniforms.x = Float(Tools.convert(Float(point.x), oldMin: 0, oldMax: Float(viewSize!.width),
-                                                             newMin: 0, newMax: Float(imageSize!.width))/Float(imageSize!.width))
-            uniforms.y = Float(Tools.convert(Float(point.y), oldMin: 0, oldMax: Float(viewSize!.height),
-                                                             newMin: 0, newMax: Float(imageSize!.height))/Float(imageSize!.height))
-        }
-        
-        if viewSize == nil {
-            if let mtlView = outputView {
-                viewSize = mtlView.frame.size
-            }
-        }
-        
-        uniforms.brushSize = brushSize * 100
-        
-        updateUniforms(uniforms: uniforms)
-    }
-    
-    override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
-        super.configureCommandEncoder(commandEncoder)
-        if needsUpdate == true {
-            updateMaskTexture()
-        }
-        commandEncoder.setTexture(maskTexture, at: 2)
-        commandEncoder.setTexture(originalTexture, at: 3)
-    }
-    
-    func updateMaskTexture() {
-        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .r32Float, width: width, height: width, mipmapped: false)
-        maskTexture = self.device.makeTexture(descriptor: textureDescriptor)
-        maskTexture!.replace(region: MTLRegionMake2D(0, 0, width, width), mipmapLevel: 0, withBytes: mask!, bytesPerRow: MemoryLayout<Float>.size * width)
-    }
-    
-    override public var input: MTLInput? {
-        didSet {
-            imageSize = originalImage?.size
+        if let texture = input?.texture {
+            size = CGSize(width: texture.width, height: texture.height)
         }
     }
     
+    
+    
+    // MARK: - Support
+    
+    /** 
+        A mask of Floats to determine output textures opacity
+     */
+    var mask: [Float]! //[[Float]]!
+    
+    
+    /** 
+        Size of the mask. Recalculate in reload()
+     */
+    var size: CGSize = CGSize(width: 500, height: 500) //{
+//        didSet {
+//            mask = [[Float]](repeating: [Float](repeating: 1.0, count: Int(size.width)), count: Int(size.height))
+//        }
+//    }
+    
+    
+    private var maskTexture: MTLTexture?
+    private var originalTexture: MTLTexture?
 }

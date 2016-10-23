@@ -45,7 +45,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         sourcePicture = MTLPicture(image: image)
 //        sourcePicture.setProcessingSize(mtlView.bounds.size * UIScreen.main.nativeScale, respectAspectRatio: true)
         sourcePicture.setProcessingSize(CGSize(width: 500, height: 500), respectAspectRatio: true)
-        mtlView.mtlViewDelegate = self
+        mtlView.delegate = self
         currentInput = sourcePicture
         
         currentInput --> filterGroup --> mtlView

@@ -21,6 +21,7 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationItem.title = filter.title
         tableView.estimatedRowHeight = 80
         
@@ -36,6 +37,7 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         tableView.isHidden  = (filter.properties.count == 0)
         emptyLabel.isHidden = (filter.properties.count != 0)
     }

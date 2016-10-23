@@ -11,6 +11,13 @@ import MetalKit
 
 public
 class MTLPicture: NSObject, MTLInput {
+    
+    public var identifier: String = UUID().uuidString
+    public var title: String = "Picture"
+
+    public var continuousUpdate: Bool {
+        return false
+    }
 
     private var internalTargets = [MTLOutput]()
     private var internalTexture: MTLTexture!
@@ -24,18 +31,6 @@ class MTLPicture: NSObject, MTLInput {
         internalContext = nil
     }
     
-    var internalTitle: String!
-    public var title: String {
-        get { return internalTitle }
-        set { internalTitle = newValue }
-    }
-    
-    private var privateIdentifier: String = UUID().uuidString
-    public var identifier: String! {
-        get { return privateIdentifier     }
-        set { privateIdentifier = newValue }
-    }
-
     public var image: UIImage! {
         didSet {
             if processingSize == CGSize.zero {

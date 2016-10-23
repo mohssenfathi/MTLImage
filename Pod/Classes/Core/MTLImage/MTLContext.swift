@@ -19,7 +19,6 @@ class MTLContext: NSObject {
     var processingSize: CGSize!
     var processingQueue: DispatchQueue!    
     var needsUpdate: Bool = true
-    var continuousUpdate: Bool = false
 
     let semaphore = DispatchSemaphore(value: 3)
     

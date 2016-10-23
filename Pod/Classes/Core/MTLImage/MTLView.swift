@@ -17,20 +17,144 @@ protocol MTLViewDelegate {
 }
 
 public
-class MTLView: MTKView, MTLOutput {
+class MTLView: UIView, MTLOutput {
+
+    
+    public var identifier: String = UUID().uuidString
+    
+    let mtkView = MTLMTKView()
+    let scrollView = UIScrollView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    func setup() {
+        
+        scrollView.frame = bounds
+        scrollView.delegate = self
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 10.0
+        scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addSubview(scrollView)
+        
+        mtkView.hostView = self
+        mtkView.frame = bounds
+        mtkView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        scrollView.addSubview(mtkView)
+    }
+    
+    func inputChanged() {
+        
+        mtkView.device = internalInput?.context.device
+        mtkView.input = input
+        mtkView.reload()
+        
+        if let input = input {
+            mtkView.enableSetNeedsDisplay = !input.continuousUpdate
+            mtkView.isPaused              = !input.continuousUpdate
+        }
+        
+        mtkView.draw()
+    }
+    
+    public override func setNeedsDisplay() {
+        super.setNeedsDisplay()
+        mtkView.setNeedsDisplay()
+    }
+    
+    // MARK: - Properties
+        
+    public var delegate: MTLViewDelegate?
+    
+    
+    private var internalInput: MTLInput?
+    public var input: MTLInput? {
+        get {
+            return internalInput
+        }
+        set {
+            internalInput = newValue
+            inputChanged()
+        }
+    }
+    
+    public var title: String  = "MTLView"
+    
+    public var isZoomEnabled = true {
+        didSet {
+            if !isZoomEnabled {
+                scrollView.setZoomScale(1.0, animated: false)
+            }
+        }
+    }
+    
+    public var preferredFramesPerSecond: Int = 60 {
+        didSet {
+            mtkView.preferredFramesPerSecond = preferredFramesPerSecond
+        }
+    }
+
+}
+
+extension MTLView: UIScrollViewDelegate {
+    
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return isZoomEnabled ? mtkView : nil
+    }
+    
+    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        
+        let imageSize = mtkView.drawableSize
+        let imageFrame = Tools.imageFrame(imageSize, rect: mtkView.frame)
+        
+        var y = imageFrame.origin.y - (frame.height/2 - imageFrame.height/2)
+        var x = imageFrame.origin.x - (frame.width/2 - imageFrame.width/2)
+        y = min(imageFrame.origin.y, y)
+        x = min(imageFrame.origin.x, x)
+        
+        scrollView.contentInset = UIEdgeInsetsMake(-y, -x, -y, -x);
+    }
+    
+    public func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        
+        if let texture = input?.texture {
+            mtkView.drawableSize = CGSize(width: texture.width, height: texture.height) * scale
+        }
+        
+    }
+
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.isZooming { return }
+    }
+}
+
+
+class MTLMTKView: MTKView {
+    
+    var library: MTLLibrary?
+    var contentSize: CGSize = .zero
+    weak var hostView: MTLView!
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
         super.init(frame: frameRect, device: nil)
+        setup()
     }
     
     required public init(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
-        
+    
+    
     func setup() {
-        
-        device = input?.context.device
+
         delegate = self
         clearColor = MTLClearColorMake(1.0, 0.0, 0.0, 1.0)
         framebufferOnly = false
@@ -38,18 +162,10 @@ class MTLView: MTKView, MTLOutput {
         contentMode = .scaleAspectFit
     }
     
-    func inputChanged() {
-        
-        device = internalInput?.context.device
-        reload()
-        
-        if let context = input?.context {
-            let continuous = context.continuousUpdate
-            enableSetNeedsDisplay = !continuous
-            isPaused = !continuous
+    override var contentMode: UIViewContentMode {
+        didSet {
+            setNeedsDisplay()
         }
-        
-        draw()
     }
     
     func reload() {
@@ -76,39 +192,14 @@ class MTLView: MTKView, MTLOutput {
         }
         
     }
-
-    
-    // MARK: - Properties
-    
-    public var mtlViewDelegate: MTLViewDelegate?
-    
-    private var privateIdentifier: String = UUID().uuidString
-    public var identifier: String! {
-        get { return privateIdentifier     }
-        set { privateIdentifier = newValue }
-    }
-    
-    private var internalInput: MTLInput?
-    public var input: MTLInput? {
-        get {
-            return internalInput
-        }
-        set {
-            internalInput = newValue
-            inputChanged()
-        }
-    }
-    
-    public var title: String  = "MTLView"
-    
     
     let renderSemaphore = DispatchSemaphore(value: 3)
+    var input: MTLInput?
     var vertexFunction: MTLFunction!
     var fragmentFunction: MTLFunction!
     var pipeline: MTLRenderPipelineState!
     var vertexBuffer: MTLBuffer!
     var texCoordBuffer: MTLBuffer!
-
     
     let kSzQuadTexCoords = 6 * MemoryLayout<float2>.size
     let kSzQuadVertices  = 6 * MemoryLayout<float4>.size
@@ -128,21 +219,19 @@ class MTLView: MTKView, MTLOutput {
                                     float4( 1.0,  1.0, 0.0, 1.0),
                                     float4(-1.0, -1.0, 0.0, 1.0),
                                     float4( 1.0, -1.0, 0.0, 1.0) ]
-    
-    
 }
 
-
-extension MTLView: MTKViewDelegate {
+extension MTLMTKView: MTKViewDelegate {
     
     public func draw(in view: MTKView) {
         
         guard let commandQueue = input?.context.commandQueue, let texture = input?.texture, let drawable = view.currentDrawable else {
-                return
+            return
         }
         
         if texture.width != Int(drawableSize.width) || texture.height != Int(drawableSize.height) {
             drawableSize = CGSize(width: texture.width, height: texture.height)
+            contentSize = drawableSize
             return
         }
         
@@ -152,9 +241,6 @@ extension MTLView: MTKViewDelegate {
             renderSemaphore.wait()
             
             let commandBuffer = commandQueue.makeCommandBuffer()
-            
-            renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(1, 0, 0, 1)
-            renderPassDescriptor.colorAttachments[0].loadAction = .clear
             
             let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
             commandEncoder.setRenderPipelineState(pipeline)
@@ -171,20 +257,7 @@ extension MTLView: MTKViewDelegate {
             commandBuffer.present(drawable)
             commandBuffer.commit()
         }
-        
-//        let commandBuffer = commandQueue.makeCommandBuffer()
-//
-//        let blitEncoder = commandBuffer.makeBlitCommandEncoder()
-//        blitEncoder.copy(from: texture, sourceSlice: 0, sourceLevel: 0,
-//                         sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0),
-//                         sourceSize: MTLSize(width: texture.width, height: texture.height, depth: texture.depth),
-//                         to: drawable.texture, destinationSlice: 0, destinationLevel: 0,
-//                         destinationOrigin: MTLOrigin(x: 0, y: 0, z: 0))
-//        blitEncoder.endEncoding()
-//
-//        commandBuffer.present(drawable)
-//        commandBuffer.commit()
-        
+                
     }
     
     
@@ -195,21 +268,22 @@ extension MTLView: MTKViewDelegate {
 
 }
 
-extension MTLView {
+extension MTLMTKView {
     
     //    MARK: - Touch Events
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        mtlViewDelegate?.mtlViewTouchesBegan(self, touches: touches, event: event)
+        hostView.delegate?.mtlViewTouchesBegan(hostView, touches: touches, event: event)
     }
     
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        mtlViewDelegate?.mtlViewTouchesMoved(self, touches: touches, event: event)
+        hostView.delegate?.mtlViewTouchesMoved(hostView, touches: touches, event: event)
     }
     
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        mtlViewDelegate?.mtlViewTouchesEnded(self, touches: touches, event: event)
+        hostView.delegate?.mtlViewTouchesEnded(hostView, touches: touches, event: event)
     }
 }

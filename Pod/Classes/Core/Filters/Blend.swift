@@ -13,6 +13,46 @@ struct BlendUniforms: Uniforms {
     var blendMode: Float = 0
 }
 
+public enum BlendMode: Int {
+    
+    case add, alpha, colorBlend, colorBurn, colorDodge, darken, difference, dissolve, divide, exclusion, hardlight,
+    linearBurn, lighten, linearDodge, lumosity, multiply, normal, overlay, screen, soflight, subtract
+    
+    static func numberOfBlendModes() -> Int {
+        return BlendMode.subtract.rawValue + 1
+    }
+    
+    func title() -> String {
+        
+        switch self {
+            
+        case .add:           return "Add"
+        case .alpha:         return "Alpha"
+        case .colorBlend:    return "ColorBlend"
+        case .colorBurn:     return "ColorBurn"
+        case .colorDodge:    return "ColorDodge"
+        case .darken:        return "Darken"
+        case .difference:    return "Difference"
+        case .dissolve:      return "Dissolve"
+        case .divide:        return "Divide"
+        case .exclusion:     return "Exclusion"
+        case .hardlight:     return "HardLight"
+        case .linearBurn:    return "LinearBurn"
+        case .lighten:       return "Lighten"
+        case .linearDodge:   return "LinearDodge"
+        case .lumosity:      return "Lumosity"
+        case .multiply:      return "Multiply"
+        case .normal:        return "Normal"
+        case .overlay:       return "Overlay"
+        case .screen:        return "Screen"
+        case .soflight:      return "SoftLight"
+        case .subtract:      return "Subtract"
+        default:             return ""
+            
+        }
+    }
+}
+
 public
 class Blend: MTLFilter {
     
@@ -20,27 +60,13 @@ class Blend: MTLFilter {
     private var blendTexture: MTLTexture?
     private var originalBlendImage: UIImage?
     
-    private var blendModes = [ 0 : "Add",
-                               1  : "Alpha",
-                               2  : "ColorBlend",
-                               3  : "ColorBurn",
-                               4  : "ColorDodge",
-                               5  : "Darken",
-                               6  : "Difference",
-                               7  : "Disolve",
-                               8  : "Divide",
-                               9  : "Exclusion",
-                               10 : "HardLight",
-                               11 : "LinearBurn",
-                               12 : "Lighten",
-                               13 : "LinearDodge",
-                               14 : "Lumosity",
-                               15 : "Multiply",
-                               16 : "Normal",
-                               17 : "Overlay",
-                               18 : "Screen",
-                               19 : "SoftLight",
-                               20 : "Subtract" ]
+    lazy private var blendModes: [Int: String] = {
+        var dict = [Int : String]()
+        for i in 0 ..< BlendMode.numberOfBlendModes() {
+            dict[i] = BlendMode(rawValue: i)!.title()
+        }
+        return dict
+    }()
     
     private var contentModes = [0 : "Scale To Fill",
                                 1 : "Scale Aspect Fit",
@@ -60,9 +86,8 @@ class Blend: MTLFilter {
         }
     }
     
-    public var blendMode: Int = 16 {
+    public var blendMode: Int = BlendMode.alpha.rawValue {
         didSet {
-            clamp(&blendMode, low: 0, high: blendModes.count + 1)
             needsUpdate = true
         }
     }
@@ -130,7 +155,7 @@ class Blend: MTLFilter {
         uniforms.blendMode = Float(blendMode)
         updateUniforms(uniforms: uniforms)
     }
- 
+    
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         if blendTexture == nil || blendOriginal {
             createBlendTexture()

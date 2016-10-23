@@ -38,7 +38,7 @@ class SobelEdgeDetectionThreshold: MTLFilter {
                       MTLProperty(key: "edgeStrength", title: "Edge Strength")]
         
         sobelEdgeDetectionFilter.addTarget(self)
-        internalInput = sobelEdgeDetectionFilter
+        input = sobelEdgeDetectionFilter
         
         update()
     }
@@ -59,16 +59,4 @@ class SobelEdgeDetectionThreshold: MTLFilter {
         sobelEdgeDetectionFilter.process()
     }
     
-    public override var input: MTLInput? {
-        get {
-            return internalInput
-        }
-        set {
-            if newValue?.identifier != sobelEdgeDetectionFilter.identifier {
-                sobelEdgeDetectionFilter.input = newValue
-                reload()
-                update()
-            }
-        }
-    }
 }
