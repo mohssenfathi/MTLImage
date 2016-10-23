@@ -28,6 +28,7 @@ public protocol MTLInput {
     func addTarget(_ target: MTLOutput)
     func removeTarget(_ target: MTLOutput)
     func removeAllTargets()
+    func processIfNeeded()
 }
 
 public protocol MTLOutput {
@@ -35,6 +36,10 @@ public protocol MTLOutput {
     var input     : MTLInput? { get set }
     var title     : String    { get set }
     var identifier: String    { get set }
+}
+
+extension MTLInput {
+    public func processIfNeeded() { }
 }
 
 public protocol Uniforms {

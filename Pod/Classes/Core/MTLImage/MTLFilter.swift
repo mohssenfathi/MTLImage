@@ -110,19 +110,20 @@ class MTLFilter: MTLObject, NSCoding {
         }
         
     }
-    
-    
+
     public override func process() {
         
         guard let inputTexture = input?.texture else { return }
         
+        input?.processIfNeeded()
+        
         autoreleasepool {
             
-            if internalTexture == nil || internalTexture!.width != inputTexture.width || internalTexture!.height != inputTexture.height {
-                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat, width:inputTexture.width,
-                    height: inputTexture.height, mipmapped: false)
-                internalTexture = context.device?.makeTexture(descriptor: textureDescriptor)
-            }
+//            if internalTexture == nil || internalTexture!.width != inputTexture.width || internalTexture!.height != inputTexture.height {
+//                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat, width:inputTexture.width,
+//                    height: inputTexture.height, mipmapped: false)
+//                internalTexture = context.device?.makeTexture(descriptor: textureDescriptor)
+//            }
 
             // TODO: Make this faster
             if inputTexture.width != Int(currentInputSize.width) && inputTexture.height != Int(currentInputSize.height) {
@@ -136,7 +137,7 @@ class MTLFilter: MTLObject, NSCoding {
             commandEncoder.setComputePipelineState(pipeline)
             commandEncoder.setBuffer(uniformsBuffer, offset: 0, at: 0)
             commandEncoder.setTexture(inputTexture, at: 0)
-            commandEncoder.setTexture(internalTexture, at: 1)
+            commandEncoder.setTexture(texture, at: 1)
             
             self.configureCommandEncoder(commandEncoder)
             

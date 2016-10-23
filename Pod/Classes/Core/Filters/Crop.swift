@@ -34,7 +34,7 @@ class Crop: MTLFilter {
             assert(cropRegion.origin.x    >= 0.0)
             assert(cropRegion.origin.y    >= 0.0)
             
-            internalTexture = nil
+//            internalTexture = nil
             needsUpdate = true
         }
     }
@@ -97,15 +97,15 @@ class Crop: MTLFilter {
         blitCommandEncoder.endEncoding()
         commandBuffer.commit()
         
-        internalTexture = newTexture
+        texture = newTexture
     }
     
-    public override var texture: MTLTexture? {
-        get {
-            if internalTexture == nil {
-                updateCroppedTexture()
-            }
-            return internalTexture
-        }
-    }
+//    public override var texture: MTLTexture? {
+//        get {
+//            if texture == nil {
+//                updateCroppedTexture()
+//            }
+//            return texture
+//        }
+//    }
 }

@@ -31,11 +31,12 @@ class MPS: MTLFilter {
         guard let inputTexture = input?.texture else { return }
         
         autoreleasepool {
-            if internalTexture == nil || internalTexture!.width != inputTexture.width || internalTexture!.height != inputTexture.height {
-                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat, width:inputTexture.width,
-                                                                                 height: inputTexture.height, mipmapped: false)
-                internalTexture = context.device?.makeTexture(descriptor: textureDescriptor)
-            }
+            
+//            if internalTexture == nil || internalTexture!.width != inputTexture.width || internalTexture!.height != inputTexture.height {
+//                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat, width:inputTexture.width,
+//                                                                                 height: inputTexture.height, mipmapped: false)
+//                internalTexture = context.device?.makeTexture(descriptor: textureDescriptor)
+//            }
             
             let threadgroupCounts = MTLSizeMake(8, 8, 1)
             let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
@@ -43,7 +44,7 @@ class MPS: MTLFilter {
             let commandBuffer = context.commandQueue.makeCommandBuffer()
             commandBuffer.label = "MTLFilter: " + title
             
-            (kernel as? MPSUnaryImageKernel)?.encode(commandBuffer: commandBuffer, sourceTexture: inputTexture, destinationTexture: internalTexture!)
+            (kernel as? MPSUnaryImageKernel)?.encode(commandBuffer: commandBuffer, sourceTexture: inputTexture, destinationTexture: texture!)
 
             configureCommandBuffer(commandBuffer)
             

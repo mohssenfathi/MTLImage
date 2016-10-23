@@ -19,14 +19,23 @@ class MTLObject: NSObject, MTLOutput {
         return input.continuousUpdate
     }
     
+    public func processIfNeeded() {
+        
+        if enabled && needsUpdate {
+            update()
+            process()
+        }
+        
+    }
+    
     
     // MARK: - Private Backers
     
     var enabled: Bool = true
-    var internalInput: MTLInput?
-    var internalTexture: MTLTexture?
     var internalTargets = [MTLOutput]()
     var internalNeedsUpdate = true
+    
+    public var texture: MTLTexture?
     
     var source: MTLInput? {
         get {
@@ -53,12 +62,14 @@ class MTLObject: NSObject, MTLOutput {
     
     
     public func addTarget(_ target: MTLOutput) {
+      
         var t = target
         internalTargets.append(t)
         t.input = self
-        if let picture = source as? MTLPicture {
-            picture.loadTexture()
-        }
+        
+//        if let picture = source as? MTLPicture {
+//            picture.loadTexture()
+//        }
     }
     
     public func removeTarget(_ target: MTLOutput) {
@@ -83,7 +94,7 @@ class MTLObject: NSObject, MTLOutput {
         if index != NSNotFound {
             internalTargets.remove(at: index)
         }
-        internalTexture = nil
+        texture = nil
     }
     
     public func removeAllTargets() {
@@ -94,18 +105,21 @@ class MTLObject: NSObject, MTLOutput {
     }
     
     public var input: MTLInput? {
-        
-        get {
-            return internalInput
-        }
-        set {
-            if newValue != nil {
-                internalInput = newValue
-                reload()
-                update()
+        didSet {
+
+            if let inputTexture = input?.texture {
+                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat,
+                                                                                 width: inputTexture.width,
+                                                                                 height: inputTexture.height,
+                                                                                 mipmapped: false)
+                
+                texture = context.device?.makeTexture(descriptor: textureDescriptor)
             }
+            
+            reload()
         }
     }
+
     
     public var commandBuffer: MTLCommandBuffer {
         if let buffer = input?.commandBuffer {
@@ -134,24 +148,6 @@ class MTLObject: NSObject, MTLOutput {
 }
 
 extension MTLObject: MTLInput {
-    
-    
-    public var texture: MTLTexture? {
-        
-        get {
-            if !enabled {
-                return input?.texture
-            }
-            
-            if needsUpdate == true {
-                update()
-                process()
-            }
-            
-            return internalTexture
-        }
-        
-    }
     
     public var context: MTLContext {
         get {
@@ -194,7 +190,6 @@ extension MTLObject: MTLInput {
             return internalNeedsUpdate
         }
     }
-    
     
 }
 

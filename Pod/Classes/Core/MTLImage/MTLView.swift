@@ -19,9 +19,6 @@ protocol MTLViewDelegate {
 public
 class MTLView: UIView, MTLOutput {
 
-    
-    public var identifier: String = UUID().uuidString
-    
     let mtkView = MTLMTKView()
     let scrollView = UIScrollView()
     
@@ -50,9 +47,9 @@ class MTLView: UIView, MTLOutput {
         scrollView.addSubview(mtkView)
     }
     
-    func inputChanged() {
+    func reload() {
         
-        mtkView.device = internalInput?.context.device
+        mtkView.device = input?.context.device
         mtkView.input = input
         mtkView.reload()
         
@@ -74,18 +71,12 @@ class MTLView: UIView, MTLOutput {
     public var delegate: MTLViewDelegate?
     
     
-    private var internalInput: MTLInput?
     public var input: MTLInput? {
-        get {
-            return internalInput
-        }
-        set {
-            internalInput = newValue
-            inputChanged()
-        }
+        didSet { reload() }
     }
     
     public var title: String  = "MTLView"
+    public var identifier: String = UUID().uuidString
     
     public var isZoomEnabled = true {
         didSet {
@@ -163,9 +154,7 @@ class MTLMTKView: MTKView {
     }
     
     override var contentMode: UIViewContentMode {
-        didSet {
-            setNeedsDisplay()
-        }
+        didSet { setNeedsDisplay() }
     }
     
     func reload() {
@@ -224,6 +213,8 @@ class MTLMTKView: MTKView {
 extension MTLMTKView: MTKViewDelegate {
     
     public func draw(in view: MTKView) {
+        
+        input?.processIfNeeded()
         
         guard let commandQueue = input?.context.commandQueue, let texture = input?.texture, let drawable = view.currentDrawable else {
             return

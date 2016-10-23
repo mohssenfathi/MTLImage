@@ -38,7 +38,7 @@ class LineDetection: MTLFilter {
         properties = [MTLProperty(key: "sensitivity", title: "Sensitivity")]
         
         sobelEdgeDetectionThreshold.addTarget(self)
-        internalInput = sobelEdgeDetectionThreshold
+        input = sobelEdgeDetectionThreshold
         
         update()
     }
@@ -57,7 +57,7 @@ class LineDetection: MTLFilter {
         else {
             if accumulatorBuffer != nil {
                 let length = Int(inputSize!.width) * thetaCount
-                // TODO: Check Data.Deallocator
+
                 let data = Data(bytesNoCopy: accumulatorBuffer.contents(), count: length, deallocator: Data.Deallocator.none)
                 data.copyBytes(to: &accumulator, count: data.count)
                 
@@ -75,27 +75,14 @@ class LineDetection: MTLFilter {
         
         let accumulator = [Float](repeating: 0, count: Int(inputSize!.width) * thetaCount)
         accumulatorBuffer = device.makeBuffer(bytes: accumulator,
-                                                length: accumulator.count * MemoryLayout<Float>.size,
-                                               options: .cpuCacheModeWriteCombined)
+                                             length: accumulator.count * MemoryLayout<Float>.size,
+                                            options: .cpuCacheModeWriteCombined)
         commandEncoder.setBuffer(accumulatorBuffer, offset: 0, at: 1)
     }
     
     public override func process() {
         super.process()
         sobelEdgeDetectionThreshold.process()
-    }
-    
-    public override var input: MTLInput? {
-        get {
-            return internalInput
-        }
-        set {
-            if newValue?.identifier != sobelEdgeDetectionThreshold.identifier {
-                sobelEdgeDetectionThreshold.input = newValue
-                reload()
-                update()
-            }
-        }
     }
     
 }

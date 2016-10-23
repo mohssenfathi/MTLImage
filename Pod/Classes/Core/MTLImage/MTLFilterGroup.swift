@@ -113,9 +113,9 @@ class MTLFilterGroup: MTLObject, NSCoding {
             filter.removeAllTargets()
         }
         
-        internalInput?.removeAllTargets()
+        input?.removeAllTargets()
         for target in internalTargets {
-            internalInput?.addTarget(target)
+            input?.addTarget(target)
         }
         
         filters.removeAll()
@@ -193,21 +193,15 @@ class MTLFilterGroup: MTLObject, NSCoding {
     }
     
 //    MARK: - MTLInput
-        
-    public override var texture: MTLTexture? {
-        get {
-            if filters.count > 0 {
-                return filters.last?.texture
-            }
-            return input?.texture
-        }
-    }
     
-    public override var context: MTLContext  {
-        get {
-            return (filters.first?.context)!
-        }
-    }
+//    public override var texture: MTLTexture? {
+//        get {
+//            if filters.count > 0 {
+//                return filters.last?.texture
+//            }
+//            return input?.texture
+//        }
+//    }
     
     public override func addTarget(_ target: MTLOutput) {
         internalTargets.append(target)
@@ -244,20 +238,24 @@ class MTLFilterGroup: MTLObject, NSCoding {
 //    MARK: - MTLOutput
     
     public override var input: MTLInput? {
-        get {
-            return internalInput
-        }
-        set {
-            internalInput = newValue
-            if filters.count > 0 {
-                input?.addTarget(filters.first!)
-            }
-            needsUpdate = true
+        didSet {
+            rebuildFilterChain()
         }
     }
     
+//    public override var input: MTLInput? {
+//        get {
+//            return internalInput
+//        }
+//        set {
+//            internalInput = newValue
+//            if filters.count > 0 {
+//                input?.addTarget(filters.first!)
+//            }
+//            needsUpdate = true
+//        }
+//    }
     
-//    MARK: - Conveniece
     
     public var category: String = ""
     public var filterDescription: String = ""

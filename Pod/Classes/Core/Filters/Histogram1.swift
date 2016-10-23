@@ -60,20 +60,20 @@ class Histogram1: MPS {
         needsUpdate = true
     }
     
-    public override var texture: MTLTexture? {
-        get {
-            if !enabled {
-                return input?.texture
-            }
-            
-            if needsUpdate == true {
-                update()
-                process()
-            }
-            
-            return input?.texture
-        }
-    }
+//    public override var texture: MTLTexture? {
+//        get {
+//            if !enabled {
+//                return input?.texture
+//            }
+//            
+//            if needsUpdate == true {
+//                update()
+//                process()
+//            }
+//            
+//            return input?.texture
+//        }
+//    }
     
     
     public var luminance = [Float](repeating: 0.0, count: 256)
