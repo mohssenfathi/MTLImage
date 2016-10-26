@@ -12,6 +12,21 @@ class MTLObject: NSObject, MTLOutput {
     public var title: String = ""
     public var identifier: String = UUID().uuidString
 
+    public var needsUpdate: Bool = true {
+        didSet {
+            if needsUpdate == true {
+                for target in targets {
+                    if let object = target as? MTLObject {
+                        object.needsUpdate = true
+                    }
+                    else if let view = target as? MTLView {
+                        view.setNeedsDisplay()
+                    }
+                }
+            }
+        }
+    }
+    
     public var continuousUpdate: Bool {
         guard let input = input else {
             return false
@@ -29,11 +44,8 @@ class MTLObject: NSObject, MTLOutput {
     }
     
     
-    // MARK: - Private Backers
-    
     var enabled: Bool = true
     var internalTargets = [MTLOutput]()
-    var internalNeedsUpdate = true
     
     public var texture: MTLTexture?
     
@@ -121,17 +133,6 @@ class MTLObject: NSObject, MTLOutput {
     }
 
     
-    public var commandBuffer: MTLCommandBuffer {
-        if let buffer = input?.commandBuffer {
-            return buffer
-        }
-        return context.commandQueue.makeCommandBuffer()
-    }
-    
-    
-    
-    
-    
     // MARK: - Subclassing
     
     func update() {
@@ -165,32 +166,7 @@ extension MTLObject: MTLInput {
     public var targets: [MTLOutput] {
         return internalTargets
     }
-    
-    /* Informs next object in the chain that a change has occurred and
-     that changes need to be propogated through the chain. */
-    
-    public var needsUpdate: Bool {
-        set {
-            internalNeedsUpdate = newValue
-            
-            if newValue == true {
-                
-                for target in targets {
-                    
-                    if target is MTLObject {
-                        (target as! MTLObject).needsUpdate = newValue
-                    }
-                    else if target is MTLView {
-                        (target as! MTLView).setNeedsDisplay()
-                    }
-                }
-            }
-        }
-        get {
-            return internalNeedsUpdate
-        }
-    }
-    
+        
 }
 
 

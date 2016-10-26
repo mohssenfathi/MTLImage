@@ -118,12 +118,6 @@ class MTLFilter: MTLObject, NSCoding {
         input?.processIfNeeded()
         
         autoreleasepool {
-            
-//            if internalTexture == nil || internalTexture!.width != inputTexture.width || internalTexture!.height != inputTexture.height {
-//                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat, width:inputTexture.width,
-//                    height: inputTexture.height, mipmapped: false)
-//                internalTexture = context.device?.makeTexture(descriptor: textureDescriptor)
-//            }
 
             // TODO: Make this faster
             if inputTexture.width != Int(currentInputSize.width) && inputTexture.height != Int(currentInputSize.height) {
@@ -145,7 +139,13 @@ class MTLFilter: MTLObject, NSCoding {
             commandEncoder.endEncoding()
 
             commandBuffer.addCompletedHandler({ (commandBuffer) in
+                
+                if self.continuousUpdate { return }
+                if let input = self.input {
+                    if input.continuousUpdate { return }
+                }
                 self.needsUpdate = false
+                
             })
             
             commandBuffer.commit()

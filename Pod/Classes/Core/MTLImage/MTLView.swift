@@ -61,6 +61,12 @@ class MTLView: UIView, MTLOutput {
         mtkView.draw()
     }
     
+    public override var contentMode: UIViewContentMode {
+        didSet {
+            mtkView.contentMode = contentMode
+        }
+    }
+    
     public override func setNeedsDisplay() {
         super.setNeedsDisplay()
         mtkView.setNeedsDisplay()
@@ -154,7 +160,9 @@ class MTLMTKView: MTKView {
     }
     
     override var contentMode: UIViewContentMode {
-        didSet { setNeedsDisplay() }
+        didSet {
+            setNeedsDisplay()
+        }
     }
     
     func reload() {

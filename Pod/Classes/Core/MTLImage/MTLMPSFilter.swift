@@ -24,19 +24,11 @@ class MPS: MTLFilter {
     
     public override func process() {
         
-        // TODO: Look info fallback allocators
-        
-        guard needsUpdate == true else { return }
-        
         guard let inputTexture = input?.texture else { return }
         
+        input?.processIfNeeded()
+        
         autoreleasepool {
-            
-//            if internalTexture == nil || internalTexture!.width != inputTexture.width || internalTexture!.height != inputTexture.height {
-//                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat, width:inputTexture.width,
-//                                                                                 height: inputTexture.height, mipmapped: false)
-//                internalTexture = context.device?.makeTexture(descriptor: textureDescriptor)
-//            }
             
             let threadgroupCounts = MTLSizeMake(8, 8, 1)
             let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
@@ -58,7 +50,7 @@ class MPS: MTLFilter {
     }
     
     func configureCommandBuffer(_ commandBuffer: MTLCommandBuffer) {
-        // Needs to be subclasses
+        // Needs to be subclassed
     }
     
 

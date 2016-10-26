@@ -13,8 +13,8 @@ struct UnsharpMaskUniforms {
     float intensity;
 };
 
-kernel void unsharpMask(texture2d<float, access::read>  inTexture   [[ texture(0)]],
-                        texture2d<float, access::write> outTexture  [[ texture(1)]],
+kernel void unsharpMask(texture2d<float, access::read>  inTexture   [[ texture(0) ]],
+                        texture2d<float, access::write> outTexture  [[ texture(1) ]],
                         texture2d<float, access::read>  blurTexture [[ texture(2) ]],
                         constant UnsharpMaskUniforms &uniforms      [[ buffer(0) ]],
                         uint2 gid [[thread_position_in_grid]])

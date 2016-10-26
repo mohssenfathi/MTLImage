@@ -9,7 +9,7 @@
 import UIKit
 
 // Set to true to use compiled shaders
-let useMetalib = false
+let useMetalib = true
 
 public
 class MTLContext: NSObject {
@@ -19,7 +19,6 @@ class MTLContext: NSObject {
     var processingSize: CGSize!
     var processingQueue: DispatchQueue!    
     var needsUpdate: Bool = true
-
     let semaphore = DispatchSemaphore(value: 3)
     
     var source: MTLInput?

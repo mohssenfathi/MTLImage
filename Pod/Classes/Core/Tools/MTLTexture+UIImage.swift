@@ -35,8 +35,8 @@ extension MTLTexture {
     
     func bytes() -> UnsafeMutableRawPointer? {
 
-        guard pixelFormat == .rgba8Unorm else { return nil }
-        
+//        guard pixelFormat == .rgba8Unorm else { return nil }
+
         let imageByteCount: Int = width * height * 4
         guard let imageBytes = UnsafeMutableRawPointer(malloc(imageByteCount)) else { return nil }
         let bytesPerRow = width * 4
@@ -61,7 +61,16 @@ extension MTLTexture {
         let bitsPerComponent = 8
         let bitsPerPixel = 32
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue).union(.byteOrder32Little)
+        var bitmapInfo: CGBitmapInfo!
+        
+        if pixelFormat == .bgra8Unorm {
+            bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue).union(.byteOrder32Little)
+        }
+        else if pixelFormat == .rgba8Unorm {
+            bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue).union(.byteOrder32Big)
+        }
+        else { return nil }
+        
         let renderingIntent = CGColorRenderingIntent.defaultIntent
         let imageRef = CGImage(width: width, height: height, bitsPerComponent: bitsPerComponent, bitsPerPixel: bitsPerPixel, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo, provider: provider!, decode: nil, shouldInterpolate: false, intent: renderingIntent)
         

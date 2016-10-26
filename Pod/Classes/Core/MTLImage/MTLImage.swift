@@ -18,7 +18,6 @@ public protocol MTLInput {
     var context: MTLContext  { get }
     var device : MTLDevice   { get }
     var targets: [MTLOutput] { get }
-    var commandBuffer: MTLCommandBuffer { get }
     
     var title      : String { get set }
     var identifier : String { get set }

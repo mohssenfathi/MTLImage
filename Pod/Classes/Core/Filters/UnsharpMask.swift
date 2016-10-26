@@ -34,6 +34,7 @@ class UnsharpMask: MTLFilter {
     
     public init() {
         super.init(functionName: "unsharpMask")
+        
         title = "Unsharp Mask"
         properties = [MTLProperty(key: "blurRadius", title: "Blur Radius"),
                       MTLProperty(key: "intensity" , title: "Intensity"  ),]
@@ -46,14 +47,24 @@ class UnsharpMask: MTLFilter {
     }
     
     override func update() {
+        
         if self.input == nil { return }
+        
         uniforms.intensity = Tools.convert(intensity, oldMin: 0, oldMid: 0.4, oldMax: 1, newMin: 0.5, newMid: 1.0, newMax: 2.3)
         updateUniforms(uniforms: uniforms)
     }
     
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
+        
         commandEncoder.setTexture(blurFilter.texture, at: 2)
+    }
+    
+    public override func processIfNeeded() {
+        
+        blurFilter.processIfNeeded()
+        
+        super.processIfNeeded()
     }
     
     public override var input: MTLInput? {
@@ -65,17 +76,5 @@ class UnsharpMask: MTLFilter {
             }
         }
     }
-    
-    //    override func configureArgumentTableWithCommandEncoder(commandEncoder: MTLComputeCommandEncoder?) {
-    //        var uniforms = AdjustSaturationUniforms(saturation: saturation)
-    //
-    //        if uniformBuffer == nil {
-    //            uniformBuffer = context.device?.newBufferWithLength(sizeofValue(uniforms), options: .cpuCacheModeWriteCombined)
-    //        }
-    //
-    //        memcpy(uniformBuffer.contents(), withBytes: &uniforms, sizeofValue(uniforms))
-    //        commandEncoder?.setBuffer(uniformBuffer, offset: 0, atIndex: 0)
-    //    }
-    
     
 }

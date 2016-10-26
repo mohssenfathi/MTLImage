@@ -17,22 +17,25 @@ class MTLFilterGroup: MTLObject, NSCoding {
     }
     
     public var image: UIImage? {
-        get {
-            guard texture != nil else {
-                return nil
-            }
-            return texture!.image()
+
+        if let filter = filters.last as? MTLFilter {
+            return filter.image
         }
+        else if let filterGroup = filters.last as? MTLFilterGroup {
+            return filterGroup.image
+        }
+        
+        return input?.texture?.image()
     }
     
     public var filters = [MTLObject]()
         
     public func filter(_ image: UIImage) -> UIImage? {
-        
+
         let picture = MTLPicture(image: image.copy() as! UIImage)
         picture --> self
         
-        let filteredImage = texture!.image()
+        let filteredImage = self.image
         
         picture.removeAllTargets()
                 
