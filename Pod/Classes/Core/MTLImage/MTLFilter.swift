@@ -171,6 +171,9 @@ class MTLFilter: MTLObject, NSCoding {
         let filterCopy = self.copy() as! MTLFilter
         sourcePicture --> filterCopy
         
+        filterCopy.needsUpdate = true
+        filterCopy.processIfNeeded()
+        
         guard let tex = filterCopy.texture else {
             return nil
         }
