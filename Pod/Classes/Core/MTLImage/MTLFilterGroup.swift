@@ -11,13 +11,19 @@ import UIKit
 public
 class MTLFilterGroup: MTLObject, NSCoding {
     
+    deinit {
+        texture = nil
+        input = nil
+        context.source = nil
+    }
+    
     override public init() {
         super.init()
         title = "Filter Group"
     }
     
     public var image: UIImage? {
-
+        
         if let filter = filters.last as? MTLFilter {
             return filter.image
         }
@@ -29,16 +35,26 @@ class MTLFilterGroup: MTLObject, NSCoding {
     }
     
     public var filters = [MTLObject]()
-        
+    
     public func filter(_ image: UIImage) -> UIImage? {
-
-        let picture = MTLPicture(image: image.copy() as! UIImage)
-        picture --> self
         
-        let filteredImage = self.image
+        let filter = self.copy() as! MTLFilterGroup
+        let picture = MTLPicture(image: image.copy() as! UIImage)
+        picture --> filter
+        
+        picture.needsUpdate = true
+        filter.filters.last?.processIfNeeded()
+        
+        let filteredImage = filter.image
         
         picture.removeAllTargets()
-                
+        filter.removeAllTargets()
+        
+        filter.removeAll()
+        
+        picture.pipeline = nil
+        filter.context.source = nil
+        
         return filteredImage
     }
     
@@ -47,9 +63,9 @@ class MTLFilterGroup: MTLObject, NSCoding {
     }
     
     func updateFilterIndexes() {
-//        for i in 0 ..< filters.count {
-//            filters[i].index = i
-//        }
+        //        for i in 0 ..< filters.count {
+        //            filters[i].index = i
+        //        }
     }
     
     public func add(_ filter: MTLObject) {
@@ -98,14 +114,14 @@ class MTLFilterGroup: MTLObject, NSCoding {
     public func remove(_ filter: MTLObject) {
         let targets = filter.targets
         let input = filter.input
-
+        
         filter.input?.removeTarget(filter)
         filter.removeAllTargets()
         
         for target in targets {
             input?.addTarget(target)
         }
-
+        
         filters.removeObject(filter)
         needsUpdate = true
     }
@@ -126,22 +142,22 @@ class MTLFilterGroup: MTLObject, NSCoding {
     
     public func move(_ fromIndex: Int, toIndex: Int) {
         if fromIndex == toIndex { return }
-
+        
         swap(&filters[fromIndex], &filters[toIndex])
         rebuildFilterChain()
         
-//        let filter = filters[fromIndex]
-//        remove(filter)
-//        
-//        var index = toIndex
-//        index -= (toIndex > fromIndex) ? 1 : 0
-//        
-//        insert(filter, index: index)
-//        
-//        filters.last?.removeAllTargets()
-//        for target in targets {
-//            filters.last?.addTarget(target)
-//        }
+        //        let filter = filters[fromIndex]
+        //        remove(filter)
+        //
+        //        var index = toIndex
+        //        index -= (toIndex > fromIndex) ? 1 : 0
+        //
+        //        insert(filter, index: index)
+        //
+        //        filters.last?.removeAllTargets()
+        //        for target in targets {
+        //            filters.last?.addTarget(target)
+        //        }
     }
     
     func rebuildFilterChain() {
@@ -195,16 +211,16 @@ class MTLFilterGroup: MTLObject, NSCoding {
         print(chain)
     }
     
-//    MARK: - MTLInput
+    //    MARK: - MTLInput
     
-//    public override var texture: MTLTexture? {
-//        get {
-//            if filters.count > 0 {
-//                return filters.last?.texture
-//            }
-//            return input?.texture
-//        }
-//    }
+    //    public override var texture: MTLTexture? {
+    //        get {
+    //            if filters.count > 0 {
+    //                return filters.last?.texture
+    //            }
+    //            return input?.texture
+    //        }
+    //    }
     
     public override func addTarget(_ target: MTLOutput) {
         internalTargets.append(target)
@@ -225,7 +241,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
         filters.last?.removeAllTargets()
         internalTargets.removeAll()
     }
-
+    
     public override var needsUpdate: Bool {
         set {
             for filter in filters {
@@ -238,7 +254,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
         }
     }
     
-//    MARK: - MTLOutput
+    //    MARK: - MTLOutput
     
     public override var input: MTLInput? {
         didSet {
@@ -246,25 +262,25 @@ class MTLFilterGroup: MTLObject, NSCoding {
         }
     }
     
-//    public override var input: MTLInput? {
-//        get {
-//            return internalInput
-//        }
-//        set {
-//            internalInput = newValue
-//            if filters.count > 0 {
-//                input?.addTarget(filters.first!)
-//            }
-//            needsUpdate = true
-//        }
-//    }
+    //    public override var input: MTLInput? {
+    //        get {
+    //            return internalInput
+    //        }
+    //        set {
+    //            internalInput = newValue
+    //            if filters.count > 0 {
+    //                input?.addTarget(filters.first!)
+    //            }
+    //            needsUpdate = true
+    //        }
+    //    }
     
     
     public var category: String = ""
     public var filterDescription: String = ""
     
     
-//    MARK: - NSCoding
+    //    MARK: - NSCoding
     
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(title     , forKey: "title")
@@ -284,7 +300,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
         if let cat = aDecoder.decodeObject(forKey: "category") as? String {
             category = cat
         }
-
+        
         if let fDesc = aDecoder.decodeObject(forKey: "filterDescription") as? String {
             filterDescription = fDesc
         }
@@ -292,11 +308,11 @@ class MTLFilterGroup: MTLObject, NSCoding {
         rebuildFilterChain()
     }
     
-
-//    MARK: - Copying
+    
+    //    MARK: - Copying
     
     public override func copy() -> Any {
-                
+        
         let filterGroup = MTLFilterGroup()
         
         filterGroup.title = title

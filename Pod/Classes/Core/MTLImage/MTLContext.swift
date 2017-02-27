@@ -13,11 +13,11 @@ let useMetalib = true
 
 public
 class MTLContext: NSObject {
-
+    
     var device: MTLDevice!
     var commandQueue: MTLCommandQueue!
     var processingSize: CGSize!
-    var processingQueue: DispatchQueue!    
+    var processingQueue: DispatchQueue!
     var needsUpdate: Bool = true
     let semaphore = DispatchSemaphore(value: 3)
     
@@ -32,6 +32,11 @@ class MTLContext: NSObject {
             }
             return internalLibrary
         }
+    }
+    
+    deinit {
+        source = nil
+        output = nil
     }
     
     override init() {
@@ -51,12 +56,12 @@ class MTLContext: NSObject {
                 fatalError("Metal not supported")
             }
         #endif
-    
+        
         loadLibrary()
         
         self.commandQueue = self.device.makeCommandQueue()
         self.processingQueue = DispatchQueue(label: "MTLImageProcessQueue")
-//            DispatchQueue(label: "MTLImageProcessQueue", attributes: DispatchQueueAttributes.concurrent)
+        //            DispatchQueue(label: "MTLImageProcessQueue", attributes: DispatchQueueAttributes.concurrent)
         
         refreshCurrentCommandBuffer()
     }
@@ -69,7 +74,6 @@ class MTLContext: NSObject {
         else {
             internalLibrary = self.device.newDefaultLibrary()
         }
-
     }
     
     
@@ -97,5 +101,5 @@ class MTLContext: NSObject {
     func refreshCurrentCommandBuffer() {
         currentCommandBuffer = commandQueue.makeCommandBuffer()
     }
-
+    
 }
