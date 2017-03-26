@@ -64,20 +64,22 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     
     func upload() {
         
-        let uploadBlock = {
-            
+        let uploadBlock = { [weak self] in
+        
+            guard let filterGroup = self?.filterGroup else { return }
+        
             let container = CKContainer(identifier: "iCloud.com.mohssenfathi.Lumen-iOS")
-
-            MTLImage.upload(self.filterGroup, container: container, completion: { (record, error) in
+            
+            MTLImage.upload(filterGroup, container: container, completion: { (record, error) in
                 if error != nil {
-                    print(error)
+                    print(error!.localizedDescription)
                     return
                 }
                 
                 let alertView = UIAlertController(title: nil, message: "Uploaded", preferredStyle: .alert)
-                self.present(alertView, animated: true, completion: {
+                self?.present(alertView, animated: true, completion: {
                     sleep(UInt32(1.0))
-                    self.dismiss(animated: true, completion: nil)
+                    self?.dismiss(animated: true, completion: nil)
                 })
             })
         }

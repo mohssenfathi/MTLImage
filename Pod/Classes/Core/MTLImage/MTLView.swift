@@ -45,6 +45,8 @@ class MTLView: UIView, MTLOutput {
         mtkView.frame = bounds
         mtkView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         scrollView.addSubview(mtkView)
+        
+        contentMode = .scaleAspectFit
     }
     
     func reload() {

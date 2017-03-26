@@ -32,13 +32,19 @@ class MTLFilter: MTLObject, NSCoding {
         }
         
         var uni = uniforms
-        uniformsBuffer = device.makeBuffer(bytes: &uni, length: MemoryLayout<U>.size, options: .cpuCacheModeWriteCombined)
-//        uniformsBuffer = bufferProvider?.nextBuffer(uniforms: &uni)
+        uniformsBuffer = device.makeBuffer(bytes: &uni, length: MemoryLayout<U>.size, options: MTLResourceOptions.storageModeShared)
+        //        uniformsBuffer = bufferProvider?.nextBuffer(uniforms: &uni)
     }
     
     var index: Int = 0
     var gcd: Int = 0
-
+    
+    deinit {
+        texture = nil
+        input = nil
+        removeAllTargets()
+    }
+    
     public init(functionName: String?) {
         super.init()
         
@@ -80,10 +86,10 @@ class MTLFilter: MTLObject, NSCoding {
     
     public var image: UIImage? {
         get {
-            if needsUpdate == true {
-                process()
-            }
-            return texture!.image()
+            needsUpdate = true
+            process()
+            
+            return texture?.image()
         }
     }
     
@@ -96,10 +102,12 @@ class MTLFilter: MTLObject, NSCoding {
     }
     
     override func reload() {
-    
+        
         kernelFunction = context.library?.makeFunction(name: functionName)
         if kernelFunction == nil {
-            print("Failed to load kernel function: " + functionName)
+            if functionName != "EmptyShader" {
+                print("Failed to load kernel function: " + functionName)
+            }
             return
         }
         
@@ -110,7 +118,7 @@ class MTLFilter: MTLObject, NSCoding {
         }
         
     }
-
+    
     public override func process() {
         
         guard let inputTexture = input?.texture else { return }
@@ -118,8 +126,8 @@ class MTLFilter: MTLObject, NSCoding {
         input?.processIfNeeded()
         
         autoreleasepool {
-
-            // TODO: Make this faster
+            
+            //             TODO: Make this faster
             if inputTexture.width != Int(currentInputSize.width) && inputTexture.height != Int(currentInputSize.height) {
                 updateThreadgroupCounts(width: inputTexture.width, height: inputTexture.height)
             }
@@ -137,7 +145,7 @@ class MTLFilter: MTLObject, NSCoding {
             
             commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
             commandEncoder.endEncoding()
-
+            
             commandBuffer.addCompletedHandler({ (commandBuffer) in
                 
                 if self.continuousUpdate { return }
@@ -159,14 +167,14 @@ class MTLFilter: MTLObject, NSCoding {
     
     
     /**
-        Filters the provided input image
+     Filters the provided input image
      
-        - parameter image: The original image to be filtered
-        - returns: An image filtered by the parent or the parents sub-filters
+     - parameter image: The original image to be filtered
+     - returns: An image filtered by the parent or the parents sub-filters
      */
     
     public func filter(_ image: UIImage) -> UIImage? {
-    
+        
         let sourcePicture = MTLPicture(image: image)
         let filterCopy = self.copy() as! MTLFilter
         sourcePicture --> filterCopy
@@ -178,7 +186,7 @@ class MTLFilter: MTLObject, NSCoding {
             return nil
         }
         
-        let image = tex.image()!
+        let image = tex.image()
         
         return image
     }
@@ -194,9 +202,9 @@ class MTLFilter: MTLObject, NSCoding {
     
     
     public override func copy() -> Any {
-    
+        
         let filter = try! MTLImage.filter(title.lowercased()) as! MTLFilter
-
+        
         filter.functionName = functionName
         filter.title = title
         filter.index = index
@@ -230,8 +238,8 @@ class MTLFilter: MTLObject, NSCoding {
     }
     
     
-//    MARK: - NSCoding
-
+    //    MARK: - NSCoding
+    
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(title, forKey: "title")
         aCoder.encode(functionName, forKey: "functionName")
