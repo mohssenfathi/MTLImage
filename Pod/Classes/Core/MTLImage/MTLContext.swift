@@ -38,19 +38,7 @@ class MTLContext: NSObject {
         super.init()
         
         device = MTLCreateSystemDefaultDevice()
-        guard device != nil else {
-            fatalError("Device does not support metal")
-        }
-        
-        #if os(tvOS)
-            guard device.supportsFeatureSet(.tvOS_GPUFamily1_v1) else {
-                fatalError("Metal not supported")
-            }
-        #elseif os(iOS)
-            guard device.supportsFeatureSet(.iOS_GPUFamily1_v1) else {
-                fatalError("Metal not supported")
-            }
-        #endif
+        guard MTLImage.isMetalSupported else { return }
     
         loadLibrary()
         
@@ -69,7 +57,7 @@ class MTLContext: NSObject {
         else {
             internalLibrary = self.device.newDefaultLibrary()
         }
-
+        
     }
     
     

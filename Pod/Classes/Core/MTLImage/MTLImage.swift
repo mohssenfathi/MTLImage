@@ -162,6 +162,26 @@ class MTLImage: NSObject {
     
 }
 
+public
+extension MTLImage {
+    
+    public static var isMetalSupported: Bool {
+        
+        guard let device = MTLCreateSystemDefaultDevice() else {
+            return false
+        }
+        
+        #if os(tvOS)
+            return device.supportsFeatureSet(.tvOS_GPUFamily1_v1)
+        #elseif os(iOS)
+            return device.supportsFeatureSet(.iOS_GPUFamily1_v1)
+        #endif
+        
+        return false
+    }
+}
+
+
 //    MARK: - NSCoding
 public
 extension MTLImage {

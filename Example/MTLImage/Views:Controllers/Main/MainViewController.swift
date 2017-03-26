@@ -43,9 +43,10 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.navigationItem.leftBarButtonItems = nil
         
         sourcePicture = MTLPicture(image: image)
-        sourcePicture.setProcessingSize(CGSize(width: 200, height: 200), respectAspectRatio: true)
+        sourcePicture.setProcessingSize(CGSize(width: 300, height: 300), respectAspectRatio: true)
         
         mtlView.delegate = self
+        mtlView.contentMode = .scaleAspectFit
         
         currentInput = sourcePicture
         currentInput --> filterGroup --> mtlView
