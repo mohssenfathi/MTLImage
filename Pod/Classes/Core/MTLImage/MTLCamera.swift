@@ -19,10 +19,45 @@ protocol MTLCameraDelegate {
 public
 class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegate, AVCapturePhotoCaptureDelegate {
     
+    public enum Mode: Int {
+        case back
+        case front
+        case dual
+        case telephoto
+        
+        func device() -> AVCaptureDevice? {
+            switch self {
+            case .back, .front:
+                return AVCaptureDevice.default(for: .video)
+            case .dual:
+                if #available(iOS 11.0, *) {
+                    return AVCaptureDevice.default(.builtInDualCamera, for: AVMediaType.video, position: .back)
+                } else if #available(iOS 10.0, *) {
+                    return AVCaptureDevice.default(.builtInDuoCamera, for: AVMediaType.video, position: .back)
+                }
+            case .telephoto:
+                if #available(iOS 10.0, *) {
+                    return AVCaptureDevice.default(.builtInTelephotoCamera, for: AVMediaType.video, position: .back)
+                }
+            }
+            return nil
+        }
+        
+        var capturePosition: AVCaptureDevice.Position {
+            switch self {
+            case .back, .dual, .telephoto: return .back
+            case .front: return .front
+            }
+        }
+        
+        static func mode(for position: AVCaptureDevice.Position) -> Mode {
+            return position == .front ? .front : .back
+        }
+    }
 
     public var title: String = "Camera"
     public var identifier: String = UUID().uuidString
-
+    
     public var continuousUpdate: Bool {
         return true
     }
@@ -158,7 +193,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     /* Flip: Front and Back supported */
     public var cameraPosition: AVCaptureDevice.Position = .front {
         didSet {
-            capturePosition = cameraPosition
+            mode = Mode.mode(for: cameraPosition)
         }
     }
     
@@ -339,58 +374,37 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         }
     }
     
-    public var capturePosition: AVCaptureDevice.Position = .back {
+    public func flip() {
+        mode = (mode == .front) ? .back : .front
+    }
+    
+    public var mode: Mode = .dual {
         didSet {
-            if captureDevice.position == capturePosition { return }
-            if session == nil { return }
+            
+            guard let device = mode.device(), let session = session else { return }
+            guard let input = try? AVCaptureDeviceInput(device: device) else { return }
+            guard session.canAddInput(input) else { return }
             
             session.beginConfiguration()
+            session.removeInput(deviceInput)
             
-            session.removeInput(deviceInput)  // maybe check if has input first
-            
-            for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
-                if device.position == capturePosition {
-                    captureDevice = device 
-                    break
-                }
-            }
-            
-            if captureDevice == nil {
-                captureDevice = AVCaptureDevice.default(for: .video)
-            }
-            
-            try! deviceInput = AVCaptureDeviceInput(device: captureDevice)
-            if session.canAddInput(deviceInput) {
-                session.addInput(deviceInput)
-            }
-            
-            let connection = dataOutput.connection(with: AVMediaType.video)
-            connection?.videoOrientation = .portrait
-            connection?.isVideoMirrored = (capturePosition == .front)
+            deviceInput = input
+            session.addInput(deviceInput)
             
             session.commitConfiguration()
         }
     }
     
-    public func flipCamera() {
-        capturePosition = (capturePosition == .front) ? .back : .front
-    }
-    
     func setupAVDevice() {
         
-        CVMetalTextureCacheCreate(kCFAllocatorDefault, nil, device, nil, &textureCache)
+        CVMetalTextureCacheCreate(kCFAllocatorSystemDefault, nil, device, nil, &textureCache)
         
         session = AVCaptureSession()
         session.sessionPreset = AVCaptureSession.Preset.photo
         
-        for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
-            if device.position == capturePosition {
-                captureDevice = device 
-                break
-            }
-        }
+        captureDevice = mode.device()
         if captureDevice == nil {
-            captureDevice = AVCaptureDevice.default(for: .video)
+            fatalError("No Capture Devices Available")
         }
         
         try! deviceInput = AVCaptureDeviceInput(device: captureDevice)
@@ -415,10 +429,16 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         }
         
         // Depth Data
-        
-        let connection = dataOutput.connection(with: AVMediaType.video)
-        connection?.isEnabled = true
-        connection?.videoOrientation = .portrait
+        if #available(iOS 11.0, *) {
+            
+            depthDataOutput = AVCaptureDepthDataOutput()
+            (depthDataOutput as! AVCaptureDepthDataOutput).setDelegate(self, callbackQueue: DispatchQueue(label: "DepthDataOutputQueue"))
+            (depthDataOutput as! AVCaptureDepthDataOutput).alwaysDiscardsLateDepthData = true
+            (depthDataOutput as! AVCaptureDepthDataOutput).isFilteringEnabled = true
+            if session.canAddOutput(depthDataOutput!) {
+                session.addOutput(depthDataOutput!)
+            }
+        }
         
         session.commitConfiguration()
         
@@ -439,32 +459,26 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     
 //    MARK: - SampleBuffer Delegate
     
-//    let semaphore = DispatchSemaphore(value: 1)
-    
     public func captureOutput(_ captureOutput: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
-//        semaphore.wait(timeout: .distantFuture)
+        return
         
-        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-//            semaphore.wait(timeout: .distantFuture)
-            return
-        }
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         
         var cvMetalTexture : CVMetalTexture?
         let width = CVPixelBufferGetWidth(pixelBuffer);
         let height = CVPixelBufferGetHeight(pixelBuffer);
         
-        guard let textureCache = textureCache else {
-//            semaphore.signal()
-            return
-        }
+        guard let textureCache = textureCache else { return }
         
         CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer, nil, .bgra8Unorm, width, height, 0, &cvMetalTexture)
         
         guard let cvMetalTex = cvMetalTexture else { return }
         internalTexture = CVMetalTextureGetTexture(cvMetalTex)
         
-        needsUpdate = true
+        DispatchQueue.main.async {
+            self.needsUpdate = true
+        }
     }
         
     public func didFinishProcessing() {
@@ -626,8 +640,8 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     var dataOutputQueue: DispatchQueue!
     var deviceInput: AVCaptureDeviceInput!
     var textureCache: CVMetalTextureCache?
-    var depthDataOutput: AVCaptureDepthDataOutput!
-
+    var depthDataOutput: AVCaptureOutput?
+    
 }
 
 
@@ -659,6 +673,82 @@ extension MTLCamera {
         
     }
 
+}
+
+extension CVPixelBuffer {
+    
+    func mtlTexture(textureCache: CVMetalTextureCache) -> MTLTexture? {
+        
+        var cvMetalTexture : CVMetalTexture?
+        let width = CVPixelBufferGetWidth(self);
+        let height = CVPixelBufferGetHeight(self);
+        
+        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, self, nil, .bgra8Unorm, width, height, 0, &cvMetalTexture)
+        
+        guard let cvMetalTex = cvMetalTexture else { return nil }
+        return CVMetalTextureGetTexture(cvMetalTex)
+    }
+    
+}
+
+
+@available(iOS 11.0, *)
+extension AVDepthData {
+    
+    func mtlTexture(textureCache: CVMetalTextureCache) -> MTLTexture? {
+        
+        let pixelBuffer = depthDataMap
+        
+        var cvMetalTexture : CVMetalTexture?
+        let width = CVPixelBufferGetWidth(pixelBuffer)
+        let height = CVPixelBufferGetHeight(pixelBuffer)
+        
+//        let pixelFormatDescription = CVPixelFormatDescriptionCreateWithPixelFormatType(kCFAllocatorSystemDefault, depthDataType)
+//        let all = CVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes(kCFAllocatorSystemDefault)
+                
+//        let formats = [kCVPixelFormatType_DisparityFloat16, kCVPixelFormatType_DisparityFloat32, kCVPixelFormatType_DepthFloat16, kCVPixelFormatType_DepthFloat32]
+//        guard let format = formats.filter({ $0 == depthDataType }).first else { return nil }
+        
+        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorSystemDefault, textureCache, pixelBuffer, nil, .r16Float, width, height, 0, &cvMetalTexture)
+        
+        guard let cvMetalTex = cvMetalTexture else { return nil }
+        let texture = CVMetalTextureGetTexture(cvMetalTex)
+        
+        return texture
+    }
+    
+}
+
+// MARK: - AVCaptureDepthDataOutputDelegate
+extension MTLCamera: AVCaptureDepthDataOutputDelegate {
+    
+    @available(iOS 11.0, *)
+    public func depthDataOutput(_ output: AVCaptureDepthDataOutput, didOutput depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection) {
+        
+        guard let textureCache = textureCache else { return }
+        
+//        let dataType: AutoreleasingUnsafeMutablePointer<NSString?>? = nil
+//        dataType?.pointee = (kCGImageAuxiliaryDataTypeDepth as NSString)
+//        let dict = depthData.dictionaryRepresentation(forAuxiliaryDataType: dataType)
+//        let data = dict?[kCGImageAuxiliaryDataInfoData] as? [UInt]
+//
+//        print(data)
+        
+        if let texture = depthData.mtlTexture(textureCache: textureCache) {
+            internalTexture = texture
+            
+            DispatchQueue.main.async {
+                self.needsUpdate = true
+            }
+        }
+        
+    }
+    
+    @available(iOS 11.0, *)
+    public func depthDataOutput(_ output: AVCaptureDepthDataOutput, didDrop depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection, reason: AVCaptureOutput.DataDroppedReason) {
+        
+    }
+    
 }
 
 

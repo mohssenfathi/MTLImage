@@ -148,7 +148,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //    MARK: - Actions
     
     @IBAction func flipButtonPressed(_ sender: UIBarButtonItem) {
-        camera.flipCamera()
+        camera.flip()
     }
     
     @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {

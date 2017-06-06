@@ -140,7 +140,7 @@ class MTLFilter: MTLObject, NSCoding {
             commandEncoder.setBuffer(uniformsBuffer, offset: 0, index: 0)
             commandEncoder.setTexture(inputTexture, index: 0)
             commandEncoder.setTexture(texture, index: 1)
-            
+   
             self.configureCommandEncoder(commandEncoder)
             
             commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)

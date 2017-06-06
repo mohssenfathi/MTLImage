@@ -6,6 +6,7 @@
 //
 //
 
+@objc
 public
 class MTLObject: NSObject, MTLOutput {
     
