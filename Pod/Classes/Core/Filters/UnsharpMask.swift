@@ -57,7 +57,7 @@ class UnsharpMask: MTLFilter {
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
         
-        commandEncoder.setTexture(blurFilter.texture, at: 2)
+        commandEncoder.setTexture(blurFilter.texture, index: 2)
     }
     
     public override func processIfNeeded() {

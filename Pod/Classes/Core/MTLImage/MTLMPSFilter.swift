@@ -30,8 +30,8 @@ class MPS: MTLFilter {
         
         autoreleasepool {
             
-            let threadgroupCounts = MTLSizeMake(8, 8, 1)
-            let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
+//            let threadgroupCounts = MTLSizeMake(8, 8, 1)
+//            let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
             
             let commandBuffer = context.commandQueue.makeCommandBuffer()
             commandBuffer.label = "MTLFilter: " + title

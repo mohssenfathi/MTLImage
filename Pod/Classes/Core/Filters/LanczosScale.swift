@@ -49,8 +49,6 @@ class LanczosScale: MPS {
     }
     
     override func update() {
-        let s = Double(1 + scale * 10.0)
-        
         (kernel as! MPSImageLanczosScale).scaleTransform = transformPointer
     }
     

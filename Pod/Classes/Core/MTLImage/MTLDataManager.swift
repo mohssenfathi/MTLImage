@@ -28,7 +28,7 @@ class MTLDataManager: NSObject {
         savedRecords = filterGroupRecords
     }
     
-    func modelChanged(_ notification: Notification) {
+    @objc func modelChanged(_ notification: Notification) {
         reloadSavedRecords()
     }
     
@@ -272,7 +272,7 @@ class MTLDataManager: NSObject {
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = try! self.applicationDocumentsDirectory.appendingPathComponent("MTLImage.sqlite")
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("MTLImage.sqlite")
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
             try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)

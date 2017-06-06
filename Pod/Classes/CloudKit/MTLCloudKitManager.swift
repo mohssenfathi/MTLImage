@@ -51,7 +51,7 @@ extension MTLFilterGroup {
     func filterDataAsset(_ data: Data) -> CKAsset {
         
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
-        let url = try! URL(fileURLWithPath: path!).appendingPathComponent(identifier)
+        let url = URL(fileURLWithPath: path!).appendingPathComponent(identifier)
         try! data.write(to: url, options: .atomicWrite) // Handle later
         
         return CKAsset(fileURL: url)

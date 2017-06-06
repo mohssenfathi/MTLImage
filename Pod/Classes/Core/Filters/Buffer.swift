@@ -42,7 +42,7 @@ class Buffer: MTLFilter {
         }
         
         if textureQueue.count > maxBuffers {
-            textureQueue.popLast()
+            _ = textureQueue.popLast()
         }
     }
     

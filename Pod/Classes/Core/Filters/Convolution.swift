@@ -42,7 +42,7 @@ class Convolution: MTLFilter {
             let f = Array(convolutionMatrix.joined())
             convolutionMatrixTexture!.replace(region: MTLRegionMake2D(0, 0, 3, 3), mipmapLevel: 0, withBytes: f, bytesPerRow: MemoryLayout<Float>.size * 3)
         }
-        commandEncoder.setTexture(convolutionMatrixTexture, at: 2)
+        commandEncoder.setTexture(convolutionMatrixTexture, index: 2)
     }
     
 }

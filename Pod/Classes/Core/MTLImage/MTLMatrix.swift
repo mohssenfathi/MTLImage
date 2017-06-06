@@ -34,7 +34,7 @@ struct MTLMatrix {
         
         var matrix = [Any]()
         
-        for i in 0 ..< shape[0] {
+        for _ in 0 ..< shape[0] {
             matrix.append( randomMatrix(with: Array(shape[1 ..< shape.count])) )
         }
         

@@ -127,10 +127,10 @@ class Histogram: MTLFilter {
         greenBuffer     = device.makeBuffer(bytes: f, length: 255 * MemoryLayout<Float.Type>.size, options: .cpuCacheModeWriteCombined)
         blueBuffer      = device.makeBuffer(bytes: f, length: 255 * MemoryLayout<Float.Type>.size, options: .cpuCacheModeWriteCombined)
 
-        commandEncoder.setBuffer(luminanceBuffer, offset: 0, at: 1)
-        commandEncoder.setBuffer(redBuffer      , offset: 0, at: 2)
-        commandEncoder.setBuffer(greenBuffer    , offset: 0, at: 3)
-        commandEncoder.setBuffer(blueBuffer     , offset: 0, at: 4)
+        commandEncoder.setBuffer(luminanceBuffer, offset: 0, index: 1)
+        commandEncoder.setBuffer(redBuffer      , offset: 0, index: 2)
+        commandEncoder.setBuffer(greenBuffer    , offset: 0, index: 3)
+        commandEncoder.setBuffer(blueBuffer     , offset: 0, index: 4)
         
     }
     

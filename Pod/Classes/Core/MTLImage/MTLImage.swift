@@ -140,8 +140,8 @@ class MTLImage: NSObject {
             
             // Machine Learning
             case "digit recognizer":
-                do    { return try! MTLImage.machineLearningFilter(name) }
-                catch { throw  MTLError.invalidFilterName                }
+                do    { return try MTLImage.machineLearningFilter(name) }
+                catch { throw  MTLError.invalidFilterName               }
             
             default: throw  MTLError.invalidFilterName
         }
@@ -171,13 +171,15 @@ extension MTLImage {
             return false
         }
         
+        var supported = false
+        
         #if os(tvOS)
-            return device.supportsFeatureSet(.tvOS_GPUFamily1_v1)
+            supported = device.supportsFeatureSet(.tvOS_GPUFamily1_v1)
         #elseif os(iOS)
-            return device.supportsFeatureSet(.iOS_GPUFamily1_v1)
+            supported = device.supportsFeatureSet(.iOS_GPUFamily1_v1)
         #endif
         
-        return false
+        return supported
     }
 }
 
@@ -189,7 +191,7 @@ extension MTLImage {
         return NSKeyedArchiver.archivedData(withRootObject: filterGroup)
     }
     
-    public class func unarchive(_ data: Data) -> MTLFilterGroup? {
+    public class func unarchive(_ data: Data) -> MTLFilterGroup? {        
         return NSKeyedUnarchiver.unarchiveObject(with: data) as? MTLFilterGroup
     }
 }
@@ -261,17 +263,14 @@ public func --> (left: MTLObject, right: MTLObject) -> MTLObject {
     return right
 }
 
-@discardableResult
 public func --> (left: MTLObject, right: MTLOutput) {
     left.addTarget(right)
 }
 
-@discardableResult
 public func + (left: MTLInput, right: MTLOutput) {
     left.addTarget(right)
 }
 
-@discardableResult
 public func > (left: MTLInput, right: MTLOutput) {
     left.addTarget(right)
 }

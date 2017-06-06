@@ -52,7 +52,7 @@ class Histogram1: MPS {
         (kernel as! MPSImageHistogram).encode(to: commandBuffer, sourceTexture: inputTexture, histogram: histogramBuffer, histogramOffset: 0)
         
         // TODO: Fix this
-        let data = Data(bytes: histogramBuffer.contents(), count: length)
+//        let data = Data(bytes: histogramBuffer.contents(), count: length)
 //        data.copyBytes(to: &histogram, count: data.count)
 
 //        histogram = Tools.contents(count: length, data: histogramBuffer.contents())

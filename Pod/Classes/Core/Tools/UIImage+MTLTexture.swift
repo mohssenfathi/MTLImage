@@ -22,7 +22,7 @@ extension UIImage {
             return nil
         }
         
-        let options = [ MTKTextureLoaderOptionSRGB : NSNumber(value: false) ]
+        let options = [ MTKTextureLoader.Option.SRGB : NSNumber(value: false) ]
         return try? textureLoader.newTexture(with: cgImage, options: options)
     }
 
@@ -41,7 +41,7 @@ extension UIImage {
         let bytesPerPixel = 4
         let bytesPerRow = bytesPerPixel * width
 
-        let (context, cgImage, data) = imageData(with: CGSize(width: width, height: height))
+        let (_, _, data) = imageData(with: CGSize(width: width, height: height))
         
         let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: width, height: height, mipmapped: false)
         let texture = device.makeTexture(descriptor: textureDescriptor)

@@ -10,12 +10,12 @@ import UIKit
 
 public
 protocol Numeric {
-    func -(left: Self, right: Self) -> Self
-    func +(left: Self, right: Self) -> Self
-    func *(left: Self, right: Self) -> Self
-    func /(left: Self, right: Self) -> Self
-    func %(left: Self, right: Self) -> Self
-    prefix func -(value: Self) -> Self
+    static func -(left: Self, right: Self) -> Self
+    static func +(left: Self, right: Self) -> Self
+    static func *(left: Self, right: Self) -> Self
+    static func /(left: Self, right: Self) -> Self
+    static func %(left: Self, right: Self) -> Self
+    static prefix func -(value: Self) -> Self
     init(_ f: Float)
     init(_ i: Int)
 }
@@ -50,7 +50,7 @@ class Tools: NSObject {
         }
     }
     
-    private class func convert<T>(_ value: T, oldMin: T, oldMax: T, newMin: T, newMid: T, newMax: T) -> T where T:Numeric, T: Equatable, T: Comparable {
+    private class func convert<T>(_ value: T, oldMin: T, oldMax: T, newMin: T, newMid: T, newMax: T) -> T where T:Numeric, T: Comparable {
         if (newMid == newMin || newMid == newMax) {
             return Tools.convert(value, oldMin: oldMin, oldMax: oldMax, newMin: newMin, newMax: newMax)
         }

@@ -87,7 +87,7 @@ class SelectiveHSL: MTLFilter {
         if needsUpdate == true {
             loadColorAdjustmentTexture()
         }
-        commandEncoder.setTexture(adjustmentsTexture, at: 2)
+        commandEncoder.setTexture(adjustmentsTexture, index: 2)
     }
     
     func updateColor(_ value: Float, index: Int) {

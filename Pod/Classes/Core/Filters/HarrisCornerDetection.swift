@@ -117,7 +117,7 @@ class HarrisCornerDetectionOutput: MTLFilter {
     
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
-        commandEncoder.setTexture(originalTexture, at: 2)
+        commandEncoder.setTexture(originalTexture, index: 2)
     }
 }
 

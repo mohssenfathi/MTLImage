@@ -61,8 +61,8 @@ class LineDetection: MTLFilter {
                 let data = Data(bytesNoCopy: accumulatorBuffer.contents(), count: length, deallocator: Data.Deallocator.none)
                 data.copyBytes(to: &accumulator, count: data.count)
                 
-                let m = accumulator.max()
-                print(m)
+//                let m = accumulator.max()
+//                print(m)
             }
         }
         
@@ -77,7 +77,7 @@ class LineDetection: MTLFilter {
         accumulatorBuffer = device.makeBuffer(bytes: accumulator,
                                              length: accumulator.count * MemoryLayout<Float>.size,
                                             options: .cpuCacheModeWriteCombined)
-        commandEncoder.setBuffer(accumulatorBuffer, offset: 0, at: 1)
+        commandEncoder.setBuffer(accumulatorBuffer, offset: 0, index: 1)
     }
     
     public override func process() {

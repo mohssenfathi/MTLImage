@@ -144,10 +144,10 @@ class ToneCurve: MTLFilter {
     
     override func updatePropertyValues() {
         super.updatePropertyValues()
-        propertyValues["compositeCurve"] = compositeCurve as? AnyObject
-        propertyValues["redCurve"] = redCurve as? AnyObject
-        propertyValues["greenCurve"] = greenCurve as? AnyObject
-        propertyValues["blueCurve"] = blueCurve as? AnyObject
+        propertyValues["compositeCurve"] = compositeCurve
+        propertyValues["redCurve"] = redCurve
+        propertyValues["greenCurve"] = greenCurve
+        propertyValues["blueCurve"] = blueCurve
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -174,7 +174,7 @@ class ToneCurve: MTLFilter {
         if toneCurveBuffer == nil {
             updateToneCurveBuffer()
         }
-        commandEncoder.setBuffer(toneCurveBuffer, offset: 0, at: 1)
+        commandEncoder.setBuffer(toneCurveBuffer, offset: 0, index: 1)
     }
     
     

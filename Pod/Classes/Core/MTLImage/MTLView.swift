@@ -245,9 +245,9 @@ extension MTLMTKView: MTKViewDelegate {
             
             let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
             commandEncoder.setRenderPipelineState(pipeline)
-            commandEncoder.setVertexBuffer(self.vertexBuffer, offset: 0, at: 0)
-            commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, at: 1)
-            commandEncoder.setFragmentTexture(texture, at: 0)
+            commandEncoder.setVertexBuffer(self.vertexBuffer, offset: 0, index: 0)
+            commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, index: 1)
+            commandEncoder.setFragmentTexture(texture, index: 0)
             commandEncoder.drawPrimitives(type: .triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
             commandEncoder.endEncoding()
             

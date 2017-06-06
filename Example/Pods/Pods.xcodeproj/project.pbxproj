@@ -39,7 +39,6 @@
 		1FE05AD5FA07B9148837D06D9286F9A3 /* MTLFilterGroupRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E817ED003A81ED83C89A046D96DAF5C4 /* MTLFilterGroupRecord.swift */; };
 		24A3C5CEE2591254A9EE64EB91BD0A71 /* Tent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86BC7D23E85359F486863339D80D57C /* Tent.swift */; };
 		2667A75302D13E571088FB553BE150CE /* CannyEdgeDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD6CE53B2953235D6977D2E92B8247 /* CannyEdgeDetection.swift */; };
-		275C8906B1AC780811EC60210F3F3B8F /* default.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 25BC61FCB9FA4E96F77A390ADC8B736C /* default.metallib */; };
 		277955326C41EE42E05A96FCC6A428DC /* Hue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8817520C62F5FB8879CDAF9F04449E /* Hue.swift */; };
 		2884AC963E20B1AFAC04322A46427915 /* Sketch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63575B3071B5CFDEFE831F3F8547F8C0 /* Sketch.swift */; };
 		296CD38412FB171541F7587013F16625 /* Haze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E5ED86516219BD917D549F92C9A961 /* Haze.swift */; };
@@ -69,6 +68,8 @@
 		42E0DAA94059418B989653ED59D0566C /* MTLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946A1A3781B9F37103DB4AD3744C96FB /* MTLMatrix.swift */; };
 		43FA86255D2C6B64C76EBEFD101D62F3 /* MTLPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D22FECC2E8F1D87B53241B20836364 /* MTLPicture.swift */; };
 		444DB397EC523D83815F73F21D167E39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BAB538786F3BBC86968963FC0A0B91 /* Foundation.framework */; };
+		4501E1391EE64AA4005CBD1C /* default.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 25BC61FCB9FA4E96F77A390ADC8B736C /* default.metallib */; };
+		4501E13A1EE64AA4005CBD1C /* default.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 25BC61FCB9FA4E96F77A390ADC8B736C /* default.metallib */; };
 		4520D10A1842886C6CB0F051F418F1D6 /* Brightness.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E5D90AFD218EB679221E72BBF48347 /* Brightness.swift */; };
 		45A4696CF661300C0B439B36A0379061 /* MTLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D184FE4566EDD7F131EFED4C77CA64F /* MTLFilter.swift */; };
 		45EF7D521DB7A22B00474871 /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF7D511DB7A22B00474871 /* Mask.swift */; };
@@ -181,7 +182,6 @@
 		D26836F1FDA6C719CD209BB833C2A516 /* GaussianBlur1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B60AFA224A949FA28441FD4EBBADF5 /* GaussianBlur1.swift */; };
 		D54996F9AB2976904B752E384EE80553 /* MTLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BE234E272D4CA95C5874A971E766C4 /* MTLObject.swift */; };
 		D691D2A634E48A70762A31DC29AE162A /* MTLDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC7847441CA339A9B45E669CA47D0FA /* MTLDataManager.swift */; };
-		D748059D1A0432CA76FE29045FAAC4B8 /* default.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 25BC61FCB9FA4E96F77A390ADC8B736C /* default.metallib */; };
 		DACEB7E3FDE5247251632589469C4362 /* Voronoi.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA42F3F83EEC1CD43AAF8A5B233A7203 /* Voronoi.swift */; };
 		DB1DBD3C61557F5129C6A2BC27762113 /* MTLContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5E976214C7F946517143316E0D4140 /* MTLContext.swift */; };
 		DD4884B4D2E6220CDCC77A3E98025EBB /* MTLPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D22FECC2E8F1D87B53241B20836364 /* MTLPicture.swift */; };
@@ -986,16 +986,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0900;
 				TargetAttributes = {
 					ADC58B76DB850103FADF1342F08643CF = {
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 					};
 					B64108EC549B4B602E80B07DC038F204 = {
 						LastSwiftMigration = 0800;
 					};
 					E385EEB0A31A017D3C1EA4191D127939 = {
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 					};
 					F890C3C7BB4480874ECDE1A591B68BAC = {
 						LastSwiftMigration = 0800;
@@ -1027,8 +1027,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D748059D1A0432CA76FE29045FAAC4B8 /* default.metallib in Resources */,
-				D748059D1A0432CA76FE29045FAAC4B8 /* default.metallib in Resources */,
+				4501E1391EE64AA4005CBD1C /* default.metallib in Resources */,
 				2FAE8DB1D0B95B79E1E024B69D1E5FEF /* images.xcassets in Resources */,
 				7B00A02105999B6FF12F23E0E61D3449 /* MTLImage.xcdatamodeld in Resources */,
 			);
@@ -1038,8 +1037,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				275C8906B1AC780811EC60210F3F3B8F /* default.metallib in Resources */,
-				275C8906B1AC780811EC60210F3F3B8F /* default.metallib in Resources */,
+				4501E13A1EE64AA4005CBD1C /* default.metallib in Resources */,
 				0611B21CD3AB0312F90EA33D258A9533 /* images.xcassets in Resources */,
 				B1DE41E4B4706B378BCAF7F29153CFB2 /* MTLImage.xcdatamodeld in Resources */,
 			);
@@ -1278,7 +1276,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A8F00A22AD9EAB104F13731323A4BACD /* Pods-MTLImage_Example.release.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1317,19 +1316,29 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_DEBUG=1",
@@ -1354,7 +1363,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F88670808863AF79C7367E682F0F377A /* Pods-MTLImage_Tests.debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -1389,7 +1399,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7F436608614BB0CD48E472A46B5954A4 /* Pods-MTLImage_Tests.release.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1423,7 +1434,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A1ED501339270CA481A27ADE389DBA56 /* MTLImage-iOS9.0.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1442,7 +1453,8 @@
 				PRODUCT_NAME = MTLImage;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1453,7 +1465,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A1ED501339270CA481A27ADE389DBA56 /* MTLImage-iOS9.0.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1473,7 +1485,8 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1484,7 +1497,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22D8BAEC594D5A75040BC51C31CE8D65 /* Pods-MTLImage_Example.debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1519,7 +1533,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9ECC29F50DEB233313C16E551FDCA416 /* MTLImage-iOS10.0.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1539,7 +1553,8 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1555,18 +1570,28 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_RELEASE=1",
 					"$(inherited)",
@@ -1579,6 +1604,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SYMROOT = "${SRCROOT}/../build";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1588,7 +1614,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9ECC29F50DEB233313C16E551FDCA416 /* MTLImage-iOS10.0.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -1607,7 +1633,8 @@
 				PRODUCT_NAME = MTLImage;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

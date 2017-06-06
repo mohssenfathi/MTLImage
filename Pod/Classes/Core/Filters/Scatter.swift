@@ -120,7 +120,7 @@ class Scatter: MTLFilter {
         if noiseTexture == nil {
             updateNoiseTexture()
         }
-        commandEncoder.setTexture(noiseTexture, at: 2)
+        commandEncoder.setTexture(noiseTexture, index: 2)
     }
     
     public override var input: MTLInput? {

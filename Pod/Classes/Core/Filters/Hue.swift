@@ -37,7 +37,7 @@ class Hue: MTLFilter {
     
     override func update() {
         if self.input == nil { return }
-        uniforms.hue = fmodf(hue * 360.0, 360.0) * Float(M_PI / 180);
+        uniforms.hue = fmodf(hue * 360.0, 360.0) * (Float.pi / 180.0)
         updateUniforms(uniforms: uniforms)
     }
     

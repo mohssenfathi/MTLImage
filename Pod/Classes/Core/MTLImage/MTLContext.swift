@@ -60,7 +60,7 @@ class MTLContext: NSObject {
             assert(internalLibrary != nil)
         }
         else {
-            internalLibrary = self.device.newDefaultLibrary()
+            internalLibrary = self.device.makeDefaultLibrary()
         }
     }
     

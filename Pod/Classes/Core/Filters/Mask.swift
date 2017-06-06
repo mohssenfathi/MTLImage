@@ -74,8 +74,8 @@ class Mask: MTLFilter {
             updateMaskTexture()
         }
         
-        commandEncoder.setTexture(maskTexture, at: 2)
-        commandEncoder.setTexture(originalTexture, at: 3)
+        commandEncoder.setTexture(maskTexture, index: 2)
+        commandEncoder.setTexture(originalTexture, index: 3)
     }
     
     func updateMaskTexture() {

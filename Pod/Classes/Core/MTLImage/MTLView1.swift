@@ -60,7 +60,7 @@ class MTLView1: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDele
     }
     
     //    MARK: - Display Link
-    func update(_ displayLink: CADisplayLink) {
+    @objc func update(_ displayLink: CADisplayLink) {
         
         guard let input = input else { return }
         
@@ -278,9 +278,9 @@ class MTLView1: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDele
                 
                 let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: self.renderPassDescriptor)
                 commandEncoder.setRenderPipelineState(self.pipeline)
-                commandEncoder.setVertexBuffer(self.vertexBuffer  , offset: 0, at: 0)
-                commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, at: 1)
-                commandEncoder.setFragmentTexture(tex, at: 0)
+                commandEncoder.setVertexBuffer(self.vertexBuffer  , offset: 0, index: 0)
+                commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, index: 1)
+                commandEncoder.setFragmentTexture(tex, index: 0)
                 
                 commandEncoder.drawPrimitives(type: .triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
                 commandEncoder.endEncoding()
@@ -457,7 +457,7 @@ class MTLView1: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDele
         didSet {
             Tools.clamp(&frameRate, low: 0, high: 60)
             
-            #if os(tvos)
+            #if os(tvOS)
                 if #available(tvOS 10.0, *) {
                     displayLink.preferredFramesPerSecond = frameRate
                 } else {

@@ -137,9 +137,9 @@ class MTLFilter: MTLObject, NSCoding {
             
             let commandEncoder = commandBuffer.makeComputeCommandEncoder()
             commandEncoder.setComputePipelineState(pipeline)
-            commandEncoder.setBuffer(uniformsBuffer, offset: 0, at: 0)
-            commandEncoder.setTexture(inputTexture, at: 0)
-            commandEncoder.setTexture(texture, at: 1)
+            commandEncoder.setBuffer(uniformsBuffer, offset: 0, index: 0)
+            commandEncoder.setTexture(inputTexture, index: 0)
+            commandEncoder.setTexture(texture, index: 1)
             
             self.configureCommandEncoder(commandEncoder)
             

@@ -11,9 +11,9 @@ import AVFoundation
 
 public
 protocol MTLCameraDelegate {
-    func mtlCameraFocusChanged(_ sender: MTLCamera, lensPosition: Float)
-    func mtlCameraISOChanged(_ sender: MTLCamera, iso: Float)
-    func mtlCameraExposureDurationChanged(_ sender: MTLCamera, exposureDuration: Float)
+    func focusChanged(_ sender: MTLCamera, lensPosition: Float)
+    func isoChanged(_ sender: MTLCamera, iso: Float)
+    func exposureDurationChanged(_ sender: MTLCamera, exposureDuration: Float)
 }
 
 public
@@ -37,7 +37,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
 //    TODO: Add intermediate thumbnail captured photo callback
     public func takePhoto(_ completion:@escaping ((_ photo: UIImage?, _ error: Error?) -> ())) {
         
-        self.stillImageOutput.captureStillImageAsynchronously(from: self.stillImageOutput.connection(withMediaType: AVMediaTypeVideo)) { [weak self](sampleBuffer, error) in
+        self.stillImageOutput.captureStillImageAsynchronously(from: self.stillImageOutput.connection(with: AVMediaType.video)!) { [weak self](sampleBuffer, error) in
 
             if error != nil {
                 completion(nil, error)
@@ -46,7 +46,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             
             DispatchQueue(label: "CaptureQueue").async(execute: {
                 
-                guard let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer) else {
+                guard let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer!) else {
                     completion(nil, error)
                     return
                 }
@@ -87,13 +87,13 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         switch image.imageOrientation {
         case .down, .downMirrored:
             transform = transform.translatedBy(x: image.size.width, y: image.size.height)
-            transform = transform.rotated(by: CGFloat(M_PI))
+            transform = transform.rotated(by: CGFloat.pi)
         case .left, .leftMirrored:
             transform = transform.translatedBy(x: image.size.width, y: 0)
-            transform = transform.rotated(by: CGFloat(M_PI_2))
+            transform = transform.rotated(by: CGFloat.pi/2.0)
         case .right, .rightMirrored:
             transform = transform.translatedBy(x: 0, y: image.size.height)
-            transform = transform.rotated(by: -CGFloat(M_PI_2))
+            transform = transform.rotated(by: -CGFloat.pi/2.0)
         default:
             break
         }
@@ -142,21 +142,21 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     //    TODO: Normalize these values between 0 - 1
     
     /* Flash: On, Off, and Auto */
-    public var flashMode: AVCaptureFlashMode = .auto {
+    public var flashMode: AVCaptureDevice.FlashMode = .auto {
         didSet {
             applyCameraSetting { self.captureDevice.flashMode = self.flashMode }
         }
     }
     
     /* Torch: On, Off, and Auto. Auto untested */
-    public var torchMode: AVCaptureTorchMode = .off {
+    public var torchMode: AVCaptureDevice.TorchMode = .off {
         didSet {
             applyCameraSetting { self.captureDevice.torchMode = self.torchMode }
         }
     }
     
     /* Flip: Front and Back supported */
-    public var cameraPosition: AVCaptureDevicePosition = .front {
+    public var cameraPosition: AVCaptureDevice.Position = .front {
         didSet {
             capturePosition = cameraPosition
         }
@@ -188,7 +188,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
                 let seconds = Tools.convert(self.exposureDuration, oldMin: 0, oldMax: 1,
                                             newMin: self.minExposureDuration, newMax: self.maxExposureDuration)
                 let ed = CMTime(seconds: Double(seconds), preferredTimescale: 1000 * 1000)
-                self.captureDevice.setExposureModeCustomWithDuration(ed, iso: AVCaptureISOCurrent, completionHandler: nil)
+                self.captureDevice.setExposureModeCustom(duration: ed, iso: AVCaptureDevice.currentISO, completionHandler: nil)
             }
         }
     }
@@ -208,13 +208,13 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             if captureDevice.isAdjustingExposure { return }
             applyCameraSetting {
                 let value = Tools.convert(self.iso, oldMin: 0, oldMax: 1, newMin: self.minIso, newMax: self.maxIso)
-                self.captureDevice.setExposureModeCustomWithDuration(AVCaptureExposureDurationCurrent, iso: value, completionHandler: nil)
+                self.captureDevice.setExposureModeCustom(duration: AVCaptureDevice.currentExposureDuration, iso: value, completionHandler: nil)
             }
         }
     }
     
     /* Focus */
-    public var focusMode: AVCaptureFocusMode = .autoFocus
+    public var focusMode: AVCaptureDevice.FocusMode = .autoFocus
     public func setFocusAuto() {
         applyCameraSetting {
             self.captureDevice.focusMode = .autoFocus
@@ -224,13 +224,13 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         didSet {
             if captureDevice.isAdjustingFocus { return }
             applyCameraSetting {
-                self.captureDevice.setFocusModeLockedWithLensPosition(self.lensPosition, completionHandler: nil)
+                self.captureDevice.setFocusModeLocked(lensPosition: self.lensPosition, completionHandler: nil)
             }
         }
     }
     
     /* White Balance */
-    var whiteBalanceGains: AVCaptureWhiteBalanceGains!
+    var whiteBalanceGains: AVCaptureDevice.WhiteBalanceGains!
     public var tint: UIColor! {
         didSet {
             if captureDevice.isAdjustingWhiteBalance { return }
@@ -243,7 +243,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
                     self.whiteBalanceGains.blueGain  = Tools.convert(Float(components.blue) , oldMin: 0, oldMax: 1, newMin: 1, newMax: max)
                 }
                 
-                self.captureDevice.setWhiteBalanceModeLockedWithDeviceWhiteBalanceGains(self.whiteBalanceGains, completionHandler: nil)
+                self.captureDevice.setWhiteBalanceModeLocked(with: self.whiteBalanceGains, completionHandler: nil)
             }
         }
     }
@@ -305,16 +305,16 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
                 let duration = Tools.convert(Float(captureDevice.exposureDuration.seconds),
                                              oldMin: minExposureDuration, oldMax: maxExposureDuration,
                                              newMin: 0, newMax: 1)
-                delegate?.mtlCameraExposureDurationChanged(self, exposureDuration: duration)
+                delegate?.exposureDurationChanged(self, exposureDuration: duration)
                 break
                 
             case "lensPosition":
-                delegate?.mtlCameraFocusChanged(self, lensPosition: captureDevice.lensPosition)
+                delegate?.focusChanged(self, lensPosition: captureDevice.lensPosition)
                 break
                 
             case "ISO":
                 let iso = Tools.convert(captureDevice.iso, oldMin: minIso, oldMax: maxIso, newMin: 0, newMax: 1)
-                delegate?.mtlCameraISOChanged(self, iso: iso)
+                delegate?.isoChanged(self, iso: iso)
                 break
                 
             default: break
@@ -333,13 +333,13 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     
     public var orientation: AVCaptureVideoOrientation = .portrait {
         didSet {
-            if let connection = dataOutput.connection(withMediaType: AVMediaTypeVideo) {
+            if let connection = dataOutput.connection(with: AVMediaType.video) {
                 connection.videoOrientation = orientation
             }
         }
     }
     
-    public var capturePosition: AVCaptureDevicePosition = .back {
+    public var capturePosition: AVCaptureDevice.Position = .back {
         didSet {
             if captureDevice.position == capturePosition { return }
             if session == nil { return }
@@ -348,7 +348,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             
             session.removeInput(deviceInput)  // maybe check if has input first
             
-            for device: AVCaptureDevice in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as! [AVCaptureDevice] {
+            for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
                 if device.position == capturePosition {
                     captureDevice = device 
                     break
@@ -356,7 +356,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             }
             
             if captureDevice == nil {
-                captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+                captureDevice = AVCaptureDevice.default(for: .video)
             }
             
             try! deviceInput = AVCaptureDeviceInput(device: captureDevice)
@@ -364,7 +364,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
                 session.addInput(deviceInput)
             }
             
-            let connection = dataOutput.connection(withMediaType: AVMediaTypeVideo)
+            let connection = dataOutput.connection(with: AVMediaType.video)
             connection?.videoOrientation = .portrait
             connection?.isVideoMirrored = (capturePosition == .front)
             
@@ -381,16 +381,16 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         CVMetalTextureCacheCreate(kCFAllocatorDefault, nil, device, nil, &textureCache)
         
         session = AVCaptureSession()
-        session.sessionPreset = AVCaptureSessionPresetPhoto
+        session.sessionPreset = AVCaptureSession.Preset.photo
         
-        for device: AVCaptureDevice in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as! [AVCaptureDevice] {
+        for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
             if device.position == capturePosition {
                 captureDevice = device 
                 break
             }
         }
         if captureDevice == nil {
-            captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+            captureDevice = AVCaptureDevice.default(for: .video)
         }
         
         try! deviceInput = AVCaptureDeviceInput(device: captureDevice)
@@ -414,7 +414,9 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             session.addOutput(stillImageOutput)
         }
         
-        let connection = dataOutput.connection(withMediaType: AVMediaTypeVideo)
+        // Depth Data
+        
+        let connection = dataOutput.connection(with: AVMediaType.video)
         connection?.isEnabled = true
         connection?.videoOrientation = .portrait
         
@@ -422,7 +424,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         
         // Initial Values
         whiteBalanceGains = captureDevice.deviceWhiteBalanceGains
-        stillImageOutput.connection(withMediaType: AVMediaTypeVideo).videoOrientation = .portrait
+        stillImageOutput.connection(with: AVMediaType.video)?.videoOrientation = .portrait
     }
     
     func setupPipeline() {
@@ -439,7 +441,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     
 //    let semaphore = DispatchSemaphore(value: 1)
     
-    public func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+    public func captureOutput(_ captureOutput: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
 //        semaphore.wait(timeout: .distantFuture)
         
@@ -545,8 +547,8 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         let commandEncoder = commandBuffer.makeComputeCommandEncoder()
         commandEncoder.setComputePipelineState(pipeline)
         
-        commandEncoder.setTexture(videoTexture, at: 0)
-        commandEncoder.setTexture(internalTexture, at: 1)
+        commandEncoder.setTexture(videoTexture, index: 0)
+        commandEncoder.setTexture(internalTexture, index: 1)
         commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
         commandEncoder.endEncoding()
         
@@ -609,7 +611,6 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         stopRunning()
     }
     
-    
 //    MARK: - Internal
     private var internalTargets = [MTLOutput]()
     private var internalTexture: MTLTexture!
@@ -625,6 +626,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     var dataOutputQueue: DispatchQueue!
     var deviceInput: AVCaptureDeviceInput!
     var textureCache: CVMetalTextureCache?
+    var depthDataOutput: AVCaptureDepthDataOutput!
 
 }
 
@@ -635,6 +637,7 @@ extension MTLCamera {
     /*  Locks camera, applies settings change, then unlocks.
         Returns success                                       */
     
+    @discardableResult
     func applyCameraSetting( _ settings: (() -> ()) ) -> Bool {
         if !lock() {  return false }
 

@@ -31,7 +31,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.setEditing(true, animated: false)
     }
 
-    func actionButtonPressed(_ button: UIBarButtonItem) {
+    @objc func actionButtonPressed(_ button: UIBarButtonItem) {
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         

@@ -126,7 +126,7 @@ class GaussianBlur1: MTLFilter {
         if blurWeightTexture == nil {
             generateBlurRadius()
         }
-        commandEncoder.setTexture(blurWeightTexture, at: 2)
+        commandEncoder.setTexture(blurWeightTexture, index: 2)
     }
     
 }

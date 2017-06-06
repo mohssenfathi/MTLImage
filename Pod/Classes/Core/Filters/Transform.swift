@@ -79,7 +79,7 @@ class Transform: MTLFilter {
         print(atan2(transform.b, transform.a)) //"\(transform.a)   \(transform.b)")
         
         transformBuffer = device.makeBuffer(bytes: f, length: f.count * MemoryLayout<Float>.size, options: .cpuCacheModeWriteCombined)
-        commandEncoder.setBuffer(transformBuffer, offset: 0, at: 1)
+        commandEncoder.setBuffer(transformBuffer, offset: 0, index: 1)
         
 //        let f = [transform.m11, transform.m12, transform.m13, transform.m14,
 //                 transform.m21, transform.m22, transform.m23, transform.m24,

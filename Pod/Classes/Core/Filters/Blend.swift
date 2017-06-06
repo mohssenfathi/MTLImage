@@ -47,8 +47,7 @@ public enum BlendMode: Int {
         case .screen:        return "Screen"
         case .soflight:      return "SoftLight"
         case .subtract:      return "Subtract"
-        default:             return ""
-            
+                        
         }
     }
 }
@@ -160,7 +159,7 @@ class Blend: MTLFilter {
         if blendTexture == nil || blendOriginal {
             createBlendTexture()
         }
-        commandEncoder.setTexture(blendTexture, at: 2)
+        commandEncoder.setTexture(blendTexture, index: 2)
     }
     
     func createBlendTexture() {
