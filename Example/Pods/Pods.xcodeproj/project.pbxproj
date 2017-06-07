@@ -70,6 +70,8 @@
 		444DB397EC523D83815F73F21D167E39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BAB538786F3BBC86968963FC0A0B91 /* Foundation.framework */; };
 		4501E1391EE64AA4005CBD1C /* default.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 25BC61FCB9FA4E96F77A390ADC8B736C /* default.metallib */; };
 		4501E13A1EE64AA4005CBD1C /* default.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 25BC61FCB9FA4E96F77A390ADC8B736C /* default.metallib */; };
+		4501E13E1EE752F5005CBD1C /* DepthMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4501E13D1EE752F5005CBD1C /* DepthMask.swift */; };
+		4501E13F1EE754D7005CBD1C /* DepthMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4501E13D1EE752F5005CBD1C /* DepthMask.swift */; };
 		4520D10A1842886C6CB0F051F418F1D6 /* Brightness.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E5D90AFD218EB679221E72BBF48347 /* Brightness.swift */; };
 		45A4696CF661300C0B439B36A0379061 /* MTLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D184FE4566EDD7F131EFED4C77CA64F /* MTLFilter.swift */; };
 		45EF7D521DB7A22B00474871 /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EF7D511DB7A22B00474871 /* Mask.swift */; };
@@ -255,6 +257,7 @@
 		3C758924DF37395EEB5020C7A62D4D5A /* UIImage+MTLTexture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+MTLTexture.swift"; sourceTree = "<group>"; };
 		3CA962CA686F0E1C427231FF66833AE1 /* MTLImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MTLImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41F71965B3118D184A73304354C19B42 /* MTLTypes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLTypes.swift; sourceTree = "<group>"; };
+		4501E13D1EE752F5005CBD1C /* DepthMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthMask.swift; sourceTree = "<group>"; };
 		45EF7D511DB7A22B00474871 /* Mask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mask.swift; sourceTree = "<group>"; };
 		494C290BDBEAED23BA5743A3CE2FA0D1 /* FABAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FABAttributes.h; path = iOS/Fabric.framework/Headers/FABAttributes.h; sourceTree = "<group>"; };
 		49BA9EBB435AC80CC9AFEB3B15AB2571 /* UnsharpMask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UnsharpMask.swift; sourceTree = "<group>"; };
@@ -594,6 +597,7 @@
 			children = (
 				BFD03F34AC80BE0CDBAAE7A4EB5378EF /* Buffer.swift */,
 				E12252A4A36C01579236C9843933D9BD /* Blend.swift */,
+				4501E13D1EE752F5005CBD1C /* DepthMask.swift */,
 				924910FEEA92EDEBF9FBA4A1943ADFE2 /* BoxBlur.swift */,
 				A4E5D90AFD218EB679221E72BBF48347 /* Brightness.swift */,
 				2ADD6CE53B2953235D6977D2E92B8247 /* CannyEdgeDetection.swift */,
@@ -1091,6 +1095,7 @@
 				9ADA053BF08D47BEF64D6DF3A721C18E /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */,
 				1FE05AD5FA07B9148837D06D9286F9A3 /* MTLFilterGroupRecord.swift in Sources */,
 				36F214106F465F17EC048D204EE1B81B /* MTLFilterRecord+CoreDataProperties.swift in Sources */,
+				4501E13E1EE752F5005CBD1C /* DepthMask.swift in Sources */,
 				B1599A6B79546E80A209C1B791BA00DD /* MTLFilterRecord.swift in Sources */,
 				72EDF14BE122CDAD8B4D7C2DDFE75EE1 /* GaussianBlur.swift in Sources */,
 				F06E063A989E56DBF47C681C687E6E6A /* GaussianBlur1.swift in Sources */,
@@ -1187,6 +1192,7 @@
 				1939E2BD026757D30E6BAB31A4A22AF2 /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */,
 				01144F12205FBE008AF49AC8A1B47316 /* MTLFilterGroupRecord.swift in Sources */,
 				BBB1A66FA8E4CEF86CCD759A2AD9B295 /* MTLFilterRecord+CoreDataProperties.swift in Sources */,
+				4501E13F1EE754D7005CBD1C /* DepthMask.swift in Sources */,
 				CB5D885A9BF504C20BE0DECB610693F9 /* MTLFilterRecord.swift in Sources */,
 				B937D4B3DF89654869B0D00B29E15957 /* GaussianBlur.swift in Sources */,
 				D26836F1FDA6C719CD209BB833C2A516 /* GaussianBlur1.swift in Sources */,

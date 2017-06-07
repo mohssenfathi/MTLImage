@@ -703,9 +703,6 @@ extension AVDepthData {
         let width = CVPixelBufferGetWidth(pixelBuffer)
         let height = CVPixelBufferGetHeight(pixelBuffer)
         
-//        let pixelFormatDescription = CVPixelFormatDescriptionCreateWithPixelFormatType(kCFAllocatorSystemDefault, depthDataType)
-//        let all = CVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes(kCFAllocatorSystemDefault)
-                
 //        let formats = [kCVPixelFormatType_DisparityFloat16, kCVPixelFormatType_DisparityFloat32, kCVPixelFormatType_DepthFloat16, kCVPixelFormatType_DepthFloat32]
 //        guard let format = formats.filter({ $0 == depthDataType }).first else { return nil }
         
@@ -727,14 +724,9 @@ extension MTLCamera: AVCaptureDepthDataOutputDelegate {
         
         guard let textureCache = textureCache else { return }
         
-//        let dataType: AutoreleasingUnsafeMutablePointer<NSString?>? = nil
-//        dataType?.pointee = (kCGImageAuxiliaryDataTypeDepth as NSString)
-//        let dict = depthData.dictionaryRepresentation(forAuxiliaryDataType: dataType)
-//        let data = dict?[kCGImageAuxiliaryDataInfoData] as? [UInt]
-//
-//        print(data)
+        let orientedDepthData = depthData.applyingExifOrientation(CGImagePropertyOrientation.right)
         
-        if let texture = depthData.mtlTexture(textureCache: textureCache) {
+        if let texture = orientedDepthData.mtlTexture(textureCache: textureCache) {
             internalTexture = texture
             
             DispatchQueue.main.async {

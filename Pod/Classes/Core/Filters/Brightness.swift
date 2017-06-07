@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct BrightnessUniforms: Uniforms {
     var brightness: Float = 0.5;
 }

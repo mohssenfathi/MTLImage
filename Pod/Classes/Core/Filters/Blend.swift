@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct BlendUniforms: Uniforms {
     var mix: Float = 1.0
     var blendMode: Float = 0

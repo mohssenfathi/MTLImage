@@ -58,6 +58,7 @@ class MTLImage: NSObject {
          "Contrast",
          "Crop",
          "Cross Hatch",
+         "Depth Mask",
          "Dilate",
          "Emboss",
          "Exposure",
@@ -104,6 +105,7 @@ class MTLImage: NSObject {
             case "contrast"                       : return Contrast()
             case "crop"                           : return Crop()
             case "cross hatch"                    : return CrossHatch()
+            case "depth mask"                     : return DepthMask()
             case "dilate"                         : return Dilate()
             case "emboss"                         : return Emboss()
             case "exposure"                       : return Exposure()

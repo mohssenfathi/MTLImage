@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4501E13C1EE7523F005CBD1C /* DepthMask.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4501E13B1EE7523F005CBD1C /* DepthMask.metal */; };
 		451282521CE765FB00FF7E9C /* Crop.metal in Sources */ = {isa = PBXBuildFile; fileRef = 451282511CE765FB00FF7E9C /* Crop.metal */; };
 		453A609C1CF7974900A48FEE /* Smudge.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453A609B1CF7974900A48FEE /* Smudge.metal */; };
 		453A60A11CFB4D1500A48FEE /* Template.metal in Sources */ = {isa = PBXBuildFile; fileRef = 453A60A01CFB4D1500A48FEE /* Template.metal */; };
@@ -98,6 +99,7 @@
 /* Begin PBXFileReference section */
 		0903E9E555816E58D7C438ED /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		3755A6861EED5B185B6B0D08 /* Pods-MTLImage_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTLImage_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MTLImage_Example/Pods-MTLImage_Example.release.xcconfig"; sourceTree = "<group>"; };
+		4501E13B1EE7523F005CBD1C /* DepthMask.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = DepthMask.metal; sourceTree = "<group>"; };
 		451282511CE765FB00FF7E9C /* Crop.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Crop.metal; sourceTree = "<group>"; };
 		453A609B1CF7974900A48FEE /* Smudge.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Smudge.metal; sourceTree = "<group>"; };
 		453A60A01CFB4D1500A48FEE /* Template.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Template.metal; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				453F9FE31CE0F58B003F9871 /* Convolution.metal */,
 				453F9FE41CE0F58B003F9871 /* CrossHatch.metal */,
 				453F9FE51CE0F58B003F9871 /* DefaultShaders.metal */,
+				4501E13B1EE7523F005CBD1C /* DepthMask.metal */,
 				453F9FE61CE0F58B003F9871 /* Distortion.metal */,
 				453F9FE71CE0F58B003F9871 /* Exposure.metal */,
 				453F9FE81CE0F58B003F9871 /* GaussianBlur.metal */,
@@ -737,6 +740,7 @@
 				4546570B1CB9BB98001E421A /* FilterGroupViewController.swift in Sources */,
 				45A616811CBFD9BA00C000C7 /* PickerCell.swift in Sources */,
 				453A60A11CFB4D1500A48FEE /* Template.metal in Sources */,
+				4501E13C1EE7523F005CBD1C /* DepthMask.metal in Sources */,
 				453FA0111CE0F58B003F9871 /* LineDetection.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
