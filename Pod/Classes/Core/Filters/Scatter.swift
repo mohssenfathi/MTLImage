@@ -123,7 +123,7 @@ class Scatter: MTLFilter {
         commandEncoder.setTexture(noiseTexture, index: 2)
     }
     
-    public override var input: MTLInput? {
+    public override var input: Input? {
         didSet {
             noiseFilter.removeAllTargets()
             noiseFilter.input = input

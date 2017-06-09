@@ -50,7 +50,7 @@ class Pixellate: MTLFilter {
         updateUniforms(uniforms: uniforms)
     }
     
-    override public var input: MTLInput? {
+    override public var input: Input? {
         didSet {
             if originalImage != nil {
                 imageSize = originalImage?.size

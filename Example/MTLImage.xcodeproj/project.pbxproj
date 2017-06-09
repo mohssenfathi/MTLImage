@@ -84,6 +84,7 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		CC7B0C4D729E39FDBF22A0D9 /* Pods_MTLImage_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDED0AC23F7C99E698A39CC3 /* Pods_MTLImage_Tests.framework */; };
+		E0B130811EE9AAEA009C6CAD /* DepthRenderer.metal in Sources */ = {isa = PBXBuildFile; fileRef = E0B130801EE9AAEA009C6CAD /* DepthRenderer.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,6 +185,7 @@
 		BAEECF5F2ACEF5C666ED1CD9 /* Pods_MTLImage_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTLImage_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDED0AC23F7C99E698A39CC3 /* Pods_MTLImage_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTLImage_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D061FABF10827868504273F6 /* Pods-MTLImage_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTLImage_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MTLImage_Tests/Pods-MTLImage_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		E0B130801EE9AAEA009C6CAD /* DepthRenderer.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = DepthRenderer.metal; sourceTree = "<group>"; };
 		FE292ED962A5A6D3F81B60FA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		FF48E278E3CE9928A298E8BF /* MTLImage.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MTLImage.podspec; path = ../MTLImage.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -267,6 +269,7 @@
 				45F34AEC1D16CDF800BE7D0C /* UnsharpMask.metal */,
 				457FA3D21D789DCC008C6C35 /* LensFlare.metal */,
 				4544EEBA1D83360D0028EE53 /* Voronoi.metal */,
+				E0B130801EE9AAEA009C6CAD /* DepthRenderer.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -721,6 +724,7 @@
 				453FA01A1CE0F58B003F9871 /* SelectiveHSL.metal in Sources */,
 				453FA02C1CE37683003F9871 /* HarrisCornerDetection.metal in Sources */,
 				453FA0121CE0F58B003F9871 /* LuminanceThreshold.metal in Sources */,
+				E0B130811EE9AAEA009C6CAD /* DepthRenderer.metal in Sources */,
 				455AE1F01CFB643A007702BA /* Hue.metal in Sources */,
 				454CEDC21CB1470600D67A9E /* InfoViewController.swift in Sources */,
 				453FA00A1CE0F58B003F9871 /* Exposure.metal in Sources */,

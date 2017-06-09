@@ -56,7 +56,7 @@ class MTLFilter: MTLObject, NSCoding {
     var outputView: MTLView? {
         get {
             // This only checks first target for now. Do DFS later
-            var out: MTLOutput? = targets.first
+            var out: Output? = targets.first
             while out != nil {
                 if let filter = out as? MTLFilter {
                     out = filter.targets.first
@@ -127,11 +127,10 @@ class MTLFilter: MTLObject, NSCoding {
         
         autoreleasepool {
             
-            //             TODO: Make this faster
-            if inputTexture.width != Int(currentInputSize.width) && inputTexture.height != Int(currentInputSize.height) {
-                updateThreadgroupCounts(width: inputTexture.width, height: inputTexture.height)
-            }
-            let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
+            let w = pipeline.threadExecutionWidth
+            let h = pipeline.maxTotalThreadsPerThreadgroup / w
+            let threadsPerThreadgroup = MTLSizeMake(w, h, 1)
+            let threadgroupsPerGrid = MTLSize(width: (inputTexture.width + w - 1) / w, height: (inputTexture.height + h - 1) / h, depth: 1)
             
             let commandBuffer = context.commandQueue.makeCommandBuffer()
             
@@ -143,7 +142,7 @@ class MTLFilter: MTLObject, NSCoding {
    
             self.configureCommandEncoder(commandEncoder)
             
-            commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
+            commandEncoder.dispatchThreadgroups(threadgroupsPerGrid, threadsPerThreadgroup: threadsPerThreadgroup)
             commandEncoder.endEncoding()
             
             commandBuffer.addCompletedHandler({ (commandBuffer) in

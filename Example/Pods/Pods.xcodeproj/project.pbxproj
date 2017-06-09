@@ -33,7 +33,7 @@
 		1A032FF0391A928ECE69502BDE09E6DE /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4944D646E1966C275D1CC3EE849E30 /* Transform.swift */; };
 		1BA5320CC6BA541B4564DA8206229037 /* Invert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8872776D34F96DBA042169CE7C19C7 /* Invert.swift */; };
 		1CE5B2C1A40B251379C31C656292ABB4 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22484FFDFBFB2BB83BF4A9BE71DD840 /* Template.swift */; };
-		1D145DF489755CAB02FC9BCA40A3DCAF /* MTLCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6918D0C344DBC17D088B2695A80922F3 /* MTLCamera.swift */; };
+		1D145DF489755CAB02FC9BCA40A3DCAF /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6918D0C344DBC17D088B2695A80922F3 /* Camera.swift */; };
 		1F39EEBBBD30BF25038176355B3F87AC /* SelectiveHSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711B2E176CA63ABC41D86C15E37FF31C /* SelectiveHSL.swift */; };
 		1F76994E2C9633B7BA8C00B4C5A9C225 /* BoxBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924910FEEA92EDEBF9FBA4A1943ADFE2 /* BoxBlur.swift */; };
 		1FE05AD5FA07B9148837D06D9286F9A3 /* MTLFilterGroupRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E817ED003A81ED83C89A046D96DAF5C4 /* MTLFilterGroupRecord.swift */; };
@@ -179,7 +179,7 @@
 		CB5D885A9BF504C20BE0DECB610693F9 /* MTLFilterRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860CD8499EDB5741E839B8727C809615 /* MTLFilterRecord.swift */; };
 		CCD62E4103E6EF4D0ABC4E7F0328EC2A /* Scatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A93F37E3100AB46BDC7366C6C7E705B /* Scatter.swift */; };
 		CEC5B85B67B89A90165C070164B58279 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C638F32E94F9610BB61E4EE2D23DD835 /* CloudKit.framework */; };
-		CFB7104293F8CB33C074C14463113FF7 /* MTLCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6918D0C344DBC17D088B2695A80922F3 /* MTLCamera.swift */; };
+		CFB7104293F8CB33C074C14463113FF7 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6918D0C344DBC17D088B2695A80922F3 /* Camera.swift */; };
 		CFC257EDEAE399F6E5FDFB1E1CBBD6F6 /* UnsharpMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BA9EBB435AC80CC9AFEB3B15AB2571 /* UnsharpMask.swift */; };
 		D26836F1FDA6C719CD209BB833C2A516 /* GaussianBlur1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B60AFA224A949FA28441FD4EBBADF5 /* GaussianBlur1.swift */; };
 		D54996F9AB2976904B752E384EE80553 /* MTLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BE234E272D4CA95C5874A971E766C4 /* MTLObject.swift */; };
@@ -189,6 +189,15 @@
 		DD4884B4D2E6220CDCC77A3E98025EBB /* MTLPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D22FECC2E8F1D87B53241B20836364 /* MTLPicture.swift */; };
 		DE5120835D13AD6C9C45B12002ABD3EB /* WeakPixelInclusion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B2C685C099E2A58D8CBD5A26BA80C5 /* WeakPixelInclusion.swift */; };
 		DF44C09065C9F6C38BBB3DCB85918D70 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD03F34AC80BE0CDBAAE7A4EB5378EF /* Buffer.swift */; };
+		E06941431EEB11C0002285D3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06941421EEB11C0002285D3 /* Extensions.swift */; };
+		E06941451EEB18BF002285D3 /* DepthRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06941441EEB18BF002285D3 /* DepthRenderer.swift */; };
+		E06941461EEB1A87002285D3 /* DepthRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06941441EEB18BF002285D3 /* DepthRenderer.swift */; };
+		E06DFC091EE9E718008B74A0 /* CVPixelBuffer_MinMax.m in Sources */ = {isa = PBXBuildFile; fileRef = E06DFC071EE9E718008B74A0 /* CVPixelBuffer_MinMax.m */; };
+		E06DFC0A1EE9E718008B74A0 /* CVPixelBuffer_MinMax.m in Sources */ = {isa = PBXBuildFile; fileRef = E06DFC071EE9E718008B74A0 /* CVPixelBuffer_MinMax.m */; };
+		E06DFC0B1EE9E718008B74A0 /* CVPixelBuffer_MinMax.h in Headers */ = {isa = PBXBuildFile; fileRef = E06DFC081EE9E718008B74A0 /* CVPixelBuffer_MinMax.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E06DFC0C1EE9E718008B74A0 /* CVPixelBuffer_MinMax.h in Headers */ = {isa = PBXBuildFile; fileRef = E06DFC081EE9E718008B74A0 /* CVPixelBuffer_MinMax.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E0B1307E1EE9AAD4009C6CAD /* DepthToGrayscale.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B1307D1EE9AAD4009C6CAD /* DepthToGrayscale.swift */; };
+		E0B1307F1EE9AAD4009C6CAD /* DepthToGrayscale.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B1307D1EE9AAD4009C6CAD /* DepthToGrayscale.swift */; };
 		E3407551BA41320B1BD6AC87F2E91C6B /* MTLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BE234E272D4CA95C5874A971E766C4 /* MTLObject.swift */; };
 		E4650F58B6343E82F3504E1F19AC5D07 /* HighlightShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF351DADD1BE93DFBB1720614A8E827 /* HighlightShadow.swift */; };
 		EA326ED8452918FDFDB52047CC37D0C2 /* WhiteBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCABDBB30786C102D4A8AFA2F6FA8BA /* WhiteBalance.swift */; };
@@ -273,7 +282,7 @@
 		63575B3071B5CFDEFE831F3F8547F8C0 /* Sketch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Sketch.swift; sourceTree = "<group>"; };
 		63F63CEAEDBE19A6C275EA08CF59C0F3 /* Pods-MTLImage_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MTLImage_Tests.modulemap"; sourceTree = "<group>"; };
 		66B460779288475F4A2CB0A301C83659 /* CrossHatch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CrossHatch.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		6918D0C344DBC17D088B2695A80922F3 /* MTLCamera.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MTLCamera.swift; sourceTree = "<group>"; };
+		6918D0C344DBC17D088B2695A80922F3 /* Camera.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		6A3D9B90B11F70CF490FC3D65D0C45E6 /* Mask1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Mask1.swift; sourceTree = "<group>"; };
 		6D21903266D266511DDAECA52BB30B95 /* Contrast.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Contrast.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6EE0F01CBFACD1410D54CFE1787E2462 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -350,6 +359,11 @@
 		DBF0C469D368387D4305D6FBC0D45DBE /* Pods-MTLImage_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MTLImage_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		DDD36231AEF45A22A68B257057CF1223 /* Toon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Toon.swift; sourceTree = "<group>"; };
 		DF56A257BB834FA685F096CB9FD477F2 /* Pods-MTLImage_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MTLImage_Example.modulemap"; sourceTree = "<group>"; };
+		E06941421EEB11C0002285D3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E06941441EEB18BF002285D3 /* DepthRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthRenderer.swift; sourceTree = "<group>"; };
+		E06DFC071EE9E718008B74A0 /* CVPixelBuffer_MinMax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVPixelBuffer_MinMax.m; sourceTree = "<group>"; };
+		E06DFC081EE9E718008B74A0 /* CVPixelBuffer_MinMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVPixelBuffer_MinMax.h; sourceTree = "<group>"; };
+		E0B1307D1EE9AAD4009C6CAD /* DepthToGrayscale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthToGrayscale.swift; sourceTree = "<group>"; };
 		E10E9297698842E3A3F6229C42E37F93 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E12252A4A36C01579236C9843933D9BD /* Blend.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Blend.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E43A8748366550FEBFEB78AA857AD679 /* MTLImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MTLImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -531,7 +545,7 @@
 			isa = PBXGroup;
 			children = (
 				333334A4D64C05DF7FD68998952F371A /* MTLBufferProvider.swift */,
-				6918D0C344DBC17D088B2695A80922F3 /* MTLCamera.swift */,
+				6918D0C344DBC17D088B2695A80922F3 /* Camera.swift */,
 				0B5E976214C7F946517143316E0D4140 /* MTLContext.swift */,
 				DAC7847441CA339A9B45E669CA47D0FA /* MTLDataManager.swift */,
 				7D184FE4566EDD7F131EFED4C77CA64F /* MTLFilter.swift */,
@@ -657,6 +671,8 @@
 				6FCABDBB30786C102D4A8AFA2F6FA8BA /* WhiteBalance.swift */,
 				951CC1FAF543270D10F51250CBBEAD9B /* XYDerivative.swift */,
 				C22484FFDFBFB2BB83BF4A9BE71DD840 /* Template.swift */,
+				E0B1307D1EE9AAD4009C6CAD /* DepthToGrayscale.swift */,
+				E06941441EEB18BF002285D3 /* DepthRenderer.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -729,10 +745,13 @@
 		9BB89D79F9FA52D838F8A5874699A098 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				E06DFC081EE9E718008B74A0 /* CVPixelBuffer_MinMax.h */,
+				E06DFC071EE9E718008B74A0 /* CVPixelBuffer_MinMax.m */,
 				FC29CA8E38510BC3B18DBB305D264DA2 /* MTLTexture+UIImage.swift */,
 				FF96AFC5300F10E18C52A5DDFEAAB3D8 /* Tools.swift */,
 				3C758924DF37395EEB5020C7A62D4D5A /* UIImage+MTLTexture.swift */,
 				0C64554B2F83B0685CF795A3E6D4DF9B /* UIImage+Scale.swift */,
+				E06941421EEB11C0002285D3 /* Extensions.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -880,6 +899,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E06DFC0C1EE9E718008B74A0 /* CVPixelBuffer_MinMax.h in Headers */,
 				6CF74940ADEF05F2A7F7EBBA4D17EC5B /* MTLImage-iOS9.0-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -896,6 +916,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E06DFC0B1EE9E718008B74A0 /* CVPixelBuffer_MinMax.h in Headers */,
 				5257429D0554E7F1FDCD059243A85ABD /* MTLImage-iOS10.0-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1075,7 +1096,7 @@
 				1F76994E2C9633B7BA8C00B4C5A9C225 /* BoxBlur.swift in Sources */,
 				4520D10A1842886C6CB0F051F418F1D6 /* Brightness.swift in Sources */,
 				3E8CB26D00135C995E3BB1DB4261CD13 /* MTLBufferProvider.swift in Sources */,
-				CFB7104293F8CB33C074C14463113FF7 /* MTLCamera.swift in Sources */,
+				CFB7104293F8CB33C074C14463113FF7 /* Camera.swift in Sources */,
 				934591CCB7DE6AEAD3005DD6D91E0F16 /* CannyEdgeDetection.swift in Sources */,
 				11BAD16C48C11CD2E6A214DEB82F5A09 /* MTLCloudKitManager.swift in Sources */,
 				A4B80186B0D98DD8654C7F1926D2A0D3 /* ColorSelection.swift in Sources */,
@@ -1089,6 +1110,7 @@
 				A7DD13D0CB2C78C1FE66B9856349ABBF /* Dilate.swift in Sources */,
 				A5834D6F5DDB2532EB5C64158E2327AC /* Distortion.swift in Sources */,
 				4016E239E3934B2B7F0699C79E21A4B7 /* Emboss.swift in Sources */,
+				E06941431EEB11C0002285D3 /* Extensions.swift in Sources */,
 				C66AF70ED084A7FE71B11F4F94972D5A /* Exposure.swift in Sources */,
 				4965CDE3093330C35CF6B6866CA93F1F /* MTLFilter.swift in Sources */,
 				BD4B178B4ECECEEB295388E33148E58D /* MTLFilterGroup.swift in Sources */,
@@ -1129,6 +1151,7 @@
 				704898E9E6BCD30097D315CCCB9021A7 /* Pixellate.swift in Sources */,
 				F0E40043A3480CA33DDD9773BF62E415 /* PolkaDot.swift in Sources */,
 				4199BD79754CB1B2D35BB53B10FE2361 /* MTLProperty.swift in Sources */,
+				E06DFC091EE9E718008B74A0 /* CVPixelBuffer_MinMax.m in Sources */,
 				B2CD8F7629AAFF84205B16F19D859CF7 /* MTLPropertyRecord+CoreDataProperties.swift in Sources */,
 				0C7A265E1983AFADA854BB0368AC9971 /* MTLPropertyRecord.swift in Sources */,
 				5371488F8BD51A4EDDA4461221A82928 /* Saturation.swift in Sources */,
@@ -1145,8 +1168,10 @@
 				AE18A96001838C13D028172FAB960500 /* MTLTexture+UIImage.swift in Sources */,
 				95B66D8F73A5BF6141555F8204C566DE /* ToneCurve.swift in Sources */,
 				3EBAA25AA529385055F22BA9C92B7047 /* Toon.swift in Sources */,
+				E0B1307E1EE9AAD4009C6CAD /* DepthToGrayscale.swift in Sources */,
 				1A032FF0391A928ECE69502BDE09E6DE /* Transform.swift in Sources */,
 				BB29D4F716A0AE9AC6BB47717FA7C06D /* MTLTypes.swift in Sources */,
+				E06941451EEB18BF002285D3 /* DepthRenderer.swift in Sources */,
 				0AC01429FFE5908BFFB20567F473F8AC /* UnsharpMask.swift in Sources */,
 				BB4F1A1CD8B2F83AC57F4CBD75326289 /* MTLView.swift in Sources */,
 				128668877133EC71D3607CC876066B9E /* MTLView1.swift in Sources */,
@@ -1172,7 +1197,7 @@
 				F8F022BED753D53794B2A86634BAF115 /* BoxBlur.swift in Sources */,
 				5A03E335ACEF4246EF0B07FF05976FEE /* Brightness.swift in Sources */,
 				BBB9EB79FBBE06FC10E3F879FE4AB62D /* MTLBufferProvider.swift in Sources */,
-				1D145DF489755CAB02FC9BCA40A3DCAF /* MTLCamera.swift in Sources */,
+				1D145DF489755CAB02FC9BCA40A3DCAF /* Camera.swift in Sources */,
 				2667A75302D13E571088FB553BE150CE /* CannyEdgeDetection.swift in Sources */,
 				A1DC5DE6ACD0FF2D59921E29151B8416 /* MTLCloudKitManager.swift in Sources */,
 				328F8549D0BDCC69FEA29B1F05E09F35 /* ColorSelection.swift in Sources */,
@@ -1188,6 +1213,7 @@
 				F36E63AF1D210DF309526CA895996CAA /* Emboss.swift in Sources */,
 				A0207EEE07887BF02A5407D3041184DC /* Exposure.swift in Sources */,
 				45A4696CF661300C0B439B36A0379061 /* MTLFilter.swift in Sources */,
+				E06941461EEB1A87002285D3 /* DepthRenderer.swift in Sources */,
 				0E0CA21D98E90D38DED93465544E775F /* MTLFilterGroup.swift in Sources */,
 				1939E2BD026757D30E6BAB31A4A22AF2 /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */,
 				01144F12205FBE008AF49AC8A1B47316 /* MTLFilterGroupRecord.swift in Sources */,
@@ -1226,6 +1252,7 @@
 				832CAB9BB4511D6F9F0279BE45BBF172 /* Pixellate.swift in Sources */,
 				79CE0FE62945138A96694F764B79AF9C /* PolkaDot.swift in Sources */,
 				05D75D5162759149D275E5BB90FA3B24 /* MTLProperty.swift in Sources */,
+				E06DFC0A1EE9E718008B74A0 /* CVPixelBuffer_MinMax.m in Sources */,
 				C07EE9E9C7F09DD30117EC9EA5C51C87 /* MTLPropertyRecord+CoreDataProperties.swift in Sources */,
 				788AF103BBABD165F634749D3F11D21B /* MTLPropertyRecord.swift in Sources */,
 				3080F562B968A92FC080DD724C44015B /* Saturation.swift in Sources */,
@@ -1242,6 +1269,7 @@
 				A79B425520A24BF6F8316515A61292E8 /* MTLTexture+UIImage.swift in Sources */,
 				8923EDD5FAD04E79E6B72EAD75BEAE43 /* ToneCurve.swift in Sources */,
 				FC20BA38D33B0A729572D100E2011E86 /* Toon.swift in Sources */,
+				E0B1307F1EE9AAD4009C6CAD /* DepthToGrayscale.swift in Sources */,
 				3E866EFD4D0F63691E8AEB1DF71D0CAC /* Transform.swift in Sources */,
 				5A741B5317EC50EA32DDA46918F944C4 /* MTLTypes.swift in Sources */,
 				CFC257EDEAE399F6E5FDFB1E1CBBD6F6 /* UnsharpMask.swift in Sources */,
@@ -1440,6 +1468,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A1ED501339270CA481A27ADE389DBA56 /* MTLImage-iOS9.0.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1459,6 +1488,7 @@
 				PRODUCT_NAME = MTLImage;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1471,6 +1501,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A1ED501339270CA481A27ADE389DBA56 /* MTLImage-iOS9.0.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1490,6 +1521,7 @@
 				PRODUCT_NAME = MTLImage;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -1539,6 +1571,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9ECC29F50DEB233313C16E551FDCA416 /* MTLImage-iOS10.0.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1558,6 +1591,7 @@
 				PRODUCT_NAME = MTLImage;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -1620,6 +1654,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9ECC29F50DEB233313C16E551FDCA416 /* MTLImage-iOS10.0.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1639,6 +1674,7 @@
 				PRODUCT_NAME = MTLImage;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

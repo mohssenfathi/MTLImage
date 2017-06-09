@@ -222,7 +222,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
     //        }
     //    }
     
-    public override func addTarget(_ target: MTLOutput) {
+    public override func addTarget(_ target: Output) {
         internalTargets.append(target)
         if filters.count > 0 {
             filters.last!.addTarget(target)
@@ -232,7 +232,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
         needsUpdate = true
     }
     
-    public override func removeTarget(_ target: MTLOutput) {
+    public override func removeTarget(_ target: Output) {
         // TODO: remove from internal targets
         filters.last?.removeTarget(target)
     }
@@ -256,7 +256,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
     
     //    MARK: - MTLOutput
     
-    public override var input: MTLInput? {
+    public override var input: Input? {
         didSet {
             rebuildFilterChain()
         }

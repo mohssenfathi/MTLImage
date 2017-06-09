@@ -11,25 +11,26 @@ import AVFoundation
 
 public
 protocol MTLCameraDelegate {
-    func focusChanged(_ sender: MTLCamera, lensPosition: Float)
-    func isoChanged(_ sender: MTLCamera, iso: Float)
-    func exposureDurationChanged(_ sender: MTLCamera, exposureDuration: Float)
+    func focusChanged(_ sender: Camera, lensPosition: Float)
+    func isoChanged(_ sender: Camera, iso: Float)
+    func exposureDurationChanged(_ sender: Camera, exposureDuration: Float)
 }
 
 public
-class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegate, AVCapturePhotoCaptureDelegate {
+class Camera: NSObject, Input, AVCaptureVideoDataOutputSampleBufferDelegate, AVCapturePhotoCaptureDelegate {
     
     public enum Mode: Int {
         case back
         case front
         case dual
         case telephoto
+        case depth
         
         func device() -> AVCaptureDevice? {
             switch self {
             case .back, .front:
                 return AVCaptureDevice.default(for: .video)
-            case .dual:
+            case .dual, .depth:
                 if #available(iOS 11.0, *) {
                     return AVCaptureDevice.default(.builtInDualCamera, for: AVMediaType.video, position: .back)
                 } else if #available(iOS 10.0, *) {
@@ -45,7 +46,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         
         var capturePosition: AVCaptureDevice.Position {
             switch self {
-            case .back, .dual, .telephoto: return .back
+            case .back, .dual, .telephoto, .depth: return .back
             case .front: return .front
             }
         }
@@ -54,7 +55,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             return position == .front ? .front : .back
         }
     }
-
+    
     public var title: String = "Camera"
     public var identifier: String = UUID().uuidString
     
@@ -173,116 +174,6 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     }
     
     
-    // MARK: Settings
-    //    TODO: Normalize these values between 0 - 1
-    
-    /* Flash: On, Off, and Auto */
-    public var flashMode: AVCaptureDevice.FlashMode = .auto {
-        didSet {
-            applyCameraSetting { self.captureDevice.flashMode = self.flashMode }
-        }
-    }
-    
-    /* Torch: On, Off, and Auto. Auto untested */
-    public var torchMode: AVCaptureDevice.TorchMode = .off {
-        didSet {
-            applyCameraSetting { self.captureDevice.torchMode = self.torchMode }
-        }
-    }
-    
-    /* Flip: Front and Back supported */
-    public var cameraPosition: AVCaptureDevice.Position = .front {
-        didSet {
-            mode = Mode.mode(for: cameraPosition)
-        }
-    }
-    
-    /* Zoom */
-    public var maxZoom: Float { return Float(captureDevice.activeFormat.videoMaxZoomFactor) }
-    public var zoom: Float = 0.0 {
-        didSet {
-            applyCameraSetting {
-                self.captureDevice.videoZoomFactor = CGFloat(self.zoom * 4.0 + 1.0)
-            }
-        }
-    }
-    
-    /* Exposure */
-    public func setExposureAuto() {
-        applyCameraSetting {
-            self.captureDevice.exposureMode = .autoExpose
-        }
-    }
-
-    var minExposureDuration: Float = 0.004
-    var maxExposureDuration: Float = 0.100 // 0.250
-    public var exposureDuration: Float = 0.01 {
-        didSet {
-            if captureDevice.isAdjustingExposure { return }
-            applyCameraSetting {
-                let seconds = Tools.convert(self.exposureDuration, oldMin: 0, oldMax: 1,
-                                            newMin: self.minExposureDuration, newMax: self.maxExposureDuration)
-                let ed = CMTime(seconds: Double(seconds), preferredTimescale: 1000 * 1000)
-                self.captureDevice.setExposureModeCustom(duration: ed, iso: AVCaptureDevice.currentISO, completionHandler: nil)
-            }
-        }
-    }
-    
-    /* ISO */
-    public func setISOAuto() {
-        applyCameraSetting {
-            self.captureDevice.exposureMode = .autoExpose
-        }
-    }
- 
-    
-    let minIso: Float  = 29.000
-    let maxIso: Float  = 1200.0
-    public var iso: Float! {
-        didSet {
-            if captureDevice.isAdjustingExposure { return }
-            applyCameraSetting {
-                let value = Tools.convert(self.iso, oldMin: 0, oldMax: 1, newMin: self.minIso, newMax: self.maxIso)
-                self.captureDevice.setExposureModeCustom(duration: AVCaptureDevice.currentExposureDuration, iso: value, completionHandler: nil)
-            }
-        }
-    }
-    
-    /* Focus */
-    public var focusMode: AVCaptureDevice.FocusMode = .autoFocus
-    public func setFocusAuto() {
-        applyCameraSetting {
-            self.captureDevice.focusMode = .autoFocus
-        }
-    }
-    public var lensPosition: Float = 0.0 {
-        didSet {
-            if captureDevice.isAdjustingFocus { return }
-            applyCameraSetting {
-                self.captureDevice.setFocusModeLocked(lensPosition: self.lensPosition, completionHandler: nil)
-            }
-        }
-    }
-    
-    /* White Balance */
-    var whiteBalanceGains: AVCaptureDevice.WhiteBalanceGains!
-    public var tint: UIColor! {
-        didSet {
-            if captureDevice.isAdjustingWhiteBalance { return }
-            applyCameraSetting {
-
-                if let components = self.tint.components() {
-                    let max = self.captureDevice.maxWhiteBalanceGain
-                    self.whiteBalanceGains.redGain   = Tools.convert(Float(components.red)  , oldMin: 0, oldMax: 1, newMin: 1, newMax: max)
-                    self.whiteBalanceGains.greenGain = Tools.convert(Float(components.green), oldMin: 0, oldMax: 1, newMin: 1, newMax: max)
-                    self.whiteBalanceGains.blueGain  = Tools.convert(Float(components.blue) , oldMin: 0, oldMax: 1, newMin: 1, newMax: max)
-                }
-                
-                self.captureDevice.setWhiteBalanceModeLocked(with: self.whiteBalanceGains, completionHandler: nil)
-            }
-        }
-    }
-    
     
     /*  Init  */
     
@@ -378,7 +269,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         mode = (mode == .front) ? .back : .front
     }
     
-    public var mode: Mode = .dual {
+    public var mode: Mode = .depth {
         didSet {
             
             guard let device = mode.device(), let session = session else { return }
@@ -390,6 +281,14 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
             
             deviceInput = input
             session.addInput(deviceInput)
+            
+            if let depthDataOutput = depthDataOutput {
+                if mode == .depth {
+                    if session.canAddOutput(depthDataOutput) { session.addOutput(depthDataOutput) }
+                } else {
+                    session.removeOutput(depthDataOutput)
+                }
+            }
             
             session.commitConfiguration()
         }
@@ -461,7 +360,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     
     public func captureOutput(_ captureOutput: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
-        return
+        guard mode != .depth else { return }
         
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         
@@ -496,7 +395,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         set {
             privateNeedsUpdate = newValue
             for target in targets {
-                if var inp = target as? MTLInput {
+                if var inp = target as? Input {
                     inp.needsUpdate = newValue
                 }
             }
@@ -511,8 +410,7 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         if respectAspectRatio == true {
             if size.width > size.height {
 //                size.height = size.width / (image.size.width / image.size.height)
-            }
-            else {
+            } else {
 //                size.width = size.height * (image.size.width / image.size.height)
             }
         }
@@ -526,10 +424,10 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         return c
     }
     
-    func length(_ target: MTLOutput) -> Int {
+    func length(_ target: Output) -> Int {
         var c = 1
         
-        if let input = target as? MTLInput {
+        if let input = target as? Input {
             if input.targets.count > 0 {
                 c = c + length(input.targets.first!)
             } else { return 1 }
@@ -572,7 +470,6 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     
     
     //    MARK: - MTLInput
-    
     public var texture: MTLTexture? {
         get {
             // Enable if you want to do some processing before passing on the texture (currently not working)
@@ -597,21 +494,21 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         }
     }
     
-    public var targets: [MTLOutput] {
+    public var targets: [Output] {
         get {
             return internalTargets
         }
     }
     
     
-    public func addTarget(_ target: MTLOutput) {
+    public func addTarget(_ target: Output) {
         var t = target
         internalTargets.append(t)
         t.input = self
         startRunning()
     }
     
-    public func removeTarget(_ target: MTLOutput) {
+    public func removeTarget(_ target: Output) {
         var t = target
         t.input = nil
         //      TODO:   remove from internalTargets
@@ -625,8 +522,122 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
         stopRunning()
     }
     
+    
+    
+    // MARK: - Camera Properties
+    //    TODO: Normalize these values between 0 - 1
+    
+    /* Flash: On, Off, and Auto */
+    public var flashMode: AVCaptureDevice.FlashMode = .auto {
+        didSet {
+            applyCameraSetting { self.captureDevice.flashMode = self.flashMode }
+        }
+    }
+    
+    /* Torch: On, Off, and Auto. Auto untested */
+    public var torchMode: AVCaptureDevice.TorchMode = .off {
+        didSet {
+            applyCameraSetting { self.captureDevice.torchMode = self.torchMode }
+        }
+    }
+    
+    /* Flip: Front and Back supported */
+    public var cameraPosition: AVCaptureDevice.Position = .front {
+        didSet {
+            mode = Mode.mode(for: cameraPosition)
+        }
+    }
+    
+    /* Zoom */
+    public var maxZoom: Float { return Float(captureDevice.activeFormat.videoMaxZoomFactor) }
+    public var zoom: Float = 0.0 {
+        didSet {
+            applyCameraSetting {
+                self.captureDevice.videoZoomFactor = CGFloat(self.zoom * 4.0 + 1.0)
+            }
+        }
+    }
+    
+    /* Exposure */
+    public func setExposureAuto() {
+        applyCameraSetting {
+            self.captureDevice.exposureMode = .autoExpose
+        }
+    }
+    
+    var minExposureDuration: Float = 0.004
+    var maxExposureDuration: Float = 0.100 // 0.250
+    public var exposureDuration: Float = 0.01 {
+        didSet {
+            if captureDevice.isAdjustingExposure { return }
+            applyCameraSetting {
+                let seconds = Tools.convert(self.exposureDuration, oldMin: 0, oldMax: 1,
+                                            newMin: self.minExposureDuration, newMax: self.maxExposureDuration)
+                let ed = CMTime(seconds: Double(seconds), preferredTimescale: 1000 * 1000)
+                self.captureDevice.setExposureModeCustom(duration: ed, iso: AVCaptureDevice.currentISO, completionHandler: nil)
+            }
+        }
+    }
+    
+    /* ISO */
+    public func setISOAuto() {
+        applyCameraSetting {
+            self.captureDevice.exposureMode = .autoExpose
+        }
+    }
+    
+    
+    let minIso: Float  = 29.000
+    let maxIso: Float  = 1200.0
+    public var iso: Float! {
+        didSet {
+            if captureDevice.isAdjustingExposure { return }
+            applyCameraSetting {
+                let value = Tools.convert(self.iso, oldMin: 0, oldMax: 1, newMin: self.minIso, newMax: self.maxIso)
+                self.captureDevice.setExposureModeCustom(duration: AVCaptureDevice.currentExposureDuration, iso: value, completionHandler: nil)
+            }
+        }
+    }
+    
+    /* Focus */
+    public var focusMode: AVCaptureDevice.FocusMode = .autoFocus
+    public func setFocusAuto() {
+        applyCameraSetting {
+            self.captureDevice.focusMode = .autoFocus
+        }
+    }
+    public var lensPosition: Float = 0.0 {
+        didSet {
+            if captureDevice.isAdjustingFocus { return }
+            applyCameraSetting {
+                self.captureDevice.setFocusModeLocked(lensPosition: self.lensPosition, completionHandler: nil)
+            }
+        }
+    }
+    
+    /* White Balance */
+    var whiteBalanceGains: AVCaptureDevice.WhiteBalanceGains!
+    public var tint: UIColor! {
+        didSet {
+            if captureDevice.isAdjustingWhiteBalance { return }
+            applyCameraSetting {
+                
+                if let components = self.tint.components() {
+                    let max = self.captureDevice.maxWhiteBalanceGain
+                    self.whiteBalanceGains.redGain   = Tools.convert(Float(components.red)  , oldMin: 0, oldMax: 1, newMin: 1, newMax: max)
+                    self.whiteBalanceGains.greenGain = Tools.convert(Float(components.green), oldMin: 0, oldMax: 1, newMin: 1, newMax: max)
+                    self.whiteBalanceGains.blueGain  = Tools.convert(Float(components.blue) , oldMin: 0, oldMax: 1, newMin: 1, newMax: max)
+                }
+                
+                self.captureDevice.setWhiteBalanceModeLocked(with: self.whiteBalanceGains, completionHandler: nil)
+            }
+        }
+    }
+    
+    
+    
 //    MARK: - Internal
-    private var internalTargets = [MTLOutput]()
+    private var internalTargets = [Output]()
     private var internalTexture: MTLTexture!
     private var videoTexture: MTLTexture!
     var internalContext: MTLContext = MTLContext()
@@ -640,13 +651,21 @@ class MTLCamera: NSObject, MTLInput, AVCaptureVideoDataOutputSampleBufferDelegat
     var dataOutputQueue: DispatchQueue!
     var deviceInput: AVCaptureDeviceInput!
     var textureCache: CVMetalTextureCache?
-    var depthDataOutput: AVCaptureOutput?
+    
+    // Depth
+    private var depthDataOutput: AVCaptureOutput?
+    var depthPixelBuffer: CVPixelBuffer?
+    var depthContext: DepthContext = DepthContext(minDepth: 0, maxDepth: Float.greatestFiniteMagnitude)
+    struct DepthContext {
+        var minDepth: Float
+        var maxDepth: Float
+    }
     
 }
 
 
 //  Editing
-extension MTLCamera {
+extension Camera {
 
     /*  Locks camera, applies settings change, then unlocks.
         Returns success                                       */
@@ -675,65 +694,25 @@ extension MTLCamera {
 
 }
 
-extension CVPixelBuffer {
-    
-    func mtlTexture(textureCache: CVMetalTextureCache) -> MTLTexture? {
-        
-        var cvMetalTexture : CVMetalTexture?
-        let width = CVPixelBufferGetWidth(self);
-        let height = CVPixelBufferGetHeight(self);
-        
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, self, nil, .bgra8Unorm, width, height, 0, &cvMetalTexture)
-        
-        guard let cvMetalTex = cvMetalTexture else { return nil }
-        return CVMetalTextureGetTexture(cvMetalTex)
-    }
-    
-}
 
-
-@available(iOS 11.0, *)
-extension AVDepthData {
-    
-    func mtlTexture(textureCache: CVMetalTextureCache) -> MTLTexture? {
-        
-        let pixelBuffer = depthDataMap
-        
-        var cvMetalTexture : CVMetalTexture?
-        let width = CVPixelBufferGetWidth(pixelBuffer)
-        let height = CVPixelBufferGetHeight(pixelBuffer)
-        
-//        let formats = [kCVPixelFormatType_DisparityFloat16, kCVPixelFormatType_DisparityFloat32, kCVPixelFormatType_DepthFloat16, kCVPixelFormatType_DepthFloat32]
-//        guard let format = formats.filter({ $0 == depthDataType }).first else { return nil }
-        
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorSystemDefault, textureCache, pixelBuffer, nil, .r16Float, width, height, 0, &cvMetalTexture)
-        
-        guard let cvMetalTex = cvMetalTexture else { return nil }
-        let texture = CVMetalTextureGetTexture(cvMetalTex)
-        
-        return texture
-    }
-    
-}
-
-// MARK: - AVCaptureDepthDataOutputDelegate
-extension MTLCamera: AVCaptureDepthDataOutputDelegate {
+// MARK: - Depth
+// MARK: AVCaptureDepthDataOutputDelegate
+extension Camera: AVCaptureDepthDataOutputDelegate {
     
     @available(iOS 11.0, *)
     public func depthDataOutput(_ output: AVCaptureDepthDataOutput, didOutput depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection) {
         
-        guard let textureCache = textureCache else { return }
+        guard mode == .depth else { return }
         
-        let orientedDepthData = depthData.applyingExifOrientation(CGImagePropertyOrientation.right)
+        guard let textureFormat = depthData.depthDataMap.mtlPixelFormat_Depth else { return }
+        minMaxFromPixelBuffer(depthData.depthDataMap, &depthContext.minDepth, &depthContext.maxDepth, textureFormat)
         
-        if let texture = orientedDepthData.mtlTexture(textureCache: textureCache) {
-            internalTexture = texture
-            
-            DispatchQueue.main.async {
-                self.needsUpdate = true
-            }
+        let depthData = depthData.applyingExifOrientation(CGImagePropertyOrientation.right).converting(toDepthDataType: kCVPixelFormatType_DepthFloat32)
+        depthPixelBuffer = depthData.depthDataMap
+        
+        DispatchQueue.main.async {
+            self.needsUpdate = true
         }
-        
     }
     
     @available(iOS 11.0, *)

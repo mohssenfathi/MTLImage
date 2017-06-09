@@ -50,7 +50,7 @@ class UnsharpMask: MTLFilter {
         
         if self.input == nil { return }
         
-        uniforms.intensity = Tools.convert(intensity, oldMin: 0, oldMid: 0.4, oldMax: 1, newMin: 0.5, newMid: 1.0, newMax: 2.3)
+        uniforms.intensity = Tools.convert(intensity, oldMin: 0, oldMid: 0.5, oldMax: 1, newMin: 0.5, newMid: 1.0, newMax: 2.3)
         updateUniforms(uniforms: uniforms)
     }
     
@@ -67,7 +67,7 @@ class UnsharpMask: MTLFilter {
         super.processIfNeeded()
     }
     
-    public override var input: MTLInput? {
+    public override var input: Input? {
         didSet {
             if input == nil {
                 blurFilter.input?.removeTarget(blurFilter)

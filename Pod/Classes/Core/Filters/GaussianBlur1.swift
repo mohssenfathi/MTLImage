@@ -115,7 +115,7 @@ class GaussianBlur1: MTLFilter {
         self.blurWeightTexture.replace(region: MTLRegionMake2D(0, 0, size, size), mipmapLevel: 0, withBytes: weights, bytesPerRow: MemoryLayout<Float>.size * size)
     }
 
-    override public var input: MTLInput? {
+    override public var input: Input? {
         didSet {
             update()
         }

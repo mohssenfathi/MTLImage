@@ -10,7 +10,7 @@ import UIKit
 import MetalKit
 
 public
-class MTLPicture: NSObject, MTLInput {
+class MTLPicture: NSObject, Input {
     
     public var identifier: String = UUID().uuidString
     public var title: String = "Picture"
@@ -19,7 +19,7 @@ class MTLPicture: NSObject, MTLInput {
         return false
     }
 
-    private var internalTargets = [MTLOutput]()
+    private var internalTargets = [Output]()
     private var internalTexture: MTLTexture!
     var internalContext: MTLContext! = MTLContext()
     var pipeline: MTLComputePipelineState!
@@ -99,10 +99,10 @@ class MTLPicture: NSObject, MTLInput {
         return c
     }
     
-    func length(_ target: MTLOutput) -> Int {
+    func length(_ target: Output) -> Int {
         var c = 1
         
-        if let input = target as? MTLInput {
+        if let input = target as? Input {
             if input.targets.count > 0 {
                 c = c + length(input.targets.first!)
             } else { return 1 }
@@ -135,20 +135,20 @@ class MTLPicture: NSObject, MTLInput {
         return context.commandQueue.makeCommandBuffer()
     }
     
-    public var targets: [MTLOutput] {
+    public var targets: [Output] {
         get {
             return internalTargets
         }
     }
     
-    public func addTarget(_ target: MTLOutput) {
+    public func addTarget(_ target: Output) {
         var t = target
         internalTargets.append(t)
         loadTexture()
         t.input = self
     }
     
-    public func removeTarget(_ target: MTLOutput) {
+    public func removeTarget(_ target: Output) {
         var t = target
         t.input = nil
 //      TODO:   remove from internalTargets

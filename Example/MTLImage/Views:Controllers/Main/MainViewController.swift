@@ -24,8 +24,8 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var filtersViewController: FiltersViewController!
     var sourcePicture: MTLPicture!
     var secondSourcePicture: MTLPicture!
-    var camera: MTLCamera = MTLCamera()
-    var currentInput: MTLInput!
+    var camera: Camera = Camera()
+    var currentInput: Input!
     var canDrag: Bool = false
     var initialDragOffset: CGFloat = 0.0   // removes initial jump on drag
     var metadata: [[String:Any]]?

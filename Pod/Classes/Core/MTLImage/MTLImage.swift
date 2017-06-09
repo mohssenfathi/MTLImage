@@ -12,32 +12,32 @@ import CloudKit // later, test if module enabled
 import Metal
 #endif
 
-public protocol MTLInput {
+public protocol Input {
     
     var texture: MTLTexture? { get }
     var context: MTLContext  { get }
     var device : MTLDevice   { get }
-    var targets: [MTLOutput] { get }
+    var targets: [Output] { get }
     
     var title      : String { get set }
     var identifier : String { get set }
     var needsUpdate: Bool   { get set }
     var continuousUpdate: Bool { get }
     
-    func addTarget(_ target: MTLOutput)
-    func removeTarget(_ target: MTLOutput)
+    func addTarget(_ target: Output)
+    func removeTarget(_ target: Output)
     func removeAllTargets()
     func processIfNeeded()
 }
 
-public protocol MTLOutput {
+public protocol Output {
     
-    var input     : MTLInput? { get set }
+    var input     : Input? { get set }
     var title     : String    { get set }
     var identifier: String    { get set }
 }
 
-extension MTLInput {
+extension Input {
     public func processIfNeeded() { }
 }
 
@@ -59,6 +59,7 @@ class MTLImage: NSObject {
          "Crop",
          "Cross Hatch",
          "Depth Mask",
+         "Depth Renderer",
          "Dilate",
          "Emboss",
          "Exposure",
@@ -106,6 +107,7 @@ class MTLImage: NSObject {
             case "crop"                           : return Crop()
             case "cross hatch"                    : return CrossHatch()
             case "depth mask"                     : return DepthMask()
+            case "depth renderer"                 : return DepthRenderer()
             case "dilate"                         : return Dilate()
             case "emboss"                         : return Emboss()
             case "exposure"                       : return Exposure()
@@ -248,13 +250,13 @@ precedencegroup ChainPrecedence {
 infix operator --> : ChainPrecedence
 
 @discardableResult
-public func --> (left: MTLInput , right: MTLOutput) -> MTLOutput {
+public func --> (left: Input , right: Output) -> Output {
     left.addTarget(right)
     return right
 }
 
 @discardableResult
-public func --> (left: MTLInput , right: MTLObject) -> MTLObject {
+public func --> (left: Input , right: MTLObject) -> MTLObject {
     left.addTarget(right)
     return right
 }
@@ -265,15 +267,15 @@ public func --> (left: MTLObject, right: MTLObject) -> MTLObject {
     return right
 }
 
-public func --> (left: MTLObject, right: MTLOutput) {
+public func --> (left: MTLObject, right: Output) {
     left.addTarget(right)
 }
 
-public func + (left: MTLInput, right: MTLOutput) {
+public func + (left: Input, right: Output) {
     left.addTarget(right)
 }
 
-public func > (left: MTLInput, right: MTLOutput) {
+public func > (left: Input, right: Output) {
     left.addTarget(right)
 }
 

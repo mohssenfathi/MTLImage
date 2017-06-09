@@ -28,7 +28,6 @@ class Template: MTLFilter {
         super.init(functionName: "template")
         title = "Template"
         properties = [MTLProperty(key: "someProperty", title: "Some Property")]
-        update()
     }
     
     required public init?(coder aDecoder: NSCoder) {

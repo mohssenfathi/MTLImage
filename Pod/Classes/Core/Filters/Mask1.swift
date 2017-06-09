@@ -196,7 +196,7 @@ class Mask1: MTLFilter {
         maskTexture!.replace(region: MTLRegionMake2D(0, 0, width, width), mipmapLevel: 0, withBytes: mask!, bytesPerRow: MemoryLayout<Float>.size * width)
     }
     
-    override public var input: MTLInput? {
+    override public var input: Input? {
         didSet {
             imageSize = originalImage?.size
         }

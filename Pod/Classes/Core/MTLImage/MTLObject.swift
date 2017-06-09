@@ -8,7 +8,7 @@
 
 @objc
 public
-class MTLObject: NSObject, MTLOutput {
+class MTLObject: NSObject, Output {
     
     public var title: String = ""
     public var identifier: String = UUID().uuidString
@@ -46,13 +46,13 @@ class MTLObject: NSObject, MTLOutput {
     
     
     var enabled: Bool = true
-    var internalTargets = [MTLOutput]()
+    var internalTargets = [Output]()
     
     public var texture: MTLTexture?
     
-    var source: MTLInput? {
+    var source: Input? {
         get {
-            var inp: MTLInput? = input
+            var inp: Input? = input
             while inp != nil {
                 
                 if let sourcePicture = inp as? MTLPicture {
@@ -60,13 +60,13 @@ class MTLObject: NSObject, MTLOutput {
                 }
                 
                 #if !os(tvOS)
-                    if let camera = inp as? MTLCamera {
+                    if let camera = inp as? Camera {
                         return camera
                     }
                 #endif
                 
-                if inp is MTLOutput {
-                    inp = (inp as? MTLOutput)?.input
+                if inp is Output {
+                    inp = (inp as? Output)?.input
                 }
             }
             return nil
@@ -74,7 +74,7 @@ class MTLObject: NSObject, MTLOutput {
     }
     
     
-    public func addTarget(_ target: MTLOutput) {
+    public func addTarget(_ target: Output) {
       
         var t = target
         internalTargets.append(t)
@@ -85,7 +85,7 @@ class MTLObject: NSObject, MTLOutput {
 //        }
     }
     
-    public func removeTarget(_ target: MTLOutput) {
+    public func removeTarget(_ target: Output) {
         var t = target
         
         t.input = nil
@@ -117,7 +117,7 @@ class MTLObject: NSObject, MTLOutput {
         internalTargets.removeAll()
     }
     
-    public var input: MTLInput? {
+    public var input: Input? {
         didSet {
 
             if let inputTexture = input?.texture {
@@ -149,7 +149,7 @@ class MTLObject: NSObject, MTLOutput {
     }
 }
 
-extension MTLObject: MTLInput {
+extension MTLObject: Input {
     
     public var context: MTLContext {
         get {
@@ -164,7 +164,7 @@ extension MTLObject: MTLInput {
         return context.device
     }
     
-    public var targets: [MTLOutput] {
+    public var targets: [Output] {
         return internalTargets
     }
         

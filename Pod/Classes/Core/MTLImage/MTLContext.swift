@@ -21,8 +21,8 @@ class MTLContext: NSObject {
     var needsUpdate: Bool = true
     let semaphore = DispatchSemaphore(value: 3)
     
-    var source: MTLInput?
-    var output: MTLOutput?
+    var source: Input?
+    var output: Output?
     
     private var internalLibrary: MTLLibrary!
     var library: MTLLibrary! {

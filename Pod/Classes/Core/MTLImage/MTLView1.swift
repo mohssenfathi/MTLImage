@@ -18,7 +18,7 @@ protocol MTLViewDelegate1 {
 }
 
 public
-class MTLView1: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDelegate {
+class MTLView1: UIView, Output, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 
     
     public var identifier: String = UUID().uuidString
@@ -375,7 +375,7 @@ class MTLView1: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDele
     
     
     //    MARK: - MTLOutput
-    public var input: MTLInput? {
+    public var input: Input? {
         get {
             return self.privateInput
         }
@@ -405,7 +405,7 @@ class MTLView1: UIView, MTLOutput, UIScrollViewDelegate, UIGestureRecognizerDele
     private var scrollView: UIScrollView!
     private var contentView: MetalLayerView!
     private var cropFilter = Crop()
-    private var privateInput: MTLInput?
+    private var privateInput: Input?
     var displayLink: CADisplayLink!
     var device: MTLDevice!
     var metalLayer: CAMetalLayer!

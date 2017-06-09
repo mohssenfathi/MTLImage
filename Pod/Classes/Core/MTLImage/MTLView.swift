@@ -17,7 +17,7 @@ protocol MTLViewDelegate {
 }
 
 public
-class MTLView: UIView, MTLOutput {
+class MTLView: UIView, Output {
 
     let mtkView = MTLMTKView()
     let scrollView = UIScrollView()
@@ -79,7 +79,7 @@ class MTLView: UIView, MTLOutput {
     public var delegate: MTLViewDelegate?
     
     
-    public var input: MTLInput? {
+    public var input: Input? {
         didSet { reload() }
     }
     
@@ -193,7 +193,7 @@ class MTLMTKView: MTKView {
     }
     
     let renderSemaphore = DispatchSemaphore(value: 3)
-    var input: MTLInput?
+    var input: Input?
     var vertexFunction: MTLFunction!
     var fragmentFunction: MTLFunction!
     var pipeline: MTLRenderPipelineState!
@@ -236,7 +236,7 @@ extension MTLMTKView: MTKViewDelegate {
             return
         }
         
-
+        
         if let renderPassDescriptor = view.currentRenderPassDescriptor {
 
             renderSemaphore.wait()
@@ -248,7 +248,7 @@ extension MTLMTKView: MTKViewDelegate {
             commandEncoder.setVertexBuffer(self.vertexBuffer, offset: 0, index: 0)
             commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, index: 1)
             commandEncoder.setFragmentTexture(texture, index: 0)
-            commandEncoder.drawPrimitives(type: .triangle , vertexStart: 0, vertexCount: 6, instanceCount: 1)
+            commandEncoder.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: 6)
             commandEncoder.endEncoding()
             
             commandBuffer.addCompletedHandler({ (buffer) in
