@@ -70,6 +70,7 @@
 		457FA3D31D789DCC008C6C35 /* LensFlare.metal in Sources */ = {isa = PBXBuildFile; fileRef = 457FA3D21D789DCC008C6C35 /* LensFlare.metal */; };
 		458EDE051CFDC71F009BA88E /* ToneCurve.metal in Sources */ = {isa = PBXBuildFile; fileRef = 458EDE041CFDC71F009BA88E /* ToneCurve.metal */; };
 		45A616811CBFD9BA00C000C7 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A616801CBFD9BA00C000C7 /* PickerCell.swift */; };
+		45CDCB321EEB30CD00E8A590 /* DepthBlend.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45CDCB311EEB30CD00E8A590 /* DepthBlend.metal */; };
 		45EB4FC41CADF4C00018936C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EB4FC31CADF4C00018936C /* MainViewController.swift */; };
 		45EB4FC81CADF75F0018936C /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BE9F871C9226010014593F /* Metal.framework */; };
 		45EB4FCA1CADF7640018936C /* MTLImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EB4FC91CADF7640018936C /* MTLImage.framework */; };
@@ -165,6 +166,7 @@
 		458EDE041CFDC71F009BA88E /* ToneCurve.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ToneCurve.metal; sourceTree = "<group>"; };
 		45A616801CBFD9BA00C000C7 /* PickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		45BE9F871C9226010014593F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		45CDCB311EEB30CD00E8A590 /* DepthBlend.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = DepthBlend.metal; sourceTree = "<group>"; };
 		45EB4FC31CADF4C00018936C /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Main/MainViewController.swift; sourceTree = "<group>"; };
 		45EB4FC91CADF7640018936C /* MTLImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MTLImage.framework; path = "../../../../Developer/Xcode/DerivedData/MTLImage-dlzobbsaleuujzhenaykjwcrxpyr/Build/Products/Debug-iphoneos/MTLImage.framework"; sourceTree = "<group>"; };
 		45EB4FCB1CADF76C0018936C /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
@@ -270,6 +272,7 @@
 				457FA3D21D789DCC008C6C35 /* LensFlare.metal */,
 				4544EEBA1D83360D0028EE53 /* Voronoi.metal */,
 				E0B130801EE9AAEA009C6CAD /* DepthRenderer.metal */,
+				45CDCB311EEB30CD00E8A590 /* DepthBlend.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -734,6 +737,7 @@
 				453FA00D1CE0F58B003F9871 /* Histogram.metal in Sources */,
 				45764E3B1CE3906100315DA7 /* WeakPixelInclusion.metal in Sources */,
 				453FA0161CE0F58B003F9871 /* PerlinNoise.metal in Sources */,
+				45CDCB321EEB30CD00E8A590 /* DepthBlend.metal in Sources */,
 				453FA0091CE0F58B003F9871 /* Distortion.metal in Sources */,
 				4544EEBB1D83360D0028EE53 /* Voronoi.metal in Sources */,
 				453FA0181CE0F58B003F9871 /* PolkaDot.metal in Sources */,

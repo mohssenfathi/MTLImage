@@ -343,7 +343,8 @@ class Camera: NSObject, Input, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
         
         // Initial Values
         whiteBalanceGains = captureDevice.deviceWhiteBalanceGains
-        stillImageOutput.connection(with: AVMediaType.video)?.videoOrientation = .portrait
+        dataOutput.connection(with: .video)?.videoOrientation = .portrait
+        stillImageOutput.connection(with: .video)?.videoOrientation = .portrait
     }
     
     func setupPipeline() {
@@ -360,7 +361,7 @@ class Camera: NSObject, Input, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
     
     public func captureOutput(_ captureOutput: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
-        guard mode != .depth else { return }
+//        guard mode != .depth else { return }
         
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         

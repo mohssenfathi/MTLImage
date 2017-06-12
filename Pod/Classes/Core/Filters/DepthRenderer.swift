@@ -12,7 +12,7 @@ struct DepthRendererUniforms: Uniforms {
     var range: Float = 1.0
 }
 
-
+public
 class DepthRenderer: MTLFilter {
     
     var uniforms = DepthRendererUniforms()
@@ -61,7 +61,7 @@ class DepthRenderer: MTLFilter {
     }
     
     
-    override func process() {
+    override public func process() {
         
         guard let inputPixelBuffer = (input as? Camera)?.depthPixelBuffer else { return }
         
