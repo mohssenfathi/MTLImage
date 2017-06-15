@@ -263,3 +263,4 @@ class MTLFilter: MTLObject, NSCoding {
         index = aDecoder.decodeInteger(forKey: "index")
     }
 }
+

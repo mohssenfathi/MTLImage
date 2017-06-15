@@ -15,11 +15,12 @@ struct StraightenUniforms: Uniforms {
 public
 class Straighten: MTLFilter {
     
-    var uniforms = TemplateUniforms()
+    var uniforms = StraightenUniforms()
     
     public var angle: Float = 0.5 {
         didSet {
             clamp(&angle, low: 0, high: 1)
+            uniforms.angle = angle
             needsUpdate = true
         }
     }

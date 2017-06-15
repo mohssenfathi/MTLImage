@@ -73,11 +73,14 @@ class MTLImage: NSObject {
          "Lanczos Scale",
          "Lens Flare",
          "Levels",
+         "Low Pass",
          "Luminance Threshold",
          "Mask",
          "Perlin Noise",
          "Pixellate",
          "Polka Dot",
+         "Resize",
+         "Rolling Average",
          "Saturation",
          "Scatter",
          "Sketch",
@@ -121,11 +124,14 @@ class MTLImage: NSObject {
             case "lanczos scale"                  : return LanczosScale()
             case "lens flare"                     : return LensFlare()
             case "levels"                         : return Levels()
+            case "low pass"                       : return LowPass()
             case "luminance threshold"            : return LuminanceThreshold()
             case "mask"                           : return Mask()
             case "perlin noise"                   : return PerlinNoise()
             case "pixellate"                      : return Pixellate()
             case "polka dot"                      : return PolkaDot()
+            case "resize"                         : return Resize()
+            case "rolling average"                : return RollingAverage()
             case "saturation"                     : return Saturation()
             case "scatter"                        : return Scatter()
             case "sketch"                         : return Sketch()

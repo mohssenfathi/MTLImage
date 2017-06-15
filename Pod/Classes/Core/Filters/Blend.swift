@@ -54,8 +54,16 @@ public
 class Blend: MTLFilter {
     
     var uniforms = BlendUniforms()
-    private var blendTexture: MTLTexture?
-    private var originalBlendImage: UIImage?
+    
+    private var primaryInput: Input?
+    private var secondaryInput: Input?
+    
+    var skipFirst: Bool = true
+    public override func process() {
+        guard skipFirst == false else { return }
+        skipFirst = false
+        super.process()
+    }
     
     lazy private var blendModes: [Int: String] = {
         var dict = [Int : String]()
@@ -84,9 +92,7 @@ class Blend: MTLFilter {
     }
     
     public var blendMode: Int = BlendMode.alpha.rawValue {
-        didSet {
-            needsUpdate = true
-        }
+        didSet { needsUpdate = true }
     }
     
     public var contentMode: UIViewContentMode = .scaleToFill {
@@ -96,32 +102,30 @@ class Blend: MTLFilter {
         }
     }
     
+    private var originalBlendImage: UIImage?
     public var blendImage: UIImage? {
-        willSet {
-            if blendImage == nil {
-                originalBlendImage = newValue?.copy() as? UIImage
-            }
-        }
         didSet {
-            if blendImage != nil && originalImage != nil {
-                blendOriginal = false
-                
-                switch contentMode {
-                case .scaleAspectFit:
-                    blendImage = originalBlendImage?.scaleToFit(originalImage!.size)
-                    break
-                case .scaleAspectFill:
-                    blendImage = originalBlendImage?.scaleToFill(originalImage!.size)
-                    break
-                case .center:
-                    blendImage = originalBlendImage?.center(originalImage!.size)
-                default:
-                    break
-                }
+            
+            originalBlendImage = blendImage
+            
+            guard var image = originalBlendImage else { return }
+            
+            switch contentMode {
+            case .scaleAspectFit:
+                image = image.scaleToFit(originalImage!.size)
+                break
+            case .scaleAspectFill:
+                image = image.scaleToFill(originalImage!.size)
+                break
+            case .center:
+                image = image.center(originalImage!.size)
+            default: break
             }
             
+            let input = MTLPicture(image: image)
+            input.processingSize = context.processingSize
+            add(input: input, at: 1)
             needsUpdate = true
-            blendTexture = nil
         }
     }
     
@@ -154,18 +158,26 @@ class Blend: MTLFilter {
     }
     
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
-        if blendTexture == nil || blendOriginal {
-            createBlendTexture()
-        }
-        commandEncoder.setTexture(blendTexture, index: 2)
+        super.configureCommandEncoder(commandEncoder)
+        commandEncoder.setTexture(secondaryInput?.texture, index: 2)
     }
     
-    func createBlendTexture() {
-        if blendOriginal == true {
-            blendTexture = source?.texture
+    public override var input: Input? {
+        didSet {
+            primaryInput = input
+            if secondaryInput == nil {
+                secondaryInput = source
+            }
         }
-        else if blendImage != nil {
-            blendTexture = blendImage?.texture(device)
+    }
+    
+    func add(input: Input, at index: Int) {
+        if index == 0 {
+            self.input = input
+            primaryInput = input
+        }
+        else if index == 1 {
+            secondaryInput = input
         }
     }
 }

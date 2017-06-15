@@ -7,8 +7,7 @@
 //
 
 @objc
-public
-class MTLObject: NSObject, Output {
+public class MTLObject: NSObject, Output {
     
     public var title: String = ""
     public var identifier: String = UUID().uuidString
@@ -137,7 +136,7 @@ class MTLObject: NSObject, Output {
     // MARK: - Subclassing
     
     func update() {
-        
+        if self.input == nil { return }
     }
     
     func process() {

@@ -15,6 +15,7 @@ class DepthBlend: MTLFilter {
         
     var uniforms = DepthBlendUniforms()
     let depthRenderer = DepthRenderer()
+    let resize = Resize()
     let blur = GaussianBlur()
     
     var lowerThreshold: Float = 0.8 {
@@ -43,7 +44,7 @@ class DepthBlend: MTLFilter {
     }
     
     public override func process() {
-        depthRenderer.processIfNeeded()
+        blur.process()
         super.process()
     }
     
@@ -59,7 +60,12 @@ class DepthBlend: MTLFilter {
             if let camera = source as? Camera {
                 camera.mode = .depth
                 camera.addTarget(depthRenderer)
-                depthRenderer.addTarget(blur)
+                
+                if let width = camera.texture?.width, let height = camera.texture?.height {
+                    resize.outputSize = MTLSize(width: width, height: height, depth: 1)
+                }
+                depthRenderer.addTarget(resize)
+                resize.addTarget(blur)
             }
         }
     }

@@ -15,15 +15,16 @@ struct DepthRendererUniforms {
 };
 
 // Compute kernel
-kernel void depthRenderer(texture2d<float, access::read>  inputTexture      [[ texture(0) ]],
-                             texture2d<float, access::write> outputTexture  [[ texture(1) ]],
-                             constant DepthRendererUniforms& uniforms       [[ buffer(0) ]],
-                             uint2 gid [[ thread_position_in_grid ]])
+kernel void depthRenderer(texture2d<float, access::read>  inputTexture   [[ texture(0) ]],
+                          texture2d<float, access::write> outputTexture  [[ texture(1) ]],
+                          constant DepthRendererUniforms& uniforms       [[ buffer(0) ]],
+                          uint2 gid [[ thread_position_in_grid ]])
 {
-    // Ensure we don't read or write outside of the texture
-    if ((gid.x >= inputTexture.get_width()) || (gid.y >= inputTexture.get_height())) {
-        return;
-    }
+    
+//    float2 inputSize = float2(inputTexture.get_width(), inputTexture.get_height());
+//    float2 outputSize = float2(outputTexture.get_width(), outputTexture.get_height());
+//    float2 normalizedCoord = float2(float(gid.x)/inputSize.x, float(gid.y)/inputSize.y);
+//    uint2 outputGid = uint2(normalizedCoord.x * outputSize.x, normalizedCoord.y * outputSize.y);
     
     float depth = inputTexture.read(gid).x;
     

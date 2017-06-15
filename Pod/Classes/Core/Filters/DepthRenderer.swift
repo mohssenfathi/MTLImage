@@ -52,14 +52,12 @@ class DepthRenderer: MTLFilter {
         updateUniforms(uniforms: uniforms)
     }
     
-    
     func resetProcess() {
         outputPixelBufferPool = nil
         outputFormatDescription = nil
         inputFormatDescription = nil
         textureCache = nil
     }
-    
     
     override public func process() {
         
@@ -183,9 +181,9 @@ class DepthRenderer: MTLFilter {
 // Depth
 extension DepthRenderer {
     
-    static private func allocateOutputBufferPool(with formatDescription: CMFormatDescription, outputRetainedBufferCountHint: Int) -> CVPixelBufferPool? {
+    static private func allocateOutputBufferPool(with formatDescription: CMFormatDescription, outputRetainedBufferCountHint: Int, size: CMVideoDimensions? = nil) -> CVPixelBufferPool? {
         
-        let inputDimensions = CMVideoFormatDescriptionGetDimensions(formatDescription)
+        let inputDimensions = size ??  CMVideoFormatDescriptionGetDimensions(formatDescription)
         let outputPixelBufferAttributes: [String: Any] = [
             kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA,
             kCVPixelBufferWidthKey as String: Int(inputDimensions.width),

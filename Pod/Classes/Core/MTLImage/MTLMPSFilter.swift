@@ -24,19 +24,16 @@ class MPS: MTLFilter {
     
     public override func process() {
         
-        guard let inputTexture = input?.texture else { return }
+        guard let inputTexture = input?.texture, let texture = texture else { return }
         
         input?.processIfNeeded()
         
         autoreleasepool {
             
-//            let threadgroupCounts = MTLSizeMake(8, 8, 1)
-//            let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
-            
             let commandBuffer = context.commandQueue.makeCommandBuffer()
             commandBuffer.label = "MTLFilter: " + title
             
-            (kernel as? MPSUnaryImageKernel)?.encode(commandBuffer: commandBuffer, sourceTexture: inputTexture, destinationTexture: texture!)
+            (kernel as? MPSUnaryImageKernel)?.encode(commandBuffer: commandBuffer, sourceTexture: inputTexture, destinationTexture: texture)
 
             configureCommandBuffer(commandBuffer)
             

@@ -269,28 +269,31 @@ class Camera: NSObject, Input, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
         mode = (mode == .front) ? .back : .front
     }
     
+//    public var mode: Mode = .back {
     public var mode: Mode = .depth {
         didSet {
             
-            guard let device = mode.device(), let session = session else { return }
-            guard let input = try? AVCaptureDeviceInput(device: device) else { return }
-            guard session.canAddInput(input) else { return }
+            setupAVDevice()
             
-            session.beginConfiguration()
-            session.removeInput(deviceInput)
-            
-            deviceInput = input
-            session.addInput(deviceInput)
-            
-            if let depthDataOutput = depthDataOutput {
-                if mode == .depth {
-                    if session.canAddOutput(depthDataOutput) { session.addOutput(depthDataOutput) }
-                } else {
-                    session.removeOutput(depthDataOutput)
-                }
-            }
-            
-            session.commitConfiguration()
+//            guard let device = mode.device(), let session = session else { return }
+//            guard let input = try? AVCaptureDeviceInput(device: device) else { return }
+//            guard session.canAddInput(input) else { return }
+//
+//            session.beginConfiguration()
+//            session.removeInput(deviceInput)
+//
+//            deviceInput = input
+//            session.addInput(deviceInput)
+//
+//            if let depthDataOutput = depthDataOutput {
+//                if mode == .depth {
+//                    if session.canAddOutput(depthDataOutput) { session.addOutput(depthDataOutput) }
+//                } else {
+//                    session.removeOutput(depthDataOutput)
+//                }
+//            }
+//
+//            session.commitConfiguration()
         }
     }
     
@@ -328,7 +331,7 @@ class Camera: NSObject, Input, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
         }
         
         // Depth Data
-        if #available(iOS 11.0, *) {
+        if #available(iOS 11.0, *), mode == .depth {
             
             depthDataOutput = AVCaptureDepthDataOutput()
             (depthDataOutput as! AVCaptureDepthDataOutput).setDelegate(self, callbackQueue: DispatchQueue(label: "DepthDataOutputQueue"))

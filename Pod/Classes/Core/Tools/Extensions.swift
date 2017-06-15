@@ -5,4 +5,10 @@
 //  Created by Mohssen Fathi on 6/9/17.
 //
 
-
+extension MTLTexture {
+    
+    func size() -> MTLSize {
+        return MTLSize(width: width, height: height, depth: depth)
+    }
+    
+}

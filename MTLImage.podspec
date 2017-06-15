@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = "MTLImage"
   s.version          = "0.1.0"
-  s.summary          = "GPUImage, but with Metal"
+  s.summary          = "Data processing with Metal"
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -32,9 +32,6 @@ Pod::Spec.new do |s|
   #s.source_files = 'Pod/Classes/**/*{swift, m, h, mm, hpp, cpp, c}'
   s.resources = ['Pod/Classes/CoreData/**/*.xcdatamodeld', 'Pod/Classes/**/*.metallib', 'Pod/Assets/**/*.xcassets']
 
-# Move this to subspec later
-  s.frameworks = 'CloudKit' 
-
 #s.resource_bundles = {
 #   'MTLImage' => ['Pod/Assets/**/*']
 # }
@@ -54,6 +51,7 @@ Pod::Spec.new do |s|
     end
  
     s.subspec 'CloudKit' do |ck|
+        ck.frameworks = 'CloudKit'
         ck.xcconfig =  { 'OTHER_CFLAGS' => '$(inherited) -MTLIMAGE_CLOUD_KIT' }
         ck.source_files = 'Pod/Classes/CloudKit/**/*{swift, m, h, mm, hpp, cpp, c}'
     end

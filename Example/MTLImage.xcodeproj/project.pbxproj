@@ -85,6 +85,8 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		CC7B0C4D729E39FDBF22A0D9 /* Pods_MTLImage_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDED0AC23F7C99E698A39CC3 /* Pods_MTLImage_Tests.framework */; };
+		E0A0E3B91EEF2C9E003295AD /* Resize.metal in Sources */ = {isa = PBXBuildFile; fileRef = E0A0E3B81EEF2C9E003295AD /* Resize.metal */; };
+		E0A65B941EF2E3F30098D1BF /* RollingAverage.metal in Sources */ = {isa = PBXBuildFile; fileRef = E0A65B931EF2E3F30098D1BF /* RollingAverage.metal */; };
 		E0B130811EE9AAEA009C6CAD /* DepthRenderer.metal in Sources */ = {isa = PBXBuildFile; fileRef = E0B130801EE9AAEA009C6CAD /* DepthRenderer.metal */; };
 /* End PBXBuildFile section */
 
@@ -187,6 +189,8 @@
 		BAEECF5F2ACEF5C666ED1CD9 /* Pods_MTLImage_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTLImage_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDED0AC23F7C99E698A39CC3 /* Pods_MTLImage_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTLImage_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D061FABF10827868504273F6 /* Pods-MTLImage_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTLImage_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MTLImage_Tests/Pods-MTLImage_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		E0A0E3B81EEF2C9E003295AD /* Resize.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Resize.metal; sourceTree = "<group>"; };
+		E0A65B931EF2E3F30098D1BF /* RollingAverage.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = RollingAverage.metal; sourceTree = "<group>"; };
 		E0B130801EE9AAEA009C6CAD /* DepthRenderer.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = DepthRenderer.metal; sourceTree = "<group>"; };
 		FE292ED962A5A6D3F81B60FA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		FF48E278E3CE9928A298E8BF /* MTLImage.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MTLImage.podspec; path = ../MTLImage.podspec; sourceTree = "<group>"; };
@@ -273,6 +277,8 @@
 				4544EEBA1D83360D0028EE53 /* Voronoi.metal */,
 				E0B130801EE9AAEA009C6CAD /* DepthRenderer.metal */,
 				45CDCB311EEB30CD00E8A590 /* DepthBlend.metal */,
+				E0A0E3B81EEF2C9E003295AD /* Resize.metal */,
+				E0A65B931EF2E3F30098D1BF /* RollingAverage.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -688,6 +694,7 @@
 				45764E3F1CE3936C00315DA7 /* XYDerivative.metal in Sources */,
 				45EB4FC41CADF4C00018936C /* MainViewController.swift in Sources */,
 				453FA0011CE0F58B003F9871 /* Blend.metal in Sources */,
+				E0A65B941EF2E3F30098D1BF /* RollingAverage.metal in Sources */,
 				4556FC861D6F4B95005C1D14 /* TestViewController.swift in Sources */,
 				453FA0151CE0F58B003F9871 /* OilPaint.metal in Sources */,
 				455AE3611CFBE8D5007702BA /* HighlightShadow.metal in Sources */,
@@ -704,6 +711,7 @@
 				4546570D1CB9BE98001E421A /* AddFilterViewController.swift in Sources */,
 				453A60A31CFB4D6000A48FEE /* HSV.metal in Sources */,
 				453FA0031CE0F58B003F9871 /* Camera.metal in Sources */,
+				E0A0E3B91EEF2C9E003295AD /* Resize.metal in Sources */,
 				453FA0081CE0F58B003F9871 /* DefaultShaders.metal in Sources */,
 				457FA3D31D789DCC008C6C35 /* LensFlare.metal in Sources */,
 				453FA01B1CE0F58B003F9871 /* Sharpen.metal in Sources */,

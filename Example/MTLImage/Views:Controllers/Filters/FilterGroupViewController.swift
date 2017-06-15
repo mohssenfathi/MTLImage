@@ -331,8 +331,8 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            filterGroup.remove(filterGroup.filters[indexPath.row])
             tableView.deleteRows(at: [indexPath], with: .fade)
+            filterGroup.remove(filterGroup.filters[indexPath.row])
             actionButton.isEnabled = filterGroup.filters.count > 0
         }
     }

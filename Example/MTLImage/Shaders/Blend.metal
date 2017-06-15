@@ -61,14 +61,15 @@ kernel void blend(texture2d<float, access::read>  inTexture    [[ texture(0) ]],
 
     int mode = uniforms.blendMode;
     
-    float2 textureSize = float2(inTexture.get_width(), inTexture.get_height());
-    float2 blendSize   = float2(blendTexture.get_width(), blendTexture.get_height());
-    float2 texCoord  = float2(gid) / textureSize;
-    uint2  blendGid = uint2(texCoord * blendSize);
+    // These are causing some issues
+//    float2 textureSize = float2(inTexture.get_width(), inTexture.get_height());
+//    float2 blendSize   = float2(blendTexture.get_width(), blendTexture.get_height());
+//    float2 texCoord  = float2(gid) / textureSize;
+//    uint2  blendGid = uint2(texCoord * blendSize);
     
     float4 outColor = float4(0);
     float4 color = inTexture.read(gid);
-    float4 blendColor = blendTexture.read(blendGid);
+    float4 blendColor = blendTexture.read(gid); //blendGid);
     
     if (mode != 1 && mode != 2 && mode != 7) {
         blendColor.a = uniforms.mix;
