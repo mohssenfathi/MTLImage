@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
+    <entity name="MTLFilterGroupRecord" representedClassName=".MTLFilterGroupRecord" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="filters" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MTLFilterRecord" inverseName="host" inverseEntity="MTLFilterRecord" syncable="YES"/>
+    </entity>
+    <entity name="MTLFilterRecord" representedClassName=".MTLFilterRecord" syncable="YES">
+        <attribute name="functionName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 32" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="host" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MTLFilterGroupRecord" inverseName="filters" inverseEntity="MTLFilterGroupRecord" syncable="YES"/>
+        <relationship name="properties" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="MTLPropertyRecord" inverseName="host" inverseEntity="MTLPropertyRecord" syncable="YES"/>
+    </entity>
+    <entity name="MTLPropertyRecord" representedClassName="MTLPropertyRecord" syncable="YES">
+        <attribute name="bool" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="color" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="defaultValue" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="maximumValue" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="minimumValue" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="point" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="propertyType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="rect" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="selectionItems" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="host" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MTLFilterRecord" inverseName="properties" inverseEntity="MTLFilterRecord" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="MTLFilterGroupRecord" positionX="-315" positionY="-27" width="128" height="88"/>
+        <element name="MTLFilterRecord" positionX="-137" positionY="-46" width="128" height="135"/>
+        <element name="MTLPropertyRecord" positionX="36" positionY="-81" width="128" height="270"/>
+    </elements>
+</model>

@@ -1,6 +1,0 @@
-framework module MTLImage {
-  umbrella header "MTLImage-iOS9.0-umbrella.h"
-
-  export *
-  module * { export * }
-}
