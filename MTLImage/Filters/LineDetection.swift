@@ -25,7 +25,7 @@ class LineDetection: Filter {
         return [UInt8](repeating: 0, count: Int(self.inputSize!.width) * self.thetaCount)
     }()
     
-    public var sensitivity: Float = 0.5 {
+    @objc public var sensitivity: Float = 0.5 {
         didSet {
             clamp(&sensitivity, low: 0, high: 1)
             needsUpdate = true

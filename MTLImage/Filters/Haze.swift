@@ -18,7 +18,7 @@ class Haze: Filter {
     
     var uniforms = HazeUniforms()
     
-    public var fade: Float = 0.0 {
+    @objc public var fade: Float = 0.0 {
         didSet {
             clamp(&fade, low: 0, high: 1)
             needsUpdate = true

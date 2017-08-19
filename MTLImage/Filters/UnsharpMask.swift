@@ -18,14 +18,14 @@ class UnsharpMask: Filter {
     var uniforms = UnsharpMaskUniforms()
     let blurFilter = GaussianBlur()
     
-    public var intensity: Float = 0.5 {
+    @objc public var intensity: Float = 0.5 {
         didSet {
             clamp(&intensity, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var blurRadius: Float = 0.5 {
+    @objc public var blurRadius: Float = 0.5 {
         didSet {
             blurFilter.sigma = blurRadius / 2.0
             needsUpdate = true

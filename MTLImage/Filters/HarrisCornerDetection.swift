@@ -132,7 +132,7 @@ class HarrisCornerDetection: Filter {
     
     var uniforms = HarrisCornerDetectionUniforms()
     
-    public var sensitivity: Float = 0.5 {
+    @objc public var sensitivity: Float = 0.5 {
         didSet {
             clamp(&sensitivity, low: 0, high: 1)
             needsUpdate = true
@@ -140,7 +140,7 @@ class HarrisCornerDetection: Filter {
         }
     }
     
-    public var threshold: Float = 0.5 {
+    @objc public var threshold: Float = 0.5 {
         didSet {
             clamp(&threshold, low: 0, high: 1)
             needsUpdate = true

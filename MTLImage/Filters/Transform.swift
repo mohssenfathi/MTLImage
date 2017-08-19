@@ -31,14 +31,14 @@ class Transform: Filter {
     
     var uniforms = TransformUniforms()
     
-    public var scale: Float = 0.0 {
+    @objc public var scale: Float = 0.0 {
         didSet {
             clamp(&scale, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var angle: Float = 0.5 {
+    @objc public var angle: Float = 0.5 {
         didSet {
             clamp(&angle, low: 0, high: 1)
             needsUpdate = true

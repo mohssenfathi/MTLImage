@@ -17,7 +17,7 @@ class PerlinNoise: Filter {
     
     var uniforms = PerlinNoiseUniforms()
     
-    public var scale: Float = 0.5 {
+    @objc public var scale: Float = 0.5 {
         didSet {
             clamp(&scale, low: 0, high: 1)
             needsUpdate = true

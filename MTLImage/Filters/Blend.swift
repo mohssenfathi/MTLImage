@@ -78,24 +78,24 @@ class Blend: Filter {
                                 2 : "Scale Aspect Fill",
                                 3 : "Center"]
     
-    var blendOriginal: Bool = true {
+    @objc var blendOriginal: Bool = true {
         didSet {
             needsUpdate = true
         }
     }
     
-    public var mix: Float = 1.0 {
+    @objc public var mix: Float = 1.0 {
         didSet {
             clamp(&mix, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var blendMode: Int = BlendMode.alpha.rawValue {
+    @objc public var blendMode: Int = BlendMode.alpha.rawValue {
         didSet { needsUpdate = true }
     }
     
-    public var contentMode: UIViewContentMode = .scaleToFill {
+    @objc public var contentMode: UIViewContentMode = .scaleToFill {
         didSet {
             needsUpdate = true
             blendImage = originalBlendImage
@@ -103,7 +103,7 @@ class Blend: Filter {
     }
     
     private var originalBlendImage: UIImage?
-    public var blendImage: UIImage? {
+    @objc public var blendImage: UIImage? {
         didSet {
             
             originalBlendImage = blendImage

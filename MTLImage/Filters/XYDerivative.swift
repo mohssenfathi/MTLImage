@@ -17,7 +17,7 @@ class XYDerivative: Filter {
     
     var uniforms = XYDerivativeUniforms()
     
-    var edgeStrength: Float = 0.5 {
+    @objc var edgeStrength: Float = 0.5 {
         didSet {
             clamp(&edgeStrength, low: 0, high: 1)
             needsUpdate = true

@@ -19,7 +19,7 @@ class Exposure: Filter {
     var uniformsMemory: UnsafeMutableRawPointer? = nil
     var uniformsPointer: UnsafeMutablePointer<ExposureUniforms>!
     
-    public var exposure: Float = 0.5 {
+    @objc public var exposure: Float = 0.5 {
         didSet {
             clamp(&exposure, low: 0, high: 1)
             needsUpdate = true

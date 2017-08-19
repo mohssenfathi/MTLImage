@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="woE-JT-Bip">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13147.4"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -21,7 +25,7 @@
                         <viewControllerLayoutGuide type="bottom" id="4nO-yE-Qp4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="YzH-DM-zAU">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -39,22 +43,22 @@
                         <viewControllerLayoutGuide type="bottom" id="HbM-mm-vFh"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="M8M-4x-8pj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pGn-3a-1Pv" userLabel="MTLView" customClass="View" customModule="MTLImage">
-                                <rect key="frame" x="0.0" y="64" width="600" height="286"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="353"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dyy-kP-9wH" userLabel="Divider">
-                                <rect key="frame" x="0.0" y="349" width="600" height="1"/>
+                                <rect key="frame" x="0.0" y="416" width="375" height="1"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="YWH-zQ-f7v"/>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tr3-Uf-3Nv">
-                                <rect key="frame" x="0.0" y="350" width="600" height="250"/>
+                                <rect key="frame" x="0.0" y="417" width="375" height="250"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="cJ8-37-Zhr"/>
                                 </constraints>
@@ -63,7 +67,7 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nAR-9d-E01">
-                                <rect key="frame" x="200" y="350" width="200" height="40"/>
+                                <rect key="frame" x="87.5" y="417" width="200" height="40"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="VxU-LF-RoC"/>
@@ -324,11 +328,13 @@
                                             <constraints>
                                                 <constraint firstItem="1RB-MK-u3a" firstAttribute="centerX" secondItem="XEy-0w-pYd" secondAttribute="centerX" id="IIS-OP-gWV"/>
                                                 <constraint firstItem="lnC-aB-wIU" firstAttribute="trailing" secondItem="XEy-0w-pYd" secondAttribute="trailingMargin" id="KAm-Lg-Epd"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BMh-fF-rPG" secondAttribute="trailing" constant="8" id="UQa-Gy-BYe"/>
                                                 <constraint firstItem="BMh-fF-rPG" firstAttribute="leading" secondItem="XEy-0w-pYd" secondAttribute="leadingMargin" constant="10" id="o9r-gd-TpU"/>
                                                 <constraint firstItem="1RB-MK-u3a" firstAttribute="centerY" secondItem="XEy-0w-pYd" secondAttribute="centerY" priority="999" id="olx-hI-jpH"/>
                                                 <constraint firstItem="lnC-aB-wIU" firstAttribute="centerY" secondItem="XEy-0w-pYd" secondAttribute="centerY" id="pGd-go-F8M"/>
                                                 <constraint firstItem="1RB-MK-u3a" firstAttribute="top" secondItem="BMh-fF-rPG" secondAttribute="bottom" constant="4" id="w8j-Dl-bMi"/>
                                                 <constraint firstItem="BMh-fF-rPG" firstAttribute="top" secondItem="XEy-0w-pYd" secondAttribute="topMargin" id="wku-5h-1GQ"/>
+                                                <constraint firstItem="lnC-aB-wIU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1RB-MK-u3a" secondAttribute="trailing" constant="8" id="zCR-Op-SJd"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -351,16 +357,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDm-Ol-Hs8">
-                                                    <rect key="frame" x="306" y="41.5" width="61" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="61" id="fVR-pU-Lzq"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="328" y="41.5" width="39" height="30"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <slider opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="uWk-PT-tUV">
-                                                    <rect key="frame" x="26" y="41.5" width="274" height="31"/>
+                                                    <rect key="frame" x="26" y="41.5" width="296" height="31"/>
                                                     <connections>
                                                         <action selector="sliderValueChanged:" destination="Pel-gT-y1J" eventType="valueChanged" id="5Iv-lk-5Qa"/>
                                                     </connections>
@@ -515,7 +518,7 @@
                         <viewControllerLayoutGuide type="top" id="Ch4-bB-BEe"/>
                         <viewControllerLayoutGuide type="bottom" id="840-F3-Krm"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8yi-xs-oyh">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="8yi-xs-oyh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -680,7 +683,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CX8-Vg-5CR" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FD4-CX-BzN">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FD4-CX-BzN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -701,12 +704,12 @@
                         <viewControllerLayoutGuide type="top" id="r2Y-w2-d7E"/>
                         <viewControllerLayoutGuide type="bottom" id="MZM-Xi-krI"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Tkq-mX-xtu">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="Tkq-mX-xtu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZXM-OS-UsW">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="70" id="fQv-x2-cfh">
@@ -794,7 +797,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zdA-nc-pUh" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="NRF-Hu-aMu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NRF-Hu-aMu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -17,10 +17,10 @@ class Histogram: Filter {
     
     var uniforms = HistogramUniforms()
 
-    public var luminance = [UInt8](repeating: 0, count: 255)
-    public var red       = [UInt8](repeating: 0, count: 255)
-    public var green     = [UInt8](repeating: 0, count: 255)
-    public var blue      = [UInt8](repeating: 0, count: 255)
+    @objc public var luminance = [UInt8](repeating: 0, count: 255)
+    @objc public var red       = [UInt8](repeating: 0, count: 255)
+    @objc public var green     = [UInt8](repeating: 0, count: 255)
+    @objc public var blue      = [UInt8](repeating: 0, count: 255)
     
     var luminanceBuffer: MTLBuffer?
     var redBuffer      : MTLBuffer?

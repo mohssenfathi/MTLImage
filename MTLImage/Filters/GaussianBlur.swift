@@ -12,7 +12,7 @@ import MetalPerformanceShaders
 public
 class GaussianBlur: MPS {
  
-    public var sigma: Float = 0.5 {
+    @objc public var sigma: Float = 0.5 {
         didSet {
             clamp(&sigma, low: 0, high: 1)
             kernel = MPSImageGaussianBlur(device: context.device, sigma: sigma * 80)

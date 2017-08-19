@@ -17,7 +17,7 @@ class Saturation: Filter {
     
     var uniforms = SaturationUniforms()
     
-    public var saturation: Float = 0.5 {
+    @objc public var saturation: Float = 0.5 {
         didSet {
             clamp(&saturation, low: 0, high: 1)
             needsUpdate = true

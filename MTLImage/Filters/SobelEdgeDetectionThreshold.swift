@@ -18,14 +18,14 @@ class SobelEdgeDetectionThreshold: Filter {
     var uniforms = SobelEdgeDetectionThresholdUniforms()
     let sobelEdgeDetectionFilter = SobelEdgeDetection()
     
-    public var threshold: Float = 0.5 {
+    @objc public var threshold: Float = 0.5 {
         didSet {
             clamp(&threshold, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var edgeStrength: Float = 0.0 {
+    @objc public var edgeStrength: Float = 0.0 {
         didSet {
             sobelEdgeDetectionFilter.edgeStrength = edgeStrength
         }

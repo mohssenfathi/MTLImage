@@ -21,13 +21,13 @@ class Crop: Filter {
     
     var uniforms = CropUniforms()
    
-    public var fit: Bool = true {
+    @objc public var fit: Bool = true {
         didSet {
             needsUpdate = true
         }
     }
 
-    public var cropRegion: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1) {
+    @objc public var cropRegion: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1) {
         didSet {
             assert(cropRegion.size.width  <= 1.0)
             assert(cropRegion.size.height <= 1.0)

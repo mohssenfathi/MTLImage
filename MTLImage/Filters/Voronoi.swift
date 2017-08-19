@@ -19,13 +19,13 @@ class Voronoi: Filter {
     
     var uniforms = VoronoiUniforms()
     
-    public var size: Float = 0.5 {
+    @objc public var size: Float = 0.5 {
         didSet {
             clamp(&size, low: 0.0, high: 1.0)
         }
     }
     
-    public var animate: Bool = false
+    @objc public var animate: Bool = false
     
     public init() {
         super.init(functionName: "voronoi")

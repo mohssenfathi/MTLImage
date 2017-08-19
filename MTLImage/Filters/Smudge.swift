@@ -22,27 +22,27 @@ class Smudge: Filter {
     
     var uniforms = SmudgeUniforms()
     
-    public var radius: Float = 0.5 {
+    @objc public var radius: Float = 0.5 {
         didSet {
             clamp(&radius, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var force: Float = 0.5 {
+    @objc public var force: Float = 0.5 {
         didSet {
             clamp(&radius, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var location: CGPoint = CGPoint.zero {
+    @objc public var location: CGPoint = CGPoint.zero {
         didSet {
             needsUpdate = true
         }
     }
     
-    public var direction: CGPoint = CGPoint.zero {
+    @objc public var direction: CGPoint = CGPoint.zero {
         didSet {
 //            direction.x = direction.x < 0 ? -1 : 1
 //            direction.y = direction.y < 0 ? -1 : 1

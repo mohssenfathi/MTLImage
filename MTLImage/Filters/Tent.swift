@@ -12,7 +12,7 @@ import MetalPerformanceShaders
 public
 class Tent: MPS {
     
-    var radius: Float = 0.5 {
+    @objc public var radius: Float = 0.5 {
         didSet {
             clamp(&radius, low: 0, high: 1)
             kernel = MPSImageTent(device      : context.device,

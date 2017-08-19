@@ -16,7 +16,7 @@ public
 class Sharpen: Filter {
     var uniforms = SharpenUniforms()
     
-    public var sharpness: Float = 0.0 {
+    @objc public var sharpness: Float = 0.0 {
         didSet {
             clamp(&sharpness, low: 0, high: 1)
             needsUpdate = true

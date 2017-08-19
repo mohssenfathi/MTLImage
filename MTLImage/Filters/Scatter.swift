@@ -19,7 +19,7 @@ class Scatter: Filter {
     let noiseFilter = PerlinNoise()
     var noiseTexture: MTLTexture!
     
-    public var radius: Float = 0.5 {
+    @objc public var radius: Float = 0.5 {
         didSet {
             clamp(&radius, low: 0, high: 1)
             noiseTexture = nil
@@ -27,7 +27,7 @@ class Scatter: Filter {
         }
     }
     
-    public var scale: Float = 0.5 {
+    @objc public var scale: Float = 0.5 {
         didSet {
             clamp(&scale, low: 0, high: 1)
             noiseFilter.scale = scale/50.0
@@ -36,7 +36,7 @@ class Scatter: Filter {
         }
     }
     
-    public var noiseImage: UIImage? {
+    @objc public var noiseImage: UIImage? {
         didSet {
             
             if let tex = input?.texture {

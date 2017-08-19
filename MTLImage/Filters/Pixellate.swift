@@ -20,7 +20,7 @@ class Pixellate: Filter {
     var uniforms = PixellateUniforms()
     var imageSize: CGSize?
     
-    public var dotRadius: Float = 0.5 {
+    @objc public var dotRadius: Float = 0.5 {
         didSet {
             clamp(&dotRadius, low: 0, high: 1)
             needsUpdate = true

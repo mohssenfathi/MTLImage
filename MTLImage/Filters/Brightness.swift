@@ -15,7 +15,7 @@ class Brightness: Filter {
 
     var uniforms = BrightnessUniforms()
     
-    public var brightness: Float = 0.5 {
+    @objc public var brightness: Float = 0.5 {
         didSet {
             clamp(&brightness, low: 0, high: 1)
             needsUpdate = true

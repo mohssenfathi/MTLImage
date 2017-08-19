@@ -18,14 +18,14 @@ class WhiteBalance: Filter {
     
     var uniforms = WhiteBalanceUniforms()
     
-    public var temperature: Float = 0.5 {
+    @objc public var temperature: Float = 0.5 {
         didSet {
             clamp(&temperature, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var tint: Float = 0.5 {
+    @objc public var tint: Float = 0.5 {
         didSet {
             clamp(&tint, low: 0, high: 1)
             needsUpdate = true

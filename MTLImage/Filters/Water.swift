@@ -22,37 +22,37 @@ public
 class Water: Filter {
     var uniforms = WaterUniforms()
     
-    public var speed: Float = 0.5 {
+    @objc public var speed: Float = 0.5 {
         didSet {
             clamp(&speed, low: 0, high: 1)
         }
     }
     
-    public var frequency: Float = 0.5 {
+    @objc public var frequency: Float = 0.5 {
         didSet {
             clamp(&frequency, low: 0, high: 1)
         }
     }
     
-    public var intensity: Float = 0.5 {
+    @objc public var intensity: Float = 0.5 {
         didSet {
             clamp(&intensity, low: 0, high: 1)
         }
     }
     
-    public var emboss: Float = 0.5 {
+    @objc public var emboss: Float = 0.5 {
         didSet {
             clamp(&emboss, low: 0, high: 1)
         }
     }
     
-    public var delta: Float = 0.5 {
+    @objc public var delta: Float = 0.5 {
         didSet {
             clamp(&delta, low: 0, high: 1)
         }
     }
     
-    public var intence: Float = 0.5 {
+    @objc public var intence: Float = 0.5 {
         didSet { clamp(&intence, low: 0, high: 1) }
     }
     

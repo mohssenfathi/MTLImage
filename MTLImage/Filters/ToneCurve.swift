@@ -19,7 +19,7 @@ class ToneCurve: Filter {
     
     var toneCurveBuffer: MTLBuffer? = nil
     
-    public var compositeMin: Float = 0.0 {
+    @objc public var compositeMin: Float = 0.0 {
         didSet {
             clamp(&redMid, low: 0, high: 1)
             compositePoints = [CGPoint(x: 0.0, y: CGFloat(compositeMin)), compositePoints[1], compositePoints[2]]
@@ -29,7 +29,7 @@ class ToneCurve: Filter {
         }
     }
     
-    public var compositeMid: Float = 0.5 {
+    @objc public var compositeMid: Float = 0.5 {
         didSet {
             clamp(&redMid, low: 0, high: 1)
             compositePoints = [compositePoints[0], CGPoint(x: 0.5, y: CGFloat(compositeMid)), compositePoints[2]]
@@ -39,7 +39,7 @@ class ToneCurve: Filter {
         }
     }
     
-    public var compositeMax: Float = 1.0 {
+    @objc public var compositeMax: Float = 1.0 {
         didSet {
             clamp(&redMid, low: 0, high: 1)
             compositePoints = [compositePoints[0], compositePoints[1],  CGPoint(x: 1.0, y: CGFloat(compositeMax))]
@@ -49,7 +49,7 @@ class ToneCurve: Filter {
         }
     }
     
-    public var redMid: Float = 0.5 {
+    @objc public var redMid: Float = 0.5 {
         didSet {
             clamp(&redMid, low: 0, high: 1)
             redPoints = [CGPoint(x: 0, y: 0), CGPoint(x: 0.5, y: CGFloat(redMid)), CGPoint(x: 1.0, y: 1.0)]
@@ -59,7 +59,7 @@ class ToneCurve: Filter {
         }
     }
     
-    public var greenMid: Float = 0.5 {
+    @objc public var greenMid: Float = 0.5 {
         didSet {
             clamp(&greenMid, low: 0, high: 1)
             greenPoints = [CGPoint(x: 0, y: 0), CGPoint(x: 0.5, y: CGFloat(greenMid)), CGPoint(x: 1.0, y: 1.0)]
@@ -69,7 +69,7 @@ class ToneCurve: Filter {
         }
     }
     
-    public var blueMid: Float = 0.5 {
+    @objc public var blueMid: Float = 0.5 {
         didSet {
             clamp(&blueMid, low: 0, high: 1)
             bluePoints = [CGPoint(x: 0, y: 0), CGPoint(x: 0.5, y: CGFloat(blueMid)), CGPoint(x: 1.0, y: 1.0)]
@@ -84,7 +84,7 @@ class ToneCurve: Filter {
     private var greenCurve: [CGFloat]!
     private var compositeCurve: [CGFloat]!
     
-    public var redPoints = [CGPoint(x: 0, y: 0), CGPoint(x: 0.5, y: 0.5), CGPoint(x: 1.0, y: 1.0)] {
+    @objc public var redPoints = [CGPoint(x: 0, y: 0), CGPoint(x: 0.5, y: 0.5), CGPoint(x: 1.0, y: 1.0)] {
         didSet {
             redCurve = getPreparedSplineCurve(redPoints)
             toneCurveBuffer = nil
@@ -93,7 +93,7 @@ class ToneCurve: Filter {
         }
     }
     
-    public var greenPoints = [CGPoint(x: 0, y: 0), CGPoint(x: 0.5, y: 0.5), CGPoint(x: 1.0, y: 1.0)] {
+    @objc public var greenPoints = [CGPoint(x: 0, y: 0), CGPoint(x: 0.5, y: 0.5), CGPoint(x: 1.0, y: 1.0)] {
         didSet {
             greenCurve = getPreparedSplineCurve(greenPoints)
             toneCurveBuffer = nil
@@ -102,7 +102,7 @@ class ToneCurve: Filter {
         }
     }
     
-    public var bluePoints = [CGPoint(x: 0, y: 0), CGPoint(x: 0.5, y: 0.5), CGPoint(x: 1.0, y: 1.0)] {
+    @objc public var bluePoints = [CGPoint(x: 0, y: 0), CGPoint(x: 0.5, y: 0.5), CGPoint(x: 1.0, y: 1.0)] {
         didSet {
             blueCurve = getPreparedSplineCurve(bluePoints)
             toneCurveBuffer = nil
@@ -111,7 +111,7 @@ class ToneCurve: Filter {
         }
     }
     
-    public var compositePoints = [CGPoint(x: 0, y: 0), CGPoint(x: 0.5, y: 0.5), CGPoint(x: 1.0, y: 1.0)] {
+    @objc public var compositePoints = [CGPoint(x: 0, y: 0), CGPoint(x: 0.5, y: 0.5), CGPoint(x: 1.0, y: 1.0)] {
         didSet {
             compositeCurve = getPreparedSplineCurve(compositePoints)
             toneCurveBuffer = nil

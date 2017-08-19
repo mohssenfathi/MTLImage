@@ -11,7 +11,7 @@ import UIKit
 public
 class Emboss: Convolution {
 
-    public var intensity: Float = 0.0 {
+    @objc public var intensity: Float = 0.0 {
         didSet {
             clamp(&intensity, low: 0, high: 1)
             needsUpdate = true

@@ -101,7 +101,6 @@
 		E06480861EF4612700579E21 /* Emboss.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06480431EF4612200579E21 /* Emboss.swift */; };
 		E06480871EF4612700579E21 /* Exposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06480441EF4612200579E21 /* Exposure.swift */; };
 		E06480881EF4612700579E21 /* GaussianBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06480451EF4612200579E21 /* GaussianBlur.swift */; };
-		E06480891EF4612700579E21 /* GaussianBlur1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06480461EF4612200579E21 /* GaussianBlur1.swift */; };
 		E064808A1EF4612700579E21 /* HarrisCornerDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06480471EF4612200579E21 /* HarrisCornerDetection.swift */; };
 		E064808B1EF4612700579E21 /* Haze.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06480481EF4612200579E21 /* Haze.swift */; };
 		E064808C1EF4612700579E21 /* HighlightShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06480491EF4612200579E21 /* HighlightShadow.swift */; };
@@ -120,7 +119,6 @@
 		E064809A1EF4612700579E21 /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06480571EF4612200579E21 /* Mask.swift */; };
 		E064809C1EF4612700579E21 /* Mosaic.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06480591EF4612200579E21 /* Mosaic.swift */; };
 		E064809D1EF4612700579E21 /* NonMaximumSuppression.swift in Sources */ = {isa = PBXBuildFile; fileRef = E064805A1EF4612200579E21 /* NonMaximumSuppression.swift */; };
-		E064809E1EF4612700579E21 /* OilPaint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E064805B1EF4612200579E21 /* OilPaint.swift */; };
 		E064809F1EF4612700579E21 /* PerlinNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E064805C1EF4612200579E21 /* PerlinNoise.swift */; };
 		E06480A11EF4612700579E21 /* Pixellate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E064805E1EF4612200579E21 /* Pixellate.swift */; };
 		E06480A21EF4612700579E21 /* PolkaDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E064805F1EF4612200579E21 /* PolkaDot.swift */; };
@@ -313,7 +311,6 @@
 		E06480431EF4612200579E21 /* Emboss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emboss.swift; sourceTree = "<group>"; };
 		E06480441EF4612200579E21 /* Exposure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exposure.swift; sourceTree = "<group>"; };
 		E06480451EF4612200579E21 /* GaussianBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaussianBlur.swift; sourceTree = "<group>"; };
-		E06480461EF4612200579E21 /* GaussianBlur1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaussianBlur1.swift; sourceTree = "<group>"; };
 		E06480471EF4612200579E21 /* HarrisCornerDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarrisCornerDetection.swift; sourceTree = "<group>"; };
 		E06480481EF4612200579E21 /* Haze.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haze.swift; sourceTree = "<group>"; };
 		E06480491EF4612200579E21 /* HighlightShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightShadow.swift; sourceTree = "<group>"; };
@@ -332,7 +329,6 @@
 		E06480571EF4612200579E21 /* Mask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mask.swift; sourceTree = "<group>"; };
 		E06480591EF4612200579E21 /* Mosaic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mosaic.swift; sourceTree = "<group>"; };
 		E064805A1EF4612200579E21 /* NonMaximumSuppression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonMaximumSuppression.swift; sourceTree = "<group>"; };
-		E064805B1EF4612200579E21 /* OilPaint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OilPaint.swift; sourceTree = "<group>"; };
 		E064805C1EF4612200579E21 /* PerlinNoise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerlinNoise.swift; sourceTree = "<group>"; };
 		E064805E1EF4612200579E21 /* Pixellate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixellate.swift; sourceTree = "<group>"; };
 		E064805F1EF4612200579E21 /* PolkaDot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolkaDot.swift; sourceTree = "<group>"; };
@@ -612,7 +608,6 @@
 				E06480431EF4612200579E21 /* Emboss.swift */,
 				E06480441EF4612200579E21 /* Exposure.swift */,
 				E06480451EF4612200579E21 /* GaussianBlur.swift */,
-				E06480461EF4612200579E21 /* GaussianBlur1.swift */,
 				E06480471EF4612200579E21 /* HarrisCornerDetection.swift */,
 				E06480481EF4612200579E21 /* Haze.swift */,
 				E06480491EF4612200579E21 /* HighlightShadow.swift */,
@@ -631,7 +626,6 @@
 				E06480571EF4612200579E21 /* Mask.swift */,
 				E06480591EF4612200579E21 /* Mosaic.swift */,
 				E064805A1EF4612200579E21 /* NonMaximumSuppression.swift */,
-				E064805B1EF4612200579E21 /* OilPaint.swift */,
 				E064805C1EF4612200579E21 /* PerlinNoise.swift */,
 				E064805E1EF4612200579E21 /* Pixellate.swift */,
 				E064805F1EF4612200579E21 /* PolkaDot.swift */,
@@ -980,7 +974,6 @@
 				E06480AF1EF4612700579E21 /* Tent.swift in Sources */,
 				E06481781EF46F0D00579E21 /* MTLImage.xcdatamodeld in Sources */,
 				E064807C1EF4612700579E21 /* ColorSelection.swift in Sources */,
-				E064809E1EF4612700579E21 /* OilPaint.swift in Sources */,
 				45FE6E6C1F48E9C7005A85D5 /* Saturation.metal in Sources */,
 				E06480F21EF4617100579E21 /* MTLObject.swift in Sources */,
 				45FE6E691F48E9C7005A85D5 /* Resize.metal in Sources */,
@@ -1028,7 +1021,6 @@
 				45FE6E651F48E9C7005A85D5 /* OilPaint.metal in Sources */,
 				E06480911EF4612700579E21 /* Hue.swift in Sources */,
 				E06480EF1EF4617100579E21 /* MTLLib.swift in Sources */,
-				E06480891EF4612700579E21 /* GaussianBlur1.swift in Sources */,
 				E06480791EF4612700579E21 /* Brightness.swift in Sources */,
 				45FE6E4D1F48E9C7005A85D5 /* Crop.metal in Sources */,
 				E064809F1EF4612700579E21 /* PerlinNoise.swift in Sources */,

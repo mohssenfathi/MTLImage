@@ -18,14 +18,14 @@ class CrossHatch: Filter {
     
     var uniforms = CrossHatchUniforms()
     
-    public var crossHatchSpacing: Float = 0.5 {
+    @objc public var crossHatchSpacing: Float = 0.5 {
         didSet {
             clamp(&crossHatchSpacing, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var lineWidth: Float = 0.5 {
+    @objc public var lineWidth: Float = 0.5 {
         didSet {
             clamp(&lineWidth, low: 0, high: 1)
             needsUpdate = true

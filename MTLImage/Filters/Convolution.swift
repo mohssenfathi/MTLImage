@@ -13,7 +13,7 @@ class Convolution: Filter {
     
     private var convolutionMatrixTexture: MTLTexture?
     
-    public var convolutionMatrix: [[Float]] = [[0.0, 0.0, 0.0],
+    @objc public var convolutionMatrix: [[Float]] = [[0.0, 0.0, 0.0],
                                                [0.0, 1.0, 0.0],
                                                [0.0, 0.0, 0.0]] {
         didSet {

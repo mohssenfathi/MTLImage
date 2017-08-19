@@ -18,7 +18,7 @@ class DepthBlend: Filter {
     let resize = Resize()
     let blur = GaussianBlur()
     
-    var lowerThreshold: Float = 0.8 {
+    @objc var lowerThreshold: Float = 0.8 {
         didSet {
             clamp(&lowerThreshold, low: 0, high: 1)
             needsUpdate = true

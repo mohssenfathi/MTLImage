@@ -18,14 +18,14 @@ class Distortion: Filter {
     
     var uniforms = DistortionUniforms()
     
-    public var x: Float = 0.5 {
+    @objc public var x: Float = 0.5 {
         didSet {
             clamp(&x, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var y: Float = 0.5 {
+    @objc public var y: Float = 0.5 {
         didSet {
             clamp(&y, low: 0, high: 1)
             needsUpdate = true

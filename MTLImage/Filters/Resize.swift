@@ -10,7 +10,7 @@ import MetalPerformanceShaders
 public
 class Resize: MPS {
     
-    var outputSize: MTLSize? = nil {
+    public var outputSize: MTLSize? = nil {
         didSet { needsUpdate = true }
     }
     private var internalOutputSize: MTLSize? {

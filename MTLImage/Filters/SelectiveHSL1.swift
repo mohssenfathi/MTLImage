@@ -24,7 +24,7 @@ public
 class SelectiveHSL1: Filter {
     var uniforms = SelectiveHSLUniforms1()
     
-    public var mode: Int = 0 {
+    @objc public var mode: Int = 0 {
         didSet {
             clamp(&mode, low: 0, high: 3)
             needsUpdate = true
@@ -69,7 +69,7 @@ class SelectiveHSL1: Filter {
     
     //    MARK: - Colors
     
-    public var red: Float = 0.0 {
+    @objc public var red: Float = 0.0 {
         didSet {
             clamp(&red, low: 0, high: 1)
             needsUpdate = true
@@ -77,7 +77,7 @@ class SelectiveHSL1: Filter {
         }
     }
     
-    public var orange: Float = 0.0 {
+    @objc public var orange: Float = 0.0 {
         didSet {
             clamp(&orange, low: 0, high: 1)
             needsUpdate = true
@@ -85,7 +85,7 @@ class SelectiveHSL1: Filter {
         }
     }
     
-    public var yellow: Float = 0.0 {
+    @objc public var yellow: Float = 0.0 {
         didSet {
             clamp(&yellow, low: 0, high: 1)
             needsUpdate = true
@@ -93,7 +93,7 @@ class SelectiveHSL1: Filter {
         }
     }
     
-    public var green: Float = 0.0 {
+    @objc public var green: Float = 0.0 {
         didSet {
             clamp(&green, low: 0, high: 1)
             needsUpdate = true
@@ -101,7 +101,7 @@ class SelectiveHSL1: Filter {
         }
     }
     
-    public var aqua: Float = 0.0 {
+    @objc public var aqua: Float = 0.0 {
         didSet {
             clamp(&aqua, low: 0, high: 1)
             needsUpdate = true
@@ -109,7 +109,7 @@ class SelectiveHSL1: Filter {
         }
     }
     
-    public var blue: Float = 0.0 {
+    @objc public var blue: Float = 0.0 {
         didSet {
             clamp(&blue, low: 0, high: 1)
             needsUpdate = true
@@ -117,7 +117,7 @@ class SelectiveHSL1: Filter {
         }
     }
     
-    public var purple: Float = 0.0 {
+    @objc public var purple: Float = 0.0 {
         didSet {
             clamp(&purple, low: 0, high: 1)
             needsUpdate = true
@@ -125,7 +125,7 @@ class SelectiveHSL1: Filter {
         }
     }
     
-    public var magenta: Float = 0.0 {
+    @objc public var magenta: Float = 0.0 {
         didSet {
             clamp(&magenta, low: 0, high: 1)
             needsUpdate = true

@@ -17,7 +17,7 @@ class LuminanceThreshold: Filter {
     
     var uniforms = LuminanceThresholdUniforms()
     
-    public var threshold: Float = 0.5 {
+    @objc public var threshold: Float = 0.5 {
         didSet {
             clamp(&threshold, low: 0, high: 1)
             needsUpdate = true

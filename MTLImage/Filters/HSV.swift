@@ -19,21 +19,21 @@ class HSV: Filter {
     
     var uniforms = HSVUniforms()
     
-    public var hue: Float = 0.5 {
+    @objc public var hue: Float = 0.5 {
         didSet {
             clamp(&hue, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var saturation: Float = 0.5 {
+    @objc public var saturation: Float = 0.5 {
         didSet {
             clamp(&saturation, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var vibrancy: Float = 0.5 {
+    @objc public var vibrancy: Float = 0.5 {
         didSet {
             clamp(&vibrancy, low: 0, high: 1)
             needsUpdate = true

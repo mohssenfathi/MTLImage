@@ -16,7 +16,7 @@ public
 class Contrast: Filter {
     var uniforms = ContrastUniforms()
     
-    public var contrast: Float = 0.5 {
+    @objc public var contrast: Float = 0.5 {
         didSet {
             clamp(&contrast, low: 0, high: 1)
             needsUpdate = true

@@ -17,7 +17,7 @@ class PolkaDot: Filter {
     
     var uniforms = PolkaDotUniforms()
     
-    public var dotRadius: Float = 0.0 {
+    @objc public var dotRadius: Float = 0.0 {
         didSet {
             clamp(&dotRadius, low: 0, high: 1)
             needsUpdate = true

@@ -18,14 +18,14 @@ class HighlightShadow: Filter {
     
     var uniforms = HighlightShadowUniforms()
     
-    public var highlights: Float = 1.0 {
+    @objc public var highlights: Float = 1.0 {
         didSet {
             clamp(&highlights, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var shadows: Float = 0.0 {
+    @objc public var shadows: Float = 0.0 {
         didSet {
             clamp(&shadows, low: 0, high: 1)
             needsUpdate = true

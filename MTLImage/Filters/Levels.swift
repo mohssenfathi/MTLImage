@@ -20,35 +20,35 @@ public
 class Levels: Filter {
     var uniforms = LevelsUniforms()
     
-    public var min: Float = 0.0 {
+    @objc public var min: Float = 0.0 {
         didSet {
             clamp(&min, low: 0, high: mid)
             needsUpdate = true
         }
     }
     
-    public var mid: Float = 0.5 {
+    @objc public var mid: Float = 0.5 {
         didSet {
             clamp(&mid, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var max: Float = 1.0 {
+    @objc public var max: Float = 1.0 {
         didSet {
             clamp(&max, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var minOut: Float = 0.0 {
+    @objc public var minOut: Float = 0.0 {
         didSet {
             clamp(&minOut, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var maxOut: Float = 1.0 {
+    @objc public var maxOut: Float = 1.0 {
         didSet {
             clamp(&maxOut, low: 0, high: 1)
             needsUpdate = true

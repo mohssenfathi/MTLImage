@@ -17,7 +17,7 @@ class Hue: Filter {
     
     var uniforms = HueUniforms()
     
-    public var hue: Float = 0.0 {
+    @objc public var hue: Float = 0.0 {
         didSet {
             clamp(&hue, low: 0, high: 1)
             needsUpdate = true

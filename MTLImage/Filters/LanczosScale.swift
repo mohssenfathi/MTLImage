@@ -15,7 +15,7 @@ class LanczosScale: MPS {
     var scaleTransform: MPSScaleTransform = MPSScaleTransform(scaleX: 1, scaleY: 1, translateX: 0, translateY: 0)
     var transformPointer: UnsafePointer<MPSScaleTransform>!
     
-    var scale: Float = 0.5 {
+    @objc public var scale: Float = 0.5 {
         didSet {
             clamp(&scale, low: 0, high: 1)
             needsUpdate = true

@@ -17,7 +17,7 @@ class Mosaic: Filter {
     
     var uniforms = MosaicUniforms()
     
-    public var intensity: Float = 0.5 {
+    @objc public var intensity: Float = 0.5 {
         didSet {
             clamp(&intensity, low: 0, high: 1)
             needsUpdate = true

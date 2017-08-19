@@ -17,21 +17,21 @@ class Mask: Filter {
 
     var uniforms = MaskUniforms()
     
-    public var brushSize: Float = 0.25 {
+    @objc public var brushSize: Float = 0.25 {
         didSet {
             clamp(&brushSize, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var hardness: Float = 0.5 {
+    @objc public var hardness: Float = 0.5 {
         didSet {
             clamp(&hardness, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var point: CGPoint = CGPoint(x: 0.5, y: 0.5) {
+    @objc public var point: CGPoint = CGPoint(x: 0.5, y: 0.5) {
         didSet {
             clamp(&point.x, low: 0.0, high: 1.0)
             clamp(&point.y, low: 0.0, high: 1.0)
@@ -39,7 +39,7 @@ class Mask: Filter {
         }
     }
     
-    public var add: Bool = false {
+    @objc public var add: Bool = false {
         didSet {
             needsUpdate = true
         }

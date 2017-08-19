@@ -17,14 +17,14 @@ public
 class Toon: Filter {
     var uniforms = ToonUniforms()
     
-    public var quantizationLevels: Float = 0.5 {
+    @objc public var quantizationLevels: Float = 0.5 {
         didSet {
             clamp(&quantizationLevels, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var threshold: Float = 0.5 {
+    @objc public var threshold: Float = 0.5 {
         didSet {
             clamp(&threshold, low: 0, high: 1)
             needsUpdate = true

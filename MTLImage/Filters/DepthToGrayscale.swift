@@ -15,14 +15,14 @@ class DepthToGrayscale: Filter {
     
     var uniforms = DepthToGrayscaleUniforms()
     
-    public var offset: Float = 0.5 {
+    @objc public var offset: Float = 0.5 {
         didSet {
 //            clamp(&offset, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var range: Float = 0.5 {
+    @objc public var range: Float = 0.5 {
         didSet {
 //            clamp(&range, low: 0, high: 1)
             needsUpdate = true

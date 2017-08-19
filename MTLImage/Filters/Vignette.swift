@@ -25,26 +25,26 @@ class Vignette: Filter {
 
     var uniforms = VignetteUniforms()
     
-    public var center: CGPoint = CGPoint(x: 0.5, y: 0.5) {
+    @objc public var center: CGPoint = CGPoint(x: 0.5, y: 0.5) {
         didSet {
             needsUpdate = true
         }
     }
     
-    public var color: UIColor = UIColor.black {
+    @objc public var color: UIColor = UIColor.black {
         didSet {
             needsUpdate = true
         }
     }
     
-    public var start: Float = 0.25 {
+    @objc public var start: Float = 0.25 {
         didSet {
             clamp(&start, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var end: Float = 0.7 {
+    @objc public var end: Float = 0.7 {
         didSet {
             clamp(&end, low: 0, high: 1)
             needsUpdate = true

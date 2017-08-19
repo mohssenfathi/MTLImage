@@ -28,32 +28,32 @@ class LensFlare: Filter {
     
     var uniforms = MTLLensFlareUniforms()
     
-    public var color: UIColor = UIColor.white {
+    @objc public var color: UIColor = UIColor.white {
         didSet {
             needsUpdate = true
         }
     }
     
-    public var angle: CGPoint = CGPoint(x: 0.5, y: 0.5) {
+    @objc public var angle: CGPoint = CGPoint(x: 0.5, y: 0.5) {
         didSet {
             needsUpdate = true
         }
     }
     
-    public var center: CGPoint = CGPoint(x: 0.5, y: 0.5) {
+    @objc public var center: CGPoint = CGPoint(x: 0.5, y: 0.5) {
         didSet {
             needsUpdate = true
         }
     }
     
-    public var brightness: Float = 0.5 {
+    @objc public var brightness: Float = 0.5 {
         didSet {
             clamp(&brightness, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    public var showSun: Bool = true {
+    @objc public var showSun: Bool = true {
         didSet {
             needsUpdate = true
         }

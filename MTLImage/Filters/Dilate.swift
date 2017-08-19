@@ -14,21 +14,21 @@ class Dilate: MPS {
     
     var dilateValues: UnsafePointer<Float>!
     
-    var width: Float = 0.5 {
+    @objc var width: Float = 0.5 {
         didSet {
             clamp(&width, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    var height: Float = 0.5 {
+    @objc var height: Float = 0.5 {
         didSet {
             clamp(&height, low: 0, high: 1)
             needsUpdate = true
         }
     }
     
-    var intensity: Float = 0.5 {
+    @objc var intensity: Float = 0.5 {
         didSet {
             clamp(&intensity, low: 0, high: 1)
             needsUpdate = true

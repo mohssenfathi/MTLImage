@@ -17,7 +17,7 @@ class Straighten: Filter {
     
     var uniforms = StraightenUniforms()
     
-    public var angle: Float = 0.5 {
+    @objc public var angle: Float = 0.5 {
         didSet {
             clamp(&angle, low: 0, high: 1)
             uniforms.angle = angle

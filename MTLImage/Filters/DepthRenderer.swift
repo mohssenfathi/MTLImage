@@ -17,11 +17,11 @@ class DepthRenderer: Filter {
     
     var uniforms = DepthRendererUniforms()
     
-    public var offset: Float = 0.5 {
+    @objc public var offset: Float = 0.5 {
         didSet { needsUpdate = true }
     }
     
-    public var range: Float = 0.5 {
+    @objc public var range: Float = 0.5 {
         didSet { needsUpdate = true }
     }
     
