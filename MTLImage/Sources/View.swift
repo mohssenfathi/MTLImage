@@ -159,6 +159,9 @@ class MTLMTKView: MTKView {
         framebufferOnly = false
         autoResizeDrawable = false
         contentMode = .scaleAspectFit
+        
+        fpsCounter.delegate = self
+        if logFPS { fpsCounter.startTracking() }
     }
     
     override var contentMode: UIViewContentMode {
@@ -218,15 +221,28 @@ class MTLMTKView: MTKView {
                                     float4( 1.0,  1.0, 0.0, 1.0),
                                     float4(-1.0, -1.0, 0.0, 1.0),
                                     float4( 1.0, -1.0, 0.0, 1.0) ]
+    
+    private let fpsCounter = FPSCounter()
+    public var logFPS: Bool = false {
+        didSet {
+            logFPS ? fpsCounter.startTracking() : fpsCounter.stopTracking()
+        }
+    }
+}
+
+extension MTLMTKView: FPSCounterDelegate {
+    public func fpsCounter(_ counter: FPSCounter, didUpdateFramesPerSecond fps: Int) {
+        if logFPS { print("\(fps) FPS") }
+    }
 }
 
 extension MTLMTKView: MTKViewDelegate {
     
     public func draw(in view: MTKView) {
         
-        input?.processIfNeeded()
-        
-        guard let commandQueue = input?.context.commandQueue, let texture = input?.texture, let drawable = view.currentDrawable else {
+        guard let commandQueue = input?.context.commandQueue,
+            let texture = input?.texture,
+            let drawable = view.currentDrawable else {
             return
         }
         
@@ -236,12 +252,13 @@ extension MTLMTKView: MTKViewDelegate {
             return
         }
         
-        
         if let renderPassDescriptor = view.currentRenderPassDescriptor,
             let commandBuffer = commandQueue.makeCommandBuffer(),
             let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) {
 
             renderSemaphore.wait()
+            
+            input?.processIfNeeded()
             
             commandEncoder.setRenderPipelineState(pipeline)
             commandEncoder.setVertexBuffer(self.vertexBuffer, offset: 0, index: 0)

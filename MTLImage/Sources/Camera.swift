@@ -50,7 +50,7 @@ class Camera: NSObject, Input, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
                 mediaType: mediaType,
                 position: position
             )
-            
+                        
             return session.devices.first
         }
         
@@ -288,7 +288,7 @@ class Camera: NSObject, Input, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
         CVMetalTextureCacheCreate(kCFAllocatorSystemDefault, nil, device, nil, &textureCache)
         
         session = AVCaptureSession()
-        session.sessionPreset = AVCaptureSession.Preset.photo
+        session.sessionPreset = AVCaptureSession.Preset.high
         
         captureDevice = mode.device()
         if captureDevice == nil {

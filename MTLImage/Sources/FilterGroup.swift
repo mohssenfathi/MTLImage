@@ -142,22 +142,8 @@ class FilterGroup: MTLObject, NSCoding {
     
     public func move(_ fromIndex: Int, toIndex: Int) {
         if fromIndex == toIndex { return }
-        
-        swap(&filters[fromIndex], &filters[toIndex])
+        filters.swapAt(fromIndex, toIndex)
         rebuildFilterChain()
-        
-        //        let filter = filters[fromIndex]
-        //        remove(filter)
-        //
-        //        var index = toIndex
-        //        index -= (toIndex > fromIndex) ? 1 : 0
-        //
-        //        insert(filter, index: index)
-        //
-        //        filters.last?.removeAllTargets()
-        //        for target in targets {
-        //            filters.last?.addTarget(target)
-        //        }
     }
     
     func rebuildFilterChain() {

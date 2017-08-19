@@ -129,6 +129,8 @@ class Filter: MTLObject, NSCoding {
         
         autoreleasepool {
             
+            context.semaphore.wait()
+            
             let w = pipeline.threadExecutionWidth
             let h = pipeline.maxTotalThreadsPerThreadgroup / w
             let threadsPerThreadgroup = MTLSizeMake(w, h, 1)
@@ -146,6 +148,8 @@ class Filter: MTLObject, NSCoding {
             
             commandBuffer.addCompletedHandler({ (commandBuffer) in
                 
+                self.context.semaphore.signal()
+                
                 if self.continuousUpdate { return }
                 if let input = self.input {
                     if input.continuousUpdate { return }
@@ -155,7 +159,7 @@ class Filter: MTLObject, NSCoding {
             })
             
             commandBuffer.commit()
-            commandBuffer.waitUntilCompleted()
+//            commandBuffer.waitUntilCompleted()
         }
     }
     

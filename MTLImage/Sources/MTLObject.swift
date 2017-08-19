@@ -17,7 +17,7 @@ public class MTLObject: NSObject, Output {
             if needsUpdate == true {
                 for target in targets {
                     if let object = target as? MTLObject {
-                        object.needsUpdate = true
+                        object.setNeedsUpdate()
                     }
                     else if let view = target as? View {
                         view.setNeedsDisplay()
@@ -27,11 +27,12 @@ public class MTLObject: NSObject, Output {
         }
     }
     
+    func setNeedsUpdate() {
+        needsUpdate = true
+    }
+    
     public var continuousUpdate: Bool {
-        guard let input = input else {
-            return false
-        }
-        return input.continuousUpdate
+        return input?.continuousUpdate ?? false
     }
     
     public func processIfNeeded() {

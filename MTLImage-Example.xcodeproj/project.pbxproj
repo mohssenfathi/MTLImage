@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4523775B1F48FA5800CAF4E9 /* FPSCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4523775A1F48FA5800CAF4E9 /* FPSCounter.swift */; };
 		45FE6E471F48E9C7005A85D5 /* Blend.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45FE6E2D1F48E95E005A85D5 /* Blend.metal */; };
 		45FE6E481F48E9C7005A85D5 /* Brightness.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45FE6E301F48E95E005A85D5 /* Brightness.metal */; };
 		45FE6E491F48E9C7005A85D5 /* Camera.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45FE6E111F48E95C005A85D5 /* Camera.metal */; };
@@ -214,6 +215,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4523775A1F48FA5800CAF4E9 /* FPSCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPSCounter.swift; sourceTree = "<group>"; };
 		45FE6E0F1F48E95B005A85D5 /* Levels.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Levels.metal; sourceTree = "<group>"; };
 		45FE6E101F48E95B005A85D5 /* Kuwahara.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Kuwahara.metal; sourceTree = "<group>"; };
 		45FE6E111F48E95C005A85D5 /* Camera.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Camera.metal; sourceTree = "<group>"; };
@@ -659,6 +661,7 @@
 		E06480BB1EF4615400579E21 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4523775A1F48FA5800CAF4E9 /* FPSCounter.swift */,
 				E06480F71EF4622D00579E21 /* Tools */,
 				E06480BC1EF4615400579E21 /* Camera.swift */,
 				E06480BD1EF4615400579E21 /* CloudKit */,
@@ -964,6 +967,7 @@
 				E06481011EF4623300579E21 /* Extensions.swift in Sources */,
 				45FE6E601F48E9C7005A85D5 /* LineDetection.metal in Sources */,
 				E06480E61EF4617100579E21 /* MTLFilterRecord.swift in Sources */,
+				4523775B1F48FA5800CAF4E9 /* FPSCounter.swift in Sources */,
 				E06480EE1EF4617100579E21 /* MTLImage.swift in Sources */,
 				E064809D1EF4612700579E21 /* NonMaximumSuppression.swift in Sources */,
 				E06480B21EF4612700579E21 /* Transform.swift in Sources */,
