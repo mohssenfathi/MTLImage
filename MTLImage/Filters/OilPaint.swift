@@ -13,7 +13,7 @@ struct OilPaintUniforms: Uniforms {
 }
 
 public
-class OilPaint: MTLFilter {
+class OilPaint: Filter {
     
     var uniforms = OilPaintUniforms()
     
@@ -27,7 +27,7 @@ class OilPaint: MTLFilter {
     public init() {
         super.init(functionName: "oilPaint")
         title = "Oil Paint"
-        properties = [MTLProperty(key: "wobble", title: "Wobble")]
+        properties = [Property(key: "wobble", title: "Wobble")]
         update()
     }
     

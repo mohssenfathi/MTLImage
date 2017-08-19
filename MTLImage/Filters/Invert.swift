@@ -9,7 +9,7 @@
 import UIKit
 
 public
-class Invert: MTLFilter {
+class Invert: Filter {
     
     public init() {
         super.init(functionName: "invert")

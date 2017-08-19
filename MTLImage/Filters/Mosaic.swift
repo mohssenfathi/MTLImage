@@ -13,7 +13,7 @@ struct MosaicUniforms: Uniforms {
 }
 
 public
-class Mosaic: MTLFilter {
+class Mosaic: Filter {
     
     var uniforms = MosaicUniforms()
     
@@ -27,7 +27,7 @@ class Mosaic: MTLFilter {
     public init() {
         super.init(functionName: "mosaic")
         title = "Mosaic"
-        properties = [MTLProperty(key: "intensity", title: "Intensity")]
+        properties = [Property(key: "intensity", title: "Intensity")]
         update()
     }
     

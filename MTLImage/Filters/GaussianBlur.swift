@@ -33,7 +33,7 @@ class GaussianBlur: MPS {
     
     func commonInit() {
         title = "Gaussian Blur"
-        properties = [MTLProperty(key: "sigma", title: "Sigma")]
+        properties = [Property(key: "sigma", title: "Sigma")]
         sigma = 0.5
     }
 

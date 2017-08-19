@@ -13,7 +13,7 @@ struct SobelEdgeDetectionUniforms: Uniforms {
 }
 
 public
-class SobelEdgeDetection: MTLFilter {
+class SobelEdgeDetection: Filter {
     
     var uniforms = SobelEdgeDetectionUniforms()
     
@@ -27,7 +27,7 @@ class SobelEdgeDetection: MTLFilter {
     public init() {
         super.init(functionName: "sobelEdgeDetection")
         title = "Sobel Edge Detection"
-        properties = [MTLProperty(key: "edgeStrength", title: "Edge Strength")]
+        properties = [Property(key: "edgeStrength", title: "Edge Strength")]
         update()
     }
     

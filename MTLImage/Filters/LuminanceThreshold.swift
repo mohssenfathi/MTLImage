@@ -13,7 +13,7 @@ struct LuminanceThresholdUniforms : Uniforms{
 }
 
 public
-class LuminanceThreshold: MTLFilter {
+class LuminanceThreshold: Filter {
     
     var uniforms = LuminanceThresholdUniforms()
     
@@ -27,7 +27,7 @@ class LuminanceThreshold: MTLFilter {
     public init() {
         super.init(functionName: "luminanceThreshold")
         title = "Luminance Threshold"
-        properties = [MTLProperty(key: "threshold", title: "Threshold")]
+        properties = [Property(key: "threshold", title: "Threshold")]
         update()
     }
     

@@ -11,7 +11,7 @@ struct BrightnessUniforms: Uniforms {
 }
 
 public
-class Brightness: MTLFilter {
+class Brightness: Filter {
 
     var uniforms = BrightnessUniforms()
     
@@ -25,8 +25,8 @@ class Brightness: MTLFilter {
     public init() {
         super.init(functionName: "brightness")
         title = "Brightness"
-        properties = [MTLProperty(key: "brightness", title: "Brightness")]
-//        properties = [MTLProperty(keyPath: \Brightness.brightness, title: "Brightness")]
+        properties = [Property(key: "brightness", title: "Brightness")]
+//        properties = [Property(keyPath: \Brightness.brightness, title: "Brightness")]
         update()
     }
     

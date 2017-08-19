@@ -19,7 +19,7 @@ struct WaterUniforms: Uniforms {
 }
 
 public
-class Water: MTLFilter {
+class Water: Filter {
     var uniforms = WaterUniforms()
     
     public var speed: Float = 0.5 {
@@ -59,12 +59,12 @@ class Water: MTLFilter {
     public init() {
         super.init(functionName: "water")
         title = "Water"
-        properties = [MTLProperty(key: "speed",     title: "Speed"    ),
-                      MTLProperty(key: "frequency", title: "Frequency"),
-                      MTLProperty(key: "intensity", title: "Intensity"),
-                      MTLProperty(key: "emboss",    title: "Enboss"   ),
-                      MTLProperty(key: "delta",     title: "Delta"    ),
-                      MTLProperty(key: "intence",   title: "Intence"  )]
+        properties = [Property(key: "speed",     title: "Speed"    ),
+                      Property(key: "frequency", title: "Frequency"),
+                      Property(key: "intensity", title: "Intensity"),
+                      Property(key: "emboss",    title: "Enboss"   ),
+                      Property(key: "delta",     title: "Delta"    ),
+                      Property(key: "intence",   title: "Intence"  )]
         update()
     }
     

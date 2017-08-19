@@ -54,7 +54,7 @@ class AddFilterViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.row == 0 {
-            delegate?.addFilterViewControllerDidSelectFilter(self, filter: MTLFilterGroup())
+            delegate?.addFilterViewControllerDidSelectFilter(self, filter: FilterGroup())
             dismiss(animated: true, completion: nil)
             return
         }

@@ -13,7 +13,7 @@ struct PerlinNoiseUniforms: Uniforms {
 }
 
 public
-class PerlinNoise: MTLFilter {
+class PerlinNoise: Filter {
     
     var uniforms = PerlinNoiseUniforms()
     
@@ -27,7 +27,7 @@ class PerlinNoise: MTLFilter {
     public init() {
         super.init(functionName: "perlinNoise")
         title = "Perlin Noise"
-        properties = [MTLProperty(key: "scale", title: "Scale")]
+        properties = [Property(key: "scale", title: "Scale")]
         update()
     }
     

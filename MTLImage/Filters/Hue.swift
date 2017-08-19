@@ -13,7 +13,7 @@ struct HueUniforms: Uniforms {
 }
 
 public
-class Hue: MTLFilter {
+class Hue: Filter {
     
     var uniforms = HueUniforms()
     
@@ -27,7 +27,7 @@ class Hue: MTLFilter {
     public init() {
         super.init(functionName: "hue")
         title = "Hue"
-        properties = [MTLProperty(key: "hue", title: "Hue")]
+        properties = [Property(key: "hue", title: "Hue")]
         update()
     }
     

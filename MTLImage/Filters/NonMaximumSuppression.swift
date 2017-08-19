@@ -16,7 +16,7 @@ struct NonMaximumSuppressionUniforms: Uniforms {
 }
 
 public
-class NonMaximumSuppression: MTLFilter {
+class NonMaximumSuppression: Filter {
     
     var uniforms = NonMaximumSuppressionUniforms()
     
@@ -39,8 +39,8 @@ class NonMaximumSuppression: MTLFilter {
     public init() {
         super.init(functionName: "nonMaximumSuppression")
         title = "Non Maximum Suppression"
-        properties = [MTLProperty(key: "lowerThreshold", title: "Lower Threshold"),
-                      MTLProperty(key: "upperThreshold", title: "Upper Threshold")]
+        properties = [Property(key: "lowerThreshold", title: "Lower Threshold"),
+                      Property(key: "upperThreshold", title: "Upper Threshold")]
         update()
     }
     
@@ -69,7 +69,7 @@ struct NonMaximumSuppressionThreshodUniforms: Uniforms {
 }
 
 public
-class NonMaximumSuppressionThreshod: MTLFilter {
+class NonMaximumSuppressionThreshod: Filter {
     
     var uniforms = NonMaximumSuppressionThreshodUniforms()
     
@@ -83,7 +83,7 @@ class NonMaximumSuppressionThreshod: MTLFilter {
     public init() {
         super.init(functionName: "nonMaximumSuppressionThreshold")
         title = "Non Maximum Suppression Threshold"
-        properties = [MTLProperty(key: "threshold", title: "Threshold")]
+        properties = [Property(key: "threshold", title: "Threshold")]
         update()
     }
     

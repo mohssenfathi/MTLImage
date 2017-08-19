@@ -14,7 +14,7 @@ protocol Numeric {
     static func +(left: Self, right: Self) -> Self
     static func *(left: Self, right: Self) -> Self
     static func /(left: Self, right: Self) -> Self
-    static func %(left: Self, right: Self) -> Self
+//    static func %(left: Self, right: Self) -> Self
     static prefix func -(value: Self) -> Self
     init(_ f: Float)
     init(_ i: Int)

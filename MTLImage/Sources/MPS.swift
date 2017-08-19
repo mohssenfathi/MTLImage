@@ -7,10 +7,10 @@
 //
 
 import UIKit
-import  MetalPerformanceShaders
+import MetalPerformanceShaders
 
 public
-class MPS: MTLFilter {
+class MPS: Filter {
     
     var kernel: MPSKernel!
 
@@ -24,14 +24,15 @@ class MPS: MTLFilter {
     
     public override func process() {
         
-        guard let inputTexture = input?.texture, let texture = texture else { return }
+        guard let inputTexture = input?.texture,
+            let texture = texture,
+            let commandBuffer = context.commandQueue.makeCommandBuffer() else { return }
         
         input?.processIfNeeded()
         
         autoreleasepool {
             
-            let commandBuffer = context.commandQueue.makeCommandBuffer()
-            commandBuffer.label = "MTLFilter: " + title
+            commandBuffer.label = "Filter: " + title
             
             (kernel as? MPSUnaryImageKernel)?.encode(commandBuffer: commandBuffer, sourceTexture: inputTexture, destinationTexture: texture)
 

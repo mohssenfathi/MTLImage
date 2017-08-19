@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CannyEdgeDetection: MTLFilterGroup {
+class CannyEdgeDetection: FilterGroup {
     
     let saturationFilter = Saturation()
     let edgeDetectionFilter = SobelEdgeDetection()

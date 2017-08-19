@@ -13,7 +13,7 @@ struct HistogramUniforms {
 }
 
 public
-class Histogram: MTLFilter {
+class Histogram: Filter {
     
     var uniforms = HistogramUniforms()
 

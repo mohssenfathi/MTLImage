@@ -25,8 +25,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var selectedFilter: MTLObject!
     var delegate: FiltersViewControllerDelegate?
     var filterNames = MTLImage.filters.sorted()
-    var savedFilterGroups: [MTLFilterGroup]!
-    var filterGroup: MTLFilterGroup!
+    var savedFilterGroups: [FilterGroup]!
+    var filterGroup: FilterGroup!
     var newFilterSeleced: Bool!
     
     override func viewDidLoad() {
@@ -47,7 +47,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
 //        let path = NSBundle.mainBundle().pathForResource("Retro", ofType: "")
 //        let data = NSData(contentsOfFile: path!)
-//        let filterGroup = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! MTLFilterGroup
+//        let filterGroup = NSKeyedUnarchiver.unarchiveObjectWithData(data!) as! FilterGroup
 //        savedFilterGroups.append(filterGroup)
     }
     
@@ -122,7 +122,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if (indexPath as NSIndexPath).section == 0 {
             if indexPath.row == savedFilterGroups.count {
-                filterGroup = MTLFilterGroup()
+                filterGroup = FilterGroup()
                 newFilterSeleced = true
             } else {
                 filterGroup = savedFilterGroups[indexPath.row]
@@ -137,13 +137,13 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             let title = filterNames[indexPath.row]
             let object = try! MTLImage.filter(title)
             
-            if object is MTLFilter {
-                selectedFilter = object as! MTLFilter
+            if object is Filter {
+                selectedFilter = object as! Filter
                 delegate?.filtersViewControllerDidSelectFilter(self, filter: selectedFilter)
                 self.performSegue(withIdentifier: "settings", sender: self)
             }
-            else if object is MTLFilterGroup {
-                selectedFilter = object as! MTLFilterGroup
+            else if object is FilterGroup {
+                selectedFilter = object as! FilterGroup
                 delegate?.filtersViewControllerDidSelectFilterGroup(self, filterGroup: selectedFilter)
                 performSegue(withIdentifier: "filterGroup", sender: self)
             }
@@ -205,12 +205,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 
         if segue.identifier == "settings" {
             settingsViewController = segue.destination as? SettingsViewController
-            settingsViewController?.filter = selectedFilter as! MTLFilter!
+            settingsViewController?.filter = selectedFilter as! Filter!
         }
         else if segue.identifier == "filterGroup" {
             filterGroupViewController = segue.destination as? FilterGroupViewController
-            if selectedFilter is MTLFilterGroup {
-                filterGroupViewController?.filterGroup = selectedFilter as! MTLFilterGroup
+            if selectedFilter is FilterGroup {
+                filterGroupViewController?.filterGroup = selectedFilter as! FilterGroup
             } else {
                 filterGroupViewController?.filterGroup = filterGroup
                 filterGroupViewController?.isNewFilter = newFilterSeleced

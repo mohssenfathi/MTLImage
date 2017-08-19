@@ -15,7 +15,7 @@ struct PixellateUniforms: Uniforms {
 }
 
 public
-class Pixellate: MTLFilter {
+class Pixellate: Filter {
 
     var uniforms = PixellateUniforms()
     var imageSize: CGSize?
@@ -30,7 +30,7 @@ class Pixellate: MTLFilter {
     public init() {
         super.init(functionName: "pixellate")
         title = "Pixellate"
-        properties = [MTLProperty(key: "dotRadius", title: "Dot Radius")]
+        properties = [Property(key: "dotRadius", title: "Dot Radius")]
         update()
     }
     

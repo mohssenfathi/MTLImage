@@ -1,5 +1,5 @@
 //
-//  MTLFilter.swift
+//  Filter.swift
 //  Pods
 //
 //  Created by Mohammad Fathi on 3/10/16.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-func ==(left: MTLFilter, right: MTLFilter) -> Bool {
+func ==(left: Filter, right: Filter) -> Bool {
     return left.identifier == right.identifier
 }
 
 public
-class MTLFilter: MTLObject, NSCoding {
+class Filter: MTLObject, NSCoding {
     
     var propertyValues = [String : Any]()
     var pipeline: MTLComputePipelineState!
@@ -23,12 +23,12 @@ class MTLFilter: MTLObject, NSCoding {
     
     // MARK: - Uniforms
     var uniformsBuffer: MTLBuffer?
-    var bufferProvider: MTLBufferProvider? = nil
+    var bufferProvider: BufferProvider? = nil
     
     func updateUniforms<U: Uniforms>(uniforms: U) {
         
         if bufferProvider == nil {
-            bufferProvider = MTLBufferProvider(device: context.device, bufferSize: MemoryLayout<U>.size)
+            bufferProvider = BufferProvider(device: context.device, bufferSize: MemoryLayout<U>.size)
         }
         
         var uni = uniforms
@@ -53,18 +53,18 @@ class MTLFilter: MTLObject, NSCoding {
         self.functionName = name
     }
     
-    var outputView: MTLView? {
+    var outputView: View? {
         get {
             // This only checks first target for now. Do DFS later
             var out: Output? = targets.first
             while out != nil {
-                if let filter = out as? MTLFilter {
+                if let filter = out as? Filter {
                     out = filter.targets.first
                 }
-                else if let filterGroup = out as? MTLFilterGroup {
+                else if let filterGroup = out as? FilterGroup {
                     out = filterGroup.targets.first
                 }
-                else if let mtlView = out as? MTLView {
+                else if let mtlView = out as? View {
                     return mtlView
                 }
             }
@@ -73,11 +73,11 @@ class MTLFilter: MTLObject, NSCoding {
     }
     
     var functionName: String!
-    public var properties = [MTLProperty]()
+    public var properties = [Property]()
     
     public var originalImage: UIImage? {
         get {
-            if let picture = source as? MTLPicture {
+            if let picture = source as? Picture {
                 return picture.image
             }
             return nil
@@ -95,7 +95,7 @@ class MTLFilter: MTLObject, NSCoding {
     
     public func reset() {
         for property in properties {
-            if property.propertyType == MTLPropertyType.value {
+            if property.propertyType == Property.PropertyType.value {
                 self.setValue(0.5, forKey: property.key)
             }
         }
@@ -121,7 +121,9 @@ class MTLFilter: MTLObject, NSCoding {
     
     public override func process() {
         
-        guard let inputTexture = input?.texture else { return }
+        guard let inputTexture = input?.texture,
+            let commandBuffer = context.commandQueue.makeCommandBuffer(),
+            let commandEncoder = commandBuffer.makeComputeCommandEncoder() else { return }
         
         input?.processIfNeeded()
         
@@ -132,9 +134,6 @@ class MTLFilter: MTLObject, NSCoding {
             let threadsPerThreadgroup = MTLSizeMake(w, h, 1)
             let threadgroupsPerGrid = MTLSize(width: (inputTexture.width + w - 1) / w, height: (inputTexture.height + h - 1) / h, depth: 1)
             
-            let commandBuffer = context.commandQueue.makeCommandBuffer()
-            
-            let commandEncoder = commandBuffer.makeComputeCommandEncoder()
             commandEncoder.setComputePipelineState(pipeline)
             commandEncoder.setBuffer(uniformsBuffer, offset: 0, index: 0)
             commandEncoder.setTexture(inputTexture, index: 0)
@@ -174,8 +173,8 @@ class MTLFilter: MTLObject, NSCoding {
     
     public func filter(_ image: UIImage) -> UIImage? {
         
-        let sourcePicture = MTLPicture(image: image)
-        let filterCopy = self.copy() as! MTLFilter
+        let sourcePicture = Picture(image: image)
+        let filterCopy = self.copy() as! Filter
         sourcePicture --> filterCopy
         
         filterCopy.needsUpdate = true
@@ -201,7 +200,7 @@ class MTLFilter: MTLObject, NSCoding {
     
     public override func copy() -> Any {
         
-        let filter = try! MTLImage.filter(title.lowercased()) as! MTLFilter
+        let filter = try! MTLImage.filter(title.lowercased()) as! Filter
         
         filter.functionName = functionName
         filter.title = title
@@ -253,7 +252,7 @@ class MTLFilter: MTLObject, NSCoding {
         
         functionName = aDecoder.decodeObject(forKey: "functionName") as! String
         identifier   = aDecoder.decodeObject(forKey: "identifier") as! String
-        properties   = aDecoder.decodeObject(forKey: "properties") as! [MTLProperty]
+        properties   = aDecoder.decodeObject(forKey: "properties") as! [Property]
         propertyValues = aDecoder.decodeObject(forKey: "propertyValues") as! [String : AnyObject]
         for property in properties {
             setValue(propertyValues[property.key], forKey: property.key)

@@ -14,7 +14,7 @@ struct HazeUniforms: Uniforms {
 }
 
 public
-class Haze: MTLFilter {
+class Haze: Filter {
     
     var uniforms = HazeUniforms()
     
@@ -28,7 +28,7 @@ class Haze: MTLFilter {
     public init() {
         super.init(functionName: "haze")
         title = "Haze"
-        properties = [MTLProperty(key: "fade", title: "Fade")]
+        properties = [Property(key: "fade", title: "Fade")]
         update()
     }
     

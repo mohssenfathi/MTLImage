@@ -13,7 +13,7 @@ struct TransformUniforms: Uniforms {
 }
 
 public
-class Transform: MTLFilter {
+class Transform: Filter {
 
     var transform: CGAffineTransform = CGAffineTransform.identity { // CGAffineTransform(rotationAngle: CGFloat.pi/4) {
         didSet {
@@ -48,8 +48,8 @@ class Transform: MTLFilter {
     public init() {
         super.init(functionName: "transform")
         title = "Transform"
-        properties = [MTLProperty(key: "scale", title: "Scale"),
-                      MTLProperty(key: "angle", title: "Rotation")]
+        properties = [Property(key: "scale", title: "Scale"),
+                      Property(key: "angle", title: "Rotation")]
         update()
     }
     

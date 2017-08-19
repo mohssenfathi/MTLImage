@@ -24,7 +24,7 @@ struct MTLLensFlareUniforms: Uniforms {
 }
 
 public
-class LensFlare: MTLFilter {
+class LensFlare: Filter {
     
     var uniforms = MTLLensFlareUniforms()
     
@@ -62,11 +62,11 @@ class LensFlare: MTLFilter {
     public init() {
         super.init(functionName: "lensFlare")
         title = "Lens Flare"
-        properties = [MTLProperty(key: "color"     , title: "Color"   , propertyType: .color),
-                      MTLProperty(key: "center"    , title: "Center"  , propertyType: .point),
-                      MTLProperty(key: "angle"     , title: "Angle"   , propertyType: .point),
-                      MTLProperty(key: "showSun"   , title: "Show Sun", propertyType: .bool ),
-                      MTLProperty(key: "brightness", title: "Brightness")]
+        properties = [Property(key: "color"     , title: "Color"   , propertyType: .color),
+                      Property(key: "center"    , title: "Center"  , propertyType: .point),
+                      Property(key: "angle"     , title: "Angle"   , propertyType: .point),
+                      Property(key: "showSun"   , title: "Show Sun", propertyType: .bool ),
+                      Property(key: "brightness", title: "Brightness")]
         update()
     }
     

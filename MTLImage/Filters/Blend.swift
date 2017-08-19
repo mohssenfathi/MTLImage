@@ -51,7 +51,7 @@ public enum BlendMode: Int {
 }
 
 public
-class Blend: MTLFilter {
+class Blend: Filter {
     
     var uniforms = BlendUniforms()
     
@@ -122,7 +122,7 @@ class Blend: MTLFilter {
             default: break
             }
             
-            let input = MTLPicture(image: image)
+            let input = Picture(image: image)
             input.processingSize = context.processingSize
             add(input: input, at: 1)
             needsUpdate = true
@@ -134,14 +134,14 @@ class Blend: MTLFilter {
         title = "Blend"
         uniforms.mix = 1.0 - mix
         
-        let blendModeProperty = MTLProperty(key: "blendMode", title: "Blend Mode", propertyType: .selection)
+        let blendModeProperty = Property(key: "blendMode", title: "Blend Mode", propertyType: .selection)
         blendModeProperty.selectionItems = blendModes
         
-        let contentModeProperty = MTLProperty(key: "contentMode", title: "Content Mode", propertyType: .selection)
+        let contentModeProperty = Property(key: "contentMode", title: "Content Mode", propertyType: .selection)
         contentModeProperty.selectionItems = contentModes
         
-        properties = [MTLProperty(key: "blendImage", title: "Blend Image", propertyType: .image),
-                      MTLProperty(key: "mix", title: "Mix"),
+        properties = [Property(key: "blendImage", title: "Blend Image", propertyType: .image),
+                      Property(key: "mix", title: "Mix"),
                       blendModeProperty, contentModeProperty]
         update()
     }

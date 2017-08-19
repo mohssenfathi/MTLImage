@@ -35,9 +35,9 @@ class LanczosScale: MPS {
     func commonInit() {
         
         title = "Lanczos Scale"
-        properties = [MTLProperty(key: "scale", title: "Scale")] //,
-//                      MTLProperty(key: "width", title: "Width"),
-//                      MTLProperty(key: "height", title: "Height")]
+        properties = [Property(key: "scale", title: "Scale")] //,
+//                      Property(key: "width", title: "Width"),
+//                      Property(key: "height", title: "Height")]
         
         transformPointer = withUnsafePointer(to: &scaleTransform, { (pointer: UnsafePointer<MPSScaleTransform>) -> UnsafePointer<MPSScaleTransform>! in
             return pointer

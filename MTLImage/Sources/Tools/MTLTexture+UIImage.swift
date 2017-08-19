@@ -84,7 +84,7 @@ extension MTLTexture {
     func copy(device: MTLDevice) -> MTLTexture {
         let data = bytes()!
         let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelFormat, width: width, height: height, mipmapped: false)
-        let copy = device.makeTexture(descriptor: descriptor)
+        let copy = device.makeTexture(descriptor: descriptor)!
         copy.replace(region: MTLRegionMake2D(0, 0, width, height), mipmapLevel: 0, withBytes: data, bytesPerRow: MemoryLayout<Float>.size * width)
         free(data)
         return copy

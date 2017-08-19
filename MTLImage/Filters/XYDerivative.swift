@@ -13,7 +13,7 @@ struct XYDerivativeUniforms: Uniforms {
 }
 
 public
-class XYDerivative: MTLFilter {
+class XYDerivative: Filter {
     
     var uniforms = XYDerivativeUniforms()
     
@@ -27,7 +27,7 @@ class XYDerivative: MTLFilter {
     public init() {
         super.init(functionName: "xyDerivative")
         title = "XY Derivative"
-        properties = [MTLProperty(key: "edgeStrength", title: "Edge Strength")]
+        properties = [Property(key: "edgeStrength", title: "Edge Strength")]
         update()
     }
     

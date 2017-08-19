@@ -17,7 +17,7 @@ struct LevelsUniforms: Uniforms {
 }
 
 public
-class Levels: MTLFilter {
+class Levels: Filter {
     var uniforms = LevelsUniforms()
     
     public var min: Float = 0.0 {
@@ -66,11 +66,11 @@ class Levels: MTLFilter {
     public init() {
         super.init(functionName: "levels")
         title = "Levels"
-        properties = [MTLProperty(key: "min"   , title: "Minimum"       ),
-                      MTLProperty(key: "mid"   , title: "Middle"        ),
-                      MTLProperty(key: "max"   , title: "Maximum"       ),
-                      MTLProperty(key: "minOut", title: "Minimum Output"),
-                      MTLProperty(key: "maxOut", title: "Maximum Output")]
+        properties = [Property(key: "min"   , title: "Minimum"       ),
+                      Property(key: "mid"   , title: "Middle"        ),
+                      Property(key: "max"   , title: "Maximum"       ),
+                      Property(key: "minOut", title: "Minimum Output"),
+                      Property(key: "maxOut", title: "Maximum Output")]
         update()
     }
     

@@ -15,7 +15,7 @@ struct HSVUniforms: Uniforms {
 }
 
 public
-class HSV: MTLFilter {
+class HSV: Filter {
     
     var uniforms = HSVUniforms()
     
@@ -43,9 +43,9 @@ class HSV: MTLFilter {
     public init() {
         super.init(functionName: "hsv")
         title = "HSV"
-        properties = [MTLProperty(key: "hue"       , title: "Hue"),
-                      MTLProperty(key: "saturation", title: "Saturation"),
-                      MTLProperty(key: "vibrancy"  , title: "Vibrancy")]
+        properties = [Property(key: "hue"       , title: "Hue"),
+                      Property(key: "saturation", title: "Saturation"),
+                      Property(key: "vibrancy"  , title: "Vibrancy")]
         update()
     }
     

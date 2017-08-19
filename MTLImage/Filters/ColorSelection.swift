@@ -20,20 +20,20 @@ struct ColorSelectionUniforms: Uniforms {
 }
 
 public
-class ColorSelection: MTLFilter {
+class ColorSelection: Filter {
     var uniforms = ColorSelectionUniforms()
     
     public init() {
         super.init(functionName: "colorSelection")
         title = "Color Selection"
-        properties = [MTLProperty(key: "red"    , title: "Red"    ),
-                      MTLProperty(key: "orange" , title: "Orange" ),
-                      MTLProperty(key: "yellow" , title: "Yellow" ),
-                      MTLProperty(key: "green"  , title: "Green"  ),
-                      MTLProperty(key: "aqua"   , title: "Aqua"   ),
-                      MTLProperty(key: "blue"   , title: "Blue"   ),
-                      MTLProperty(key: "purple" , title: "Purple" ),
-                      MTLProperty(key: "magenta", title: "Magenta")]
+        properties = [Property(key: "red"    , title: "Red"    ),
+                      Property(key: "orange" , title: "Orange" ),
+                      Property(key: "yellow" , title: "Yellow" ),
+                      Property(key: "green"  , title: "Green"  ),
+                      Property(key: "aqua"   , title: "Aqua"   ),
+                      Property(key: "blue"   , title: "Blue"   ),
+                      Property(key: "purple" , title: "Purple" ),
+                      Property(key: "magenta", title: "Magenta")]
     }
     
     required public init?(coder aDecoder: NSCoder) {

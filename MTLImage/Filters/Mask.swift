@@ -13,7 +13,7 @@ struct MaskUniforms: Uniforms {
 }
 
 public
-class Mask: MTLFilter {
+class Mask: Filter {
 
     var uniforms = MaskUniforms()
     
@@ -51,10 +51,10 @@ class Mask: MTLFilter {
         
         title = "Mask"
         
-        properties = [MTLProperty(key: "point"    , title: "Point"      , propertyType: .point),
-                      MTLProperty(key: "add"      , title: "Add"        , propertyType: .bool),
-                      MTLProperty(key: "brushSize", title: "Brush Size"),
-                      MTLProperty(key: "hardness" , title: "Hardness"  )]
+        properties = [Property(key: "point"    , title: "Point"      , propertyType: .point),
+                      Property(key: "add"      , title: "Add"        , propertyType: .bool),
+                      Property(key: "brushSize", title: "Brush Size"),
+                      Property(key: "hardness" , title: "Hardness"  )]
                       
         
         mask = [Float](repeating: 1.0, count: Int(size.width * size.height))

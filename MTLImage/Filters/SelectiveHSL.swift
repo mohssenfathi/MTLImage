@@ -13,7 +13,7 @@ struct SelectiveHSLUniforms: Uniforms {
 }
 
 public
-class SelectiveHSL: MTLFilter {
+class SelectiveHSL: Filter {
     var uniforms = SelectiveHSLUniforms()
     
     private var adjustmentsTexture: MTLTexture?
@@ -38,17 +38,17 @@ class SelectiveHSL: MTLFilter {
         super.init(functionName: "selectiveHSL")
         title = "Selective HSL"
         
-        let modeProperty = MTLProperty(key: "mode", title: "Mode", propertyType: .selection)
+        let modeProperty = Property(key: "mode", title: "Mode", propertyType: .selection)
         modeProperty.selectionItems = [0 : "Hue", 1 : "Saturation", 2 : "Luminance"]
         
-        properties = [MTLProperty(key: "red"    , title: "Red"    ),
-                      MTLProperty(key: "orange" , title: "Orange" ),
-                      MTLProperty(key: "yellow" , title: "Yellow" ),
-                      MTLProperty(key: "green"  , title: "Green"  ),
-                      MTLProperty(key: "aqua"   , title: "Aqua"   ),
-                      MTLProperty(key: "blue"   , title: "Blue"   ),
-                      MTLProperty(key: "purple" , title: "Purple" ),
-                      MTLProperty(key: "magenta", title: "Magenta"),
+        properties = [Property(key: "red"    , title: "Red"    ),
+                      Property(key: "orange" , title: "Orange" ),
+                      Property(key: "yellow" , title: "Yellow" ),
+                      Property(key: "green"  , title: "Green"  ),
+                      Property(key: "aqua"   , title: "Aqua"   ),
+                      Property(key: "blue"   , title: "Blue"   ),
+                      Property(key: "purple" , title: "Purple" ),
+                      Property(key: "magenta", title: "Magenta"),
                       modeProperty]
         update()
     }

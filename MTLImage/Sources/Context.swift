@@ -12,7 +12,7 @@ import UIKit
 let useMetalib = false
 
 public
-class MTLContext: NSObject {
+class Context: NSObject {
     
     var device: MTLDevice!
     var commandQueue: MTLCommandQueue!

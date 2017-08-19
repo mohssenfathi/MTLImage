@@ -35,7 +35,7 @@ class Tent: MPS {
     
     func commonInit() {
         title = "Tent"
-        properties = [MTLProperty(key: "radius" , title: "Radius")]
+        properties = [Property(key: "radius" , title: "Radius")]
         radius = 0.5
     }
     

@@ -19,7 +19,7 @@ public class MTLObject: NSObject, Output {
                     if let object = target as? MTLObject {
                         object.needsUpdate = true
                     }
-                    else if let view = target as? MTLView {
+                    else if let view = target as? View {
                         view.setNeedsDisplay()
                     }
                 }
@@ -54,7 +54,7 @@ public class MTLObject: NSObject, Output {
             var inp: Input? = input
             while inp != nil {
                 
-                if let sourcePicture = inp as? MTLPicture {
+                if let sourcePicture = inp as? Picture {
                     return sourcePicture
                 }
                 
@@ -79,7 +79,7 @@ public class MTLObject: NSObject, Output {
         internalTargets.append(t)
         t.input = self
         
-//        if let picture = source as? MTLPicture {
+//        if let picture = source as? Picture {
 //            picture.loadTexture()
 //        }
     }
@@ -90,16 +90,16 @@ public class MTLObject: NSObject, Output {
         t.input = nil
         
         var index: Int = NSNotFound
-        if let filter = target as? MTLFilter {
+        if let filter = target as? Filter {
             for i in 0 ..< internalTargets.count {
-                if let f = internalTargets[i] as? MTLFilter {
+                if let f = internalTargets[i] as? Filter {
                     if f == filter { index = i }
                 }
             }
         }
-        else if t is MTLView {
+        else if t is View {
             for i in 0 ..< internalTargets.count {
-                if internalTargets[i] is MTLView { index = i }
+                if internalTargets[i] is View { index = i }
             }
         }
         
@@ -150,12 +150,12 @@ public class MTLObject: NSObject, Output {
 
 extension MTLObject: Input {
     
-    public var context: MTLContext {
+    public var context: Context {
         get {
             if let c = input?.context {
                 return c
             }
-            return MTLContext()
+            return Context()
         }
     }
     

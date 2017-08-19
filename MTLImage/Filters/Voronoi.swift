@@ -15,7 +15,7 @@ struct VoronoiUniforms: Uniforms {
 }
 
 public
-class Voronoi: MTLFilter {
+class Voronoi: Filter {
     
     var uniforms = VoronoiUniforms()
     
@@ -30,8 +30,8 @@ class Voronoi: MTLFilter {
     public init() {
         super.init(functionName: "voronoi")
         title = "Voronoi"
-        properties = [MTLProperty(key: "animate", title: "Animate", propertyType: .bool),
-                      MTLProperty(key: "size"   , title: "Density")]
+        properties = [Property(key: "animate", title: "Animate", propertyType: .bool),
+                      Property(key: "size"   , title: "Density")]
         update()
     }
     

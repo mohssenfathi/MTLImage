@@ -13,7 +13,7 @@ struct ContrastUniforms: Uniforms {
 }
 
 public
-class Contrast: MTLFilter {
+class Contrast: Filter {
     var uniforms = ContrastUniforms()
     
     public var contrast: Float = 0.5 {
@@ -26,7 +26,7 @@ class Contrast: MTLFilter {
     public init() {
         super.init(functionName: "contrast")
         title = "Contrast"
-        properties = [MTLProperty(key: "contrast", title: "Contrast")]
+        properties = [Property(key: "contrast", title: "Contrast")]
         update()
     }
     

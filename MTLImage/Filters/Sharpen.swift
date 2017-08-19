@@ -13,7 +13,7 @@ struct SharpenUniforms: Uniforms {
 }
 
 public
-class Sharpen: MTLFilter {
+class Sharpen: Filter {
     var uniforms = SharpenUniforms()
     
     public var sharpness: Float = 0.0 {
@@ -26,7 +26,7 @@ class Sharpen: MTLFilter {
     public init() {
         super.init(functionName: "sharpen")
         title = "Sharpen"
-        properties = [MTLProperty(key: "sharpness", title: "Sharpness")]
+        properties = [Property(key: "sharpness", title: "Sharpness")]
         update()
     }
     

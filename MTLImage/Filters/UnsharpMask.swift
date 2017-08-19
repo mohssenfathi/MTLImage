@@ -13,7 +13,7 @@ struct UnsharpMaskUniforms: Uniforms {
 }
 
 public
-class UnsharpMask: MTLFilter {
+class UnsharpMask: Filter {
     
     var uniforms = UnsharpMaskUniforms()
     let blurFilter = GaussianBlur()
@@ -36,8 +36,8 @@ class UnsharpMask: MTLFilter {
         super.init(functionName: "unsharpMask")
         
         title = "Unsharp Mask"
-        properties = [MTLProperty(key: "blurRadius", title: "Blur Radius"),
-                      MTLProperty(key: "intensity" , title: "Intensity"  ),]
+        properties = [Property(key: "blurRadius", title: "Blur Radius"),
+                      Property(key: "intensity" , title: "Intensity"  ),]
         
         update()
     }

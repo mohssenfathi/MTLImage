@@ -13,17 +13,17 @@ import Photos
 class MainViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FiltersViewControllerDelegate, MTLViewDelegate {
     
     @IBOutlet weak var selectPhotoButton: UIBarButtonItem!
-    @IBOutlet weak var mtlView: MTLView!
+    @IBOutlet weak var mtlView: View!
     @IBOutlet weak var filtersBar: UIView!
     @IBOutlet weak var filtersContainer: UIView!
     @IBOutlet weak var filtersContainerHeight: NSLayoutConstraint!
     @IBOutlet var flipButton: UIBarButtonItem!
     @IBOutlet var actionButton: UIBarButtonItem!
     
-    var filterGroup = MTLFilterGroup()
+    var filterGroup = FilterGroup()
     var filtersViewController: FiltersViewController!
-    var sourcePicture: MTLPicture!
-    var secondSourcePicture: MTLPicture!
+    var sourcePicture: Picture!
+    var secondSourcePicture: Picture!
     var camera: Camera = Camera()
     var currentInput: Input!
     var canDrag: Bool = false
@@ -43,7 +43,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         self.navigationItem.leftBarButtonItems = nil
         
-        sourcePicture = MTLPicture(image: image)
+        sourcePicture = Picture(image: image)
         sourcePicture.setProcessingSize(CGSize(width: 400, height: 400), respectAspectRatio: true)
         
         mtlView.delegate = self
@@ -96,20 +96,20 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
 //    MARK: - MTLView Delegate
     
-    func mtlViewTouchesBegan(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
+    func mtlViewTouchesBegan(_ sender: View, touches: Set<UITouch>, event: UIEvent?) {
         let touch: UITouch = touches.first! as UITouch
         let location = touch.location(in: sender)
         filtersViewController.handleTouchAtLocation(location)
     }
     
-    func mtlViewTouchesMoved(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
+    func mtlViewTouchesMoved(_ sender: View, touches: Set<UITouch>, event: UIEvent?) {
         let touch: UITouch = touches.first! as UITouch
         let location = touch.location(in: sender)
         filtersViewController.handleTouchAtLocation(location)
         
     }
     
-    func mtlViewTouchesEnded(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?) {
+    func mtlViewTouchesEnded(_ sender: View, touches: Set<UITouch>, event: UIEvent?) {
         
     }
     
@@ -218,7 +218,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         currentInput.removeAllTargets()
         filterGroup.removeAllTargets()
         
-        self.filterGroup = filterGroup as! MTLFilterGroup
+        self.filterGroup = filterGroup as! FilterGroup
         
         currentInput --> filterGroup --> mtlView
     }

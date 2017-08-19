@@ -11,7 +11,7 @@ struct DepthBlendUniforms: Uniforms {
 }
 
 public
-class DepthBlend: MTLFilter {
+class DepthBlend: Filter {
         
     var uniforms = DepthBlendUniforms()
     let depthRenderer = DepthRenderer()
@@ -29,7 +29,7 @@ class DepthBlend: MTLFilter {
         super.init(functionName: "depthBlend")
         blur.sigma = 0.1
         title = "Depth Blend"
-        properties = [MTLProperty(key: "lowerThreshold", title: "Lower Threshold")]
+        properties = [Property(key: "lowerThreshold", title: "Lower Threshold")]
     }
     
     public required init?(coder aDecoder: NSCoder) {

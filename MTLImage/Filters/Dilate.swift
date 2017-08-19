@@ -56,9 +56,9 @@ class Dilate: MPS {
         updateDilateValues(values)
         
         title = "Dilate"
-        properties = [MTLProperty(key: "intensity", title: "Intensity"),
-                      MTLProperty(key: "width", title: "Width"),
-                      MTLProperty(key: "height", title: "Height")]
+        properties = [Property(key: "intensity", title: "Intensity"),
+                      Property(key: "width", title: "Width"),
+                      Property(key: "height", title: "Height")]
         
         update()
     }

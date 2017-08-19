@@ -13,7 +13,7 @@ struct StraightenUniforms: Uniforms {
 }
 
 public
-class Straighten: MTLFilter {
+class Straighten: Filter {
     
     var uniforms = StraightenUniforms()
     
@@ -28,7 +28,7 @@ class Straighten: MTLFilter {
     public init() {
         super.init(functionName: "angle")
         title = "Straighten"
-        properties = [MTLProperty(key: "angle", title: "Angle")]
+        properties = [Property(key: "angle", title: "Angle")]
         update()
     }
     

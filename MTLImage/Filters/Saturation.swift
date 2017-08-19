@@ -13,7 +13,7 @@ struct SaturationUniforms: Uniforms {
 }
 
 public
-class Saturation: MTLFilter {
+class Saturation: Filter {
     
     var uniforms = SaturationUniforms()
     
@@ -27,7 +27,7 @@ class Saturation: MTLFilter {
     public init() {
         super.init(functionName: "saturation")
         title = "Saturation"
-        properties = [MTLProperty(key: "saturation", title: "Saturation")]
+        properties = [Property(key: "saturation", title: "Saturation")]
         
         update()
     }

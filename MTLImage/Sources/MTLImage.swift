@@ -15,7 +15,7 @@ import Metal
 public protocol Input {
     
     var texture: MTLTexture? { get }
-    var context: MTLContext  { get }
+    var context: Context  { get }
     var device : MTLDevice   { get }
     var targets: [Output] { get }
     
@@ -197,12 +197,12 @@ extension MTLImage {
 //    MARK: - NSCoding
 public
 extension MTLImage {
-    public class func archive(_ filterGroup: MTLFilterGroup) -> Data? {
+    public class func archive(_ filterGroup: FilterGroup) -> Data? {
         return NSKeyedArchiver.archivedData(withRootObject: filterGroup)
     }
     
-    public class func unarchive(_ data: Data) -> MTLFilterGroup? {        
-        return NSKeyedUnarchiver.unarchiveObject(with: data) as? MTLFilterGroup
+    public class func unarchive(_ data: Data) -> FilterGroup? {        
+        return NSKeyedUnarchiver.unarchiveObject(with: data) as? FilterGroup
     }
 }
 
@@ -210,16 +210,16 @@ extension MTLImage {
 //    MARK: - CoreData
 public
 extension MTLImage {
-    public class func save(_ filterGroup: MTLFilterGroup, completion: ((_ success: Bool) -> ())?) {
-        MTLDataManager.sharedManager.save(filterGroup, completion: completion)
+    public class func save(_ filterGroup: FilterGroup, completion: ((_ success: Bool) -> ())?) {
+        DataManager.sharedManager.save(filterGroup, completion: completion)
     }
     
-    public class func remove(_ filterGroup: MTLFilterGroup, completion: ((_ success: Bool) -> ())?) {
-        MTLDataManager.sharedManager.remove(filterGroup, completion: completion)
+    public class func remove(_ filterGroup: FilterGroup, completion: ((_ success: Bool) -> ())?) {
+        DataManager.sharedManager.remove(filterGroup, completion: completion)
     }
     
-    public class func savedFilterGroups() -> [MTLFilterGroup] {
-        return MTLDataManager.sharedManager.savedFilterGroups()
+    public class func savedFilterGroups() -> [FilterGroup] {
+        return DataManager.sharedManager.savedFilterGroups()
     }
 }
 
@@ -228,7 +228,7 @@ extension MTLImage {
 public
 extension MTLImage {
 
-    public class func filterGroup(_ record: CKRecord) -> MTLFilterGroup? {
+    public class func filterGroup(_ record: CKRecord) -> FilterGroup? {
         
         let asset: CKAsset = record["filterData"] as! CKAsset
         guard let data = try? Data(contentsOf: asset.fileURL) else {
@@ -238,8 +238,8 @@ extension MTLImage {
         return MTLImage.unarchive(data)
     }
     
-    public class func upload(_ filterGroup: MTLFilterGroup, container: CKContainer, completion: ((_ record: CKRecord?, _ error: Error?) -> ())?) {
-        MTLCloudKitManager.sharedManager.upload(filterGroup, container: container) { (record, error) in
+    public class func upload(_ filterGroup: FilterGroup, container: CKContainer, completion: ((_ record: CKRecord?, _ error: Error?) -> ())?) {
+        CloudKitManager.sharedManager.upload(filterGroup, container: container) { (record, error) in
             completion?(record, error)
         }
     }

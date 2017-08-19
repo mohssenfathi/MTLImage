@@ -13,7 +13,7 @@ struct SobelEdgeDetectionThresholdUniforms: Uniforms {
 }
 
 public
-class SobelEdgeDetectionThreshold: MTLFilter {
+class SobelEdgeDetectionThreshold: Filter {
     
     var uniforms = SobelEdgeDetectionThresholdUniforms()
     let sobelEdgeDetectionFilter = SobelEdgeDetection()
@@ -34,8 +34,8 @@ class SobelEdgeDetectionThreshold: MTLFilter {
     public init() {
         super.init(functionName: "sobelEdgeDetectionThreshold")
         title = "Sobel Edge Detection Threshold"
-        properties = [MTLProperty(key: "threshold", title: "Threshold"),
-                      MTLProperty(key: "edgeStrength", title: "Edge Strength")]
+        properties = [Property(key: "threshold", title: "Threshold"),
+                      Property(key: "edgeStrength", title: "Edge Strength")]
         
         sobelEdgeDetectionFilter.addTarget(self)
         input = sobelEdgeDetectionFilter

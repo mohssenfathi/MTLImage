@@ -1,5 +1,5 @@
 //
-//  MTLView.swift
+//  View.swift
 //  Pods
 //
 //  Created by Mohssen Fathi on 10/13/16.
@@ -11,13 +11,13 @@ import MetalKit
 
 public
 protocol MTLViewDelegate {
-    func mtlViewTouchesBegan(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?)
-    func mtlViewTouchesMoved(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?)
-    func mtlViewTouchesEnded(_ sender: MTLView, touches: Set<UITouch>, event: UIEvent?)
+    func mtlViewTouchesBegan(_ sender: View, touches: Set<UITouch>, event: UIEvent?)
+    func mtlViewTouchesMoved(_ sender: View, touches: Set<UITouch>, event: UIEvent?)
+    func mtlViewTouchesEnded(_ sender: View, touches: Set<UITouch>, event: UIEvent?)
 }
 
 public
-class MTLView: UIView, Output {
+class View: UIView, Output {
 
     let mtkView = MTLMTKView()
     let scrollView = UIScrollView()
@@ -83,7 +83,7 @@ class MTLView: UIView, Output {
         didSet { reload() }
     }
     
-    public var title: String  = "MTLView"
+    public var title: String  = "View"
     public var identifier: String = UUID().uuidString
     
     public var isZoomEnabled = true {
@@ -102,7 +102,7 @@ class MTLView: UIView, Output {
 
 }
 
-extension MTLView: UIScrollViewDelegate {
+extension View: UIScrollViewDelegate {
     
     public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return isZoomEnabled ? mtkView : nil
@@ -139,7 +139,7 @@ class MTLMTKView: MTKView {
     
     var library: MTLLibrary?
     var contentSize: CGSize = .zero
-    weak var hostView: MTLView!
+    weak var hostView: View!
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
         super.init(frame: frameRect, device: nil)
@@ -237,13 +237,12 @@ extension MTLMTKView: MTKViewDelegate {
         }
         
         
-        if let renderPassDescriptor = view.currentRenderPassDescriptor {
+        if let renderPassDescriptor = view.currentRenderPassDescriptor,
+            let commandBuffer = commandQueue.makeCommandBuffer(),
+            let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) {
 
             renderSemaphore.wait()
             
-            let commandBuffer = commandQueue.makeCommandBuffer()
-            
-            let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
             commandEncoder.setRenderPipelineState(pipeline)
             commandEncoder.setVertexBuffer(self.vertexBuffer, offset: 0, index: 0)
             commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, index: 1)

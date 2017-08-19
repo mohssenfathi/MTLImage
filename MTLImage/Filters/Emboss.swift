@@ -21,7 +21,7 @@ class Emboss: Convolution {
     override init() {
         super.init()
         title = "Emboss"
-        properties = [MTLProperty(key: "intensity", title: "Intensity")]
+        properties = [Property(key: "intensity", title: "Intensity")]
     }
     
     required public init?(coder aDecoder: NSCoder) {

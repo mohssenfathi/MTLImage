@@ -13,7 +13,7 @@ struct ToneCurveUniforms: Uniforms {
 }
 
 public
-class ToneCurve: MTLFilter {
+class ToneCurve: Filter {
     
     var uniforms = ToneCurveUniforms()
     
@@ -132,12 +132,12 @@ class ToneCurve: MTLFilter {
         compositeCurve = getPreparedSplineCurve(compositePoints)
         
         properties = //[]
-                     [MTLProperty(key: "compositeMin", title: "Composite Min"),
-                      MTLProperty(key: "compositeMid", title: "Composite Mid"),
-                      MTLProperty(key: "compositeMax", title: "Composite Max"),
-                      MTLProperty(key: "redMid"      , title: "Red"),
-                      MTLProperty(key: "blueMid"     , title: "Blue"),
-                      MTLProperty(key: "greenMid"    , title: "Green")]
+                     [Property(key: "compositeMin", title: "Composite Min"),
+                      Property(key: "compositeMid", title: "Composite Mid"),
+                      Property(key: "compositeMax", title: "Composite Max"),
+                      Property(key: "redMid"      , title: "Red"),
+                      Property(key: "blueMid"     , title: "Blue"),
+                      Property(key: "greenMid"    , title: "Green")]
         
         update()
     }

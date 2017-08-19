@@ -7,7 +7,7 @@
 //
 
 public
-class HarrisCornerDetectionFilterGroup: MTLFilterGroup {
+class HarrisCornerDetectionFilterGroup: FilterGroup {
 
     public var corners = [CGPoint]()
     
@@ -94,7 +94,7 @@ struct HarrisCornerDetectionOutputUniforms {
 }
 
 public
-class HarrisCornerDetectionOutput: MTLFilter {
+class HarrisCornerDetectionOutput: Filter {
     
     var uniforms = HarrisCornerDetectionOutputUniforms()
     var originalTexture: MTLTexture?
@@ -128,7 +128,7 @@ struct HarrisCornerDetectionUniforms {
 }
 
 public
-class HarrisCornerDetection: MTLFilter {
+class HarrisCornerDetection: Filter {
     
     var uniforms = HarrisCornerDetectionUniforms()
     
@@ -151,8 +151,8 @@ class HarrisCornerDetection: MTLFilter {
     public init() {
         super.init(functionName: "harrisCornerDetection")
         title = "Harris Corner Detection"
-        properties = [MTLProperty(key: "sensitivity", title: "Sensitivity"),
-                      MTLProperty(key: "threshold"  , title: "Threshold"  )]
+        properties = [Property(key: "sensitivity", title: "Sensitivity"),
+                      Property(key: "threshold"  , title: "Threshold"  )]
         
         update()
     }

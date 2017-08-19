@@ -1,5 +1,5 @@
 //
-//  MTLBufferProvider.swift
+//  BufferProvider.swift
 //  Pods
 //
 //  Created by Mohssen Fathi on 9/10/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MTLBufferProvider: NSObject {
+class BufferProvider: NSObject {
 
     let inflightBuffersCount: Int = 3
     private var uniformsBuffers: [MTLBuffer]
@@ -21,8 +21,9 @@ class MTLBufferProvider: NSObject {
         self.bufferSize = bufferSize
         
         for _ in 0 ..< inflightBuffersCount {
-            let uniformsBuffer = device.makeBuffer(length: bufferSize, options: [])
-            uniformsBuffers.append(uniformsBuffer)
+            if let uniformsBuffer = device.makeBuffer(length: bufferSize, options: []) {
+                uniformsBuffers.append(uniformsBuffer)
+            }
         }
     }
     

@@ -11,7 +11,7 @@ struct DepthToGrayscaleUniforms: Uniforms {
 }
 
 public
-class DepthToGrayscale: MTLFilter {
+class DepthToGrayscale: Filter {
     
     var uniforms = DepthToGrayscaleUniforms()
     
@@ -33,8 +33,8 @@ class DepthToGrayscale: MTLFilter {
         super.init(functionName: "depthToGrayscale")
         title = "Depth To Grayscale"
         properties = [
-            MTLProperty(key: "offset", title: "Offset"),
-            MTLProperty(key: "range", title: "Range")
+            Property(key: "offset", title: "Offset"),
+            Property(key: "range", title: "Range")
         ]
     }
     

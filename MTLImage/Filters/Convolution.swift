@@ -9,7 +9,7 @@
 import UIKit
 
 public
-class Convolution: MTLFilter {
+class Convolution: Filter {
     
     private var convolutionMatrixTexture: MTLTexture?
     

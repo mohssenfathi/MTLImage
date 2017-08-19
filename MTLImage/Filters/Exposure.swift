@@ -13,7 +13,7 @@ struct ExposureUniforms: Uniforms {
 }
 
 public
-class Exposure: MTLFilter {
+class Exposure: Filter {
     
     var uniforms = ExposureUniforms()
     var uniformsMemory: UnsafeMutableRawPointer? = nil
@@ -29,7 +29,7 @@ class Exposure: MTLFilter {
     public init() {
         super.init(functionName: "exposure")
         title = "Exposure"
-        properties = [MTLProperty(key: "exposure", title: "Exposure")]
+        properties = [Property(key: "exposure", title: "Exposure")]
         update()
     }
     

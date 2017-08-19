@@ -7,7 +7,7 @@
 //
 
 public
-class HoughLineDetection: MTLFilterGroup {
+class HoughLineDetection: FilterGroup {
     
     let cannyEdgeDetection = CannyEdgeDetection()
 //    let parallelLineTransform =

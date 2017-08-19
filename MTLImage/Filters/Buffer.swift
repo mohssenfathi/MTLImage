@@ -6,7 +6,7 @@
 //
 
 public
-class Buffer: MTLFilter {
+class Buffer: Filter {
     
     var textureQueue = [MTLTexture]()
     

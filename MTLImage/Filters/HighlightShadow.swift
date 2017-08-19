@@ -14,7 +14,7 @@ struct HighlightShadowUniforms: Uniforms {
 }
 
 public
-class HighlightShadow: MTLFilter {
+class HighlightShadow: Filter {
     
     var uniforms = HighlightShadowUniforms()
     
@@ -35,8 +35,8 @@ class HighlightShadow: MTLFilter {
     public init() {
         super.init(functionName: "highlightShadow")
         title = "Highlight/Shadow"
-        properties = [MTLProperty(key: "highlights", title: "Highlights"),
-                      MTLProperty(key: "shadows"   , title: "Shadows")]
+        properties = [Property(key: "highlights", title: "Highlights"),
+                      Property(key: "shadows"   , title: "Shadows")]
         update()
     }
     

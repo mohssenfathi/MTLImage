@@ -13,7 +13,7 @@ struct SketchUniforms: Uniforms {
 }
 
 public
-class Sketch: MTLFilter {
+class Sketch: Filter {
     var uniforms = SketchUniforms()
     
     public var intensity: Float = 0.5 {
@@ -26,7 +26,7 @@ class Sketch: MTLFilter {
     public init() {
         super.init(functionName: "sketch")
         title = "Sketch"
-        properties = [MTLProperty(key: "intensity", title: "Intensity")]
+        properties = [Property(key: "intensity", title: "Intensity")]
         update()
     }
     

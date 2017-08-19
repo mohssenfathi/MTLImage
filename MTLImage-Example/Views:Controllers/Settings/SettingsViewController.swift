@@ -15,8 +15,8 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyLabel: UILabel!
     
-    var filter: MTLFilter!
-    var touchProperty: MTLProperty?
+    var filter: Filter!
+    var touchProperty: Property?
     var mainViewController: MainViewController!
     
     override func viewDidLoad() {
@@ -27,7 +27,7 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
         
         mainViewController = self.navigationController?.parent as! MainViewController
     
-        for property: MTLProperty in filter.properties {
+        for property: Property in filter.properties {
             if property.propertyType == .point {
                 touchProperty = property
                 break;
@@ -100,7 +100,7 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
         return cell
     }
     
-    func cellIdentifier(_ propertyType: MTLPropertyType) -> String {
+    func cellIdentifier(_ propertyType: Property.PropertyType) -> String {
         if      propertyType == .selection { return "pickerCell" }
         else if propertyType == .image     { return "imageCell"  }
         else if propertyType == .bool      { return "toggleCell" }
@@ -111,7 +111,7 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
         
         if cell.reuseIdentifier == "settingsCell" {
             let settingsCell: SettingsCell = cell as! SettingsCell
-            let property: MTLProperty = filter.properties[indexPath.row]
+            let property: Property = filter.properties[indexPath.row]
             
             settingsCell.delegate = self
             settingsCell.titleLabel.text = property.title
@@ -175,7 +175,7 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
     func settingsCellSliderValueChanged(_ sender: SettingsCell, value: Float) {
         let indexPath = tableView.indexPath(for: sender)
 
-        let property: MTLProperty = filter.properties[(indexPath?.row)!]
+        let property: Property = filter.properties[(indexPath?.row)!]
         
         if property.propertyType == .value {
             sender.valueLabel.text = String(format: "%.2f", value)
@@ -192,7 +192,7 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
     
     func pickerCellDidSelectItem(_ sender: PickerCell, index: Int) {
         let indexPath = tableView.indexPath(for: sender)
-        let property: MTLProperty = filter.properties[(indexPath?.row)!]
+        let property: Property = filter.properties[(indexPath?.row)!]
         filter.setValue(index, forKey: property.key)
     }
     
@@ -200,7 +200,7 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
     
     func toggleValueChanged(sender: ToggleCell, isOn: Bool) {
         let indexPath = tableView.indexPath(for: sender)
-        let property: MTLProperty = filter.properties[(indexPath?.row)!]
+        let property: Property = filter.properties[(indexPath?.row)!]
         filter.setValue(isOn, forKey: property.key)
     }
     

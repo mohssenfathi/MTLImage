@@ -13,7 +13,7 @@ struct KuwaharaUniforms: Uniforms {
 }
 
 public
-class Kuwahara: MTLFilter {
+class Kuwahara: Filter {
     
     var uniforms = KuwaharaUniforms()
     
@@ -27,7 +27,7 @@ class Kuwahara: MTLFilter {
     public init() {
         super.init(functionName: "kuwahara")
         title = "Kuwahara"
-        properties = [MTLProperty(key: "radius", title: "Radius")]
+        properties = [Property(key: "radius", title: "Radius")]
         update()
     }
     

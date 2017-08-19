@@ -44,7 +44,9 @@ extension UIImage {
         let (_, _, data) = imageData(with: CGSize(width: width, height: height))
         
         let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: width, height: height, mipmapped: false)
-        let texture = device.makeTexture(descriptor: textureDescriptor)
+        guard let texture = device.makeTexture(descriptor: textureDescriptor) else {
+            return nil
+        }
         let region = MTLRegionMake2D(0, 0, width, height)
         texture.replace(region: region, mipmapLevel: 0, withBytes: data!, bytesPerRow: bytesPerRow)
         

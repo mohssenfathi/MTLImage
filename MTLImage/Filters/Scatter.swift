@@ -13,7 +13,7 @@ struct ScatterUniforms: Uniforms {
 }
 
 public
-class Scatter: MTLFilter {
+class Scatter: Filter {
     
     var uniforms = ScatterUniforms()
     let noiseFilter = PerlinNoise()
@@ -58,9 +58,9 @@ class Scatter: MTLFilter {
         super.init(functionName: "scatter")
         title = "Scatter"
         
-        properties = [MTLProperty(key: "radius", title: "Radius"),
-                      MTLProperty(key: "scale", title: "Scale"),
-                      MTLProperty(key: "noiseImage", title: "Noise Image", propertyType: .image)]
+        properties = [Property(key: "radius", title: "Radius"),
+                      Property(key: "scale", title: "Scale"),
+                      Property(key: "noiseImage", title: "Noise Image", propertyType: .image)]
         update()
     }
     

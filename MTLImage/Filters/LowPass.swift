@@ -6,7 +6,7 @@
 //
 
 public
-class LowPass: MTLFilterGroup {
+class LowPass: FilterGroup {
     
     let buffer = Buffer()
     let blend = Blend()

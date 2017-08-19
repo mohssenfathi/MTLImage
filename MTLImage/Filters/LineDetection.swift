@@ -13,7 +13,7 @@ struct MTLLineDetectionUniforms {
 }
 
 public
-class LineDetection: MTLFilter {
+class LineDetection: Filter {
     
     var uniforms = MTLLineDetectionUniforms()
     
@@ -35,7 +35,7 @@ class LineDetection: MTLFilter {
     public init() {
         super.init(functionName: "lineDetection")
         title = "Line Detection"
-        properties = [MTLProperty(key: "sensitivity", title: "Sensitivity")]
+        properties = [Property(key: "sensitivity", title: "Sensitivity")]
         
         sobelEdgeDetectionThreshold.addTarget(self)
         input = sobelEdgeDetectionThreshold

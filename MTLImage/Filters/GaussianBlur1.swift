@@ -14,7 +14,7 @@ struct GaussianBlurUniforms {
 } 
 
 public
-class GaussianBlur1: MTLFilter {
+class GaussianBlur1: Filter {
     
     var uniforms = GaussianBlurUniforms()
     var blurWeightTexture: MTLTexture!
@@ -40,8 +40,8 @@ class GaussianBlur1: MTLFilter {
     public init() {
         super.init(functionName: "gaussianBlur")
         title = "Gaussian Blur"
-        properties = [ MTLProperty(key: "blurRadius", title: "Blur Radius"),
-                       MTLProperty(key: "sigma"     , title: "Sigma"      )]
+        properties = [ Property(key: "blurRadius", title: "Blur Radius"),
+                       Property(key: "sigma"     , title: "Sigma"      )]
     }
     
     required public init?(coder aDecoder: NSCoder) {

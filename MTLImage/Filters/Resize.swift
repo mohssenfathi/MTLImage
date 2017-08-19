@@ -118,7 +118,7 @@ class Resize: MPS {
 
 
 public
-class Resize1: MTLFilter {
+class Resize1: Filter {
     
     var outputSize: MTLSize?
     private var internalOutputSize: MTLSize? {

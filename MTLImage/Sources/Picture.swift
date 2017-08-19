@@ -1,5 +1,5 @@
 //
-//  MTLPicture.swift
+//  Picture.swift
 //  Pods
 //
 //  Created by Mohammad Fathi on 3/10/16.
@@ -10,7 +10,7 @@ import UIKit
 import MetalKit
 
 public
-class MTLPicture: NSObject, Input {
+class Picture: NSObject, Input {
     
     public var identifier: String = UUID().uuidString
     public var title: String = "Picture"
@@ -21,7 +21,7 @@ class MTLPicture: NSObject, Input {
 
     private var internalTargets = [Output]()
     private var internalTexture: MTLTexture!
-    var internalContext: MTLContext! = MTLContext()
+    var internalContext: Context! = Context()
     var pipeline: MTLComputePipelineState!
     var textureLoader: MTKTextureLoader!
     
@@ -43,7 +43,7 @@ class MTLPicture: NSObject, Input {
     
     public func setNeedsUpdate() {
         for target in targets {
-            if let filter = target as? MTLFilter {
+            if let filter = target as? Filter {
                 filter.needsUpdate = true
             }
         }
@@ -74,7 +74,7 @@ class MTLPicture: NSObject, Input {
     public init(image: UIImage) {
         super.init()
         
-        self.title = "MTLPicture"
+        self.title = "Picture"
         self.image = image
         self.processingSize = image.size
         self.textureLoader = MTKTextureLoader(device: context.device)
@@ -119,7 +119,7 @@ class MTLPicture: NSObject, Input {
         }
     }
 
-    public var context: MTLContext {
+    public var context: Context {
         get {
             return internalContext
         }
@@ -131,7 +131,7 @@ class MTLPicture: NSObject, Input {
         }
     }
     
-    public var commandBuffer: MTLCommandBuffer {
+    public var commandBuffer: MTLCommandBuffer? {
         return context.commandQueue.makeCommandBuffer()
     }
     
@@ -168,10 +168,10 @@ class MTLPicture: NSObject, Input {
             privateNeedsUpdate = newValue
             if newValue == true {
                 for target in targets {
-                    if let filter = target as? MTLFilter {
+                    if let filter = target as? Filter {
                         filter.needsUpdate = true
                     }
-                    else if let view = target as? MTLView {
+                    else if let view = target as? View {
                         view.setNeedsDisplay()
                     }
                 }

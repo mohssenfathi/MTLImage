@@ -1,5 +1,5 @@
 //
-//  MTLFilterGroup.swift
+//  FilterGroup.swift
 //  Pods
 //
 //  Created by Mohssen Fathi on 4/8/16.
@@ -9,7 +9,7 @@
 import UIKit
 
 public
-class MTLFilterGroup: MTLObject, NSCoding {
+class FilterGroup: MTLObject, NSCoding {
     
     deinit {
         texture = nil
@@ -24,10 +24,10 @@ class MTLFilterGroup: MTLObject, NSCoding {
     
     public var image: UIImage? {
         
-        if let filter = filters.last as? MTLFilter {
+        if let filter = filters.last as? Filter {
             return filter.image
         }
-        else if let filterGroup = filters.last as? MTLFilterGroup {
+        else if let filterGroup = filters.last as? FilterGroup {
             return filterGroup.image
         }
         
@@ -38,8 +38,8 @@ class MTLFilterGroup: MTLObject, NSCoding {
     
     public func filter(_ image: UIImage) -> UIImage? {
         
-        let filter = self.copy() as! MTLFilterGroup
-        let picture = MTLPicture(image: image.copy() as! UIImage)
+        let filter = self.copy() as! FilterGroup
+        let picture = Picture(image: image.copy() as! UIImage)
         picture --> filter
         
         picture.needsUpdate = true
@@ -59,7 +59,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
     }
     
     func save() {
-        MTLDataManager.sharedManager.save(self, completion: nil)
+        DataManager.sharedManager.save(self, completion: nil)
     }
     
     func updateFilterIndexes() {
@@ -295,7 +295,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
         
         identifier = aDecoder.decodeObject(forKey: "identifier") as! String
         title      = aDecoder.decodeObject(forKey: "title") as! String
-        filters    = aDecoder.decodeObject(forKey: "filters") as! [MTLFilter]
+        filters    = aDecoder.decodeObject(forKey: "filters") as! [Filter]
         
         if let cat = aDecoder.decodeObject(forKey: "category") as? String {
             category = cat
@@ -312,7 +312,7 @@ class MTLFilterGroup: MTLObject, NSCoding {
     //    MARK: - Copying
     public override func copy() -> Any {
         
-        let filterGroup = MTLFilterGroup()
+        let filterGroup = FilterGroup()
         
         filterGroup.title = title
         filterGroup.identifier = identifier
@@ -326,15 +326,15 @@ class MTLFilterGroup: MTLObject, NSCoding {
     
 }
 
-public func += (filterGroup: MTLFilterGroup, filter: MTLObject) {
+public func += (filterGroup: FilterGroup, filter: MTLObject) {
     filterGroup.add(filter)
 }
 
-public func -= (filterGroup: MTLFilterGroup, filter: MTLObject) {
+public func -= (filterGroup: FilterGroup, filter: MTLObject) {
     filterGroup.remove(filter)
 }
 
-public func > (left: MTLFilterGroup, right: MTLFilterGroup) {
+public func > (left: FilterGroup, right: FilterGroup) {
     for target in left.targets {
         right.addTarget(target)
     }

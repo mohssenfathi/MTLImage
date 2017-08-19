@@ -13,7 +13,7 @@ struct WeakPixelInclusionUniforms: Uniforms {
 }
 
 public
-class WeakPixelInclusion: MTLFilter {
+class WeakPixelInclusion: Filter {
     
     var uniforms = WeakPixelInclusionUniforms()
     

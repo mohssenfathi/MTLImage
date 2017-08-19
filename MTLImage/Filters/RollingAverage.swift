@@ -6,7 +6,7 @@
 //
 
 public
-class RollingAverage: MTLFilter {
+class RollingAverage: Filter {
     
     var textureQueue = [MTLTexture]()
     

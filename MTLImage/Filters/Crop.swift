@@ -17,7 +17,7 @@ struct CropUniforms: Uniforms {
 }
 
 public
-class Crop: MTLFilter {
+class Crop: Filter {
     
     var uniforms = CropUniforms()
    
@@ -42,8 +42,8 @@ class Crop: MTLFilter {
     public init() {
         super.init(functionName: "crop")
         title = "Crop"
-        properties = [MTLProperty(key: "cropRegion", title: "Crop Region", propertyType: .rect),
-                      MTLProperty(key: "fit"       , title: "Fit"        , propertyType: .bool)]
+        properties = [Property(key: "cropRegion", title: "Crop Region", propertyType: .rect),
+                      Property(key: "fit"       , title: "Fit"        , propertyType: .bool)]
         
         update()
     }
@@ -79,10 +79,10 @@ class Crop: MTLFilter {
         if newWidth <= 1 || newHeight <= 1 { return }
         
         let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: newWidth, height: newHeight, mipmapped: false)
-        let newTexture = device.makeTexture(descriptor: textureDescriptor)
         
-        let commandBuffer = self.context.commandQueue.makeCommandBuffer()
-        let blitCommandEncoder = commandBuffer.makeBlitCommandEncoder()
+        guard let newTexture = device.makeTexture(descriptor: textureDescriptor),
+            let commandBuffer = self.context.commandQueue.makeCommandBuffer(),
+            let blitCommandEncoder = commandBuffer.makeBlitCommandEncoder() else { return }
         
         blitCommandEncoder.copy(from: inputTexture,
                                            sourceSlice: 0,

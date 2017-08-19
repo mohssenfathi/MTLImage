@@ -13,7 +13,7 @@ struct DepthRendererUniforms: Uniforms {
 }
 
 public
-class DepthRenderer: MTLFilter {
+class DepthRenderer: Filter {
     
     var uniforms = DepthRendererUniforms()
     
@@ -30,8 +30,8 @@ class DepthRenderer: MTLFilter {
         super.init(functionName: "depthRenderer")
         title = "Depth Renderer"
         properties = [
-//            MTLProperty(key: "offset", title: "Offset"),
-//            MTLProperty(key: "range", title: "Range")
+//            Property(key: "offset", title: "Offset"),
+//            Property(key: "range", title: "Range")
         ]
     }
     
@@ -127,14 +127,15 @@ class DepthRenderer: MTLFilter {
         
         texture = outputPixelBuffer.mtlTexture(textureCache: textureCache, pixelFormat: .bgra8Unorm)
         
-        guard let outputTexture = texture, let inputTexture = pixelBuffer.mtlTexture(textureCache: textureCache, pixelFormat: inputTextureFormat) else {
+        guard let outputTexture = texture,
+            let inputTexture = pixelBuffer.mtlTexture(textureCache: textureCache, pixelFormat: inputTextureFormat),
+            let commandBuffer = context.commandQueue.makeCommandBuffer(),
+            let commandEncoder = commandBuffer.makeComputeCommandEncoder() else {
                 return nil
         }
         
         autoreleasepool {
             
-            let commandBuffer = context.commandQueue.makeCommandBuffer()
-            let commandEncoder = commandBuffer.makeComputeCommandEncoder()
             commandEncoder.label = title
             commandEncoder.setComputePipelineState(pipeline)
             commandEncoder.setBuffer(uniformsBuffer, offset: 0, index: 0)

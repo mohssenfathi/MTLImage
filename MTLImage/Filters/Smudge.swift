@@ -18,7 +18,7 @@ struct SmudgeUniforms: Uniforms {
 }
 
 public
-class Smudge: MTLFilter {
+class Smudge: Filter {
     
     var uniforms = SmudgeUniforms()
     
@@ -55,10 +55,10 @@ class Smudge: MTLFilter {
     public init() {
         super.init(functionName: "smudge")
         title = "Smudge"
-        properties = [MTLProperty(key: "radius", title: "Radius"),
-                      MTLProperty(key: "force" , title: "Force"),
-                      MTLProperty(key: "location" , title: "Location" , propertyType: .point),
-                      MTLProperty(key: "direction", title: "Direction", propertyType: .point)]
+        properties = [Property(key: "radius", title: "Radius"),
+                      Property(key: "force" , title: "Force"),
+                      Property(key: "location" , title: "Location" , propertyType: .point),
+                      Property(key: "direction", title: "Direction", propertyType: .point)]
         update()
     }
     

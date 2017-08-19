@@ -21,7 +21,7 @@ struct VignetteUniforms: Uniforms {
 }
 
 public
-class Vignette: MTLFilter {
+class Vignette: Filter {
 
     var uniforms = VignetteUniforms()
     
@@ -62,10 +62,10 @@ class Vignette: MTLFilter {
     public init() {
         super.init(functionName: "vignette")
         title = "Vignette"
-        properties = [MTLProperty(key: "center", title: "Center", propertyType: .point),
-                      MTLProperty(key: "color" , title: "Color" , propertyType: .color),
-                      MTLProperty(key: "start" , title: "Start" ),
-                      MTLProperty(key: "end"   , title: "End"   )]
+        properties = [Property(key: "center", title: "Center", propertyType: .point),
+                      Property(key: "color" , title: "Color" , propertyType: .color),
+                      Property(key: "start" , title: "Start" ),
+                      Property(key: "end"   , title: "End"   )]
         update()
     }
     

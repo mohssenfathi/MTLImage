@@ -14,7 +14,7 @@ struct ToonUniforms: Uniforms {
 }
 
 public
-class Toon: MTLFilter {
+class Toon: Filter {
     var uniforms = ToonUniforms()
     
     public var quantizationLevels: Float = 0.5 {
@@ -34,8 +34,8 @@ class Toon: MTLFilter {
     public init() {
         super.init(functionName: "toon")
         title = "Toon"
-        properties = [MTLProperty(key: "threshold"         , title: "Threshold"          ),
-                      MTLProperty(key: "quantizationLevels", title: "Quantization Levels")]
+        properties = [Property(key: "threshold"         , title: "Threshold"          ),
+                      Property(key: "quantizationLevels", title: "Quantization Levels")]
         update()
     }
     

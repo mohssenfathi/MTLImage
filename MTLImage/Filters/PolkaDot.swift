@@ -13,7 +13,7 @@ struct PolkaDotUniforms: Uniforms {
 }
 
 public
-class PolkaDot: MTLFilter {
+class PolkaDot: Filter {
     
     var uniforms = PolkaDotUniforms()
     
@@ -27,7 +27,7 @@ class PolkaDot: MTLFilter {
     public init() {
         super.init(functionName: "polkaDot")
         title = "Polka Dot"
-        properties = [MTLProperty(key: "dotRadius", title: "Dot Radius")]
+        properties = [Property(key: "dotRadius", title: "Dot Radius")]
         update()
     }
     

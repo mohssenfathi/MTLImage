@@ -14,7 +14,7 @@ struct WhiteBalanceUniforms: Uniforms {
 }
 
 public
-class WhiteBalance: MTLFilter {
+class WhiteBalance: Filter {
     
     var uniforms = WhiteBalanceUniforms()
     
@@ -35,8 +35,8 @@ class WhiteBalance: MTLFilter {
     public init() {
         super.init(functionName: "whiteBalance")
         title = "White Balance"
-        properties = [MTLProperty(key: "temperature", title: "Temperature"),
-                      MTLProperty(key: "tint"       , title: "Tint"       )]
+        properties = [Property(key: "temperature", title: "Temperature"),
+                      Property(key: "tint"       , title: "Tint"       )]
         update()
     }
     

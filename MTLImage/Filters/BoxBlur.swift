@@ -11,7 +11,7 @@ import MetalPerformanceShaders
 public
 class BoxBlur: MPS {
     
-    var radius: Float = 0.5 {
+    @objc var radius: Float = 0.5 {
         didSet {
             clamp(&radius, low: 0, high: 1)
             kernel = MPSImageBox(device      : context.device,
@@ -40,7 +40,7 @@ class BoxBlur: MPS {
         (kernel as! MPSImageBox).edgeMode = .clamp
         
         title = "Box Blur"
-        properties = [MTLProperty(key: "radius" , title: "Radius")]
+        properties = [Property(key: "radius" , title: "Radius")]
     }
     
     required public init?(coder aDecoder: NSCoder) {

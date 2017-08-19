@@ -14,7 +14,7 @@ struct DistortionUniforms: Uniforms {
 }
 
 public
-class Distortion: MTLFilter {
+class Distortion: Filter {
     
     var uniforms = DistortionUniforms()
     
@@ -35,8 +35,8 @@ class Distortion: MTLFilter {
     public init() {
         super.init(functionName: "distortion")
         title = "Distortion"
-        properties = [MTLProperty(key: "x", title: "X"),
-                      MTLProperty(key: "y", title: "Y")]
+        properties = [Property(key: "x", title: "X"),
+                      Property(key: "y", title: "Y")]
         update()
     }
     
