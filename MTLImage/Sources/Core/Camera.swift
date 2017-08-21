@@ -46,7 +46,7 @@ class Camera: NSObject, Input, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
             }
             
             let session = AVCaptureDevice.DiscoverySession(
-                __deviceTypes: [deviceType],
+                deviceTypes: [deviceType],
                 mediaType: mediaType,
                 position: position
             )

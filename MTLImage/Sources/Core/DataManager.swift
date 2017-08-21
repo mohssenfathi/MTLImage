@@ -267,7 +267,7 @@ class DataManager: NSObject {
     lazy var managedObjectModel: NSManagedObjectModel = {
         let bundle = Bundle(for: MTLImage.classForCoder())
         let modelURL = bundle.url(forResource: "MTLImage", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOf: modelURL)!
+        return NSManagedObjectModel(contentsOf: modelURL)
     }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {

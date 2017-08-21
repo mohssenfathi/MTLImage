@@ -23,7 +23,7 @@ extension UIImage {
         }
         
         let options = [ MTKTextureLoader.Option.SRGB : NSNumber(value: false) ]
-        return try? textureLoader.newTexture(with: cgImage, options: options)
+        return try? textureLoader.newTexture(cgImage: cgImage, options: options)
     }
 
 //    func texture(_ device: MTLDevice) -> MTLTexture? {
