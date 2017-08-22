@@ -311,6 +311,8 @@
 		45AA0D4F1F490BE70091DBB0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45AA0D501F490BE70091DBB0 /* MTLImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLImage.h; sourceTree = "<group>"; };
 		45AA0D551F490D360091DBB0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		45E75C1B1F4C5BED0085B4CC /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		45E75C1D1F4C5C690085B4CC /* MTLImage.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = MTLImage.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,6 +350,8 @@
 		45AA0BFE1F490BE00091DBB0 /* Deployment */ = {
 			isa = PBXGroup;
 			children = (
+				45E75C1B1F4C5BED0085B4CC /* Package.swift */,
+				45E75C1D1F4C5C690085B4CC /* MTLImage.podspec */,
 			);
 			path = Deployment;
 			sourceTree = "<group>";
