@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '10.0'
   s.requires_arc = true
 
-  s.source_files = 'MTLImage/Sources/**/*{swift, m, h, mm, hpp, cpp, c}'
+  s.source_files = 'MTLImage/Sources/**/*.{swift, m, h, mm, hpp, cpp, c}'
   s.resources = ['MTLImage/Sources/CoreData/*.xcdatamodeld', 'MTLImage/Sources/Shaders/*.metallib']
 
   # Unused for now

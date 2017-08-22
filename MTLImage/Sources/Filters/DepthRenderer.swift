@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import CoreVideo
 
 struct DepthRendererUniforms: Uniforms {
     var offset: Float = 0.0

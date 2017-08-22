@@ -146,3 +146,36 @@ extension UIImage {
         return (context, context.makeImage(), rawData)
     }
 }
+
+func minMax(from pixelBuffer: CVPixelBuffer, format: MTLPixelFormat) -> (Float, Float) {
+    
+    let width = CVPixelBufferGetWidth(pixelBuffer)
+    let height = CVPixelBufferGetHeight(pixelBuffer)
+    let bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer)
+    
+    CVPixelBufferLockBaseAddress(pixelBuffer, CVPixelBufferLockFlags.readOnly)
+    let pixelBufferPointer = CVPixelBufferGetBaseAddress(pixelBuffer)
+    
+    guard var pointer = pixelBufferPointer?.assumingMemoryBound(to: Float.self) else {
+        return (0.0, 0.0)
+    }
+    
+    let increment = bytesPerRow/MemoryLayout<Float>.size  // Check this
+    var min =  Float.greatestFiniteMagnitude
+    var max = -Float.greatestFiniteMagnitude
+    
+    for _ in 0 ..< height {
+        for i in 0 ..< width {
+            let val = pointer[i]
+            if !val.isNaN {
+                if val > max { max = val }
+                if val < min { min = val }
+            }
+        }
+        pointer += increment
+    }
+    
+    CVPixelBufferUnlockBaseAddress(pixelBuffer, CVPixelBufferLockFlags.readOnly)
+    
+    return (min, max)
+}

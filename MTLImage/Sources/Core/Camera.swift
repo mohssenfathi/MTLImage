@@ -696,7 +696,8 @@ extension Camera: AVCaptureDepthDataOutputDelegate {
         guard mode == .depth else { return }
         
         guard let textureFormat = depthData.depthDataMap.mtlPixelFormat_Depth else { return }
-        minMaxFromPixelBuffer(depthData.depthDataMap, &depthContext.minDepth, &depthContext.maxDepth, textureFormat)
+
+        (depthContext.minDepth, depthContext.maxDepth) = minMax(from: depthData.depthDataMap, format: textureFormat)
         
         let depthData = depthData.applyingExifOrientation(CGImagePropertyOrientation.right).converting(toDepthDataType: kCVPixelFormatType_DepthFloat32)
         depthPixelBuffer = depthData.depthDataMap

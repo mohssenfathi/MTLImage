@@ -15,4 +15,3 @@ FOUNDATION_EXPORT double MTLImageVersionNumber;
 FOUNDATION_EXPORT const unsigned char MTLImageVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <MTLImage/PublicHeader.h>
-#import "CVPixelBuffer_MinMax.h"
