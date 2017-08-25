@@ -115,20 +115,21 @@ public class MTLObject: NSObject, Output {
     
     public var input: Input? {
         didSet {
-
-            if let inputTexture = input?.texture {
-                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat,
-                                                                                 width: inputTexture.width,
-                                                                                 height: inputTexture.height,
-                                                                                 mipmapped: false)
-                
-                texture = context.device?.makeTexture(descriptor: textureDescriptor)
-            }
-            
+            initTexture()
             reload()
         }
     }
 
+    func initTexture() {
+        if let inputTexture = input?.texture {
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat,
+                                                                             width: inputTexture.width,
+                                                                             height: inputTexture.height,
+                                                                             mipmapped: false)
+            
+            texture = context.device?.makeTexture(descriptor: textureDescriptor)
+        }
+    }
     
     // MARK: - Subclassing
     

@@ -240,6 +240,8 @@ extension MTLMTKView: MTKViewDelegate {
     
     public func draw(in view: MTKView) {
         
+        input?.processIfNeeded()
+        
         guard let commandQueue = input?.context.commandQueue,
             let texture = input?.texture,
             let drawable = view.currentDrawable else {
@@ -257,8 +259,6 @@ extension MTLMTKView: MTKViewDelegate {
             let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) {
 
             renderSemaphore.wait()
-            
-            input?.processIfNeeded()
             
             commandEncoder.setRenderPipelineState(pipeline)
             commandEncoder.setVertexBuffer(self.vertexBuffer, offset: 0, index: 0)

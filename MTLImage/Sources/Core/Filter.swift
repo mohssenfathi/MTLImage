@@ -121,11 +121,15 @@ class Filter: MTLObject, NSCoding {
     
     public override func process() {
         
+        input?.processIfNeeded()
+        
+        if texture == nil {
+            initTexture()
+        }
+        
         guard let inputTexture = input?.texture,
             let commandBuffer = context.commandQueue.makeCommandBuffer(),
             let commandEncoder = commandBuffer.makeComputeCommandEncoder() else { return }
-        
-        input?.processIfNeeded()
         
         autoreleasepool {
             
@@ -147,9 +151,9 @@ class Filter: MTLObject, NSCoding {
             commandEncoder.endEncoding()
             
             commandBuffer.addCompletedHandler({ (commandBuffer) in
-                
+
                 self.context.semaphore.signal()
-                
+
                 if self.continuousUpdate { return }
                 if let input = self.input {
                     if input.continuousUpdate { return }
