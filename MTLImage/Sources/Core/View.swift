@@ -238,7 +238,18 @@ extension MTLMTKView: FPSCounterDelegate {
 
 extension MTLMTKView: MTKViewDelegate {
     
+    func notifyOtherTargets() {
+        
+        for destination in (hostView.source?.destinations ?? []) {
+            if destination.identifier != hostView.identifier {
+                destination.input?.processIfNeeded()
+            }
+        }
+    }
+    
     public func draw(in view: MTKView) {
+        
+        notifyOtherTargets()
         
         input?.processIfNeeded()
         

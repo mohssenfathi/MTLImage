@@ -24,11 +24,15 @@ class MPS: Filter {
     
     public override func process() {
         
+        if texture == nil {
+            initTexture()
+        }
+        
+        input?.processIfNeeded()
+        
         guard let inputTexture = input?.texture,
             let texture = texture,
             let commandBuffer = context.commandQueue.makeCommandBuffer() else { return }
-        
-        input?.processIfNeeded()
         
         autoreleasepool {
             

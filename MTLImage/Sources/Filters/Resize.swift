@@ -13,26 +13,26 @@ class Resize: MPS {
     public var outputSize: MTLSize? = nil {
         didSet { needsUpdate = true }
     }
-    private var internalOutputSize: MTLSize? {
-        
-        if let outputSize = outputSize {
-            return outputSize
-        }
-        
-        if let target = targets.first as? MTLObject,
-            let width = target.texture?.width,
-            let height = target.texture?.height,
-            let depth = target.texture?.depth {
-            return MTLSize(width: width, height: height, depth: depth)
-        }
-        
-        if let width = input?.texture?.width,
-            let height = input?.texture?.height {
-            return MTLSize(width: width, height: height, depth: 1)
-        }
-        
-        return nil
-    }
+//    private var internalOutputSize: MTLSize? {
+//
+//        if let outputSize = outputSize {
+//            return outputSize
+//        }
+//
+//        if let target = targets.first as? MTLObject,
+//            let width = target.texture?.width,
+//            let height = target.texture?.height,
+//            let depth = target.texture?.depth {
+//            return MTLSize(width: width, height: height, depth: depth)
+//        }
+//
+//        if let width = input?.texture?.width,
+//            let height = input?.texture?.height {
+//            return MTLSize(width: width, height: height, depth: 1)
+//        }
+//
+//        return nil
+//    }
     
     public init() {
         super.init(functionName: nil)
@@ -56,7 +56,14 @@ class Resize: MPS {
     override func update() {
         super.update()
         
-        guard let inputSize = input?.texture?.size(), let outputSize = internalOutputSize else { return }
+        guard let inputSize = input?.texture?.size(), let outputSize = outputSize else { return }
+        
+        
+        if let currentSize = texture?.size() {
+            if currentSize.width != outputSize.width || currentSize.height != outputSize.height {
+                initTexture()
+            }
+        }
         
         let scaleX = Double(outputSize.width) / Double(inputSize.width)
         let scaleY = Double(outputSize.height) / Double(inputSize.height)
@@ -65,28 +72,25 @@ class Resize: MPS {
         let filter = MPSImageLanczosScale(device: device)
         var transform = MPSScaleTransform(scaleX: scaleX, scaleY: scaleY, translateX: translateX, translateY: translateY)
         
-        withUnsafePointer(to: &transform) { (transformPtr: UnsafePointer<MPSScaleTransform>) -> () in
-            filter.scaleTransform = transformPtr
-            //            filter.encode(commandBuffer: commandBuffer, sourceTexture: sourceTexture, destinationTexture: destTexture)
-        }
+        withUnsafePointer(to: &transform) { filter.scaleTransform = $0 }
         
         kernel = filter
     }
     
-    public override var input: Input? {
-        didSet {
-            if let cam = source as? Camera {
-                outputSize = cam.texture?.size()
-            }
-            
-            if let inputTexture = input?.texture, let size = outputSize {
-                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat,
-                                                                                 width: size.width,
-                                                                                 height: size.height,
-                                                                                 mipmapped: false)
-                texture = context.device?.makeTexture(descriptor: textureDescriptor)
-            }
-            reload()
+    override func initTexture() {
+        
+        // Overriding to set texture size to outputSize
+        
+        if outputSize == nil {
+            outputSize = input?.texture?.size()
+        }
+        
+        if let inputTexture = input?.texture, let size = outputSize {
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat,
+                                                                             width: size.width,
+                                                                             height: size.height,
+                                                                             mipmapped: false)
+            texture = context.device?.makeTexture(descriptor: textureDescriptor)
         }
     }
 }

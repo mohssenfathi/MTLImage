@@ -122,7 +122,7 @@ class Filter: MTLObject, NSCoding {
     public override func process() {
         
         input?.processIfNeeded()
-        
+       
         if texture == nil {
             initTexture()
         }

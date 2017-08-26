@@ -12,42 +12,6 @@ import CloudKit // later, test if module enabled
 import Metal
 #endif
 
-public protocol Input {
-    
-    var texture: MTLTexture? { get }
-    var context: Context  { get }
-    var device : MTLDevice   { get }
-    var targets: [Output] { get }
-    
-    var title      : String { get set }
-    var identifier : String { get set }
-    var needsUpdate: Bool   { get set }
-    var continuousUpdate: Bool { get }
-    
-    func addTarget(_ target: Output)
-    func removeTarget(_ target: Output)
-    func removeAllTargets()
-    func processIfNeeded()
-}
-
-public protocol Output {
-    
-    var input     : Input? { get set }
-    var title     : String    { get set }
-    var identifier: String    { get set }
-}
-
-public extension Input {
-    public func processIfNeeded() { }
-    public mutating func setNeedsUpdate() {
-        needsUpdate = true
-    }
-}
-
-public protocol Uniforms {
-
-}
-
 public
 class MTLImage: NSObject {
    
@@ -195,6 +159,9 @@ extension MTLImage {
         return supported
     }
 }
+
+
+public protocol Uniforms { }
 
 
 //    MARK: - NSCoding

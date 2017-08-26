@@ -80,7 +80,7 @@ class FilterGroup: MTLObject, NSCoding {
             input?.addTarget(filter)
         }
         
-        for target in internalTargets {
+        for target in targets {
             filter.addTarget(target)
         }
         
@@ -133,7 +133,7 @@ class FilterGroup: MTLObject, NSCoding {
         }
         
         input?.removeAllTargets()
-        for target in internalTargets {
+        for target in targets {
             input?.addTarget(target)
         }
         
@@ -196,22 +196,14 @@ class FilterGroup: MTLObject, NSCoding {
         
         print(chain)
     }
+
     
-    //    MARK: - MTLInput
-    
-    //    public override var texture: MTLTexture? {
-    //        get {
-    //            if filters.count > 0 {
-    //                return filters.last?.texture
-    //            }
-    //            return input?.texture
-    //        }
-    //    }
-    
+//    MARK: - MTLInput
+
     public override func addTarget(_ target: Output) {
-        internalTargets.append(target)
-        if filters.count > 0 {
-            filters.last!.addTarget(target)
+        targets.append(target)
+        if let filter = filters.last {
+            filter.addTarget(target)
         } else {
             input?.addTarget(target)
         }
@@ -219,13 +211,13 @@ class FilterGroup: MTLObject, NSCoding {
     }
     
     public override func removeTarget(_ target: Output) {
-        // TODO: remove from internal targets
+        // TODO: remove from targets
         filters.last?.removeTarget(target)
     }
     
     public override func removeAllTargets() {
         filters.last?.removeAllTargets()
-        internalTargets.removeAll()
+        targets.removeAll()
     }
     
     public override var needsUpdate: Bool {
@@ -247,20 +239,6 @@ class FilterGroup: MTLObject, NSCoding {
             rebuildFilterChain()
         }
     }
-    
-    //    public override var input: MTLInput? {
-    //        get {
-    //            return internalInput
-    //        }
-    //        set {
-    //            internalInput = newValue
-    //            if filters.count > 0 {
-    //                input?.addTarget(filters.first!)
-    //            }
-    //            needsUpdate = true
-    //        }
-    //    }
-    
     
     public var category: String = ""
     public var filterDescription: String = ""

@@ -435,10 +435,11 @@ class Camera: NSObject, Input, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
             let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: videoTexture.pixelFormat, width:videoTexture.width, height: videoTexture.height, mipmapped: false)
             internalTexture = context.device?.makeTexture(descriptor: textureDescriptor)
         }
-        
-        let threadgroupCounts = MTLSizeMake(16, 16, 1)
-        let threadgroups = MTLSizeMake(videoTexture.width / threadgroupCounts.width,
-                                       videoTexture.height / threadgroupCounts.height, 1)
+
+        let w = pipeline.threadExecutionWidth
+        let h = pipeline.maxTotalThreadsPerThreadgroup / w
+        let threadsPerThreadgroup = MTLSizeMake(w, h, 1)
+        let threadgroupsPerGrid = MTLSize(width: (videoTexture.width + w - 1) / w, height: (videoTexture.height + h - 1) / h, depth: 1)
         
         guard let commandBuffer = context.commandQueue.makeCommandBuffer(),
             let commandEncoder = commandBuffer.makeComputeCommandEncoder() else { return }
@@ -452,7 +453,7 @@ class Camera: NSObject, Input, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
         
         commandEncoder.setTexture(videoTexture, index: 0)
         commandEncoder.setTexture(internalTexture, index: 1)
-        commandEncoder.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
+        commandEncoder.dispatchThreadgroups(threadgroupsPerGrid, threadsPerThreadgroup: threadsPerThreadgroup)
         commandEncoder.endEncoding()
         
         commandBuffer.commit()

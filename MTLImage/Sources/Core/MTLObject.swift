@@ -9,6 +9,7 @@
 @objc
 public class MTLObject: NSObject, Output {
     
+    public var isEnabled: Bool = true
     public var title: String = ""
     public var identifier: String = UUID().uuidString
 
@@ -33,52 +34,25 @@ public class MTLObject: NSObject, Output {
     
     public func processIfNeeded() {
         
-        if enabled && needsUpdate {
+        if !isEnabled {
+            input?.processIfNeeded()
+            texture = input?.texture
+            return
+        }
+        
+        if needsUpdate {
             update()
             process()
         }
         
     }
     
-    
-    var enabled: Bool = true
-    var internalTargets = [Output]()
-    
     public var texture: MTLTexture?
     
-    var source: Input? {
-        get {
-            var inp: Input? = input
-            while inp != nil {
-                
-                if let sourcePicture = inp as? Picture {
-                    return sourcePicture
-                }
-                
-                #if !os(tvOS)
-                    if let camera = inp as? Camera {
-                        return camera
-                    }
-                #endif
-                
-                if inp is Output {
-                    inp = (inp as? Output)?.input
-                }
-            }
-            return nil
-        }
-    }
-    
-    
     public func addTarget(_ target: Output) {
-      
         var t = target
-        internalTargets.append(t)
+        targets.append(t)
         t.input = self
-        
-//        if let picture = source as? Picture {
-//            picture.loadTexture()
-//        }
     }
     
     public func removeTarget(_ target: Output) {
@@ -88,29 +62,29 @@ public class MTLObject: NSObject, Output {
         
         var index: Int = NSNotFound
         if let filter = target as? Filter {
-            for i in 0 ..< internalTargets.count {
-                if let f = internalTargets[i] as? Filter {
+            for i in 0 ..< targets.count {
+                if let f = targets[i] as? Filter {
                     if f == filter { index = i }
                 }
             }
         }
         else if t is View {
-            for i in 0 ..< internalTargets.count {
-                if internalTargets[i] is View { index = i }
+            for i in 0 ..< targets.count {
+                if targets[i] is View { index = i }
             }
         }
         
         if index != NSNotFound {
-            internalTargets.remove(at: index)
+            targets.remove(at: index)
         }
         texture = nil
     }
     
     public func removeAllTargets() {
-        for var target in internalTargets {
+        for var target in targets {
             target.input = nil
         }
-        internalTargets.removeAll()
+        targets.removeAll()
     }
     
     public var input: Input? {
@@ -120,6 +94,8 @@ public class MTLObject: NSObject, Output {
         }
     }
 
+    public var targets: [Output] = []
+    
     func initTexture() {
         if let inputTexture = input?.texture {
             let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat,
@@ -144,6 +120,7 @@ public class MTLObject: NSObject, Output {
     func reload() {
         
     }
+    
 }
 
 extension MTLObject: Input {
@@ -161,10 +138,6 @@ extension MTLObject: Input {
         return context.device
     }
     
-    public var targets: [Output] {
-        return internalTargets
-    }
-        
 }
 
 
