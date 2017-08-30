@@ -312,17 +312,17 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
     func addFilterViewControllerDidSelectFilter(_ sender: AddFilterViewController, filter: MTLObject) {
     
 //        Temp test for histogram
-        if histogramView == nil {
-            if filter is Histogram {
-                let histogram = filter as! Histogram
-                if histogram.histogramView != nil {
-                    histogramView = histogram.histogramView
-                    let window = UIApplication.shared.keyWindow!
-                    histogramView!.center = CGPoint(x: view.frame.size.width/2, y: 200)
-                    window.addSubview(histogramView!)
-                }
-            }
-        }
+//        if histogramView == nil {
+//            if filter is Histogram {
+//                let histogram = filter as! Histogram
+//                if histogram.histogramView != nil {
+//                    histogramView = histogram.histogramView
+//                    let window = UIApplication.shared.keyWindow!
+//                    histogramView!.center = CGPoint(x: view.frame.size.width/2, y: 200)
+//                    window.addSubview(histogramView!)
+//                }
+//            }
+//        }
         
         filterGroup += filter
         

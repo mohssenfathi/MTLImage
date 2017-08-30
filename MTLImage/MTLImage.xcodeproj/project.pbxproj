@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		451D3C191F4915A7004A6006 /* DepthRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451D3C181F4915A6004A6006 /* DepthRenderer.swift */; };
+		455F75921F56F34F00F9F735 /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F75901F56F34E00F9F735 /* Output.swift */; };
+		455F75931F56F34F00F9F735 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F75911F56F34E00F9F735 /* Input.swift */; };
+		455F75961F56F36500F9F735 /* DataOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F75941F56F36400F9F735 /* DataOutput.swift */; };
+		455F75971F56F36500F9F735 /* ColorMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F75951F56F36400F9F735 /* ColorMask.swift */; };
 		4571F3B71F490E68005C2576 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571F3B61F490E68005C2576 /* Extensions.swift */; };
 		45AA0CAE1F490BE00091DBB0 /* Levels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C021F490BE00091DBB0 /* Levels.swift */; };
 		45AA0CAF1F490BE00091DBB0 /* XYDerivative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C031F490BE00091DBB0 /* XYDerivative.swift */; };
@@ -65,7 +69,6 @@
 		45AA0CE41F490BE00091DBB0 /* Water.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C381F490BE00091DBB0 /* Water.swift */; };
 		45AA0CE51F490BE00091DBB0 /* CannyEdgeDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C391F490BE00091DBB0 /* CannyEdgeDetection.swift */; };
 		45AA0CE61F490BE00091DBB0 /* HoughLineDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C3A1F490BE00091DBB0 /* HoughLineDetection.swift */; };
-		45AA0CE71F490BE00091DBB0 /* Histogram1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C3B1F490BE00091DBB0 /* Histogram1.swift */; };
 		45AA0CE81F490BE00091DBB0 /* Sharpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C3C1F490BE00091DBB0 /* Sharpen.swift */; };
 		45AA0CE91F490BE00091DBB0 /* UnsharpMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C3D1F490BE00091DBB0 /* UnsharpMask.swift */; };
 		45AA0CEA1F490BE00091DBB0 /* Contrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C3E1F490BE00091DBB0 /* Contrast.swift */; };
@@ -157,6 +160,10 @@
 
 /* Begin PBXFileReference section */
 		451D3C181F4915A6004A6006 /* DepthRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepthRenderer.swift; sourceTree = "<group>"; };
+		455F75901F56F34E00F9F735 /* Output.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
+		455F75911F56F34E00F9F735 /* Input.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
+		455F75941F56F36400F9F735 /* DataOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataOutput.swift; sourceTree = "<group>"; };
+		455F75951F56F36400F9F735 /* ColorMask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMask.swift; sourceTree = "<group>"; };
 		4571F3B61F490E68005C2576 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		45AA0BE61F490B460091DBB0 /* MTLImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MTLImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45AA0C021F490BE00091DBB0 /* Levels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Levels.swift; sourceTree = "<group>"; };
@@ -215,7 +222,6 @@
 		45AA0C381F490BE00091DBB0 /* Water.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Water.swift; sourceTree = "<group>"; };
 		45AA0C391F490BE00091DBB0 /* CannyEdgeDetection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CannyEdgeDetection.swift; sourceTree = "<group>"; };
 		45AA0C3A1F490BE00091DBB0 /* HoughLineDetection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoughLineDetection.swift; sourceTree = "<group>"; };
-		45AA0C3B1F490BE00091DBB0 /* Histogram1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Histogram1.swift; sourceTree = "<group>"; };
 		45AA0C3C1F490BE00091DBB0 /* Sharpen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sharpen.swift; sourceTree = "<group>"; };
 		45AA0C3D1F490BE00091DBB0 /* UnsharpMask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnsharpMask.swift; sourceTree = "<group>"; };
 		45AA0C3E1F490BE00091DBB0 /* Contrast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contrast.swift; sourceTree = "<group>"; };
@@ -361,6 +367,8 @@
 		45AA0C011F490BE00091DBB0 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
+				455F75951F56F36400F9F735 /* ColorMask.swift */,
+				455F75941F56F36400F9F735 /* DataOutput.swift */,
 				451D3C181F4915A6004A6006 /* DepthRenderer.swift */,
 				45AA0C021F490BE00091DBB0 /* Levels.swift */,
 				45AA0C031F490BE00091DBB0 /* XYDerivative.swift */,
@@ -418,7 +426,6 @@
 				45AA0C381F490BE00091DBB0 /* Water.swift */,
 				45AA0C391F490BE00091DBB0 /* CannyEdgeDetection.swift */,
 				45AA0C3A1F490BE00091DBB0 /* HoughLineDetection.swift */,
-				45AA0C3B1F490BE00091DBB0 /* Histogram1.swift */,
 				45AA0C3C1F490BE00091DBB0 /* Sharpen.swift */,
 				45AA0C3D1F490BE00091DBB0 /* UnsharpMask.swift */,
 				45AA0C3E1F490BE00091DBB0 /* Contrast.swift */,
@@ -443,6 +450,8 @@
 		45AA0C491F490BE00091DBB0 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				455F75911F56F34E00F9F735 /* Input.swift */,
+				455F75901F56F34E00F9F735 /* Output.swift */,
 				45AA0C4A1F490BE00091DBB0 /* DataManager.swift */,
 				45AA0C4B1F490BE00091DBB0 /* View.swift */,
 				45AA0C4C1F490BE00091DBB0 /* Picture.swift */,
@@ -696,6 +705,7 @@
 				45AA0D071F490BE00091DBB0 /* MTLPropertyRecord.swift in Sources */,
 				45AA0CC71F490BE00091DBB0 /* Transform.swift in Sources */,
 				45AA0CE41F490BE00091DBB0 /* Water.swift in Sources */,
+				455F75931F56F34F00F9F735 /* Input.swift in Sources */,
 				45AA0CDF1F490BE00091DBB0 /* WeakPixelInclusion.swift in Sources */,
 				45AA0D211F490BE00091DBB0 /* Resize.metal in Sources */,
 				45AA0D3A1F490BE00091DBB0 /* PolkaDot.metal in Sources */,
@@ -703,17 +713,18 @@
 				45AA0CC61F490BE00091DBB0 /* Crop.swift in Sources */,
 				45AA0CFB1F490BE00091DBB0 /* FPSCounter.swift in Sources */,
 				45AA0D461F490BE00091DBB0 /* DepthMask.metal in Sources */,
-				45AA0CE71F490BE00091DBB0 /* Histogram1.swift in Sources */,
 				45AA0D391F490BE00091DBB0 /* WhiteBalance.metal in Sources */,
 				45AA0CBA1F490BE00091DBB0 /* Toon.swift in Sources */,
 				45AA0D041F490BE00091DBB0 /* FilterGroup.swift in Sources */,
 				45AA0D1A1F490BE00091DBB0 /* DepthRenderer.metal in Sources */,
 				45AA0CD91F490BE00091DBB0 /* DepthBlend.swift in Sources */,
+				455F75921F56F34F00F9F735 /* Output.swift in Sources */,
 				45AA0D3F1F490BE00091DBB0 /* Sketch.metal in Sources */,
 				45AA0CFD1F490BE00091DBB0 /* MPS.swift in Sources */,
 				45AA0D1E1F490BE00091DBB0 /* Mosaic.metal in Sources */,
 				45AA0D241F490BE00091DBB0 /* WeakPixelInclusion.metal in Sources */,
 				45AA0D381F490BE00091DBB0 /* Invert.metal in Sources */,
+				455F75971F56F36500F9F735 /* ColorMask.swift in Sources */,
 				45AA0D341F490BE00091DBB0 /* Levels.metal in Sources */,
 				45AA0CB81F490BE00091DBB0 /* Brightness.swift in Sources */,
 				45AA0D401F490BE00091DBB0 /* Histogram.metal in Sources */,
@@ -725,6 +736,7 @@
 				45AA0CE61F490BE00091DBB0 /* HoughLineDetection.swift in Sources */,
 				45AA0CC41F490BE00091DBB0 /* HarrisCornerDetection.swift in Sources */,
 				45AA0CF01F490BE00091DBB0 /* UIImage+Scale.swift in Sources */,
+				455F75961F56F36500F9F735 /* DataOutput.swift in Sources */,
 				45AA0CF41F490BE00091DBB0 /* DataManager.swift in Sources */,
 				45AA0D1B1F490BE00091DBB0 /* Smudge.metal in Sources */,
 				45AA0D361F490BE00091DBB0 /* Blend.metal in Sources */,
