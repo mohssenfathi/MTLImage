@@ -23,8 +23,10 @@ class MTLImage: NSObject {
          "Brightness",
          "Buffer",
          "Contrast",
+         "Color Mask",
          "Crop",
          "Cross Hatch",
+         "Data Output",
          "Depth Blend",
          "Depth Renderer",
          "Dilate",
@@ -74,8 +76,10 @@ class MTLImage: NSObject {
             case "brightness"                     : return Brightness()
             case "buffer"                         : return Buffer()
             case "contrast"                       : return Contrast()
+            case "color mask"                     : return ColorMask()
             case "crop"                           : return Crop()
             case "cross hatch"                    : return CrossHatch()
+            case "data output"                    : return DataOutput()
             case "depth blend"                    : return DepthBlend()
             case "depth renderer"                 : return DepthRenderer()
             case "dilate"                         : return Dilate()

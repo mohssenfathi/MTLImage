@@ -63,7 +63,7 @@ class Context: NSObject {
             if #available(iOS 10.0, *) {
                 internalLibrary = try? device.makeDefaultLibrary(bundle: Bundle(for: Camera.self))
             } else {
-                // This shouldn't be used in production. If it is, user might need to add an empty shared to parent project
+                // This shouldn't be used in production. If it is, user might need to add an empty shader to parent project
                 internalLibrary = device.makeDefaultLibrary()
             }
         }

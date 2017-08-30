@@ -295,6 +295,7 @@ class Camera: NSObject, Input, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
         session.sessionPreset = preset
         
         captureDevice = mode.device()
+        captureDevice.configureForHighestFrameRate()
         if captureDevice == nil {
             fatalError("No Capture Devices Available")
         }
@@ -544,6 +545,7 @@ class Camera: NSObject, Input, AVCaptureVideoDataOutputSampleBufferDelegate, AVC
     public var maxZoom: Float { return Float(captureDevice.activeFormat.videoMaxZoomFactor) }
     public var zoom: Float = 0.0 {
         didSet {
+            Tools.clamp(&zoom, low: 0, high: 1)
             applyCameraSetting {
                 self.captureDevice.videoZoomFactor = CGFloat(self.zoom * 4.0 + 1.0)
             }
@@ -713,6 +715,47 @@ extension Camera: AVCaptureDepthDataOutputDelegate {
         
     }
     
+}
+
+public
+extension Camera {
+    public func snapshot() -> UIImage? {
+        return texture?.image
+    }
+}
+
+extension AVCaptureDevice {
+    
+    func configureForHighestFrameRate(max: Double = 240.0) {
+        
+        guard let format = formats.filter({
+            $0.maxFrameRateRange?.maxFrameRate ?? Double.greatestFiniteMagnitude <= max
+        }).sorted(by: { format1, format2 in
+            return format1.maxFrameRateRange?.maxFrameRate ?? 0 > format2.maxFrameRateRange?.maxFrameRate ?? 0
+        }).first else {
+            return
+        }
+        
+        print("Max Format: \(format.maxFrameRateRange?.maxFrameRate ?? 0) FPS")
+        
+        do {
+            try lockForConfiguration()
+            activeFormat = format
+            activeVideoMinFrameDuration = format.maxFrameRateRange!.minFrameDuration
+            activeVideoMaxFrameDuration = format.maxFrameRateRange!.minFrameDuration
+            unlockForConfiguration()
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+}
+
+extension AVCaptureDevice.Format {
+    
+    var maxFrameRateRange: AVFrameRateRange? {
+        return videoSupportedFrameRateRanges.sorted { return $0.maxFrameRate > $1.maxFrameRate }.first
+    }
 }
 
 

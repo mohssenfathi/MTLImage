@@ -31,7 +31,7 @@ class FilterGroup: MTLObject, NSCoding {
             return filterGroup.image
         }
         
-        return input?.texture?.image()
+        return input?.texture?.image
     }
     
     public var filters = [MTLObject]()
@@ -203,9 +203,13 @@ class FilterGroup: MTLObject, NSCoding {
     public override func addTarget(_ target: Output) {
         targets.append(target)
         if let filter = filters.last {
-            filter.addTarget(target)
+            filter.removeAllTargets()
+            for target in targets {
+                filter.addTarget(target)
+            }
         } else {
-            input?.addTarget(target)
+            input?.removeAllTargets()
+            for target in targets { input?.addTarget(target) }
         }
         needsUpdate = true
     }

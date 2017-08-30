@@ -89,7 +89,7 @@ class Filter: MTLObject, NSCoding {
             needsUpdate = true
             process()
             
-            return texture?.image()
+            return texture?.image
         }
     }
     
@@ -192,7 +192,7 @@ class Filter: MTLObject, NSCoding {
             return nil
         }
         
-        let image = tex.image()
+        let image = tex.image
         
         return image
     }

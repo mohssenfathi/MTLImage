@@ -179,6 +179,7 @@ class MTLMTKView: MTKView {
         
         let pipelineDescriptor = MTLRenderPipelineDescriptor()
         pipelineDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
+        pipelineDescriptor.depthAttachmentPixelFormat = .invalid
         pipelineDescriptor.vertexFunction = vertexFunction
         pipelineDescriptor.fragmentFunction = fragmentFunction
         
@@ -187,12 +188,6 @@ class MTLMTKView: MTKView {
         } catch {
             print("Failed to create pipeline")
         }
-        
-        vertexBuffer = device?.makeBuffer(bytes: kQuadVertices , length: kSzQuadVertices , options: MTLResourceOptions())
-        if texCoordBuffer == nil {
-            texCoordBuffer = device?.makeBuffer(bytes: kQuadTexCoords, length: kSzQuadTexCoords, options: MTLResourceOptions())
-        }
-        
     }
     
     let renderSemaphore = DispatchSemaphore(value: 3)
@@ -200,27 +195,6 @@ class MTLMTKView: MTKView {
     var vertexFunction: MTLFunction!
     var fragmentFunction: MTLFunction!
     var pipeline: MTLRenderPipelineState!
-    var vertexBuffer: MTLBuffer!
-    var texCoordBuffer: MTLBuffer!
-    
-    let kSzQuadTexCoords = 6 * MemoryLayout<float2>.size
-    let kSzQuadVertices  = 6 * MemoryLayout<float4>.size
-    
-    let kQuadTexCoords: [float2] = [ float2(0.0, 0.0),
-                                     float2(1.0, 0.0),
-                                     float2(0.0, 1.0),
-                                     
-                                     float2(1.0, 0.0),
-                                     float2(0.0, 1.0),
-                                     float2(1.0, 1.0) ]
-    
-    var kQuadVertices: [float4] = [ float4(-1.0,  1.0, 0.0, 1.0),
-                                    float4( 1.0,  1.0, 0.0, 1.0),
-                                    float4(-1.0, -1.0, 0.0, 1.0),
-                                    
-                                    float4( 1.0,  1.0, 0.0, 1.0),
-                                    float4(-1.0, -1.0, 0.0, 1.0),
-                                    float4( 1.0, -1.0, 0.0, 1.0) ]
     
     private let fpsCounter = FPSCounter()
     public var logFPS: Bool = false {
@@ -239,10 +213,15 @@ extension MTLMTKView: FPSCounterDelegate {
 extension MTLMTKView: MTKViewDelegate {
     
     func notifyOtherTargets() {
-        
-        for destination in (hostView.source?.destinations ?? []) {
+        for var destination in (hostView.source?.destinations ?? []) {
             if destination.identifier != hostView.identifier {
-                destination.input?.processIfNeeded()
+                if var object = destination as? MTLObject {
+                    object.setNeedsUpdate()
+                    object.processIfNeeded()
+                } else {
+                    destination.input?.setNeedsUpdate()
+                    destination.input?.processIfNeeded()
+                }
             }
         }
     }
@@ -272,10 +251,8 @@ extension MTLMTKView: MTKViewDelegate {
             renderSemaphore.wait()
             
             commandEncoder.setRenderPipelineState(pipeline)
-            commandEncoder.setVertexBuffer(self.vertexBuffer, offset: 0, index: 0)
-            commandEncoder.setVertexBuffer(self.texCoordBuffer, offset: 0, index: 1)
             commandEncoder.setFragmentTexture(texture, index: 0)
-            commandEncoder.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: 6)
+            commandEncoder.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: 4, instanceCount: 1)
             commandEncoder.endEncoding()
             
             commandBuffer.addCompletedHandler({ (buffer) in

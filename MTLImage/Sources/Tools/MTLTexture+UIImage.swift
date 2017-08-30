@@ -47,7 +47,7 @@ extension MTLTexture {
         return imageBytes
     }
     
-    func image() -> UIImage? {
+    var image: UIImage? {
 
         guard let imageBytes = bytes() else { return nil }
         

@@ -16,8 +16,6 @@ public
 class Exposure: Filter {
     
     var uniforms = ExposureUniforms()
-    var uniformsMemory: UnsafeMutableRawPointer? = nil
-    var uniformsPointer: UnsafeMutablePointer<ExposureUniforms>!
     
     @objc public var exposure: Float = 0.5 {
         didSet {

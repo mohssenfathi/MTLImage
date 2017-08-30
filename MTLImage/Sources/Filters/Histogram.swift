@@ -63,10 +63,12 @@ class Histogram: MPS {
         let bufferPointer = UnsafeBufferPointer(start: pointer, count: histogramBuffer.length)
         histogramValues = [UInt32](bufferPointer)
 
-        red   = [UInt32](histogramValues[numberOfEntries * 0 ..< numberOfEntries * 1])
-        green = [UInt32](histogramValues[numberOfEntries * 1 ..< numberOfEntries * 2])
-        blue  = [UInt32](histogramValues[numberOfEntries * 2 ..< numberOfEntries * 3])
-        alpha = [UInt32](histogramValues[numberOfEntries * 3 ..< numberOfEntries * 4])
+        let len = numberOfEntries
+        
+        red   = [UInt32](histogramValues[len * 0 ..< len * 1])
+        green = [UInt32](histogramValues[len * 1 ..< len * 2])
+        blue  = [UInt32](histogramValues[len * 2 ..< len * 3])
+        alpha = [UInt32](histogramValues[len * 3 ..< len * 4])
         
         newHistogramAvailable?((red, green, blue, alpha))
     }
@@ -81,7 +83,7 @@ class Histogram: MPS {
         
         guard let inputTexture = input?.texture else { return }
         
-        let bufferLength = (kernel as! MPSImageHistogram).histogramSize(forSourceFormat: inputTexture.pixelFormat)
+        let bufferLength = (kernel as! MPSImageHistogram).histogramSize(forSourceFormat: inputTexture.pixelFormat)/MemoryLayout<UInt32>.size
         histogramBuffer = device.makeBuffer(length: bufferLength, options: [.storageModePrivate])
         
         (kernel as! MPSImageHistogram).encode(

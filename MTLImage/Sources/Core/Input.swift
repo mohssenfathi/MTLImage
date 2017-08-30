@@ -34,6 +34,11 @@ public extension Input {
     
     var destinations: [Output] {
         var dests = [Output]()
+        
+        if targets.count == 0, let out = self as? Output {
+            dests.append(out)
+        }
+        
         for target in targets {
             if let obj = target as? MTLObject {
                 dests.append(contentsOf: obj.destinations)
@@ -41,6 +46,23 @@ public extension Input {
                 dests.append(target)
             }
         }
+        
         return dests
     }
+    
+//    func removeDuplicates(in array: [Output]) -> [Output] {
+//
+//        var identifiers = Set(array.map({ $0.identifier }))
+//
+//        var new = [Output]()
+//        for output in array {
+//            if identifiers.contains(output.identifier) {
+//                new.append(output)
+//                identifiers.remove(output.identifier)
+//            }
+//        }
+//
+//        return new
+//    }
 }
+

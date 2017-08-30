@@ -1,3 +1,4 @@
+
 //
 //  MPS.swift
 //  Pods
@@ -20,6 +21,21 @@ class MPS: Filter {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    public override var needsUpdate: Bool {
+        didSet {
+            if needsUpdate == true {
+                for target in targets {
+                    if var object = target as? MTLObject {
+                        object.setNeedsUpdate()
+                    }
+                    else if let view = target as? View {
+                        view.setNeedsDisplay()
+                    }
+                }
+            }
+        }
     }
     
     public override func process() {
