@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct ScatterUniforms: Uniforms {
     var radius: Float = 0.5
 }
@@ -36,23 +34,16 @@ class Scatter: Filter {
         }
     }
     
-    @objc public var noiseImage: UIImage? {
-        didSet {
-            
-            if let tex = input?.texture {
-                let imageSize = CGSize(width: tex.width, height: tex.height)
-                if noiseImage?.size.width != imageSize.width && noiseImage?.size.height != imageSize.height {
-                    let scaledImage = noiseImage?.scaleToFill(imageSize)  // Only calls itself once
-                    noiseImage = scaledImage
-                    return
-                }
-            }
-            
-            noiseTexture = nil
-            needsUpdate = true
-            update()
-        }
+    #if os(macOS)
+    @objc public var noiseImage: NSImage? {
+        didSet { updateNoiseImage() }
     }
+    #else
+    @objc public var noiseImage: UIImage? {
+        didSet { updateNoiseImage() }
+    }
+    #endif
+    
     
     public init() {
         super.init(functionName: "scatter")
@@ -88,32 +79,32 @@ class Scatter: Filter {
 
         let inputSize = CGSize(width: inputTexture.width, height: inputTexture.height)
         if noiseImage?.size != inputSize {
-            noiseImage = resize(noiseImage!, size: inputSize)
+            noiseImage = noiseImage!.resize(to: inputSize)
         }
         
-        noiseTexture = noiseImage?.texture(device)
+        #if os(macOS)
+            noiseTexture = noiseImage?.texture(device: device)
+        #else
+            noiseTexture = noiseImage?.texture(device)
+        #endif
     }
     
-    func resize(_ image: UIImage, size: CGSize) -> UIImage? {
     
-        let cgImage = image.cgImage
+    func updateNoiseImage() {
+        if let tex = input?.texture {
+            let imageSize = CGSize(width: tex.width, height: tex.height)
+            if noiseImage?.size.width != imageSize.width && noiseImage?.size.height != imageSize.height {
+                let scaledImage = noiseImage?.scaleToFill(imageSize)  // Only calls itself once
+                noiseImage = scaledImage
+                return
+            }
+        }
         
-        let width = (cgImage?.width)! / 2
-        let height = (cgImage?.height)! / 2
-        let bitsPerComponent = cgImage?.bitsPerComponent
-        let bytesPerRow = cgImage?.bytesPerRow
-        let colorSpace = cgImage?.colorSpace
-        let bitmapInfo = cgImage?.bitmapInfo
-        
-        let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: bitsPerComponent!, bytesPerRow: bytesPerRow!, space: colorSpace!, bitmapInfo: (bitmapInfo?.rawValue)!)
-        
-        context!.interpolationQuality = .high
-        context?.draw(image.cgImage!, in: CGRect(origin: CGPoint.zero, size: CGSize(width: CGFloat(width), height: CGFloat(height))))
-        
-        let scaledImage = context?.makeImage().flatMap { UIImage(cgImage: $0) }
-        
-        return scaledImage
+        noiseTexture = nil
+        needsUpdate = true
+        update()
     }
+    
 
     
     override func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {

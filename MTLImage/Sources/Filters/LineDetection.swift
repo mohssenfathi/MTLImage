@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct MTLLineDetectionUniforms {
     var sensitivity: Float = 0.5;
 }

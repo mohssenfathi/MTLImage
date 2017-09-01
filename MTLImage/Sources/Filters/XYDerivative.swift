@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct XYDerivativeUniforms: Uniforms {
     var edgeStrength: Float = 0.5
 }

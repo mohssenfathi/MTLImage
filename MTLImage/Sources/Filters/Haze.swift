@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct HazeUniforms: Uniforms {
     var distance: Float = 0.5
     var slope: Float = 0.5;

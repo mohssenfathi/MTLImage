@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct SaturationUniforms: Uniforms {
     var saturation: Float = 0.5
 }

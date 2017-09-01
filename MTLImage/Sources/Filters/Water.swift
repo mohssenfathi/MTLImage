@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct WaterUniforms: Uniforms {
     var time: Float = 0.0
     var speed: Float = 0.5

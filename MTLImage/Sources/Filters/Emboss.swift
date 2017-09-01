@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 public
 class Emboss: Convolution {
 

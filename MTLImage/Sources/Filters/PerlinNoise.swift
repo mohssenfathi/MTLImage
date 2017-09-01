@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct PerlinNoiseUniforms: Uniforms {
     var scale: Float = 0.5
 }

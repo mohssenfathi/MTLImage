@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct CrossHatchUniforms: Uniforms {
     var crossHatchSpacing: Float = 0.03;
     var lineWidth: Float = 0.003;

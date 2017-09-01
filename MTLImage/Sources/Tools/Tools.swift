@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 public
 protocol Numeric {
     static func -(left: Self, right: Self) -> Self
@@ -182,4 +180,16 @@ class Tools: NSObject {
 //        let buffer = UnsafeBufferPointer<T>(start: UnsafePointer(data), count: length/MemoryLayout<T>.stride);
 //        return Array(buffer)
 //    }
+}
+
+
+extension MTLTexture {
+    
+    func size() -> MTLSize {
+        return MTLSize(width: width, height: height, depth: depth)
+    }
+}
+
+func *(left: CGSize, right: CGFloat) -> CGSize {
+    return CGSize(width: left.width * right, height: left.height * right)
 }

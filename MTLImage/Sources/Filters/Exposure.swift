@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct ExposureUniforms: Uniforms {
     var exposure: Float = 0.5;
 }

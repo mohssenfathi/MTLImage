@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct ToneCurveUniforms: Uniforms {
     
 }

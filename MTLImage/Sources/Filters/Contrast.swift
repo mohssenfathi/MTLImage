@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct ContrastUniforms: Uniforms {
     var contrast: Float = 0.5;
 }

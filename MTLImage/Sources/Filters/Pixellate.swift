@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct PixellateUniforms: Uniforms {
     var dotRadius: Float = 0.5;
     var aspectRatio: Float = 0.6667

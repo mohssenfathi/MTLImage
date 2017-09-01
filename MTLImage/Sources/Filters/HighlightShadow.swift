@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct HighlightShadowUniforms: Uniforms {
     var highlights: Float = 1.0
     var shadows   : Float = 0.0

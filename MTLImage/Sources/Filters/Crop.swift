@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct CropUniforms: Uniforms {
     var x: Float = 0.0
     var y: Float = 0.0

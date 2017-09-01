@@ -16,7 +16,12 @@ struct ColorMaskUniforms {
 public
 class ColorMask: Filter {
 
+    #if os(macOS)
+    public var color: NSColor = .clear
+    #else
     public var color: UIColor = .clear
+    #endif
+    
     public var threshold: Float = 1.0
     
     var uniforms = ColorMaskUniforms()

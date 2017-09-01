@@ -5,8 +5,6 @@
 //  Created by Mohssen Fathi on 8/28/17.
 //
 
-import UIKit
-
 public
 class DataOutput: Filter {
     

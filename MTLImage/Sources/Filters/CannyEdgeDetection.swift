@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 class CannyEdgeDetection: FilterGroup {
     
     let saturationFilter = Saturation()

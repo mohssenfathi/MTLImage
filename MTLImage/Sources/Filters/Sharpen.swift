@@ -6,14 +6,13 @@
 //
 //
 
-import UIKit
-
 struct SharpenUniforms: Uniforms {
     var sharpness: Float = 0.0;
 }
 
 public
 class Sharpen: Filter {
+    
     var uniforms = SharpenUniforms()
     
     @objc public var sharpness: Float = 0.0 {

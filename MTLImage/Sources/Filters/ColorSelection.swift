@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct ColorSelectionUniforms: Uniforms {
     var red    : Float = 1.0;
     var orange : Float = 1.0;

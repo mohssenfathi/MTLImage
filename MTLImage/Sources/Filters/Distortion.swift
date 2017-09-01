@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct DistortionUniforms: Uniforms {
     var centerX: Float = 0.5;
     var centerY: Float = 0.5;

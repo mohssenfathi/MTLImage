@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct VignetteUniforms: Uniforms {
     var x: Float = 0.0
     var y: Float = 0.0
@@ -31,11 +29,15 @@ class Vignette: Filter {
         }
     }
     
-    @objc public var color: UIColor = UIColor.black {
-        didSet {
-            needsUpdate = true
-        }
+    #if os(macOS)
+    @objc public var color: NSColor = NSColor.black {
+        didSet { needsUpdate = true }
     }
+    #else
+    @objc public var color: UIColor = UIColor.black {
+        didSet { needsUpdate = true }
+    }
+    #endif
     
     @objc public var start: Float = 0.25 {
         didSet {
@@ -54,7 +56,7 @@ class Vignette: Filter {
     
     public override func reset() {
         center = CGPoint(x: 0.5, y: 0.5)
-        color = UIColor.black
+        color = .black
         start = 0.25
         end = 0.7
     }
@@ -83,7 +85,7 @@ class Vignette: Filter {
         if self.input == nil { return }
         
         let components = color.cgColor.components
-        if color == UIColor.white || color == UIColor.black {
+        if color == .white || color == .black {
             uniforms.r = Float((components?[0])!)
             uniforms.g = Float((components?[0])!)
             uniforms.b = Float((components?[0])!)

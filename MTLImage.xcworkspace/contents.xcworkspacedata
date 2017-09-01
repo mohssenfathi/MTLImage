@@ -2,9 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:MTLImage/MTLImage.xcodeproj">
+      location = "group:Example-macOS/Example-macOS.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Example-iOS/Example-iOS.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MTLImage/MTLImage.xcodeproj">
    </FileRef>
 </Workspace>

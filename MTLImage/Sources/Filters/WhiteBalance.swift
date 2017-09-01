@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct WhiteBalanceUniforms: Uniforms {
     var temperature: Float = 0.5;
     var tint: Float = 0.5;

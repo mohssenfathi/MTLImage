@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct LuminanceThresholdUniforms : Uniforms{
     var threshold: Float = 0.5;
 }

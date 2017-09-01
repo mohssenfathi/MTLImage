@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct ToonUniforms: Uniforms {
     var quantizationLevels: Float = 0.5;
     var threshold: Float = 0.0

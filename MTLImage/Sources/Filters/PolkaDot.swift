@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct PolkaDotUniforms: Uniforms {
     var dotRadius: Float = 0.0
 }

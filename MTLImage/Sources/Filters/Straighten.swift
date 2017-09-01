@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct StraightenUniforms: Uniforms {
     var angle: Float = 0.5
 }

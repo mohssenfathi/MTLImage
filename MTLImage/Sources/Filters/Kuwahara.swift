@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct KuwaharaUniforms: Uniforms {
     var radius: Float = 0.5
 }

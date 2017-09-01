@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct SelectiveHSLUniforms: Uniforms {
     var mode: Int = 0
 }

@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct NonMaximumSuppressionUniforms: Uniforms {
     var texelWidth: Float = 0.5;
     var texelHeight: Float = 0.5;

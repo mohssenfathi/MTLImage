@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct SketchUniforms: Uniforms {
     var intensity: Float = 0.5;
 }

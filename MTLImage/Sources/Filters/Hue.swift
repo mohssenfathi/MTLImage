@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct HueUniforms: Uniforms {
     var hue: Float = 0.0
 }

@@ -6,16 +6,14 @@
 //
 //
 
-import UIKit
-
 public
 class Convolution: Filter {
     
     private var convolutionMatrixTexture: MTLTexture?
     
     @objc public var convolutionMatrix: [[Float]] = [[0.0, 0.0, 0.0],
-                                               [0.0, 1.0, 0.0],
-                                               [0.0, 0.0, 0.0]] {
+                                                     [0.0, 1.0, 0.0],
+                                                     [0.0, 0.0, 0.0]] {
         didSet {
             needsUpdate = true
             convolutionMatrixTexture = nil

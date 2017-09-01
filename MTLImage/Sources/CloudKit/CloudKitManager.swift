@@ -39,7 +39,7 @@ extension FilterGroup {
         
         let record = CKRecord(recordType: "FilterGroup")
         
-        record["identifier"]  = self.identifier as CKRecordValue
+        record["identifier"]  = self.id as CKRecordValue
         record["title"]       = self.title as CKRecordValue
         record["category"]    = self.category as CKRecordValue
         record["description"] = self.filterDescription as CKRecordValue
@@ -51,7 +51,7 @@ extension FilterGroup {
     func filterDataAsset(_ data: Data) -> CKAsset {
         
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
-        let url = URL(fileURLWithPath: path!).appendingPathComponent(identifier)
+        let url = URL(fileURLWithPath: path!).appendingPathComponent(id)
         try! data.write(to: url, options: .atomicWrite) // Handle later
         
         return CKAsset(fileURL: url)

@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct HSVUniforms: Uniforms {
     var hue: Float = 0.5
     var saturation: Float = 0.5

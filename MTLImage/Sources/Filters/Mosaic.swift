@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct MosaicUniforms: Uniforms {
     var intensity: Float = 0.5;
 }

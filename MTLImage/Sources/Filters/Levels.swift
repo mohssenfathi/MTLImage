@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct LevelsUniforms: Uniforms {
     var min: Float = 0.0
     var mid: Float = 0.5

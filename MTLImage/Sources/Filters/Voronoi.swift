@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct VoronoiUniforms: Uniforms {
     var time: Float = 0.0
     var size: Float = 0.5

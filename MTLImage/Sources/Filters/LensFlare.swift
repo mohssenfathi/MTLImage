@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct MTLLensFlareUniforms: Uniforms {
     var r: Float = 1.0
     var g: Float = 1.0
@@ -28,11 +26,15 @@ class LensFlare: Filter {
     
     var uniforms = MTLLensFlareUniforms()
     
-    @objc public var color: UIColor = UIColor.white {
-        didSet {
-            needsUpdate = true
-        }
+    #if os(macOS)
+    @objc public var color: NSColor = NSColor.white {
+        didSet { needsUpdate = true }
     }
+    #else
+    @objc public var color: UIColor = UIColor.white {
+        didSet { needsUpdate = true }
+    }
+    #endif
     
     @objc public var angle: CGPoint = CGPoint(x: 0.5, y: 0.5) {
         didSet {
@@ -78,7 +80,7 @@ class LensFlare: Filter {
         if self.input == nil { return }
         
         let components = color.cgColor.components
-        if color == UIColor.white || color == UIColor.black {
+        if color == .white || color == .black {
             uniforms.r = Float((components?[0])!)
             uniforms.g = Float((components?[0])!)
             uniforms.b = Float((components?[0])!)

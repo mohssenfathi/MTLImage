@@ -6,8 +6,6 @@
 //
 //
 
-import UIKit
-
 struct SmudgeUniforms: Uniforms {
     var radius: Float = 0.5
     var x: Float = 0.0
