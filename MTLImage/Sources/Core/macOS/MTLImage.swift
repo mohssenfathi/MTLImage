@@ -19,6 +19,7 @@ class MTLImage: NSObject {
         "Contrast",
         "Color Mask",
         "Crop",
+        "Copy",
         "Cross Hatch",
         "Data Output",
         "Depth Blend",
@@ -71,6 +72,7 @@ class MTLImage: NSObject {
         case "buffer"                         : return Buffer()
         case "contrast"                       : return Contrast()
         case "color mask"                     : return ColorMask()
+        case "copy"                           : return Copy()
         case "crop"                           : return Crop()
         case "cross hatch"                    : return CrossHatch()
         case "data output"                    : return DataOutput()

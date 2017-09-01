@@ -59,9 +59,7 @@ class UnsharpMask: Filter {
     }
     
     public override func processIfNeeded() {
-        
         blurFilter.processIfNeeded()
-        
         super.processIfNeeded()
     }
     

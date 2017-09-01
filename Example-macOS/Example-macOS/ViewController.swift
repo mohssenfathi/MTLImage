@@ -13,19 +13,24 @@ class ViewController: NSViewController {
     @IBOutlet var renderView: View!
     let image = Image(image: #imageLiteral(resourceName: "test"))
     let camera = Camera()
+    let dataOutput = DataOutput()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let blur = GaussianBlur()
-        blur.sigma = 0.5
+        blur.sigma = 0.2
         
 //        camera --> Sketch() --> blur --> renderView
-        camera --> renderView
+        camera --> blur --> renderView
         
-//        camera.newTextureAvailable = { texture in
-//            
-//        }
+        dataOutput.newDataAvailable = { data in
+            print(CACurrentMediaTime())
+        }
+        
+        camera.newTextureAvailable = { texture in
+//            self.dataOutput.process()
+        }
     }
 
 }

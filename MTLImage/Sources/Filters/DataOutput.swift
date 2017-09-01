@@ -20,25 +20,21 @@ class DataOutput: Filter {
         super.init(coder: aDecoder)
     }
 
-    private var dataBuffer: MTLBuffer!
     
-    public override func process() {
-        
-        input?.processIfNeeded()
-        if texture == nil { initTexture() }
-        
-        texture = input?.texture
+    override func encode(to commandBuffer: MTLCommandBuffer) {
         
         guard let texture = texture,
-            let commandBuffer = context.commandQueue.makeCommandBuffer(),
             let blit = commandBuffer.makeBlitCommandEncoder() else {
-                return
+            return
         }
         
         if dataBuffer == nil {
-            dataBuffer = context.device.makeBuffer(length: texture.width * texture.height * MemoryLayout<UInt8>.size, options: MTLResourceOptions.storageModeShared)
+            dataBuffer = context.device.makeBuffer(
+                length: texture.width * texture.height * MemoryLayout<UInt8>.size,
+                options: MTLResourceOptions.storageModeShared
+            )
         }
-        
+
         blit.copy(
             from: texture,
             sourceSlice: 0,
@@ -53,16 +49,16 @@ class DataOutput: Filter {
         )
         
         blit.endEncoding()
-        
-        commandBuffer.addCompletedHandler { commandBuffer in
-            self.updateBuffer()
-        }
-        
-        commandBuffer.commit()
     }
-
+    
+    override func commandBufferCompletion() {
+        self.updateBuffer()
+    }
+ 
     
     func updateBuffer() {
+
+        return
         
         guard let texture = texture else { return }
     
@@ -72,4 +68,6 @@ class DataOutput: Filter {
 
         newDataAvailable?(data)
     }
+    
+    private var dataBuffer: MTLBuffer!
 }

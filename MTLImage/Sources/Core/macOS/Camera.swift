@@ -158,6 +158,7 @@ extension Camera {
     
 }
 
+
 extension Camera: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {

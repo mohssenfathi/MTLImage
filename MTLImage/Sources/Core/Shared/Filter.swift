@@ -107,44 +107,55 @@ class Filter: MTLObject, NSCoding {
             initTexture()
         }
         
-        guard let inputTexture = input?.texture,
-            let commandBuffer = context.commandQueue.makeCommandBuffer(),
-            let commandEncoder = commandBuffer.makeComputeCommandEncoder() else { return }
+        guard let commandBuffer = context.commandQueue.makeCommandBuffer() else { return }
         
         autoreleasepool {
-            
+        
             context.semaphore.wait()
             
-            let w = pipeline.threadExecutionWidth
-            let h = pipeline.maxTotalThreadsPerThreadgroup / w
-            let threadsPerThreadgroup = MTLSizeMake(w, h, 1)
-            let threadgroupsPerGrid = MTLSize(width: (inputTexture.width + w - 1) / w, height: (inputTexture.height + h - 1) / h, depth: 1)
-            
-            commandEncoder.setComputePipelineState(pipeline)
-            commandEncoder.setBuffer(uniformsBuffer, offset: 0, index: 0)
-            commandEncoder.setTexture(inputTexture, index: 0)
-            commandEncoder.setTexture(texture, index: 1)
-   
-            self.configureCommandEncoder(commandEncoder)
-            
-            commandEncoder.dispatchThreadgroups(threadgroupsPerGrid, threadsPerThreadgroup: threadsPerThreadgroup)
-            commandEncoder.endEncoding()
+            encode(to: commandBuffer)
             
             commandBuffer.addCompletedHandler({ (commandBuffer) in
-
+                self.commandBufferCompletion()
                 self.context.semaphore.signal()
-
-                if self.continuousUpdate { return }
-                if let input = self.input {
-                    if input.continuousUpdate { return }
-                }
+                if self.continuousUpdate || (self.input?.continuousUpdate ?? false) { return }
                 self.needsUpdate = false
-                
             })
             
             commandBuffer.commit()
 //            commandBuffer.waitUntilCompleted()
         }
+    }
+    
+    func commandBufferCompletion() {
+        
+    }
+    
+    func encode(to commandBuffer: MTLCommandBuffer) {
+        
+        guard let inputTexture = input?.texture,
+            let commandEncoder = commandBuffer.makeComputeCommandEncoder() else {
+                return
+        }
+        
+        let w = pipeline.threadExecutionWidth
+        let h = pipeline.maxTotalThreadsPerThreadgroup / w
+        let threadsPerThreadgroup = MTLSizeMake(w, h, 1)
+        let threadgroupsPerGrid = MTLSize(width: (inputTexture.width + w - 1) / w, height: (inputTexture.height + h - 1) / h, depth: 1)
+        
+//        let threadgroupCounts = MTLSizeMake(8, 8, 1)
+//        let threadgroups = MTLSizeMake(inputTexture.width / threadgroupCounts.width, inputTexture.height / threadgroupCounts.height, 1)
+        
+        commandEncoder.setComputePipelineState(pipeline)
+        commandEncoder.setBuffer(uniformsBuffer, offset: 0, index: 0)
+        commandEncoder.setTexture(inputTexture, index: 0)
+        commandEncoder.setTexture(texture, index: 1)
+        commandEncoder.dispatchThreadgroups(threadgroupsPerGrid, threadsPerThreadgroup: threadsPerThreadgroup)
+        
+        configureCommandEncoder(commandEncoder)
+        
+        commandEncoder.endEncoding()
+        
     }
     
     func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {

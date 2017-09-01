@@ -218,6 +218,8 @@
 		45AA0D4B1F490BE00091DBB0 /* DefaultShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0CA91F490BE00091DBB0 /* DefaultShaders.metal */; };
 		45AA0D531F490CEC0091DBB0 /* MTLImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 45AA0D501F490BE70091DBB0 /* MTLImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45BD560B1F585C8A00A05233 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45173D081F5755930058A6FA /* Camera.swift */; };
+		45BD56141F59B34C00A05233 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD56131F59B34C00A05233 /* Copy.swift */; };
+		45BD56151F59B35E00A05233 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD56131F59B34C00A05233 /* Copy.swift */; };
 		45DE26941F583BB4008BA963 /* Convolution.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C721F490BE00091DBB0 /* Convolution.metal */; };
 		45DE26951F583BB4008BA963 /* OilPaint.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C731F490BE00091DBB0 /* OilPaint.metal */; };
 		45DE26961F583BB4008BA963 /* LineDetection.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C741F490BE00091DBB0 /* LineDetection.metal */; };
@@ -446,6 +448,7 @@
 		45AA0D4F1F490BE70091DBB0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45AA0D501F490BE70091DBB0 /* MTLImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLImage.h; sourceTree = "<group>"; };
 		45AA0D551F490D360091DBB0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		45BD56131F59B34C00A05233 /* Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -567,6 +570,7 @@
 			isa = PBXGroup;
 			children = (
 				455F75951F56F36400F9F735 /* ColorMask.swift */,
+				45BD56131F59B34C00A05233 /* Copy.swift */,
 				455F75941F56F36400F9F735 /* DataOutput.swift */,
 				451D3C181F4915A6004A6006 /* DepthRenderer.swift */,
 				45AA0C021F490BE00091DBB0 /* Levels.swift */,
@@ -985,6 +989,7 @@
 				45173D051F5754CB0058A6FA /* MTLImage.swift in Sources */,
 				45DE26941F583BB4008BA963 /* Convolution.metal in Sources */,
 				450DC8561F5763DB004ED035 /* LuminanceThreshold.swift in Sources */,
+				45BD56151F59B35E00A05233 /* Copy.swift in Sources */,
 				45173D131F5755DC0058A6FA /* MTLImage-Additions.swift in Sources */,
 				45DE26C81F583BB4008BA963 /* CrossHatch.metal in Sources */,
 				45DE26AC1F583BB4008BA963 /* Distortion.metal in Sources */,
@@ -1164,6 +1169,7 @@
 				45AA0CD71F490BE00091DBB0 /* DepthToGrayscale.swift in Sources */,
 				45AA0D191F490BE00091DBB0 /* Transform.metal in Sources */,
 				45AA0D301F490BE00091DBB0 /* UnsharpMask.metal in Sources */,
+				45BD56141F59B34C00A05233 /* Copy.swift in Sources */,
 				45AA0D1D1F490BE00091DBB0 /* LensFlare.metal in Sources */,
 				45AA0D3D1F490BE00091DBB0 /* Toon.metal in Sources */,
 				451D3C191F4915A7004A6006 /* DepthRenderer.swift in Sources */,

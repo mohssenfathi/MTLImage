@@ -107,6 +107,7 @@ public class MTLObject: NSObject, Output {
                                                                              width: inputTexture.width,
                                                                              height: inputTexture.height,
                                                                              mipmapped: false)
+            textureDescriptor.usage = [.shaderRead, .shaderWrite]
             texture = context.device?.makeTexture(descriptor: textureDescriptor)
         }
     }
