@@ -6,10 +6,9 @@
 //  Created by Mohssen Fathi on 8/30/17.
 //
 
-#if !(TARGET_OS_SIMULATOR)
-    import Metal
-    import MetalKit
-#endif
+import Metal
+import MetalKit
+import AVFoundation
 
 
 // MARK: - MTLTexture
@@ -354,6 +353,64 @@ extension UIImage {
     }
 }
 
+
+// MARK: - AVCaptureDevice
+extension AVCaptureDevice {
+    
+    func configureForHighestFrameRate(max: Double = 240.0) {
+        
+        guard let format = formats.filter({
+            $0.maxFrameRateRange?.maxFrameRate ?? Double.greatestFiniteMagnitude <= max
+        }).sorted(by: { format1, format2 in
+            return format1.maxFrameRateRange?.maxFrameRate ?? 0 > format2.maxFrameRateRange?.maxFrameRate ?? 0
+        }).first else {
+            return
+        }
+        
+        print("Max Format: \(format.maxFrameRateRange?.maxFrameRate ?? 0) FPS")
+        
+        do {
+            try lockForConfiguration()
+            activeFormat = format
+            activeVideoMinFrameDuration = format.maxFrameRateRange!.minFrameDuration
+            activeVideoMaxFrameDuration = format.maxFrameRateRange!.minFrameDuration
+            unlockForConfiguration()
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+}
+
+// MARK: - AVCaptureDevice.Format
+extension AVCaptureDevice.Format {
+    
+    var maxFrameRateRange: AVFrameRateRange? {
+        return videoSupportedFrameRateRanges.sorted { return $0.maxFrameRate > $1.maxFrameRate }.first
+    }
+}
+
+
+// MARK: - UIColor
+extension UIColor {
+    
+    func components() -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)? {
+        
+        var red  : CGFloat = 0
+        var green: CGFloat = 0
+        var blue : CGFloat = 0
+        var alpha: CGFloat = 0
+        
+        if self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
+            return (red, green, blue, alpha)
+        } else {
+            return nil
+        }
+    }
+}
+
+
+// MARK: CVPixelBuffer
 func minMax(from pixelBuffer: CVPixelBuffer, format: MTLPixelFormat) -> (Float, Float) {
     
     let width = CVPixelBufferGetWidth(pixelBuffer)
@@ -385,4 +442,68 @@ func minMax(from pixelBuffer: CVPixelBuffer, format: MTLPixelFormat) -> (Float, 
     CVPixelBufferUnlockBaseAddress(pixelBuffer, CVPixelBufferLockFlags.readOnly)
     
     return (min, max)
+}
+
+
+// Gross, I know
+func fixOrientation(_ image: UIImage) -> UIImage? {
+    if image.imageOrientation == .up {
+        return image
+    }
+    
+    // We need to calculate the proper transformation to make the image upright.
+    // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
+    var transform: CGAffineTransform = CGAffineTransform.identity
+    
+    switch image.imageOrientation {
+    case .down, .downMirrored:
+        transform = transform.translatedBy(x: image.size.width, y: image.size.height)
+        transform = transform.rotated(by: CGFloat.pi)
+    case .left, .leftMirrored:
+        transform = transform.translatedBy(x: image.size.width, y: 0)
+        transform = transform.rotated(by: CGFloat.pi/2.0)
+    case .right, .rightMirrored:
+        transform = transform.translatedBy(x: 0, y: image.size.height)
+        transform = transform.rotated(by: -CGFloat.pi/2.0)
+    default:
+        break
+    }
+    
+    switch image.imageOrientation {
+    case .upMirrored, .downMirrored:
+        transform = transform.translatedBy(x: image.size.width, y: 0)
+        transform = transform.scaledBy(x: -1, y: 1)
+    case .leftMirrored, .rightMirrored:
+        transform = transform.translatedBy(x: image.size.height, y: 0)
+        transform = transform.scaledBy(x: -1, y: 1)
+    default:
+        break
+    }
+    
+    // Now we draw the underlying CGImage into a new context, applying the transform
+    // calculated above.
+    guard let context = CGContext(data: nil,
+                                  width: Int(image.size.width),
+                                  height: Int(image.size.height),
+                                  bitsPerComponent: image.cgImage!.bitsPerComponent,
+                                  bytesPerRow: 0, space: image.cgImage!.colorSpace!,
+                                  bitmapInfo: image.cgImage!.bitmapInfo.rawValue) else {
+                                    return nil
+    }
+    
+    context.concatenate(transform)
+    
+    switch image.imageOrientation {
+    case .left, .leftMirrored, .right, .rightMirrored:
+        context.draw(image.cgImage!, in: CGRect(x: 0, y: 0, width: image.size.height, height: image.size.width))
+    default:
+        context.draw(image.cgImage!, in: CGRect(origin: .zero, size: image.size))
+    }
+    
+    // And now we just create a new UIImage from the drawing context
+    guard let CGImage = context.makeImage() else {
+        return nil
+    }
+    
+    return UIImage(cgImage: CGImage)
 }
