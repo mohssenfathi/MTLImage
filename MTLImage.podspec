@@ -22,11 +22,14 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/mohssenfathi/MTLImage.git", :tag => s.version.to_s }
 
   s.ios.deployment_target = '10.0'
-  s.tvos.deployment_target = '10.0'
+# s.tvos.deployment_target = '10.0'
   s.requires_arc = true
 
-  s.source_files = 'MTLImage/Sources/**/*.{swift, m, h, mm, hpp, cpp, c}'
-  s.resources = ['MTLImage/Sources/CoreData/*.xcdatamodeld', 'MTLImage/Sources/Shaders/*.metallib']
+  s.ios.resources = 'MTLImage/Sources/iOS/CoreData/*.xcdatamodeld', 'MTLImage/Sources/Shared/Shaders/*.metallib'
+  s.ios.source_files = 'MTLImage/Sources/Shared/**/*.{swift, m, h, mm, hpp, cpp, c}', 'MTLImage/Sources/iOS/**/*.{swift, m, h, mm, hpp, cpp, c}'
+
+  s.osx.resources = 'MTLImage/Sources/Shared/Shaders/*.metallib'
+  s.osx.source_files = 'MTLImage/Sources/Shared/**/*.{swift, m, h, mm, hpp, cpp, c}', 'MTLImage/Sources/macOS/**/*.{swift, m, h, mm, hpp, cpp, c}'
 
   # Unused for now
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"

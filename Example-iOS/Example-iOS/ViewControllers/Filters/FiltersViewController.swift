@@ -24,7 +24,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var filterGroupViewController: FilterGroupViewController?
     var selectedFilter: MTLObject!
     var delegate: FiltersViewControllerDelegate?
-    var filterNames = MTLImage.filters.sorted()
+    var filterTypes: [MTLImage.FilterType] = MTLImage.FilterType.all
     var savedFilterGroups: [FilterGroup]!
     var filterGroup: FilterGroup!
     var newFilterSeleced: Bool!
@@ -80,7 +80,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 { return savedFilterGroups.count + 1 }
-        return filterNames.count
+        return filterTypes.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -101,7 +101,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         else {
             cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel?.text = filterNames[indexPath.row]
+            cell.textLabel?.text = filterTypes[indexPath.row].title
         }
         
         return cell
@@ -134,8 +134,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             performSegue(withIdentifier: "filterGroup", sender: self)
         }
         else {
-            let title = filterNames[indexPath.row]
-            let object = try! MTLImage.filter(title)
+            let object = filterTypes[indexPath.row].filter()
             
             if object is Filter {
                 selectedFilter = object as! Filter

@@ -11,9 +11,9 @@
 		450DC83B1F575D75004ED035 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450DC83A1F575D75004ED035 /* ViewController.swift */; };
 		450DC83D1F575D75004ED035 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 450DC83C1F575D75004ED035 /* Assets.xcassets */; };
 		450DC8401F575D75004ED035 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 450DC83E1F575D75004ED035 /* Main.storyboard */; };
-		450DC8491F575DAE004ED035 /* MTLImage_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 450DC8481F575DAE004ED035 /* MTLImage_macOS.framework */; };
-		450DC84A1F575DAE004ED035 /* MTLImage_macOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 450DC8481F575DAE004ED035 /* MTLImage_macOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45BD56101F586ADD00A05233 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BD560F1F586ADD00A05233 /* AVFoundation.framework */; };
+		45EE84E61F5F228D00C9241A /* MTLImage_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45EE84E51F5F228D00C9241A /* MTLImage_macOS.framework */; };
+		45EE84E71F5F228D00C9241A /* MTLImage_macOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45EE84E51F5F228D00C9241A /* MTLImage_macOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +23,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				450DC84A1F575DAE004ED035 /* MTLImage_macOS.framework in Embed Frameworks */,
+				45EE84E71F5F228D00C9241A /* MTLImage_macOS.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,9 +38,9 @@
 		450DC83F1F575D75004ED035 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		450DC8411F575D75004ED035 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		450DC8421F575D75004ED035 /* Example_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example_macOS.entitlements; sourceTree = "<group>"; };
-		450DC8481F575DAE004ED035 /* MTLImage_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MTLImage_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45BD560F1F586ADD00A05233 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		45BD56111F586B5A00A05233 /* Example-macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Example-macOS.entitlements"; sourceTree = "<group>"; };
+		45EE84E51F5F228D00C9241A /* MTLImage_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MTLImage_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,8 +48,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45EE84E61F5F228D00C9241A /* MTLImage_macOS.framework in Frameworks */,
 				45BD56101F586ADD00A05233 /* AVFoundation.framework in Frameworks */,
-				450DC8491F575DAE004ED035 /* MTLImage_macOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +59,7 @@
 		450DC82C1F575D75004ED035 = {
 			isa = PBXGroup;
 			children = (
-				450DC8481F575DAE004ED035 /* MTLImage_macOS.framework */,
+				45EE84E51F5F228D00C9241A /* MTLImage_macOS.framework */,
 				450DC8371F575D75004ED035 /* Example-macOS */,
 				450DC8361F575D75004ED035 /* Products */,
 				45BD560E1F586ADD00A05233 /* Frameworks */,

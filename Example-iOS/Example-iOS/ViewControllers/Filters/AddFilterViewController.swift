@@ -17,7 +17,7 @@ class AddFilterViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBOutlet weak var tableView: UITableView!
     var delegate: AddFilterViewControllerDelegate?
-    var filterNames = MTLImage.filters.sorted()
+    var filterTypes = MTLImage.FilterType.all
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +38,12 @@ class AddFilterViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filterNames.count + 1
+        return filterTypes.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = (indexPath.row == 0) ? "New Filter Group" : filterNames[indexPath.row - 1]
+        cell.textLabel?.text = (indexPath.row == 0) ? "New Filter Group" : filterTypes[indexPath.row - 1].title
         return cell
     }
     
@@ -59,8 +59,7 @@ class AddFilterViewController: UIViewController, UITableViewDataSource, UITableV
             return
         }
         
-        let title = filterNames[indexPath.row - 1]
-        delegate?.addFilterViewControllerDidSelectFilter(self, filter: try! MTLImage.filter(title)!)
+        delegate?.addFilterViewControllerDidSelectFilter(self, filter: filterTypes[indexPath.row - 1].filter())
         dismiss(animated: true, completion: nil)
     }
     
