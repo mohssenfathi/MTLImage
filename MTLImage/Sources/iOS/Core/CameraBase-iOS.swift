@@ -111,6 +111,15 @@ class CameraBase: NSObject {
     }
     
     /* Exposure */
+    
+    public var exposureMode: AVCaptureDevice.ExposureMode = .continuousAutoExposure {
+        didSet {
+            applyCameraSetting {
+                captureDevice.exposureMode = exposureMode
+            }
+        }
+    }
+    
     public func setExposureAuto() {
         applyCameraSetting {
             self.captureDevice.exposureMode = .autoExpose
@@ -118,15 +127,28 @@ class CameraBase: NSObject {
     }
     
     var minExposureDuration: Float = 0.004
-    var maxExposureDuration: Float = 0.100 // 0.250
+    var maxExposureDuration: Float = 0.150 // 0.250
     public var exposureDuration: Float = 0.01 {
         didSet {
-            if captureDevice.isAdjustingExposure { return }
+            guard !captureDevice.isAdjustingFocus else { return }
+
             applyCameraSetting {
                 let seconds = Tools.convert(self.exposureDuration, oldMin: 0, oldMax: 1,
                                             newMin: self.minExposureDuration, newMax: self.maxExposureDuration)
                 let ed = CMTime(seconds: Double(seconds), preferredTimescale: 1000 * 1000)
                 self.captureDevice.setExposureModeCustom(duration: ed, iso: AVCaptureDevice.currentISO, completionHandler: nil)
+            }
+        }
+    }
+    
+    public var exposurePointOfInterest: CGPoint = CGPoint(x: 0.5, y: 0.5) {
+        didSet {
+            guard captureDevice.isExposurePointOfInterestSupported,
+                !captureDevice.isAdjustingFocus else { return }
+            
+            applyCameraSetting {
+                captureDevice.exposurePointOfInterest = exposurePointOfInterest
+                exposureMode = .autoExpose
             }
         }
     }
@@ -188,11 +210,12 @@ class CameraBase: NSObject {
     
     
     // MARK: - Mode
-    public enum Mode: Int {
+    public enum Mode: String {
+        
         case back
         case front
-        case dual
         case telephoto
+        case dual
         case depth
         
         func device() -> AVCaptureDevice? {
@@ -208,7 +231,11 @@ class CameraBase: NSObject {
                 position = .front
             case .dual, .depth:
                 position = .back
-                deviceType = .builtInDuoCamera
+                if #available(iOS 10.2, *) {
+                    deviceType = .builtInDualCamera
+                } else {
+                    deviceType = .builtInDuoCamera
+                }
             case .telephoto:
                 position = .back
                 deviceType = .builtInTelephotoCamera
@@ -223,14 +250,38 @@ class CameraBase: NSObject {
             return session.devices.first
         }
         
-        var capturePosition: AVCaptureDevice.Position {
+        public var title: String { return rawValue.capitalized }
+        
+        public static var supportedModes: [Mode] {
+            var modes: [Mode] = [.back, .front]
+            
+            var additionalTypes: [AVCaptureDevice.DeviceType] = [.builtInTelephotoCamera]
+            if #available(iOS 10.2, *) {
+                additionalTypes += [AVCaptureDevice.DeviceType.builtInDualCamera]
+            } else {
+                additionalTypes += [AVCaptureDevice.DeviceType.builtInDuoCamera]
+            }
+            
+            let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: additionalTypes, mediaType: .video, position: .back)
+            if discoverySession.devices.count > 0 {
+                modes += [.dual, .telephoto, .depth]
+            }
+            
+            return modes
+        }
+        
+        public static var all: [Mode] {
+            return [.back, .front, .dual, .telephoto, .depth]
+        }
+        
+        public var capturePosition: AVCaptureDevice.Position {
             switch self {
             case .back, .dual, .telephoto, .depth: return .back
             case .front: return .front
             }
         }
         
-        static func mode(for position: AVCaptureDevice.Position) -> Mode {
+        public static func mode(for position: AVCaptureDevice.Position) -> Mode {
             return position == .front ? .front : .back
         }
     }

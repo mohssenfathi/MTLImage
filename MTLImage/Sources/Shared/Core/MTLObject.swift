@@ -6,6 +6,8 @@
 //
 //
 
+import Foundation
+
 @objc
 open class MTLObject: NSObject, Output {
     

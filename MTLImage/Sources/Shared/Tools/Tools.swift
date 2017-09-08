@@ -6,6 +6,8 @@
 //
 //
 
+import Foundation
+
 public
 protocol Numeric {
     static func -(left: Self, right: Self) -> Self
@@ -190,6 +192,11 @@ extension MTLTexture {
     }
 }
 
-func *(left: CGSize, right: CGFloat) -> CGSize {
+public func *(left: CGSize, right: CGFloat) -> CGSize {
     return CGSize(width: left.width * right, height: left.height * right)
+}
+
+
+public func /(left: CGPoint, right: CGSize) -> CGPoint {
+    return CGPoint(x: left.x / right.width, y: left.y / right.height)
 }
