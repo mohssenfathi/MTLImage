@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="woE-JT-Bip">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="woE-JT-Bip">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13147.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13526"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,7 +18,7 @@
         <!--Test View Controller-->
         <scene sceneID="dIz-9T-b7C">
             <objects>
-                <viewController id="dK2-nO-Ymx" customClass="TestViewController" customModule="MTLImage_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dK2-nO-Ymx" customClass="TestViewController" customModule="Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OK5-ny-d42"/>
                         <viewControllerLayoutGuide type="bottom" id="4nO-yE-Qp4"/>
@@ -37,7 +36,7 @@
         <!--Main View Controller-->
         <scene sceneID="IWW-om-9Tq">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="JNq-Hf-rXT" customClass="MainViewController" customModule="MTLImage_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="JNq-Hf-rXT" customClass="MainViewController" customModule="Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6nT-fF-Hm0"/>
                         <viewControllerLayoutGuide type="bottom" id="HbM-mm-vFh"/>
@@ -152,7 +151,7 @@
         <!--Filters View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="vXZ-lx-hvc" customClass="FiltersViewController" customModule="MTLImage_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="vXZ-lx-hvc" customClass="FiltersViewController" customModule="Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -241,6 +240,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="jWv-mb-4NG">
                         <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" title="Export All" id="rTM-De-qya">
+                            <connections>
+                                <action selector="exportAllButtonPressed:" destination="vXZ-lx-hvc" id="OUg-PK-8oj"/>
+                            </connections>
+                        </barButtonItem>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="y2A-mm-Lg2">
                             <rect key="frame" x="145.5" y="11" width="84" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -271,7 +275,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="woE-JT-Bip" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JLB-Gd-Ezf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -286,7 +290,7 @@
         <!--Settings View Controller-->
         <scene sceneID="y5t-o0-Vig">
             <objects>
-                <viewController id="EaC-cO-6I0" customClass="SettingsViewController" customModule="MTLImage_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="EaC-cO-6I0" customClass="SettingsViewController" customModule="Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="s4s-vX-1eS"/>
                         <viewControllerLayoutGuide type="bottom" id="I2a-fQ-2cp"/>
@@ -299,7 +303,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.49621035450000001" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="toggleCell" rowHeight="80" id="et5-rK-cbQ" customClass="ToggleCell" customModule="MTLImage_Example" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="toggleCell" rowHeight="80" id="et5-rK-cbQ" customClass="ToggleCell" customModule="Example_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="et5-rK-cbQ" id="XEy-0w-pYd">
@@ -307,7 +311,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BMh-fF-rPG">
-                                                    <rect key="frame" x="18" y="8" width="33.5" height="12.5"/>
+                                                    <rect key="frame" x="25" y="11" width="33.5" height="9.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -319,7 +323,7 @@
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnC-aB-wIU">
-                                                    <rect key="frame" x="345.5" y="30.5" width="21.5" height="19"/>
+                                                    <rect key="frame" x="338.5" y="30.5" width="21.5" height="19"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -343,7 +347,7 @@
                                             <outlet property="valueLabel" destination="lnC-aB-wIU" id="N9A-DA-sei"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="80" id="Pel-gT-y1J" customClass="SettingsCell" customModule="MTLImage_Example" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="settingsCell" rowHeight="80" id="Pel-gT-y1J" customClass="SettingsCell" customModule="Example_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="108" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pel-gT-y1J" id="RMY-QV-Rw7">
@@ -351,7 +355,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="cnG-oN-hsa">
-                                                    <rect key="frame" x="28" y="8" width="339" height="33.5"/>
+                                                    <rect key="frame" x="35" y="11" width="325" height="30.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -363,7 +367,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <slider opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="uWk-PT-tUV">
-                                                    <rect key="frame" x="26" y="41.5" width="296" height="31"/>
+                                                    <rect key="frame" x="33" y="41.5" width="289" height="31"/>
                                                     <connections>
                                                         <action selector="sliderValueChanged:" destination="Pel-gT-y1J" eventType="valueChanged" id="5Iv-lk-5Qa"/>
                                                     </connections>
@@ -402,7 +406,7 @@
                                             <outlet property="valueLabel" destination="CDm-Ol-Hs8" id="fnv-Iw-8Qi"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="pickerCell" rowHeight="100" id="KaT-uA-ijF" customClass="PickerCell" customModule="MTLImage_Example" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="pickerCell" rowHeight="100" id="KaT-uA-ijF" customClass="PickerCell" customModule="Example_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="188" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KaT-uA-ijF" id="nPU-Fd-Orc">
@@ -410,14 +414,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DX4-lC-NuG" userLabel="Picker">
-                                                    <rect key="frame" x="28" y="36.5" width="339" height="63"/>
+                                                    <rect key="frame" x="35" y="39.5" width="325" height="60"/>
                                                     <connections>
                                                         <outlet property="dataSource" destination="KaT-uA-ijF" id="ZD5-tP-asb"/>
                                                         <outlet property="delegate" destination="KaT-uA-ijF" id="vtu-Ff-fU0"/>
                                                     </connections>
                                                 </pickerView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5B4-gI-9xR">
-                                                    <rect key="frame" x="28" y="16" width="339" height="20.5"/>
+                                                    <rect key="frame" x="35" y="19" width="325" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -513,7 +517,7 @@
         <!--Filter Group View Controller-->
         <scene sceneID="bKe-oa-RzO">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="G7s-ex-G6U" customClass="FilterGroupViewController" customModule="MTLImage_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="G7s-ex-G6U" customClass="FilterGroupViewController" customModule="Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ch4-bB-BEe"/>
                         <viewControllerLayoutGuide type="bottom" id="840-F3-Krm"/>
@@ -618,7 +622,7 @@
         <!--Add Filter View Controller-->
         <scene sceneID="euE-pR-DE0">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="YAI-dV-o84" customClass="AddFilterViewController" customModule="MTLImage_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="YAI-dV-o84" customClass="AddFilterViewController" customModule="Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IHb-iD-FY0"/>
                         <viewControllerLayoutGuide type="bottom" id="f8J-A2-IEL"/>
@@ -684,7 +688,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CX8-Vg-5CR" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FD4-CX-BzN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -699,7 +703,7 @@
         <!--Info View Controller-->
         <scene sceneID="GJL-GJ-gh4">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="3jR-a2-IBr" customClass="InfoViewController" customModule="MTLImage_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="3jR-a2-IBr" customClass="InfoViewController" customModule="Example_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="r2Y-w2-d7E"/>
                         <viewControllerLayoutGuide type="bottom" id="MZM-Xi-krI"/>
@@ -720,13 +724,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M6x-X0-Xpp">
-                                                    <rect key="frame" x="28" y="8" width="269" height="53.5"/>
+                                                    <rect key="frame" x="35" y="11" width="255" height="48"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NzJ-Y4-Ruw">
-                                                    <rect key="frame" x="305" y="8" width="42" height="53.5"/>
+                                                    <rect key="frame" x="298" y="11" width="42" height="48"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -780,7 +784,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dTW-lV-fE3" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="auZ-B1-19V">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -798,7 +802,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zdA-nc-pUh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NRF-Hu-aMu">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -817,7 +821,6 @@
         <image name="info" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fmc-23-HaG"/>
         <segue reference="l2h-FT-O4N"/>
     </inferredMetricsTieBreakers>
 </document>

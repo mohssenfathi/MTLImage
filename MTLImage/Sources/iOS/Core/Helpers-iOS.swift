@@ -51,8 +51,6 @@ extension MTLTexture {
     }
     
     var image: UIImage? {
-        
-//        guard let imageBytes = bytes() else { return nil }
  
         let bytesPerRow = width * 4
         let imageByteCount: Int = width * height * 4
@@ -66,24 +64,31 @@ extension MTLTexture {
         )
         
         let provider = CGDataProvider(dataInfo: nil, data: imageBytes, size: imageByteCount) { (rawPointer, pointer, i) in
-            free(rawPointer)
+//            free(rawPointer)
         }
         
-        let bitsPerComponent = 8
-        let bitsPerPixel = 32
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
         var bitmapInfo: CGBitmapInfo!
-        
         if pixelFormat == .bgra8Unorm {
             bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue).union(.byteOrder32Little)
-        }
-        else if pixelFormat == .rgba8Unorm {
+        } else if pixelFormat == .rgba8Unorm {
             bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue).union(.byteOrder32Big)
         }
         else { return nil }
         
         let renderingIntent = CGColorRenderingIntent.defaultIntent
-        let imageRef = CGImage(width: width, height: height, bitsPerComponent: bitsPerComponent, bitsPerPixel: bitsPerPixel, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo, provider: provider!, decode: nil, shouldInterpolate: false, intent: renderingIntent)
+        let imageRef = CGImage(
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bitsPerPixel: 32,
+            bytesPerRow: bytesPerRow,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: bitmapInfo,
+            provider: provider!,
+            decode: nil,
+            shouldInterpolate: false,
+            intent: renderingIntent
+        )
         
         let image = UIImage(cgImage: imageRef!, scale: 0.0, orientation: .up)
         
@@ -100,15 +105,44 @@ extension MTLTexture {
         free(data)
         return copy!
     }
-    
 }
 
+func dataProviderRef(from texture: MTLTexture) -> CGDataProvider {
+    let pixelCount: Int = texture.width * texture.height
+    var imageBytes = [UInt8](repeating: 0, count: pixelCount * 4)
+    let providerRef = CGDataProvider(data: NSData(bytes: &imageBytes, length: pixelCount * 4 * MemoryLayout<UInt8>.size))
+    return providerRef!
+}
 
 // MARK: - UIImage
 extension UIImage {
     
-    // Something wrong with the scale
+    convenience init(texture: MTLTexture) {
+        
+        let bitsPerComponent = 8
+        let bitsPerPixel = 32
+        let bytesPerRow: UInt = UInt(texture.width * 4)
+        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo:CGBitmapInfo = [.byteOrder32Big, CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue)]
+        
+        let cgim = CGImage(
+            width: texture.width,
+            height: texture.height,
+            bitsPerComponent: bitsPerComponent,
+            bitsPerPixel: bitsPerPixel,
+            bytesPerRow: Int(bytesPerRow),
+            space: rgbColorSpace,
+            bitmapInfo: bitmapInfo,
+            provider: dataProviderRef(from: texture),
+            decode: nil,
+            shouldInterpolate: false,
+            intent: .defaultIntent
+        )
+        
+        self.init(cgImage: cgim!)
+    }
     
+    // Something wrong with the scale
     func scaleToFill(_ size: CGSize) -> UIImage {
         
         let scaledImage: UIImage

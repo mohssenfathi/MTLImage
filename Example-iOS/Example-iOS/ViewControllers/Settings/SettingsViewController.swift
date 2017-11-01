@@ -167,8 +167,15 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             navigationController.present(imagePicker, animated: true, completion: nil)
+            
+            currentImageHandler = { image in
+                let property = self.filter.properties[indexPath.row]
+                self.filter.setValue(image, forKey: property.key)
+            }
         }
     }
+    
+    var currentImageHandler: ((_ image: UIImage) -> ())?
     
     // MARK: SettingsCell Delegate
     
@@ -210,7 +217,7 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
         for property in filter.properties {
             if property.propertyType == .image {
                 if let image: UIImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-                    filter.setValue(image, forKey: property.key)
+                    currentImageHandler?(image)
                     dismiss(animated: true, completion: nil)
                     return
                 }

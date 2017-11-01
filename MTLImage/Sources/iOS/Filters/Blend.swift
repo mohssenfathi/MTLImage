@@ -11,45 +11,6 @@ struct BlendUniforms: Uniforms {
     var blendMode: Float = 0
 }
 
-public enum BlendMode: Int {
-    
-    case add, alpha, colorBlend, colorBurn, colorDodge, darken, difference, dissolve, divide, exclusion, hardlight,
-    linearBurn, lighten, linearDodge, lumosity, multiply, normal, overlay, screen, soflight, subtract
-    
-    static func numberOfBlendModes() -> Int {
-        return BlendMode.subtract.rawValue + 1
-    }
-    
-    func title() -> String {
-        
-        switch self {
-            
-        case .add:           return "Add"
-        case .alpha:         return "Alpha"
-        case .colorBlend:    return "ColorBlend"
-        case .colorBurn:     return "ColorBurn"
-        case .colorDodge:    return "ColorDodge"
-        case .darken:        return "Darken"
-        case .difference:    return "Difference"
-        case .dissolve:      return "Dissolve"
-        case .divide:        return "Divide"
-        case .exclusion:     return "Exclusion"
-        case .hardlight:     return "HardLight"
-        case .linearBurn:    return "LinearBurn"
-        case .lighten:       return "Lighten"
-        case .linearDodge:   return "LinearDodge"
-        case .lumosity:      return "Lumosity"
-        case .multiply:      return "Multiply"
-        case .normal:        return "Normal"
-        case .overlay:       return "Overlay"
-        case .screen:        return "Screen"
-        case .soflight:      return "SoftLight"
-        case .subtract:      return "Subtract"
-                        
-        }
-    }
-}
-
 public
 class Blend: Filter {
     
@@ -58,12 +19,12 @@ class Blend: Filter {
     private var primaryInput: Input?
     private var secondaryInput: Input?
     
-    var skipFirst: Bool = true
-    public override func process() {
-        guard skipFirst == false else { return }
-        skipFirst = false
-        super.process()
-    }
+//    var skipFirst: Bool = true
+//    public override func process() {
+//        guard skipFirst == false else { return }
+//        skipFirst = false
+//        super.process()
+//    }
     
     lazy private var blendModes: [Int: String] = {
         var dict = [Int : String]()
@@ -108,17 +69,19 @@ class Blend: Filter {
             
             originalBlendImage = blendImage
             
-            guard var image = originalBlendImage else { return }
+            guard var image = originalBlendImage, let textureSize = texture?.size() else { return }
+            
+            let size = CGSize(width: textureSize.width, height: textureSize.height)
             
             switch contentMode {
             case .scaleAspectFit:
-                image = image.scaleToFit(originalImage!.size)
+                image = image.scaleToFit(size)
                 break
             case .scaleAspectFill:
-                image = image.scaleToFill(originalImage!.size)
+                image = image.scaleToFill(size)
                 break
             case .center:
-                image = image.center(originalImage!.size)
+                image = image.center(size)
             default: break
             }
             
@@ -131,6 +94,7 @@ class Blend: Filter {
     
     public init() {
         super.init(functionName: "blend")
+        
         title = "Blend"
         uniforms.mix = 1.0 - mix
         
@@ -178,6 +142,48 @@ class Blend: Filter {
         }
         else if index == 1 {
             secondaryInput = input
+        }
+    }
+    
+    
+    
+    public enum BlendMode: Int {
+        
+        case add, alpha, colorBlend, colorBurn, colorDodge, darken, difference, dissolve, divide, exclusion, greenBlue, hardlight,
+        linearBurn, lighten, linearDodge, lumosity, multiply, normal, overlay, screen, soflight, subtract
+        
+        static func numberOfBlendModes() -> Int {
+            return BlendMode.subtract.rawValue + 1
+        }
+        
+        func title() -> String {
+            
+            switch self {
+                
+            case .add:           return "Add"
+            case .alpha:         return "Alpha"
+            case .colorBlend:    return "ColorBlend"
+            case .colorBurn:     return "ColorBurn"
+            case .colorDodge:    return "ColorDodge"
+            case .darken:        return "Darken"
+            case .difference:    return "Difference"
+            case .dissolve:      return "Dissolve"
+            case .divide:        return "Divide"
+            case .exclusion:     return "Exclusion"
+            case .greenBlue:     return "Green Blue Channel Overlay"
+            case .hardlight:     return "HardLight"
+            case .linearBurn:    return "LinearBurn"
+            case .lighten:       return "Lighten"
+            case .linearDodge:   return "LinearDodge"
+            case .lumosity:      return "Lumosity"
+            case .multiply:      return "Multiply"
+            case .normal:        return "Normal"
+            case .overlay:       return "Overlay"
+            case .screen:        return "Screen"
+            case .soflight:      return "SoftLight"
+            case .subtract:      return "Subtract"
+                
+            }
         }
     }
 }

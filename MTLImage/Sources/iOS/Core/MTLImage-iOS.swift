@@ -30,6 +30,7 @@ class MTLImage: NSObject {
         case exposure
         case gaussianBlur = "gaussian blur"
         case haze
+        case highPass = "high pass"
         case highlightShadow = "highlight shadow"
         case histogram
         case hue
@@ -50,6 +51,7 @@ class MTLImage: NSObject {
         case scatter
         case sketch
         case sobelEdgeDetection = "sobel edge detection"
+        case soften
         case sharpen
         case tent
         case toneCurve = "tone curve"
@@ -67,7 +69,7 @@ class MTLImage: NSObject {
         return FilterType.all.map { $0.title }
     }()
     
-    public class func filter(_ type: FilterType) throws -> MTLObject? {
+    public class func filter(_ type: FilterType) throws -> MTLObject {
         return type.filter()
     }
     
@@ -160,6 +162,7 @@ extension MTLImage.FilterType {
         case .exposure:                 return Exposure()
         case .gaussianBlur:             return GaussianBlur()
         case .haze:                     return Haze()
+        case .highPass:                 return HighPass()
         case .highlightShadow:          return HighlightShadow()
         case .histogram:                return Histogram()
         case .hue:                      return Hue()
@@ -180,6 +183,7 @@ extension MTLImage.FilterType {
         case .scatter:                  return Scatter()
         case .sketch:                   return Sketch()
         case .sobelEdgeDetection:       return SobelEdgeDetection()
+        case .soften:                   return Soften()
         case .sharpen:                  return Sharpen()
         case .tent:                     return Tent()
         case .toneCurve:                return ToneCurve()
@@ -200,9 +204,9 @@ extension MTLImage.FilterType {
     
     public static var all: [MTLImage.FilterType] {
         return [
-            .blend, .boxBlur, .brightness, .buffer, .contrast, .colorMask, .crop,
+            .soften, .blend, .boxBlur, .brightness, .buffer, .contrast, .colorMask, .crop,
             .crossHatch, .dataOutput, .depthBlend, .depthRenderer, .dilate, .emboss,
-            .exposure, .gaussianBlur, .haze, .highlightShadow, .histogram, .hue,
+            .exposure, .gaussianBlur, .haze, .highPass, .highlightShadow, .histogram, .hue,
             .invert, .kuwahara, .lanczosScale, .lensFlare, .levels, .lowPass,
             .luminanceThreshold, .mask, .perlinNoise, .pixellate, .polkaDot, .resize,
             .rollingAverage, .saturation, .scatter, .sketch, .sobelEdgeDetection,

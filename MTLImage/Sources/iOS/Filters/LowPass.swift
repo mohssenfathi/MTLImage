@@ -15,7 +15,7 @@ class LowPass: FilterGroup {
         super.init()
         
         title = "Low Pass"
-        blend.blendMode = BlendMode.dissolve.rawValue
+        blend.blendMode = Blend.BlendMode.dissolve.rawValue
         
         add(blend)
         

@@ -6,8 +6,6 @@
 //
 //
 
-import Foundation
-
 public
 protocol Numeric {
     static func -(left: Self, right: Self) -> Self

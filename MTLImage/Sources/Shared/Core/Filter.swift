@@ -6,10 +6,6 @@
 //
 //
 
-func ==(left: Filter, right: Filter) -> Bool {
-    return left.id == right.id
-}
-
 open
 class Filter: MTLObject, NSCoding {
     
@@ -71,7 +67,6 @@ class Filter: MTLObject, NSCoding {
     }
     
     var functionName: String!
-    public var properties = [Property]()
     
     public func reset() {
         for property in properties {
@@ -107,7 +102,7 @@ class Filter: MTLObject, NSCoding {
             initTexture()
         }
         
-        guard let commandBuffer = context.commandQueue.makeCommandBuffer() else { return }
+        guard let commandBuffer = context.commandQueue?.makeCommandBuffer() else { return }
         
         autoreleasepool {
         
@@ -232,5 +227,10 @@ class Filter: MTLObject, NSCoding {
         title = aDecoder.decodeObject(forKey: "title") as! String
         index = aDecoder.decodeInteger(forKey: "index")
     }
+}
+
+
+func ==(left: Filter, right: Filter) -> Bool {
+    return left.id == right.id
 }
 

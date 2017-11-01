@@ -14,7 +14,8 @@ open class MTLObject: NSObject, Output {
     public var isEnabled: Bool = true
     public var title: String = ""
     public var id: String = UUID().uuidString
-
+    public var properties: [Property] = []
+    
     public var needsUpdate: Bool = true {
         didSet {
             if needsUpdate == true {

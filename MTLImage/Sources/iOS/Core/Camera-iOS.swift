@@ -104,7 +104,7 @@ class Camera: CameraBase, Input {
         let threadsPerThreadgroup = MTLSizeMake(w, h, 1)
         let threadgroupsPerGrid = MTLSize(width: (texture.width + w - 1) / w, height: (texture.height + h - 1) / h, depth: 1)
         
-        guard let commandBuffer = context.commandQueue.makeCommandBuffer(),
+        guard let commandBuffer = context.commandQueue?.makeCommandBuffer(),
             let commandEncoder = commandBuffer.makeComputeCommandEncoder() else { return }
         
         commandBuffer.addCompletedHandler { (commandBuffer) in
@@ -127,7 +127,7 @@ class Camera: CameraBase, Input {
     //    MARK: - MTLInput
     public var texture: MTLTexture?
     public var context: Context { return internalContext }
-    public var commandBuffer: MTLCommandBuffer? { return context.commandQueue.makeCommandBuffer() }
+    public var commandBuffer: MTLCommandBuffer? { return context.commandQueue?.makeCommandBuffer() }
     public var device: MTLDevice { return context.device }
     public var targets: [Output] { return internalTargets }
     

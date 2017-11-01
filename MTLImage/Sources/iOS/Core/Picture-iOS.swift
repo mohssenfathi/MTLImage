@@ -20,14 +20,12 @@ class Picture: NSObject, Input {
     }
 
     private var internalTargets = [Output]()
-    var internalContext: Context! = Context()
     var pipeline: MTLComputePipelineState!
     var textureLoader: MTKTextureLoader!
     
     deinit {
         removeAllTargets()
         image = nil
-        internalContext = nil
     }
     
     public var image: UIImage! {
@@ -110,24 +108,15 @@ class Picture: NSObject, Input {
         return c
     }
     
-//    MARK: - MTLInput
-    
+//    MARK: - Input
     public var texture: MTLTexture?
 
-    public var context: Context {
-        get {
-            return internalContext
-        }
-    }
+    public var context: Context = Context()
     
-    public var device: MTLDevice {
-        get {
-            return context.device
-        }
-    }
+    public var device: MTLDevice { return context.device }
     
     public var commandBuffer: MTLCommandBuffer? {
-        return context.commandQueue.makeCommandBuffer()
+        return context.commandQueue?.makeCommandBuffer()
     }
     
     public var targets: [Output] {

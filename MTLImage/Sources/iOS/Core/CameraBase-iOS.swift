@@ -126,17 +126,89 @@ class CameraBase: NSObject {
         }
     }
     
-    var minExposureDuration: Float = 0.004
-    var maxExposureDuration: Float = 0.150 // 0.250
-    public var exposureDuration: Float = 0.01 {
+    
+    
+    /*
+     MARK: - Exposure
+     
+         EV = log2( aperture^2 / shutter speed )
+     */
+    public var minExposureDuration: Double { return captureDevice.activeFormat.minExposureDuration.seconds }
+    public var maxExposureDuration: Double { return captureDevice.activeFormat.maxExposureDuration.seconds }
+    public var minExposureValue: Double { return ev(from: captureDevice.activeFormat.minExposureDuration.seconds) }
+    public var maxExposureValue: Double { return ev(from: captureDevice.activeFormat.maxExposureDuration.seconds) }
+    
+    private func ev(from duration: Double) -> Double {
+        let n = Double(captureDevice.lensAperture)
+        return log2((n * n) / duration)
+    }
+    
+    private func ed(from value: Double) -> Double {
+        let n = Double(captureDevice.lensAperture)
+        let ed = pow(n, 2) / pow(2, value)
+        return ed
+    }
+    
+    public enum ExposureDuration: String {
+        
+        case ed_1_500, ed_1_250, ed_1_125, ed_1_90, ed_1_60, ed_1_30, ed_1_20,
+        ed_1_15, ed_1_10, ed_1_8, ed_1_6, ed_1_4, ed_1_3, ed_1_2, ed_1,
+        ed_3_2, ed_2, ed_3, ed_4, ed_6, ed_8, ed_12, ed_15, ed_24, ed_30
+        
+        public static var all: [ExposureDuration] = [
+            .ed_1_500, .ed_1_250, .ed_1_125, .ed_1_90, .ed_1_60, .ed_1_30, .ed_1_20,
+            .ed_1_15, .ed_1_10, .ed_1_8, .ed_1_6, .ed_1_4, .ed_1_3, .ed_1_2, .ed_1,
+            .ed_3_2, .ed_2, .ed_3, .ed_4, .ed_6, .ed_8, .ed_12, .ed_15, .ed_24, .ed_30
+        ]
+        
+        public var title: String {
+            return rawValue.replacingOccurrences(of: "ed_", with: "").replacingOccurrences(of: "_", with: "/") + "s"
+        }
+        
+        public var cmTime: CMTime {
+            let str = rawValue.replacingOccurrences(of: "ed_", with: "")
+            let components = str.components(separatedBy: "_")
+            let seconds = Int64(components.first ?? "1") ?? 1
+            let timescale = CMTimeScale(components.last ?? "1") ?? 1
+            return CMTimeMake(seconds, timescale)
+        }
+    }
+    
+    private var exposureDurations: [Double] = [
+        1.0/500.0, 1.0/250.0, 1.0/125.0, 1.0/90.0, 1.0/60.0, 1.0/30.0, 1.0/20.0,
+        1.0/15.0, 1.0/10.0, 1.0/8.0, 1.0/6.0, 1.0/4.0, 1.0/3.0, 1.0/2.0,
+        1.0,
+        1.5, 2.0, 3.0, 4.0, 6.0, 8.0, 12.0, 15.0, 24.0, 30.0
+    ]
+    
+    public var exposureValue: Double {
+        get { return ev(from: exposureDuration) }
+        set { exposureDuration = ed(from: newValue) }
+    }
+    
+    public var currentExposureDuration: ExposureDuration?
+    
+    // Normalized
+    public var exposureDuration: Double = 0.5 {
         didSet {
-            guard !captureDevice.isAdjustingFocus else { return }
 
+            Tools.clamp(&exposureDuration, low: 0, high: 1)
+            
+            let i = Int(exposureDuration * Double(exposureDurations.count - 1))
+            let expDuration = ExposureDuration.all[i]
+            
+            guard expDuration != currentExposureDuration else { return }
+            
+            currentExposureDuration = expDuration
+            let cmTime = expDuration.cmTime
+            
+            guard !captureDevice.isAdjustingExposure,
+            cmTime.seconds >= minExposureDuration,
+            cmTime.seconds <= maxExposureDuration
+            else { return }
+            
             applyCameraSetting {
-                let seconds = Tools.convert(self.exposureDuration, oldMin: 0, oldMax: 1,
-                                            newMin: self.minExposureDuration, newMax: self.maxExposureDuration)
-                let ed = CMTime(seconds: Double(seconds), preferredTimescale: 1000 * 1000)
-                self.captureDevice.setExposureModeCustom(duration: ed, iso: AVCaptureDevice.currentISO, completionHandler: nil)
+                self.captureDevice.setExposureModeCustom(duration: cmTime, iso: AVCaptureDevice.currentISO, completionHandler: nil)
             }
         }
     }
@@ -161,13 +233,16 @@ class CameraBase: NSObject {
     }
     
     
-    let minIso: Float  = 29.000
-    let maxIso: Float  = 1200.0
-    public var iso: Float! {
+    public var minISO: Float { return captureDevice.activeFormat.minISO }
+    public var maxISO: Float { return captureDevice.activeFormat.maxISO }
+    public var currentISO: Float {
+        return Tools.convert(iso, oldMin: 0, oldMax: 1, newMin: minISO, newMax: maxISO)
+    }
+    public var iso: Float = 0.5 {
         didSet {
             if captureDevice.isAdjustingExposure { return }
             applyCameraSetting {
-                let value = Tools.convert(self.iso, oldMin: 0, oldMax: 1, newMin: self.minIso, newMax: self.maxIso)
+                let value = Tools.convert(self.iso, oldMin: 0, oldMax: 1, newMin: self.minISO, newMax: self.maxISO)
                 self.captureDevice.setExposureModeCustom(duration: AVCaptureDevice.currentExposureDuration, iso: value, completionHandler: nil)
             }
         }
@@ -182,7 +257,7 @@ class CameraBase: NSObject {
     }
     public var lensPosition: Float = 0.0 {
         didSet {
-            if captureDevice.isAdjustingFocus { return }
+//            if captureDevice.isAdjustingFocus { return }
             applyCameraSetting {
                 self.captureDevice.setFocusModeLocked(lensPosition: self.lensPosition, completionHandler: nil)
             }

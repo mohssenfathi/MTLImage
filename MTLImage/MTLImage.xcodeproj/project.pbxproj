@@ -78,6 +78,7 @@
 		455F75931F56F34F00F9F735 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F75911F56F34E00F9F735 /* Input.swift */; };
 		455F75961F56F36500F9F735 /* DataOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F75941F56F36400F9F735 /* DataOutput.swift */; };
 		455F75971F56F36500F9F735 /* ColorMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455F75951F56F36400F9F735 /* ColorMask.swift */; };
+		459A251B1F6B6EBE001FAD70 /* HighPassSkinSmooth.metal in Sources */ = {isa = PBXBuildFile; fileRef = 459A251A1F6B6EBE001FAD70 /* HighPassSkinSmooth.metal */; };
 		45AA0CAE1F490BE00091DBB0 /* Levels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C021F490BE00091DBB0 /* Levels.swift */; };
 		45AA0CAF1F490BE00091DBB0 /* XYDerivative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C031F490BE00091DBB0 /* XYDerivative.swift */; };
 		45AA0CB01F490BE00091DBB0 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C041F490BE00091DBB0 /* Buffer.swift */; };
@@ -285,7 +286,15 @@
 		45DE26D31F583C71008BA963 /* HoughLineDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C3A1F490BE00091DBB0 /* HoughLineDetection.swift */; };
 		45DE26D41F583C74008BA963 /* UnsharpMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C3D1F490BE00091DBB0 /* UnsharpMask.swift */; };
 		45DE26D51F583C76008BA963 /* Dilate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C3F1F490BE00091DBB0 /* Dilate.swift */; };
+		45EC48C71F63300D009837E2 /* PhotoMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EC48C51F63300D009837E2 /* PhotoMetadata.swift */; };
+		45EC48C81F63300D009837E2 /* CameraBase-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EC48C61F63300D009837E2 /* CameraBase-iOS.swift */; };
+		45EC48CB1F633142009837E2 /* MTLImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 45AA0D501F490BE70091DBB0 /* MTLImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45EE84E41F5F213600C9241A /* View-macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45173D0C1F5755A40058A6FA /* View-macOS.swift */; };
+		45FA9A0F1F6AC710005DF768 /* Soften.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FA9A0E1F6AC710005DF768 /* Soften.swift */; };
+		45FA9A111F6ACA33005DF768 /* HighPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FA9A101F6ACA33005DF768 /* HighPass.swift */; };
+		45FA9A121F6ACA33005DF768 /* HighPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FA9A101F6ACA33005DF768 /* HighPass.swift */; };
+		45FA9A171F6ACA59005DF768 /* HighPass.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45FA9A161F6ACA59005DF768 /* HighPass.metal */; };
+		45FA9A181F6ACA59005DF768 /* HighPass.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45FA9A161F6ACA59005DF768 /* HighPass.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -307,6 +316,7 @@
 		455F75911F56F34E00F9F735 /* Input.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		455F75941F56F36400F9F735 /* DataOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataOutput.swift; sourceTree = "<group>"; };
 		455F75951F56F36400F9F735 /* ColorMask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMask.swift; sourceTree = "<group>"; };
+		459A251A1F6B6EBE001FAD70 /* HighPassSkinSmooth.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = HighPassSkinSmooth.metal; sourceTree = "<group>"; };
 		45AA0BE61F490B460091DBB0 /* MTLImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MTLImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45AA0C021F490BE00091DBB0 /* Levels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Levels.swift; sourceTree = "<group>"; };
 		45AA0C031F490BE00091DBB0 /* XYDerivative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYDerivative.swift; sourceTree = "<group>"; };
@@ -450,6 +460,12 @@
 		45AA0D501F490BE70091DBB0 /* MTLImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLImage.h; sourceTree = "<group>"; };
 		45AA0D551F490D360091DBB0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		45BD56131F59B34C00A05233 /* Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copy.swift; sourceTree = "<group>"; };
+		45EC48C51F63300D009837E2 /* PhotoMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoMetadata.swift; sourceTree = "<group>"; };
+		45EC48C61F63300D009837E2 /* CameraBase-iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CameraBase-iOS.swift"; sourceTree = "<group>"; };
+		45EC48C91F633075009837E2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		45FA9A0E1F6AC710005DF768 /* Soften.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Soften.swift; sourceTree = "<group>"; };
+		45FA9A101F6ACA33005DF768 /* HighPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighPass.swift; sourceTree = "<group>"; };
+		45FA9A161F6ACA59005DF768 /* HighPass.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = HighPass.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -521,63 +537,65 @@
 		45AA0C011F490BE00091DBB0 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				455F75951F56F36400F9F735 /* ColorMask.swift */,
-				45BD56131F59B34C00A05233 /* Copy.swift */,
-				455F75941F56F36400F9F735 /* DataOutput.swift */,
-				45AA0C021F490BE00091DBB0 /* Levels.swift */,
-				45AA0C031F490BE00091DBB0 /* XYDerivative.swift */,
-				45AA0C041F490BE00091DBB0 /* Buffer.swift */,
-				45AA0C051F490BE00091DBB0 /* Invert.swift */,
-				45AA0C061F490BE00091DBB0 /* WhiteBalance.swift */,
-				45AA0C071F490BE00091DBB0 /* LuminanceThreshold.swift */,
-				45AA0C0A1F490BE00091DBB0 /* HSV.swift */,
-				45AA0C0B1F490BE00091DBB0 /* Vignette.swift */,
-				45AA0C0C1F490BE00091DBB0 /* Brightness.swift */,
-				45AA0C0D1F490BE00091DBB0 /* Haze.swift */,
-				45AA0C0E1F490BE00091DBB0 /* Toon.swift */,
-				45AA0C0F1F490BE00091DBB0 /* Voronoi.swift */,
-				45AA0C101F490BE00091DBB0 /* Sketch.swift */,
-				45AA0C111F490BE00091DBB0 /* Histogram.swift */,
-				45AA0C121F490BE00091DBB0 /* PolkaDot.swift */,
-				45AA0C131F490BE00091DBB0 /* SobelEdgeDetectionThreshold.swift */,
-				45AA0C141F490BE00091DBB0 /* SobelEdgeDetection.swift */,
-				45AA0C151F490BE00091DBB0 /* CrossHatch.swift */,
-				45AA0C171F490BE00091DBB0 /* GaussianBlur.swift */,
-				45AA0C191F490BE00091DBB0 /* LanczosScale.swift */,
-				45AA0C1A1F490BE00091DBB0 /* Crop.swift */,
-				45AA0C1B1F490BE00091DBB0 /* Transform.swift */,
-				45AA0C1D1F490BE00091DBB0 /* LineDetection.swift */,
-				45AA0C1E1F490BE00091DBB0 /* Mask.swift */,
-				45AA0C1F1F490BE00091DBB0 /* Convolution.swift */,
-				45AA0C201F490BE00091DBB0 /* Saturation.swift */,
-				45AA0C211F490BE00091DBB0 /* RollingAverage.swift */,
-				45AA0C221F490BE00091DBB0 /* Straighten.swift */,
-				45AA0C231F490BE00091DBB0 /* Pixellate.swift */,
-				45AA0C241F490BE00091DBB0 /* Resize.swift */,
-				45AA0C251F490BE00091DBB0 /* Mosaic.swift */,
-				45AA0C261F490BE00091DBB0 /* SelectiveHSL.swift */,
-				45AA0C271F490BE00091DBB0 /* Smudge.swift */,
-				45AA0C281F490BE00091DBB0 /* Kuwahara.swift */,
-				45AA0C291F490BE00091DBB0 /* LensFlare.swift */,
-				45AA0C2A1F490BE00091DBB0 /* ColorSelection.swift */,
-				45AA0C2C1F490BE00091DBB0 /* Distortion.swift */,
-				45AA0C2E1F490BE00091DBB0 /* NonMaximumSuppression.swift */,
-				45AA0C2F1F490BE00091DBB0 /* ToneCurve.swift */,
-				45AA0C301F490BE00091DBB0 /* PerlinNoise.swift */,
-				45AA0C311F490BE00091DBB0 /* Exposure.swift */,
-				45AA0C321F490BE00091DBB0 /* Emboss.swift */,
-				45AA0C331F490BE00091DBB0 /* WeakPixelInclusion.swift */,
-				45AA0C341F490BE00091DBB0 /* Tent.swift */,
 				45AA0C351F490BE00091DBB0 /* BoxBlur.swift */,
-				45AA0C361F490BE00091DBB0 /* Hue.swift */,
-				45AA0C371F490BE00091DBB0 /* HighlightShadow.swift */,
-				45AA0C381F490BE00091DBB0 /* Water.swift */,
+				45AA0C0C1F490BE00091DBB0 /* Brightness.swift */,
+				45AA0C041F490BE00091DBB0 /* Buffer.swift */,
 				45AA0C391F490BE00091DBB0 /* CannyEdgeDetection.swift */,
-				45AA0C3A1F490BE00091DBB0 /* HoughLineDetection.swift */,
-				45AA0C3C1F490BE00091DBB0 /* Sharpen.swift */,
-				45AA0C3D1F490BE00091DBB0 /* UnsharpMask.swift */,
+				455F75951F56F36400F9F735 /* ColorMask.swift */,
+				45AA0C2A1F490BE00091DBB0 /* ColorSelection.swift */,
 				45AA0C3E1F490BE00091DBB0 /* Contrast.swift */,
+				45AA0C1F1F490BE00091DBB0 /* Convolution.swift */,
+				45BD56131F59B34C00A05233 /* Copy.swift */,
+				45AA0C1A1F490BE00091DBB0 /* Crop.swift */,
+				45AA0C151F490BE00091DBB0 /* CrossHatch.swift */,
+				455F75941F56F36400F9F735 /* DataOutput.swift */,
 				45AA0C3F1F490BE00091DBB0 /* Dilate.swift */,
+				45AA0C2C1F490BE00091DBB0 /* Distortion.swift */,
+				45AA0C321F490BE00091DBB0 /* Emboss.swift */,
+				45AA0C311F490BE00091DBB0 /* Exposure.swift */,
+				45AA0C171F490BE00091DBB0 /* GaussianBlur.swift */,
+				45AA0C0D1F490BE00091DBB0 /* Haze.swift */,
+				45AA0C371F490BE00091DBB0 /* HighlightShadow.swift */,
+				45FA9A101F6ACA33005DF768 /* HighPass.swift */,
+				45AA0C111F490BE00091DBB0 /* Histogram.swift */,
+				45AA0C3A1F490BE00091DBB0 /* HoughLineDetection.swift */,
+				45AA0C0A1F490BE00091DBB0 /* HSV.swift */,
+				45AA0C361F490BE00091DBB0 /* Hue.swift */,
+				45AA0C051F490BE00091DBB0 /* Invert.swift */,
+				45AA0C281F490BE00091DBB0 /* Kuwahara.swift */,
+				45AA0C191F490BE00091DBB0 /* LanczosScale.swift */,
+				45AA0C291F490BE00091DBB0 /* LensFlare.swift */,
+				45AA0C021F490BE00091DBB0 /* Levels.swift */,
+				45AA0C1D1F490BE00091DBB0 /* LineDetection.swift */,
+				45AA0C071F490BE00091DBB0 /* LuminanceThreshold.swift */,
+				45AA0C1E1F490BE00091DBB0 /* Mask.swift */,
+				45AA0C251F490BE00091DBB0 /* Mosaic.swift */,
+				45AA0C2E1F490BE00091DBB0 /* NonMaximumSuppression.swift */,
+				45AA0C301F490BE00091DBB0 /* PerlinNoise.swift */,
+				45AA0C231F490BE00091DBB0 /* Pixellate.swift */,
+				45AA0C121F490BE00091DBB0 /* PolkaDot.swift */,
+				45AA0C241F490BE00091DBB0 /* Resize.swift */,
+				45AA0C211F490BE00091DBB0 /* RollingAverage.swift */,
+				45AA0C201F490BE00091DBB0 /* Saturation.swift */,
+				45AA0C261F490BE00091DBB0 /* SelectiveHSL.swift */,
+				45AA0C3C1F490BE00091DBB0 /* Sharpen.swift */,
+				45AA0C101F490BE00091DBB0 /* Sketch.swift */,
+				45AA0C271F490BE00091DBB0 /* Smudge.swift */,
+				45AA0C141F490BE00091DBB0 /* SobelEdgeDetection.swift */,
+				45AA0C131F490BE00091DBB0 /* SobelEdgeDetectionThreshold.swift */,
+				45FA9A0E1F6AC710005DF768 /* Soften.swift */,
+				45AA0C221F490BE00091DBB0 /* Straighten.swift */,
+				45AA0C341F490BE00091DBB0 /* Tent.swift */,
+				45AA0C2F1F490BE00091DBB0 /* ToneCurve.swift */,
+				45AA0C0E1F490BE00091DBB0 /* Toon.swift */,
+				45AA0C1B1F490BE00091DBB0 /* Transform.swift */,
+				45AA0C3D1F490BE00091DBB0 /* UnsharpMask.swift */,
+				45AA0C0B1F490BE00091DBB0 /* Vignette.swift */,
+				45AA0C0F1F490BE00091DBB0 /* Voronoi.swift */,
+				45AA0C381F490BE00091DBB0 /* Water.swift */,
+				45AA0C331F490BE00091DBB0 /* WeakPixelInclusion.swift */,
+				45AA0C061F490BE00091DBB0 /* WhiteBalance.swift */,
+				45AA0C031F490BE00091DBB0 /* XYDerivative.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -639,61 +657,63 @@
 		45AA0C711F490BE00091DBB0 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				45AA0C721F490BE00091DBB0 /* Convolution.metal */,
-				45AA0C731F490BE00091DBB0 /* OilPaint.metal */,
-				45AA0C741F490BE00091DBB0 /* LineDetection.metal */,
-				45AA0C751F490BE00091DBB0 /* Mask.metal */,
-				45AA0C761F490BE00091DBB0 /* Crop.metal */,
-				45AA0C771F490BE00091DBB0 /* Transform.metal */,
-				45AA0C781F490BE00091DBB0 /* DepthRenderer.metal */,
-				45AA0C791F490BE00091DBB0 /* Smudge.metal */,
-				45AA0C7A1F490BE00091DBB0 /* Kuwahara.metal */,
-				45AA0C7B1F490BE00091DBB0 /* LensFlare.metal */,
-				45AA0C7C1F490BE00091DBB0 /* Mosaic.metal */,
-				45AA0C7D1F490BE00091DBB0 /* SelectiveHSL.metal */,
-				45AA0C7E1F490BE00091DBB0 /* Pixellate.metal */,
-				45AA0C7F1F490BE00091DBB0 /* Resize.metal */,
-				45AA0C801F490BE00091DBB0 /* Saturation.metal */,
-				45AA0C811F490BE00091DBB0 /* RollingAverage.metal */,
-				45AA0C821F490BE00091DBB0 /* WeakPixelInclusion.metal */,
-				45AA0C831F490BE00091DBB0 /* Camera.metal */,
-				45AA0C841F490BE00091DBB0 /* Hue.metal */,
-				45AA0C851F490BE00091DBB0 /* HighlightShadow.metal */,
-				45AA0C861F490BE00091DBB0 /* Exposure.metal */,
-				45AA0C871F490BE00091DBB0 /* ToneCurve.metal */,
-				45AA0C881F490BE00091DBB0 /* PerlinNoise.metal */,
-				45AA0C891F490BE00091DBB0 /* ColorSelection.metal */,
-				45AA0C8A1F490BE00091DBB0 /* Distortion.metal */,
-				45AA0C8B1F490BE00091DBB0 /* DepthBlend.metal */,
-				45AA0C8C1F490BE00091DBB0 /* NonMaximumSuppression.metal */,
-				45AA0C8D1F490BE00091DBB0 /* Scatter.metal */,
-				45AA0C8E1F490BE00091DBB0 /* UnsharpMask.metal */,
-				45AA0C8F1F490BE00091DBB0 /* Contrast.metal */,
-				45AA0C901F490BE00091DBB0 /* Sharpen.metal */,
-				45AA0C911F490BE00091DBB0 /* Water.metal */,
-				45AA0C921F490BE00091DBB0 /* Levels.metal */,
-				45AA0C931F490BE00091DBB0 /* XYDerivative.metal */,
 				45AA0C941F490BE00091DBB0 /* Blend.metal */,
-				45AA0C951F490BE00091DBB0 /* LuminanceThreshold.metal */,
-				45AA0C961F490BE00091DBB0 /* Invert.metal */,
-				45AA0C971F490BE00091DBB0 /* WhiteBalance.metal */,
-				45AA0C981F490BE00091DBB0 /* PolkaDot.metal */,
-				45AA0C9A1F490BE00091DBB0 /* SobelEdgeDetectionThreshold.metal */,
-				45AA0C9B1F490BE00091DBB0 /* Toon.metal */,
-				45AA0C9C1F490BE00091DBB0 /* Voronoi.metal */,
-				45AA0C9D1F490BE00091DBB0 /* Sketch.metal */,
-				45AA0C9E1F490BE00091DBB0 /* Histogram.metal */,
 				45AA0C9F1F490BE00091DBB0 /* Brightness.metal */,
-				45AA0CA01F490BE00091DBB0 /* Haze.metal */,
-				45AA0CA11F490BE00091DBB0 /* HSV.metal */,
-				45AA0CA21F490BE00091DBB0 /* Vignette.metal */,
-				45AA0CA31F490BE00091DBB0 /* Template.metal */,
+				45AA0C831F490BE00091DBB0 /* Camera.metal */,
+				45AA0C891F490BE00091DBB0 /* ColorSelection.metal */,
+				45AA0C8F1F490BE00091DBB0 /* Contrast.metal */,
+				45AA0C721F490BE00091DBB0 /* Convolution.metal */,
+				45AA0C761F490BE00091DBB0 /* Crop.metal */,
+				45AA0CA71F490BE00091DBB0 /* CrossHatch.metal */,
+				45AA0CA91F490BE00091DBB0 /* DefaultShaders.metal */,
+				45AA0C8B1F490BE00091DBB0 /* DepthBlend.metal */,
 				45AA0CA41F490BE00091DBB0 /* DepthMask.metal */,
+				45AA0C781F490BE00091DBB0 /* DepthRenderer.metal */,
+				45AA0C8A1F490BE00091DBB0 /* Distortion.metal */,
+				45AA0C861F490BE00091DBB0 /* Exposure.metal */,
 				45AA0CA51F490BE00091DBB0 /* GaussianBlur.metal */,
 				45AA0CA61F490BE00091DBB0 /* HarrisCornerDetection.metal */,
-				45AA0CA71F490BE00091DBB0 /* CrossHatch.metal */,
+				45AA0CA01F490BE00091DBB0 /* Haze.metal */,
+				45AA0C851F490BE00091DBB0 /* HighlightShadow.metal */,
+				45FA9A161F6ACA59005DF768 /* HighPass.metal */,
+				459A251A1F6B6EBE001FAD70 /* HighPassSkinSmooth.metal */,
+				45AA0C9E1F490BE00091DBB0 /* Histogram.metal */,
+				45AA0CA11F490BE00091DBB0 /* HSV.metal */,
+				45AA0C841F490BE00091DBB0 /* Hue.metal */,
+				45AA0C961F490BE00091DBB0 /* Invert.metal */,
+				45AA0C7A1F490BE00091DBB0 /* Kuwahara.metal */,
+				45AA0C7B1F490BE00091DBB0 /* LensFlare.metal */,
+				45AA0C921F490BE00091DBB0 /* Levels.metal */,
+				45AA0C741F490BE00091DBB0 /* LineDetection.metal */,
+				45AA0C951F490BE00091DBB0 /* LuminanceThreshold.metal */,
+				45AA0C751F490BE00091DBB0 /* Mask.metal */,
+				45AA0C7C1F490BE00091DBB0 /* Mosaic.metal */,
+				45AA0C8C1F490BE00091DBB0 /* NonMaximumSuppression.metal */,
+				45AA0C731F490BE00091DBB0 /* OilPaint.metal */,
+				45AA0C881F490BE00091DBB0 /* PerlinNoise.metal */,
+				45AA0C7E1F490BE00091DBB0 /* Pixellate.metal */,
+				45AA0C981F490BE00091DBB0 /* PolkaDot.metal */,
+				45AA0C7F1F490BE00091DBB0 /* Resize.metal */,
+				45AA0C811F490BE00091DBB0 /* RollingAverage.metal */,
+				45AA0C801F490BE00091DBB0 /* Saturation.metal */,
+				45AA0C8D1F490BE00091DBB0 /* Scatter.metal */,
+				45AA0C7D1F490BE00091DBB0 /* SelectiveHSL.metal */,
+				45AA0C901F490BE00091DBB0 /* Sharpen.metal */,
+				45AA0C9D1F490BE00091DBB0 /* Sketch.metal */,
+				45AA0C791F490BE00091DBB0 /* Smudge.metal */,
 				45AA0CA81F490BE00091DBB0 /* SobelEdgeDetection.metal */,
-				45AA0CA91F490BE00091DBB0 /* DefaultShaders.metal */,
+				45AA0C9A1F490BE00091DBB0 /* SobelEdgeDetectionThreshold.metal */,
+				45AA0CA31F490BE00091DBB0 /* Template.metal */,
+				45AA0C871F490BE00091DBB0 /* ToneCurve.metal */,
+				45AA0C9B1F490BE00091DBB0 /* Toon.metal */,
+				45AA0C771F490BE00091DBB0 /* Transform.metal */,
+				45AA0C8E1F490BE00091DBB0 /* UnsharpMask.metal */,
+				45AA0CA21F490BE00091DBB0 /* Vignette.metal */,
+				45AA0C9C1F490BE00091DBB0 /* Voronoi.metal */,
+				45AA0C911F490BE00091DBB0 /* Water.metal */,
+				45AA0C821F490BE00091DBB0 /* WeakPixelInclusion.metal */,
+				45AA0C971F490BE00091DBB0 /* WhiteBalance.metal */,
+				45AA0C931F490BE00091DBB0 /* XYDerivative.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -701,6 +721,7 @@
 		45AA0D541F490D360091DBB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45EC48C91F633075009837E2 /* Foundation.framework */,
 				45AA0D551F490D360091DBB0 /* XCTest.framework */,
 			);
 			name = Frameworks;
@@ -757,6 +778,8 @@
 				45AA0C4A1F490BE00091DBB0 /* DataManager.swift */,
 				45AA0C4C1F490BE00091DBB0 /* Picture-iOS.swift */,
 				45AA0C591F490BE00091DBB0 /* Camera-iOS.swift */,
+				45EC48C61F63300D009837E2 /* CameraBase-iOS.swift */,
+				45EC48C51F63300D009837E2 /* PhotoMetadata.swift */,
 				45AA0C4B1F490BE00091DBB0 /* View-iOS.swift */,
 				45AA0C561F490BE00091DBB0 /* MTLImage-iOS.swift */,
 				45173D021F56F86F0058A6FA /* Additions-iOS.swift */,
@@ -768,12 +791,12 @@
 		45BD561D1F59E82600A05233 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				451D3C181F4915A6004A6006 /* DepthRenderer.swift */,
-				45AA0C081F490BE00091DBB0 /* LowPass.swift */,
 				45AA0C091F490BE00091DBB0 /* Blend.swift */,
-				45AA0C181F490BE00091DBB0 /* HarrisCornerDetection.swift */,
-				45AA0C2B1F490BE00091DBB0 /* DepthToGrayscale.swift */,
 				45AA0C2D1F490BE00091DBB0 /* DepthBlend.swift */,
+				451D3C181F4915A6004A6006 /* DepthRenderer.swift */,
+				45AA0C2B1F490BE00091DBB0 /* DepthToGrayscale.swift */,
+				45AA0C181F490BE00091DBB0 /* HarrisCornerDetection.swift */,
+				45AA0C081F490BE00091DBB0 /* LowPass.swift */,
 				45AA0C401F490BE00091DBB0 /* Scatter.swift */,
 			);
 			path = Filters;
@@ -820,6 +843,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45EC48CB1F633142009837E2 /* MTLImage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -926,6 +950,7 @@
 			files = (
 				45173D0E1F5755A80058A6FA /* Input.swift in Sources */,
 				45173D101F5755BA0058A6FA /* MTLObject.swift in Sources */,
+				45FA9A181F6ACA59005DF768 /* HighPass.metal in Sources */,
 				450612391F57596700A6640B /* Filter.swift in Sources */,
 				450DC86A1F5837D5004ED035 /* Convolution.swift in Sources */,
 				45DE26D11F583C64008BA963 /* BoxBlur.swift in Sources */,
@@ -1000,6 +1025,7 @@
 				45173D111F5755C10058A6FA /* Context.swift in Sources */,
 				45DE26C01F583BB4008BA963 /* Brightness.metal in Sources */,
 				4506123A1F57597D00A6640B /* BufferProvider.swift in Sources */,
+				45FA9A121F6ACA33005DF768 /* HighPass.swift in Sources */,
 				450DC85B1F576415004ED035 /* Brightness.swift in Sources */,
 				45DE26BF1F583BB4008BA963 /* Histogram.metal in Sources */,
 				45DE26CF1F583C4E008BA963 /* Resize.swift in Sources */,
@@ -1119,8 +1145,10 @@
 				45AA0D241F490BE00091DBB0 /* WeakPixelInclusion.metal in Sources */,
 				45AA0D381F490BE00091DBB0 /* Invert.metal in Sources */,
 				455F75971F56F36500F9F735 /* ColorMask.swift in Sources */,
+				45EC48C71F63300D009837E2 /* PhotoMetadata.swift in Sources */,
 				45AA0D341F490BE00091DBB0 /* Levels.metal in Sources */,
 				45AA0CB81F490BE00091DBB0 /* Brightness.swift in Sources */,
+				45FA9A111F6ACA33005DF768 /* HighPass.swift in Sources */,
 				45AA0D401F490BE00091DBB0 /* Histogram.metal in Sources */,
 				45AA0D261F490BE00091DBB0 /* Hue.metal in Sources */,
 				45AA0D171F490BE00091DBB0 /* Mask.metal in Sources */,
@@ -1138,10 +1166,13 @@
 				45AA0D321F490BE00091DBB0 /* Sharpen.metal in Sources */,
 				45AA0CB21F490BE00091DBB0 /* WhiteBalance.swift in Sources */,
 				45AA0CEC1F490BE00091DBB0 /* Scatter.swift in Sources */,
+				45FA9A171F6ACA59005DF768 /* HighPass.metal in Sources */,
 				45AA0D021F490BE00091DBB0 /* MTLLib.swift in Sources */,
+				45EC48C81F63300D009837E2 /* CameraBase-iOS.swift in Sources */,
 				45AA0CAE1F490BE00091DBB0 /* Levels.swift in Sources */,
 				45AA0CF51F490BE00091DBB0 /* View-iOS.swift in Sources */,
 				45AA0CF61F490BE00091DBB0 /* Picture-iOS.swift in Sources */,
+				45FA9A0F1F6AC710005DF768 /* Soften.swift in Sources */,
 				45AA0CE11F490BE00091DBB0 /* BoxBlur.swift in Sources */,
 				45AA0D251F490BE00091DBB0 /* Camera.metal in Sources */,
 				45AA0CBB1F490BE00091DBB0 /* Voronoi.swift in Sources */,
@@ -1158,6 +1189,7 @@
 				45AA0D441F490BE00091DBB0 /* Vignette.metal in Sources */,
 				45AA0CE91F490BE00091DBB0 /* UnsharpMask.swift in Sources */,
 				45AA0CB51F490BE00091DBB0 /* Blend.swift in Sources */,
+				459A251B1F6B6EBE001FAD70 /* HighPassSkinSmooth.metal in Sources */,
 				45AA0CBD1F490BE00091DBB0 /* Histogram.swift in Sources */,
 				45AA0CAF1F490BE00091DBB0 /* XYDerivative.swift in Sources */,
 				45AA0D2F1F490BE00091DBB0 /* Scatter.metal in Sources */,

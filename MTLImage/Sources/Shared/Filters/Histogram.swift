@@ -42,6 +42,7 @@ class Histogram: MPS {
         red = [UInt32](repeating: 0, count: numberOfEntries)
         green = [UInt32](repeating: 0, count: numberOfEntries)
         blue = [UInt32](repeating: 0, count: numberOfEntries)
+        alpha = [UInt32](repeating: 0, count: numberOfEntries)
         
         var info = MPSImageHistogramInfo(
             numberOfHistogramEntries: numberOfEntries,

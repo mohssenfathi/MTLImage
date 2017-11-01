@@ -9,11 +9,11 @@
 public
 class FilterGroup: MTLObject, NSCoding {
     
-    deinit {
-        texture = nil
-        input = nil
-        context.source = nil
-    }
+//    deinit {
+//        texture = nil
+//        input = nil
+//        context.source = nil
+//    }
     
     override public init() {
         super.init()

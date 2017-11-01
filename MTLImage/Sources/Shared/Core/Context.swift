@@ -13,9 +13,9 @@ public
 class Context: NSObject {
     
     public var device: MTLDevice!
-    var commandQueue: MTLCommandQueue!
-    var processingSize: CGSize!
-    var processingQueue: DispatchQueue!
+    var commandQueue: MTLCommandQueue?
+    var processingSize: CGSize = .zero
+    var processingQueue: DispatchQueue = DispatchQueue(label: "MTLImageProcessQueue")
     var needsUpdate: Bool = true
     let semaphore = DispatchSemaphore(value: 1)
     
@@ -38,8 +38,6 @@ class Context: NSObject {
         guard MTLImage.isMetalSupported else { return }
         
         self.commandQueue = self.device.makeCommandQueue()
-        self.processingQueue = DispatchQueue(label: "MTLImageProcessQueue")
-        //            DispatchQueue(label: "MTLImageProcessQueue", attributes: DispatchQueueAttributes.concurrent)
         
         refreshCurrentCommandBuffer()
     }
@@ -60,29 +58,9 @@ class Context: NSObject {
     }
     
     
-    /* Returns the full filter chain not including source and output (only first targets for now)
-     TODO: Include filters with multiple targets
-     */
-    var filterChain: [MTLObject] {
-        
-        guard let source = source else {
-            return []
-        }
-        
-        var chain = [MTLObject]()
-        var object = source.targets.first as? MTLObject
-        
-        while object != nil {
-            chain.append(object!)
-            object = object?.targets.first as? MTLObject
-        }
-        
-        return chain
-    }
-    
-    var currentCommandBuffer: MTLCommandBuffer!
+    var currentCommandBuffer: MTLCommandBuffer?
     func refreshCurrentCommandBuffer() {
-        currentCommandBuffer = commandQueue.makeCommandBuffer()
+        currentCommandBuffer = commandQueue?.makeCommandBuffer()
     }
     
 }

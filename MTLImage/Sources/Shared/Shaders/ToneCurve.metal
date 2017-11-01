@@ -10,7 +10,7 @@
 using namespace metal;
 
 struct ToneCurveUniforms {
-    
+    float intensity;
 };
 
 kernel void toneCurve(texture2d<float, access::read>  inTexture  [[ texture(0)]],
@@ -20,10 +20,12 @@ kernel void toneCurve(texture2d<float, access::read>  inTexture  [[ texture(0)]]
                       uint2 gid [[thread_position_in_grid]])
 {
     float4 color = inTexture.read(gid);
- 
+    
     float redCurveValue   = float(toneCurveBuffer[int(color.r * 255) * 3 + 0])/255.0;
     float greenCurveValue = float(toneCurveBuffer[int(color.g * 255) * 3 + 1])/255.0;
     float blueCurveValue  = float(toneCurveBuffer[int(color.b * 255) * 3 + 2])/255.0;
 
-    outTexture.write(float4(redCurveValue, greenCurveValue, blueCurveValue, color.a), gid);
+    float4 newColor = float4(mix(color.rgb, float3(redCurveValue, greenCurveValue, blueCurveValue), uniforms.intensity), color.a);
+    
+    outTexture.write(newColor, gid);
 }

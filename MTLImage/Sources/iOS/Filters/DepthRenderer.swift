@@ -130,7 +130,7 @@ class DepthRenderer: Filter {
         
         guard let outputTexture = texture,
             let inputTexture = pixelBuffer.mtlTexture(textureCache: textureCache, pixelFormat: inputTextureFormat),
-            let commandBuffer = context.commandQueue.makeCommandBuffer(),
+            let commandBuffer = context.commandQueue?.makeCommandBuffer(),
             let commandEncoder = commandBuffer.makeComputeCommandEncoder() else {
                 return nil
         }

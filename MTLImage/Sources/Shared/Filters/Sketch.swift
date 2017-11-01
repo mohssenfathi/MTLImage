@@ -40,7 +40,6 @@ class Sketch: Filter {
 //            intense *= Float(2048.0/context.processingSize.width)
 //        }
         uniforms.intensity = intense
-        
         updateUniforms(uniforms: uniforms)
     }
     

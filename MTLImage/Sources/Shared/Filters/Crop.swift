@@ -79,7 +79,7 @@ class Crop: Filter {
         let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: newWidth, height: newHeight, mipmapped: false)
         
         guard let newTexture = device.makeTexture(descriptor: textureDescriptor),
-            let commandBuffer = self.context.commandQueue.makeCommandBuffer(),
+            let commandBuffer = self.context.commandQueue?.makeCommandBuffer(),
             let blitCommandEncoder = commandBuffer.makeBlitCommandEncoder() else { return }
         
         blitCommandEncoder.copy(from: inputTexture,

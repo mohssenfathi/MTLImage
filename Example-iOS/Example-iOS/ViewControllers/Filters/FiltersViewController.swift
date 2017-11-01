@@ -8,6 +8,7 @@
 
 import UIKit
 import MTLImage
+import MessageUI
 
 protocol FiltersViewControllerDelegate {
     func filtersViewControllerDidSelectFilter(_ sender: FiltersViewController, filter: MTLObject)
@@ -60,6 +61,30 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         let edit = !tableView.isEditing
         sender.title = edit ? "Done" : "Edit"
         tableView.setEditing(edit, animated: true)
+    }
+    
+    @IBAction func exportAllButtonPressed(_ sender: UIBarButtonItem) {
+        exportAll()
+    }
+
+    
+    func exportAll() {
+    
+        guard MFMailComposeViewController.canSendMail() else {
+            print("Cannot send mail")
+            return
+        }
+        
+        let composeViewController = MFMailComposeViewController()
+        composeViewController.mailComposeDelegate = self
+        composeViewController.setSubject("MTLImage Export Document - " + self.filterGroup.title)
+        
+        for filterGroup in savedFilterGroups {
+            let data = MTLImage.archive(filterGroup)
+            composeViewController.addAttachmentData(data!, mimeType: "application/octet-stream", fileName: filterGroup.title)
+        }
+        
+        self.present(composeViewController, animated: true, completion: nil)
     }
     
     
@@ -217,4 +242,24 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
 
+}
+
+
+extension FiltersViewController: MFMailComposeViewControllerDelegate {
+ 
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true) {
+            
+            if result == MFMailComposeResult.cancelled { return }
+            
+            let message = (result == MFMailComposeResult.failed) ? "Failed to send" : "Sent"
+            let alertView = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+            
+            self.present(alertView, animated: true, completion: {
+                sleep(UInt32(1.0))
+                self.dismiss(animated: true, completion: nil)
+            })
+        }
+    }
+    
 }

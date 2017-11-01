@@ -51,7 +51,7 @@ class MPS: Filter {
         
         guard let inputTexture = input?.texture,
             let texture = texture,
-            let commandBuffer = context.commandQueue.makeCommandBuffer() else { return }
+            let commandBuffer = context.commandQueue?.makeCommandBuffer() else { return }
         
         autoreleasepool {
             

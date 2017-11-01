@@ -25,6 +25,7 @@ float4 difference   (float4 base, float4 overlay);
 float4 disolve      (float4 base, float4 overlay, float mixValue);
 float4 divide       (float4 base, float4 overlay);
 float4 exclusion    (float4 base, float4 overlay);
+float4 greenBlue    (float4 base, float4 overlay);
 float4 hardLight    (float4 base, float4 overlay);
 float4 linearBurn   (float4 base, float4 overlay);
 float4 lighten      (float4 base, float4 overlay);
@@ -84,18 +85,19 @@ kernel void blend(texture2d<float, access::read>  inTexture    [[ texture(0) ]],
     else if (mode == 6)  outColor = difference  (color, blendColor);
     else if (mode == 7)  outColor = disolve     (color, blendColor, uniforms.mix);
     else if (mode == 8)  outColor = divide      (color, blendColor);
-    else if (mode == 9)  outColor = exclusion   (color, blendColor);
-    else if (mode == 10) outColor = hardLight   (color, blendColor);
-    else if (mode == 11) outColor = lighten     (color, blendColor);
-    else if (mode == 12) outColor = linearBurn  (color, blendColor);
-    else if (mode == 13) outColor = linearDodge (color, blendColor);
-    else if (mode == 14) outColor = lumosity    (color, blendColor);
-    else if (mode == 15) outColor = multiply    (color, blendColor);
-    else if (mode == 16) outColor = normal      (color, blendColor);
-    else if (mode == 17) outColor = overlay     (color, blendColor);
-    else if (mode == 18) outColor = screen      (color, blendColor);
-    else if (mode == 19) outColor = softLight   (color, blendColor);
-    else if (mode == 20) outColor = subtract    (color, blendColor);
+    else if (mode == 9)  outColor = greenBlue   (color, blendColor);
+    else if (mode == 10) outColor = exclusion   (color, blendColor);
+    else if (mode == 11) outColor = hardLight   (color, blendColor);
+    else if (mode == 12) outColor = lighten     (color, blendColor);
+    else if (mode == 13) outColor = linearBurn  (color, blendColor);
+    else if (mode == 14) outColor = linearDodge (color, blendColor);
+    else if (mode == 15) outColor = lumosity    (color, blendColor);
+    else if (mode == 16) outColor = multiply    (color, blendColor);
+    else if (mode == 17) outColor = normal      (color, blendColor);
+    else if (mode == 18) outColor = overlay     (color, blendColor);
+    else if (mode == 19) outColor = screen      (color, blendColor);
+    else if (mode == 20) outColor = softLight   (color, blendColor);
+    else if (mode == 21) outColor = subtract    (color, blendColor);
 
     outTexture.write(outColor, gid);
 
@@ -202,6 +204,13 @@ float4 divide( float4 base, float4 overlay) {
 
 float4 exclusion(float4 base, float4 overlay) {
     return float4((overlay.rgb * base.a + base.rgb * overlay.a - 2.0 * overlay.rgb * base.rgb) + overlay.rgb * (1.0 - base.a) + base.rgb * (1.0 - overlay.a), base.a);
+}
+
+float4 greenBlue(float4 base, float4 overlay) {
+    float4 bc = float4(base.g, base.g, base.g, 1.0);
+    float4 oc = float4(overlay.b, overlay.b, overlay.b, 1.0);
+    float ba = 2.0 * oc.b * bc.b + oc.b * (1.0 - bc.a) + bc.b * (1.0 - oc.a);
+    return float4(ba,ba,ba,base.a);
 }
 
 float4 hardLight( float4 base, float4 overlay) {

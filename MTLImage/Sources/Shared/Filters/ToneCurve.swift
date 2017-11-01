@@ -6,16 +6,49 @@
 //
 //
 
-struct ToneCurveUniforms: Uniforms {
-    
-}
 
 public
 class ToneCurve: Filter {
+
+    public init() {
+        super.init(functionName: "toneCurve")
+        title = "Tone Curve"
+        
+        setupToneCurveBuffer()
+        
+        redCurve = getPreparedSplineCurve(redPoints)
+        greenCurve = getPreparedSplineCurve(greenPoints)
+        blueCurve = getPreparedSplineCurve(bluePoints)
+        compositeCurve = getPreparedSplineCurve(compositePoints)
+        
+        properties = [
+            Property(key: "intensity"   , title: "Intensity"),
+            Property(key: "compositeMin", title: "Composite Min"),
+            Property(key: "compositeMid", title: "Composite Mid"),
+            Property(key: "compositeMax", title: "Composite Max"),
+            Property(key: "redMid"      , title: "Red"),
+            Property(key: "blueMid"     , title: "Blue"),
+            Property(key: "greenMid"    , title: "Green")
+        ]
+        
+        update()
+    }
+    
+    public override func update() {
+        super.update()
+        uniforms.intensity = intensity
+        updateUniforms(uniforms: uniforms)
+    }
+    
+    
+    struct ToneCurveUniforms: Uniforms {
+        var intensity: Float = 1.0
+    }
     
     var uniforms = ToneCurveUniforms()
-    
     var toneCurveBuffer: MTLBuffer? = nil
+    
+    @objc public var intensity: Float = 1.0 { didSet { needsUpdate = true } }
     
     @objc public var compositeMin: Float = 0.0 {
         didSet {
@@ -118,28 +151,6 @@ class ToneCurve: Filter {
         }
     }
     
-    public init() {
-        super.init(functionName: "toneCurve")
-        title = "Tone Curve"
-        
-        setupToneCurveBuffer()
-        
-        redCurve = getPreparedSplineCurve(redPoints)
-        greenCurve = getPreparedSplineCurve(greenPoints)
-        blueCurve = getPreparedSplineCurve(bluePoints)
-        compositeCurve = getPreparedSplineCurve(compositePoints)
-        
-        properties = //[]
-                     [Property(key: "compositeMin", title: "Composite Min"),
-                      Property(key: "compositeMid", title: "Composite Mid"),
-                      Property(key: "compositeMax", title: "Composite Max"),
-                      Property(key: "redMid"      , title: "Red"),
-                      Property(key: "blueMid"     , title: "Blue"),
-                      Property(key: "greenMid"    , title: "Green")]
-        
-        update()
-    }
-    
     override func updatePropertyValues() {
         super.updatePropertyValues()
         propertyValues["compositeCurve"] = compositeCurve
@@ -153,18 +164,12 @@ class ToneCurve: Filter {
     }
     
     public override func reset() {
+        intensity = 0.5
         redPoints   = [CGPoint]()
         greenPoints = [CGPoint]()
         bluePoints  = [CGPoint]()
         compositePoints = [CGPoint(x: 0, y: 0), CGPoint(x: 0.5, y: 0.5), CGPoint(x: 1.0, y: 1.0)]
     }
-    
-    override public func update() {
-        if self.input == nil { return }
-
-        updateUniforms(uniforms: uniforms)
-    }
-    
     
     override public func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
@@ -177,14 +182,12 @@ class ToneCurve: Filter {
     
     
 //    MARK: - Curves
-    
     var toneCurveByteArray: UnsafeMutableRawPointer? = nil
     var toneCurveValuesPointer: UnsafeMutablePointer<Float>!
     
     func setupToneCurveBuffer() {
-        
         let alignment: UInt = 0x4000
-        let size: UInt = UInt(256 * 3) * UInt(MemoryLayout<Float>.size)
+        let size: UInt = UInt(256 * 3) * UInt(MemoryLayout<UInt8>.size)
         
         posix_memalign(&toneCurveByteArray, Int(alignment), Int(size))
         

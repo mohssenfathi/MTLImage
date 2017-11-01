@@ -66,35 +66,58 @@ extension FilterGroup {
     }
     
     public func filter(_ image: UIImage, completion: @escaping (_ filteredImage: UIImage?) -> ()) {
-        DispatchQueue.global(qos: .background).async {
-            let filteredImage = self.filter(image)
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            let filteredImage = self?.filter(image)
             DispatchQueue.main.async {
                 completion(filteredImage)
             }
         }
     }
-    
+
     public func filter(_ image: UIImage) -> UIImage? {
-        
+     
         let filter = self.copy() as! FilterGroup
         let picture = Picture(image: image.copy() as! UIImage)
+        
         picture --> filter
         
         picture.needsUpdate = true
         filter.filters.last?.processIfNeeded()
         
-        let filteredImage = filter.image
+        let filteredImage = filter.image?.copy() as? UIImage
         
         picture.removeAllTargets()
         filter.removeAllTargets()
         
         filter.removeAll()
         
-        picture.pipeline = nil
-        filter.context.source = nil
+//        picture.pipeline = nil
+//        filter.context.source = nil
         
         return filteredImage
     }
+    
+//    public func filter(_ image: UIImage) -> UIImage? {
+//
+//        let filter = self.copy() as! FilterGroup
+//        let picture = Picture(image: image.copy() as! UIImage)
+//        picture --> filter
+//
+//        picture.needsUpdate = true
+//        filter.filters.last?.processIfNeeded()
+//
+//        let filteredImage = filter.image
+//
+//        picture.removeAllTargets()
+//        filter.removeAllTargets()
+//
+//        filter.removeAll()
+//
+////        picture.pipeline = nil
+////        filter.context.source = nil
+//
+//        return filteredImage
+//    }
     
     public func save() {
         DataManager.sharedManager.save(self, completion: nil)
