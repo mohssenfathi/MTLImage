@@ -15,21 +15,12 @@ class Context: NSObject {
     public var device: MTLDevice!
     var commandQueue: MTLCommandQueue?
     var processingSize: CGSize = .zero
-    var processingQueue: DispatchQueue = DispatchQueue(label: "MTLImageProcessQueue")
     var needsUpdate: Bool = true
     let semaphore = DispatchSemaphore(value: 1)
-    
-    var source: Input?
-    var output: Output?
     
     lazy var library: MTLLibrary? = {
         return loadLibrary()
     }()
-    
-    deinit {
-        source = nil
-        output = nil
-    }
     
     override init() {
         super.init()
@@ -62,5 +53,4 @@ class Context: NSObject {
     func refreshCurrentCommandBuffer() {
         currentCommandBuffer = commandQueue?.makeCommandBuffer()
     }
-    
 }

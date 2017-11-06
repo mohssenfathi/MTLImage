@@ -24,7 +24,6 @@ class Camera: CameraBase, Input {
         super.init()
         
         title = "MTLCamera"
-        context.source = self
         
         CVMetalTextureCacheCreate(kCFAllocatorSystemDefault, nil, device, nil, &textureCache)
         setupPipeline()

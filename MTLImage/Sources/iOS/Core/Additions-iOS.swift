@@ -41,11 +41,13 @@ extension Filter {
     }
     
     public var image: UIImage? {
+        
         needsUpdate = true
         process()
+//        processIfNeeded()
         
         return texture?.image
-    }    
+    }
 }
 
 
@@ -77,24 +79,20 @@ extension FilterGroup {
     public func filter(_ image: UIImage) -> UIImage? {
      
         let filter = self.copy() as! FilterGroup
-        let picture = Picture(image: image.copy() as! UIImage)
+        let picture = Picture(image: image)
         
         picture --> filter
         
         picture.needsUpdate = true
         filter.filters.last?.processIfNeeded()
         
-        let filteredImage = filter.image?.copy() as? UIImage
+        let filteredImage = filter.image
         
         picture.removeAllTargets()
         filter.removeAllTargets()
-        
         filter.removeAll()
         
-//        picture.pipeline = nil
-//        filter.context.source = nil
-        
-        return filteredImage
+        return filteredImage?.copy() as? UIImage
     }
     
 //    public func filter(_ image: UIImage) -> UIImage? {

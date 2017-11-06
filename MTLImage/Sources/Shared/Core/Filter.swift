@@ -33,11 +33,11 @@ class Filter: MTLObject, NSCoding {
     var index: Int = 0
     var gcd: Int = 0
     
-    deinit {
-        texture = nil
-        input = nil
-        removeAllTargets()
-    }
+//    deinit {
+//        texture = nil
+//        input = nil
+//        removeAllTargets()
+//    }
     
     public init(functionName: String?) {
         super.init()
@@ -106,28 +106,29 @@ class Filter: MTLObject, NSCoding {
         
         autoreleasepool {
         
-            context.semaphore.wait()
-            
+//            context.semaphore.wait()
+        
             encode(to: commandBuffer)
             
-            commandBuffer.addCompletedHandler({ (commandBuffer) in
-                self.didFinishProcessing(self)
-                self.context.semaphore.signal()
-                self.newTextureAvailable?(self)
-                if self.continuousUpdate || (self.input?.continuousUpdate ?? false) { return }
-                self.needsUpdate = false
+            commandBuffer.addCompletedHandler({ [weak self] (commandBuffer) in
+                
+                guard let weakSelf = self else { return }
+                
+                weakSelf.didFinishProcessing(weakSelf)
+//                weakSelf.context.semaphore.signal()
+                weakSelf.newTextureAvailable?(weakSelf)
+                if weakSelf.continuousUpdate || (weakSelf.input?.continuousUpdate ?? false) { return }
+                self?.needsUpdate = false
             })
             
             commandBuffer.commit()
-//            commandBuffer.waitUntilCompleted()
+            commandBuffer.waitUntilCompleted()
         }
     }
     
     public var newTextureAvailable: ((_ filter: Filter) -> ())?
     
-    open func didFinishProcessing(_ filter: Filter) {
-        
-    }
+    open func didFinishProcessing(_ filter: Filter) { }
     
     func encode(to commandBuffer: MTLCommandBuffer) {
         

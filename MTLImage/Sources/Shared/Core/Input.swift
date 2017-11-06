@@ -10,9 +10,9 @@ import Metal
 public protocol Input {
     
     var texture: MTLTexture? { get set }
-    var context: Context { get }
+    var targets: [Output]    { get }
+    var context: Context     { get }
     var device : MTLDevice   { get }
-    var targets: [Output] { get }
     
     var title      : String { get set }
     var id         : String { get set }

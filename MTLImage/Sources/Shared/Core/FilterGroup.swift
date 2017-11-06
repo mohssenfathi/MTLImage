@@ -8,12 +8,7 @@
 
 public
 class FilterGroup: MTLObject, NSCoding {
-    
-//    deinit {
-//        texture = nil
-//        input = nil
-//        context.source = nil
-//    }
+
     
     override public init() {
         super.init()
@@ -107,7 +102,11 @@ class FilterGroup: MTLObject, NSCoding {
     }
     
     func rebuildFilterChain() {
-        if filters.count == 0 { return }
+        
+        if filters.count == 0 {
+            for var target in targets { target.input = input }
+            return
+        }
         
         input?.removeAllTargets()
         for filter in filters {
@@ -159,7 +158,19 @@ class FilterGroup: MTLObject, NSCoding {
 
     
 //    MARK: - MTLInput
-
+    public override func processIfNeeded() {
+        filters.last?.processIfNeeded()
+    }
+    
+    public override func process() {
+        filters.last?.process()
+    }
+    
+    public override var texture: MTLTexture? {
+        get { return filters.last?.texture ?? input?.texture }
+        set { super.texture = newValue }
+    }
+    
     public override func addTarget(_ target: Output) {
         targets.append(target)
         if let filter = filters.last {
@@ -168,8 +179,11 @@ class FilterGroup: MTLObject, NSCoding {
                 filter.addTarget(target)
             }
         } else {
-            input?.removeAllTargets()
-            for target in targets { input?.addTarget(target) }
+            if input?.targets.filter({ $0 == target }).count == 0 {
+                input?.addTarget(target)
+            }
+//            input?.removeAllTargets()
+//            for target in targets { input?.addTarget(target) }
         }
         needsUpdate = true
     }
@@ -200,7 +214,12 @@ class FilterGroup: MTLObject, NSCoding {
     
     public override var input: Input? {
         didSet {
-            rebuildFilterChain()
+            if let filter = filters.first {
+                filter.input = input
+                input?.addTarget(filter)
+            }
+            
+//            rebuildFilterChain()
         }
     }
     

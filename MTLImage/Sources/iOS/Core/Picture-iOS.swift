@@ -19,7 +19,6 @@ class Picture: NSObject, Input {
         return false
     }
 
-    private var internalTargets = [Output]()
     var pipeline: MTLComputePipelineState!
     var textureLoader: MTKTextureLoader!
     
@@ -75,24 +74,33 @@ class Picture: NSObject, Input {
         self.image = image
         self.processingSize = image.size
         self.textureLoader = MTKTextureLoader(device: context.device)
-        context.source = self
         
         loadTexture()
     }
     
     func loadTexture() {
 
+//        guard let cgImage = image.cgImage?.copy() else {
+//            return
+//        }
+//        
+//        let textureLoader = MTKTextureLoader(device: device)
+//        textureLoader.newTexture(cgImage: cgImage, options: nil) { texture, error in
+//            self.texture = texture
+//        }
+        
         texture = image.texture(device, flip: false, size: processingSize)
+        
 //        if let texture = image.texture(device, flip: false, size: processingSize) {
-//            self.internalTexture = texture.makeTextureView(pixelFormat: texture.pixelFormat)
+//            self.texture = texture.makeTextureView(pixelFormat: texture.pixelFormat)
 //        }
         
     }
     
     func chainLength() -> Int {
 //        Count only first target for now
-        if internalTargets.count == 0 { return 1 }
-        let c = length(internalTargets.first!)
+        if targets.count == 0 { return 1 }
+        let c = length(targets.first!)
         return c
     }
     
@@ -119,30 +127,29 @@ class Picture: NSObject, Input {
         return context.commandQueue?.makeCommandBuffer()
     }
     
-    public var targets: [Output] {
-        get {
-            return internalTargets
-        }
-    }
+    public var targets: [Output] = []
     
     public func addTarget(_ target: Output) {
         var t = target
-        internalTargets.append(t)
-        loadTexture()
+        targets.append(t)
         t.input = self
+//        loadTexture()
     }
     
     public func removeTarget(_ target: Output) {
+        
+        guard let index = targets.enumerated().filter({ $0.element == target }).first?.offset else {
+            return
+        }
+        
         var t = target
         t.input = nil
-//      TODO:   remove from internalTargets
+        targets.remove(at: index)
     }
     
     public func removeAllTargets() {
-//        for var target in internalTargets {
-//            target.input = nil
-//        }
-        internalTargets.removeAll()
+        for var target in targets { target.input = nil }
+        targets.removeAll()
     }
     
     

@@ -85,6 +85,7 @@ open class MTLObject: NSObject, Output {
         if index != NSNotFound {
             targets.remove(at: index)
         }
+        
         texture = nil
     }
     
@@ -135,9 +136,7 @@ extension MTLObject: Input {
     
     public var context: Context {
         get {
-            if let c = input?.context {
-                return c
-            }
+            if let c = input?.context { return c }
             return Context()
         }
     }

@@ -49,9 +49,10 @@ extension MTLTexture {
         
         return imageBytes
     }
-    
+
+
     var image: UIImage? {
- 
+
         let bytesPerRow = width * 4
         let imageByteCount: Int = width * height * 4
 
@@ -62,21 +63,24 @@ extension MTLTexture {
             from: MTLRegion(origin: MTLOrigin(x: 0, y: 0, z: 0), size: size()),
             mipmapLevel: 0
         )
-        
+
         let provider = CGDataProvider(dataInfo: nil, data: imageBytes, size: imageByteCount) { (rawPointer, pointer, i) in
-//            free(rawPointer)
+            pointer.deallocate(bytes: i, alignedTo: 0)
+            free(rawPointer)
         }
-        
+
         var bitmapInfo: CGBitmapInfo!
         if pixelFormat == .bgra8Unorm {
             bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue).union(.byteOrder32Little)
         } else if pixelFormat == .rgba8Unorm {
             bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue).union(.byteOrder32Big)
+        } else {
+            free(imageBytes)
+            return nil
         }
-        else { return nil }
-        
+
         let renderingIntent = CGColorRenderingIntent.defaultIntent
-        let imageRef = CGImage(
+        guard let imageRef = CGImage(
             width: width,
             height: height,
             bitsPerComponent: 8,
@@ -88,12 +92,15 @@ extension MTLTexture {
             decode: nil,
             shouldInterpolate: false,
             intent: renderingIntent
-        )
+            ) else {
+                free(imageBytes)
+                return nil
+        }
         
-        let image = UIImage(cgImage: imageRef!, scale: 0.0, orientation: .up)
-        
+        let image = UIImage(cgImage: imageRef, scale: 0.0, orientation: .up).copy() as? UIImage
+
 //        free(imageBytes)
-        
+
         return image;
     }
     
@@ -541,3 +548,5 @@ func fixOrientation(_ image: UIImage) -> UIImage? {
     
     return UIImage(cgImage: CGImage)
 }
+
+

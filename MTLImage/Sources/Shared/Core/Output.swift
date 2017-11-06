@@ -45,3 +45,6 @@ public extension Output {
     }
 }
 
+func ==(left: Output, right: Output) -> Bool {
+    return left.id == right.id
+}
