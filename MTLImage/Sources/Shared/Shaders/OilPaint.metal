@@ -222,55 +222,6 @@ float pattern(float2 p, float2 q, float2 r, float time) {
     return fbm(p + 1.0 * r + 0.0 * time);
 }
 
-//	rgb<-->hsv functions by Sam Hocevar
-//	http://lolengine.net/blog/2013/07/27/rgb-to-hsv-in-glsl
-float3 rgb2hsv(float3 c) {
-    float4 K = float4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
-    float4 p = mix(float4(c.bg, K.wz), float4(c.gb, K.xy), step(c.b, c.g));
-    float4 q = mix(float4(p.xyw, c.r), float4(c.r, p.yzx), step(p.x, c.r));
-    
-    float d = q.x - min(q.w, q.y);
-    float e = 1.0e-10;
-    return float3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
-}
-
-float3 hsv2rgb(float3 c) {
-    float4 K = float4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
-    float3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
-    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
-}
-
-float3 hue( float3 s, float3 d) {
-    d = rgb2hsv(d);
-    d.x = rgb2hsv(s).x;
-    return hsv2rgb(d);
-}
-
-float3 color( float3 s, float3 d) {
-    s = rgb2hsv(s);
-    s.z = rgb2hsv(d).z;
-    return hsv2rgb(s);
-}
-
-float3 saturation( float3 s, float3 d )
-{
-    d = rgb2hsv(d);
-    d.y = rgb2hsv(s).y;
-    return hsv2rgb(d);
-}
-
-float3 luminosity( float3 s, float3 d )
-{
-    float dLum = dot(d, float3(0.3, 0.59, 0.11));
-    float sLum = dot(s, float3(0.3, 0.59, 0.11));
-    float lum = sLum - dLum;
-    float3 c = d + lum;
-    float minC = min(min(c.x, c.y), c.z);
-    float maxC = max(max(c.x, c.y), c.z);
-    if(minC < 0.0) return sLum + ((c - sLum) * sLum) / (sLum - minC);
-    else if(maxC > 1.0) return sLum + ((c - sLum) * (1.0 - sLum)) / (maxC - sLum);
-    else return c;
-}
 
 //float3 sample(const int x, const int y, float2 delta, float2 fragCoord)
 //{

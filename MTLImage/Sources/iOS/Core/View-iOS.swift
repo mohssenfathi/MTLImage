@@ -101,6 +101,10 @@ class View: UIView, Output {
             mtkView.preferredFramesPerSecond = preferredFramesPerSecond
         }
     }
+    
+    public var imageRect: CGRect {
+        return Tools.imageFrame(mtkView.drawableSize, rect: mtkView.frame)
+    }
 
 }
 
@@ -157,7 +161,8 @@ class MTLMTKView: MTKView {
     func setup() {
 
         delegate = self
-        clearColor = MTLClearColorMake(1.0, 0.0, 0.0, 1.0)
+        clearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0)
+        backgroundColor = .clear
         framebufferOnly = false
         autoResizeDrawable = false
         contentMode = .scaleAspectFit

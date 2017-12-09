@@ -194,8 +194,8 @@ class DataManager: NSObject {
     
     func filter(_ filterRecord: MTLFilterRecord) -> Filter? {
                 
-        guard let filter = MTLImage.filter((filterRecord.title?.lowercased())!) as? Filter else {
-            print("Might be a MTLFitlerGroup")
+        guard let title = filterRecord.title?.lowercased(), let filter = MTLImage.filter(title) as? Filter else {
+            print("Might be a FilterGroup")
             return nil
         }
         

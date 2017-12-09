@@ -111,7 +111,7 @@ open class MTLObject: NSObject, Output {
                                                                              width: inputTexture.width,
                                                                              height: inputTexture.height,
                                                                              mipmapped: false)
-            textureDescriptor.usage = [.shaderRead, .shaderWrite]
+            textureDescriptor.usage = [.shaderRead, .shaderWrite, .renderTarget]
             texture = context.device?.makeTexture(descriptor: textureDescriptor)
         }
     }
@@ -126,10 +126,15 @@ open class MTLObject: NSObject, Output {
         
     }
     
+    /// For resetting internal properties
     open func reload() {
         
     }
     
+    /// For resetting filter user facing parameters
+    open func reset() {
+        
+    }
 }
 
 extension MTLObject: Input {

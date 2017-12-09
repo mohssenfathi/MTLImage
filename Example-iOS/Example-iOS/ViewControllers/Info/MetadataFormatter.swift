@@ -85,7 +85,7 @@ class MetadataFormatter: NSObject {
         
         if let flash = exifMetadata["Flash"] {
             let bin = toBinary(flash as! Int)
-            let usedFlash = bin.characters.last == "1" ? "YES" : "NO"
+            let usedFlash = bin.last == "1" ? "YES" : "NO"
             fm.append([
                 "title" : "used flash",
                 "value" : usedFlash

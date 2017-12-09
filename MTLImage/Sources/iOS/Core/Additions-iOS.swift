@@ -44,9 +44,12 @@ extension Filter {
         
         needsUpdate = true
         process()
-//        processIfNeeded()
         
         return texture?.image
+    }
+    
+    public func hasTarget(_ target: Output) -> Bool {
+        return targets.filter({ $0.id == target.id }).count > 0
     }
 }
 
@@ -93,6 +96,10 @@ extension FilterGroup {
         filter.removeAll()
         
         return filteredImage?.copy() as? UIImage
+    }
+    
+    public func hasTarget(_ target: Output) -> Bool {
+        return targets.filter({ $0.id == target.id }).count > 0
     }
     
 //    public func filter(_ image: UIImage) -> UIImage? {

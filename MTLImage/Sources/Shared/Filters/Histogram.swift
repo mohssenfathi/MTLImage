@@ -71,7 +71,7 @@ class Histogram: MPS {
         blue  = [UInt32](histogramValues[len * 2 ..< len * 3])
         alpha = [UInt32](histogramValues[len * 3 ..< len * 4])
         
-        newHistogramAvailable?((red, green, blue, alpha))
+//        newHistogramAvailable?((red, green, blue, alpha))
     }
     
     public override func process() {
@@ -93,7 +93,12 @@ class Histogram: MPS {
             histogram: histogramBuffer,
             histogramOffset: 0
         )
- 
+    }
+    
+    public override func didFinishProcessing(_ filter: Filter) {
+        super.didFinishProcessing(filter)
+        
+        newHistogramAvailable?((red, green, blue, alpha))
     }
     
     func commonInit() {

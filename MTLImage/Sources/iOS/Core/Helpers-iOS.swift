@@ -285,7 +285,7 @@ extension UIImage {
         let (_, _, data) = imageData(with: CGSize(width: width, height: height))
         
         let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm, width: width, height: height, mipmapped: false)
-        textureDescriptor.usage = [.shaderRead, .shaderWrite]
+        textureDescriptor.usage = [.shaderRead, .shaderWrite, .renderTarget]
         guard let texture = device.makeTexture(descriptor: textureDescriptor) else {
             return nil
         }

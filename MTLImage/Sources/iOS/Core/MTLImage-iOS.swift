@@ -39,6 +39,7 @@ class MTLImage: NSObject {
         case lanczosScale = "lanczos scale"
         case lensFlare = "lens flare"
         case levels
+        case lightLeak = "light leak"
         case lowPass = "low pass"
         case luminanceThreshold = "luminance threshold"
         case mask
@@ -49,6 +50,7 @@ class MTLImage: NSObject {
         case rollingAverage = "rolling average"
         case saturation
         case scatter
+        case selectiveHSL = "selective hsl"
         case sketch
         case sobelEdgeDetection = "sobel edge detection"
         case soften
@@ -171,6 +173,7 @@ extension MTLImage.FilterType {
         case .lanczosScale:             return LanczosScale()
         case .lensFlare:                return LensFlare()
         case .levels:                   return Levels()
+        case .lightLeak:                return LightLeak()
         case .lowPass:                  return LowPass()
         case .luminanceThreshold:       return LuminanceThreshold()
         case .mask:                     return Mask()
@@ -181,6 +184,7 @@ extension MTLImage.FilterType {
         case .rollingAverage:           return RollingAverage()
         case .saturation:               return Saturation()
         case .scatter:                  return Scatter()
+        case .selectiveHSL:             return SelectiveHSL()
         case .sketch:                   return Sketch()
         case .sobelEdgeDetection:       return SobelEdgeDetection()
         case .soften:                   return Soften()
@@ -207,9 +211,9 @@ extension MTLImage.FilterType {
             .soften, .blend, .boxBlur, .brightness, .buffer, .contrast, .colorMask, .crop,
             .crossHatch, .dataOutput, .depthBlend, .depthRenderer, .dilate, .emboss,
             .exposure, .gaussianBlur, .haze, .highPass, .highlightShadow, .histogram, .hue,
-            .invert, .kuwahara, .lanczosScale, .lensFlare, .levels, .lowPass,
+            .invert, .kuwahara, .lanczosScale, .lensFlare, .levels, .lightLeak, .lowPass,
             .luminanceThreshold, .mask, .perlinNoise, .pixellate, .polkaDot, .resize,
-            .rollingAverage, .saturation, .scatter, .sketch, .sobelEdgeDetection,
+            .rollingAverage, .saturation, .scatter, .selectiveHSL, .sketch, .sobelEdgeDetection,
             .sharpen, .tent, .toneCurve, .toon, .transform, .unsharpMask, .vignette,
             .voronoi, .water, .whiteBalance, .xyDerivative
         ]

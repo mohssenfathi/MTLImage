@@ -15,7 +15,7 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyLabel: UILabel!
     
-    var filter: Filter!
+    var filter: MTLObject!
     var touchProperty: Property?
     var mainViewController: MainViewController!
     
@@ -41,7 +41,6 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
         tableView.isHidden  = (filter.properties.count == 0)
         emptyLabel.isHidden = (filter.properties.count != 0)
     }
-    
     
     func handleTouchAtLocation(_ location: CGPoint) {
         
@@ -117,7 +116,10 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
             settingsCell.titleLabel.text = property.title
             
             if property.propertyType == .value {
-                let value = filter.value(forKey: property.key!) as! Float
+                guard let key = property.key,
+                    let value = filter.value(forKey: key) as? Float else {
+                    return
+                }
                 
                 settingsCell.spectrum = false
                 settingsCell.valueLabel.text = String(format: "%.2f", value)

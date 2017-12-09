@@ -46,6 +46,6 @@ class WhiteBalance: Filter {
         if self.input == nil { return }
         uniforms.temperature = temperature * 2.0 - 1.0
         uniforms.tint        = tint        * 4.0 - 2.0
-                updateUniforms(uniforms: uniforms)
+        updateUniforms(uniforms: uniforms)
     }
 }

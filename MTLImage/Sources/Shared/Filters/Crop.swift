@@ -32,7 +32,6 @@ class Crop: Filter {
             assert(cropRegion.origin.x    >= 0.0)
             assert(cropRegion.origin.y    >= 0.0)
             
-//            internalTexture = nil
             needsUpdate = true
         }
     }

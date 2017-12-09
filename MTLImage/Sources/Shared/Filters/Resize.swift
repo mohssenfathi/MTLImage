@@ -90,7 +90,7 @@ class Resize: MPS {
                                                                              width: size.width,
                                                                              height: size.height,
                                                                              mipmapped: false)
-            textureDescriptor.usage = [.shaderWrite, .shaderRead]
+            textureDescriptor.usage = [.shaderRead, .shaderWrite, .renderTarget]
             texture = context.device?.makeTexture(descriptor: textureDescriptor)
         }
     }

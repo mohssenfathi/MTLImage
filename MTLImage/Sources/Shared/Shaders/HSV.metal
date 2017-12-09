@@ -21,38 +21,38 @@ float3 HSVtoRGB(float3 hsv);
 // r,g,b values are from 0 to 1
 // h = [0,360], s = [0,1], v = [0,1]
 //		if s == 0, then h = -1 (undefined)
-float3 RGBtoHSV(float3 rgb) {
-    float minimum, maximum, delta;
-    float h, s, v;
-    
-    float r = rgb.r;
-    float g = rgb.g;
-    float b = rgb.b;
-    
-    minimum = min(min(r, g), b );
-    maximum = max(max(r, g), b );
-    
-    v = maximum;
-    
-    delta = maximum - minimum;
-    if( maximum != 0 )
-        s = delta / maximum;
-    else {
-        // r = g = b = 0		// s = 0, v is undefined
-        s = 0;
-        h = -1;
-        return float3(h, s, v);
-    }
-    if(r == maximum)      h = 0 + ( g - b ) / delta;    // between yellow & magenta
-    else if(g == maximum) h = 2 + ( b - r ) / delta;	// between cyan & yellow
-    else                  h = 4 + ( r - g ) / delta;	// between magenta & cyan
-    
-    h *= 60;				// degrees
-    
-    if( h < 0 ) h += 360;
-    
-    return float3(h, s, v);
-}
+//float3 RGBtoHSV(float3 rgb) {
+//    float minimum, maximum, delta;
+//    float h, s, v;
+//
+//    float r = rgb.r;
+//    float g = rgb.g;
+//    float b = rgb.b;
+//
+//    minimum = min(min(r, g), b );
+//    maximum = max(max(r, g), b );
+//
+//    v = maximum;
+//
+//    delta = maximum - minimum;
+//    if( maximum != 0 )
+//        s = delta / maximum;
+//    else {
+//        // r = g = b = 0        // s = 0, v is undefined
+//        s = 0;
+//        h = -1;
+//        return float3(h, s, v);
+//    }
+//    if(r == maximum)      h = 0 + ( g - b ) / delta;    // between yellow & magenta
+//    else if(g == maximum) h = 2 + ( b - r ) / delta;    // between cyan & yellow
+//    else                  h = 4 + ( r - g ) / delta;    // between magenta & cyan
+//
+//    h *= 60;                // degrees
+//
+//    if( h < 0 ) h += 360;
+//
+//    return float3(h, s, v);
+//}
 
 float3 HSVtoRGB(float3 hsv) {
     int i;

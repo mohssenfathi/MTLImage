@@ -13,6 +13,8 @@ struct HueUniforms {
     float hue;
 };
 
+float getHue(float3 color);
+
 constant float4  kRGBToYPrime = float4 (0.299, 0.587, 0.114, 0.0);
 constant float4  kRGBToI      = float4 (0.595716, -0.274453, -0.321263, 0.0);
 constant float4  kRGBToQ      = float4 (0.211456, -0.522591, 0.31135, 0.0);
@@ -32,7 +34,7 @@ kernel void hue(texture2d<float, access::read>  inTexture  [[ texture(0)]],
     float I      = dot(color, kRGBToI);
     float Q      = dot(color, kRGBToQ);
     
-    float hue    = atan2(Q, I);
+    float hue    = getHue(color.rgb);
     float chroma = sqrt (I * I + Q * Q);
     
     hue += (-uniforms.hue); //why negative rotation?
@@ -46,4 +48,11 @@ kernel void hue(texture2d<float, access::read>  inTexture  [[ texture(0)]],
     color.b = dot (yIQ, kYIQToB);
     
     outTexture.write(color, gid);
+}
+
+
+float getHue(float3 color) {
+    float I = dot(color, float3(0.595716, -0.274453, -0.321263));
+    float Q = dot(color, float3(0.211456, -0.522591, 0.31135));
+    return atan2(Q, I);
 }

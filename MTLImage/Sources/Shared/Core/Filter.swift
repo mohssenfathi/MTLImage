@@ -26,18 +26,12 @@ class Filter: MTLObject, NSCoding {
         }
         
         var uni = uniforms
-        uniformsBuffer = device.makeBuffer(bytes: &uni, length: MemoryLayout<U>.size, options: MTLResourceOptions.storageModeShared)
-        //        uniformsBuffer = bufferProvider?.nextBuffer(uniforms: &uni)
+        uniformsBuffer = device.makeBuffer(bytes: &uni, length: MemoryLayout<U>.size * 2, options: MTLResourceOptions.storageModeShared)
+//        uniformsBuffer = bufferProvider?.nextBuffer(uniforms: &uni)
     }
     
     var index: Int = 0
     var gcd: Int = 0
-    
-//    deinit {
-//        texture = nil
-//        input = nil
-//        removeAllTargets()
-//    }
     
     public init(functionName: String?) {
         super.init()
@@ -68,7 +62,7 @@ class Filter: MTLObject, NSCoding {
     
     var functionName: String!
     
-    public func reset() {
+    open override func reset() {
         for property in properties {
             if property.propertyType == Property.PropertyType.value {
                 self.setValue(0.5, forKey: property.key)
@@ -168,6 +162,7 @@ class Filter: MTLObject, NSCoding {
     
     open override func copy() -> Any {
         
+        // TODO: This crashes sometimes
         let filter = MTLImage.filter(title.lowercased()) as! Filter
         
         filter.functionName = functionName
@@ -178,6 +173,7 @@ class Filter: MTLObject, NSCoding {
         updatePropertyValues()
         filter.propertyValues = propertyValues
         
+        // TODO: This crashes sometimes
         for property in properties {
             filter.setValue(propertyValues[property.key], forKey: property.key)
         }

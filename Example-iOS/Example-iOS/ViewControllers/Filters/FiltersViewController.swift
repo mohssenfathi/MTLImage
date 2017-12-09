@@ -29,16 +29,22 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var savedFilterGroups: [FilterGroup]!
     var filterGroup: FilterGroup!
     var newFilterSeleced: Bool!
+    var mainViewController: MainViewController? {
+        return settingsViewController?.mainViewController
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        loadSavedFilters()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadSavedFilters()
+        
+        mainViewController?.resetFilterGroup()
+        
         editButton.isEnabled = savedFilterGroups.count > 0
         tableView.reloadData()
     }
@@ -92,7 +98,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if viewController == navigationController.viewControllers.first {
-            delegate?.filtersViewControllerBackButtonPressed(self)
+//            delegate?.filtersViewControllerBackButtonPressed(self)
         }
     }
     
@@ -229,7 +235,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 
         if segue.identifier == "settings" {
             settingsViewController = segue.destination as? SettingsViewController
-            settingsViewController?.filter = selectedFilter as! Filter!
+            settingsViewController?.filter = selectedFilter
         }
         else if segue.identifier == "filterGroup" {
             filterGroupViewController = segue.destination as? FilterGroupViewController

@@ -54,6 +54,7 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         navigationItem.title = "MTLImage"
     }
+
     
     @IBAction func actionButtonPressed(_ sender: AnyObject) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -86,11 +87,6 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         present(alert, animated: true, completion: nil)
         
-    }
-
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     
@@ -174,9 +170,9 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //    MARK: - Image Picker Delegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-                
-        let url = info[UIImagePickerControllerReferenceURL] as! URL
-        guard let asset: PHAsset = PHAsset.fetchAssets(withALAssetURLs: [url], options: nil).firstObject else {
+    
+        guard let asset = info[UIImagePickerControllerPHAsset] as? PHAsset else {
+            dismiss(animated: true, completion: nil)
             return
         }
         
@@ -185,22 +181,19 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
         guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            dismiss(animated: true, completion: nil)
             return
         }
         
-        sourcePicture.removeAllTargets()
         sourcePicture.image = image
-        sourcePicture.setProcessingSize(CGSize(width: 1000, height: 1000), respectAspectRatio: true)
-        filterGroup.removeAll()
-        filterGroup.removeAllTargets()
-        
-        if filtersViewController.selectedFilter != nil {
-            filterGroup.add(filtersViewController.selectedFilter)
-        }
-        
-        sourcePicture --> filterGroup --> mtlView
-        
+        sourcePicture.setProcessingSize(CGSize(width: 1500, height: 1500), respectAspectRatio: true)
+
         dismiss(animated: true, completion: nil)
+    }
+    
+    func resetFilterGroup() {
+        filterGroup.removeAll()
+        filterGroup.process()
     }
     
     

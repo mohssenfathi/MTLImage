@@ -135,7 +135,7 @@ class Blend: Filter {
         }
     }
     
-    func add(input: Input, at index: Int) {
+    public func add(input: Input, at index: Int) {
         if index == 0 {
             self.input = input
             primaryInput = input

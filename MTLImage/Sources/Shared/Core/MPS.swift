@@ -68,6 +68,7 @@ class MPS: Filter {
                 if self.input?.continuousUpdate == false {
                     self.needsUpdate = false
                 }
+                self.didFinishProcessing(self)
             })
             
             commandBuffer.commit()

@@ -7,7 +7,7 @@
 //
 
 // Set to true to use compiled shaders
-let useMetalib = true
+let useMetalib = false
 
 public
 class Context: NSObject {
