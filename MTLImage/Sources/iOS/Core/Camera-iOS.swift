@@ -24,8 +24,8 @@ class Camera: CameraBase, Input {
         super.init()
         
         title = "MTLCamera"
-        
-        CVMetalTextureCacheCreate(kCFAllocatorSystemDefault, nil, device, nil, &textureCache)
+    
+        pixelBufferConverter = PixelBufferToMTLTexture(device: device)
         setupPipeline()
     }
     
@@ -152,13 +152,15 @@ class Camera: CameraBase, Input {
     }
 
     
+    var currentSampleBuffer: CMSampleBuffer?
+    
 //    MARK: - Internal
     private var internalTargets = [Output]()
     public var videoTexture: MTLTexture?
     var internalContext: Context = Context()
     var pipeline: MTLComputePipelineState!
     var kernelFunction: MTLFunction!
-    var textureCache: CVMetalTextureCache?
+    var pixelBufferConverter: PixelBufferToMTLTexture?
 }
 
 
@@ -166,25 +168,20 @@ extension Camera {
     
     public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
+        currentSampleBuffer = sampleBuffer
         
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         
-        var cvMetalTexture : CVMetalTexture?
-        let width = CVPixelBufferGetWidth(pixelBuffer);
-        let height = CVPixelBufferGetHeight(pixelBuffer);
-        
-        guard let textureCache = textureCache else { return }
-        
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer, nil, .bgra8Unorm, width, height, 0, &cvMetalTexture)
-        
-        guard let cvMetalTex = cvMetalTexture else { return }
-        texture = CVMetalTextureGetTexture(cvMetalTex)
+        if let texture = pixelBufferConverter?.convert(pixelBuffer: pixelBuffer) {
+            self.texture = texture
+        }
         
         DispatchQueue.main.async {
             self.needsUpdate = true
         }
         
     }
+
 }
 
 public

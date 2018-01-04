@@ -10,6 +10,45 @@ import Metal
 import MetalKit
 import AVFoundation
 
+extension CVPixelBuffer {
+    
+    func mtlTexture(device: MTLDevice) -> MTLTexture? {
+        
+        let width = CVPixelBufferGetWidth(self)
+        let height = CVPixelBufferGetHeight(self)
+        
+        let descriptor = MTLTextureDescriptor()
+        descriptor.width = width
+        descriptor.height = height
+        descriptor.pixelFormat = .bgra8Unorm
+        
+        guard let texture = device.makeTexture(descriptor: descriptor) else {
+            return nil
+        }
+        
+        CVPixelBufferLockBaseAddress(self, CVPixelBufferLockFlags.init(rawValue: 0))
+        
+        guard let bytes = CVPixelBufferGetBaseAddress(self) else {
+            CVPixelBufferUnlockBaseAddress(self, CVPixelBufferLockFlags.init(rawValue: 0))
+            return nil
+        }
+        
+        let bytesPerRow = CVPixelBufferGetBytesPerRow(self)
+        
+        texture.replace(
+            region: MTLRegion(origin: MTLOriginMake(0, 0, 0), size: MTLSize(width: width, height: height, depth: 1)),
+            mipmapLevel: 0,
+            withBytes: bytes,
+            bytesPerRow: bytesPerRow
+        )
+        
+        CVPixelBufferUnlockBaseAddress(self, CVPixelBufferLockFlags.init(rawValue: 0))
+        
+        return texture
+    }
+    
+}
+
 
 // MARK: - MTLTexture
 extension MTLTexture {
@@ -50,6 +89,34 @@ extension MTLTexture {
         return imageBytes
     }
 
+    var pixelBuffer: CVPixelBuffer? {
+        
+        guard let bytes = bytes() else {
+            return nil
+        }
+        
+        var pb: CVPixelBuffer? = nil
+        
+        let attributes = [
+            kCVPixelBufferIOSurfacePropertiesKey : [:]
+            ] as CFDictionary
+        
+        // Cannot use createWithBytes if we want the pixel buffer backed by an IOSurface
+        CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_32BGRA, attributes, &pb)
+
+        guard let pixelBuffer = pb else {
+            return nil
+        }
+
+        CVPixelBufferLockBaseAddress(pixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
+        let dest = CVPixelBufferGetBaseAddress(pixelBuffer)
+        memcpy(dest, bytes, width * height * 4)
+        CVPixelBufferUnlockBaseAddress(pixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
+        
+        free(bytes)
+        
+        return pixelBuffer
+    }
 
     var image: UIImage? {
 

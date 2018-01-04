@@ -44,7 +44,6 @@
 		450DC86C1F5837D5004ED035 /* RollingAverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C211F490BE00091DBB0 /* RollingAverage.swift */; };
 		450DC86D1F5837D5004ED035 /* Straighten.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C221F490BE00091DBB0 /* Straighten.swift */; };
 		450DC86E1F5837D5004ED035 /* Pixellate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C231F490BE00091DBB0 /* Pixellate.swift */; };
-		450DC8701F5837D5004ED035 /* Mosaic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C251F490BE00091DBB0 /* Mosaic.swift */; };
 		450DC8711F5837D5004ED035 /* SelectiveHSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C261F490BE00091DBB0 /* SelectiveHSL.swift */; };
 		450DC8721F5837D5004ED035 /* Smudge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C271F490BE00091DBB0 /* Smudge.swift */; };
 		450DC8731F5837D5004ED035 /* Kuwahara.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C281F490BE00091DBB0 /* Kuwahara.swift */; };
@@ -117,7 +116,6 @@
 		45AA0CCE1F490BE00091DBB0 /* Straighten.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C221F490BE00091DBB0 /* Straighten.swift */; };
 		45AA0CCF1F490BE00091DBB0 /* Pixellate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C231F490BE00091DBB0 /* Pixellate.swift */; };
 		45AA0CD01F490BE00091DBB0 /* Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C241F490BE00091DBB0 /* Resize.swift */; };
-		45AA0CD11F490BE00091DBB0 /* Mosaic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C251F490BE00091DBB0 /* Mosaic.swift */; };
 		45AA0CD21F490BE00091DBB0 /* SelectiveHSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C261F490BE00091DBB0 /* SelectiveHSL.swift */; };
 		45AA0CD31F490BE00091DBB0 /* Smudge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C271F490BE00091DBB0 /* Smudge.swift */; };
 		45AA0CD41F490BE00091DBB0 /* Kuwahara.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C281F490BE00091DBB0 /* Kuwahara.swift */; };
@@ -225,6 +223,8 @@
 		45BD560B1F585C8A00A05233 /* Camera-macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45173D081F5755930058A6FA /* Camera-macOS.swift */; };
 		45BD56141F59B34C00A05233 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD56131F59B34C00A05233 /* Copy.swift */; };
 		45BD56151F59B35E00A05233 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD56131F59B34C00A05233 /* Copy.swift */; };
+		45C605B51FE6F7E30020003A /* CoreMLFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C605B41FE6F7E30020003A /* CoreMLFilter.swift */; };
+		45C605B71FE6FB860020003A /* CVPixelBuffer-MTLTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C605B61FE6FB860020003A /* CVPixelBuffer-MTLTexture.swift */; };
 		45DE26941F583BB4008BA963 /* Convolution.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C721F490BE00091DBB0 /* Convolution.metal */; };
 		45DE26951F583BB4008BA963 /* OilPaint.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C731F490BE00091DBB0 /* OilPaint.metal */; };
 		45DE26961F583BB4008BA963 /* LineDetection.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C741F490BE00091DBB0 /* LineDetection.metal */; };
@@ -361,7 +361,6 @@
 		45AA0C221F490BE00091DBB0 /* Straighten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Straighten.swift; sourceTree = "<group>"; };
 		45AA0C231F490BE00091DBB0 /* Pixellate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pixellate.swift; sourceTree = "<group>"; };
 		45AA0C241F490BE00091DBB0 /* Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resize.swift; sourceTree = "<group>"; };
-		45AA0C251F490BE00091DBB0 /* Mosaic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mosaic.swift; sourceTree = "<group>"; };
 		45AA0C261F490BE00091DBB0 /* SelectiveHSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectiveHSL.swift; sourceTree = "<group>"; };
 		45AA0C271F490BE00091DBB0 /* Smudge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Smudge.swift; sourceTree = "<group>"; };
 		45AA0C281F490BE00091DBB0 /* Kuwahara.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kuwahara.swift; sourceTree = "<group>"; };
@@ -470,6 +469,8 @@
 		45AA0D501F490BE70091DBB0 /* MTLImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLImage.h; sourceTree = "<group>"; };
 		45AA0D551F490D360091DBB0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		45BD56131F59B34C00A05233 /* Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copy.swift; sourceTree = "<group>"; };
+		45C605B41FE6F7E30020003A /* CoreMLFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMLFilter.swift; sourceTree = "<group>"; };
+		45C605B61FE6FB860020003A /* CVPixelBuffer-MTLTexture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer-MTLTexture.swift"; sourceTree = "<group>"; };
 		45EC48C51F63300D009837E2 /* PhotoMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoMetadata.swift; sourceTree = "<group>"; };
 		45EC48C61F63300D009837E2 /* CameraBase-iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CameraBase-iOS.swift"; sourceTree = "<group>"; };
 		45EC48C91F633075009837E2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -580,7 +581,6 @@
 				45AA0C1D1F490BE00091DBB0 /* LineDetection.swift */,
 				45AA0C071F490BE00091DBB0 /* LuminanceThreshold.swift */,
 				45AA0C1E1F490BE00091DBB0 /* Mask.swift */,
-				45AA0C251F490BE00091DBB0 /* Mosaic.swift */,
 				45AA0C2E1F490BE00091DBB0 /* NonMaximumSuppression.swift */,
 				45AA0C301F490BE00091DBB0 /* PerlinNoise.swift */,
 				45AA0C231F490BE00091DBB0 /* Pixellate.swift */,
@@ -835,10 +835,12 @@
 				45AA0C541F490BE00091DBB0 /* Context.swift */,
 				45AA0C551F490BE00091DBB0 /* BufferProvider.swift */,
 				45AA0C571F490BE00091DBB0 /* Filter.swift */,
+				45C605B41FE6F7E30020003A /* CoreMLFilter.swift */,
 				454C95ED1FDC291500D422A2 /* RenderFilter.swift */,
 				45AA0C581F490BE00091DBB0 /* MTLLib.swift */,
 				45AA0C5A1F490BE00091DBB0 /* FilterGroup.swift */,
 				45173D121F5755DC0058A6FA /* MTLImage-Additions.swift */,
+				45C605B61FE6FB860020003A /* CVPixelBuffer-MTLTexture.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -978,7 +980,6 @@
 				450DC8881F583887004ED035 /* Contrast.swift in Sources */,
 				45DE26BC1F583BB4008BA963 /* Toon.metal in Sources */,
 				450DC8811F583887004ED035 /* Hue.swift in Sources */,
-				450DC8701F5837D5004ED035 /* Mosaic.swift in Sources */,
 				45DE269D1F583BB4008BA963 /* LensFlare.metal in Sources */,
 				45DE26961F583BB4008BA963 /* LineDetection.metal in Sources */,
 				45173D0B1F57559D0058A6FA /* Image-macOS.swift in Sources */,
@@ -1164,6 +1165,7 @@
 				45EC48C71F63300D009837E2 /* PhotoMetadata.swift in Sources */,
 				45AA0D341F490BE00091DBB0 /* Levels.metal in Sources */,
 				45AA0CB81F490BE00091DBB0 /* Brightness.swift in Sources */,
+				45C605B71FE6FB860020003A /* CVPixelBuffer-MTLTexture.swift in Sources */,
 				45FA9A111F6ACA33005DF768 /* HighPass.swift in Sources */,
 				45AA0D401F490BE00091DBB0 /* Histogram.metal in Sources */,
 				45AA0D261F490BE00091DBB0 /* Hue.metal in Sources */,
@@ -1220,6 +1222,7 @@
 				45173D141F5755E10058A6FA /* MTLImage-Additions.swift in Sources */,
 				45AA0D181F490BE00091DBB0 /* Crop.metal in Sources */,
 				45AA0CD61F490BE00091DBB0 /* ColorSelection.swift in Sources */,
+				45C605B51FE6F7E30020003A /* CoreMLFilter.swift in Sources */,
 				45AA0CCF1F490BE00091DBB0 /* Pixellate.swift in Sources */,
 				45AA0D491F490BE00091DBB0 /* CrossHatch.metal in Sources */,
 				45AA0CBC1F490BE00091DBB0 /* Sketch.swift in Sources */,
@@ -1238,7 +1241,6 @@
 				45AA0D0A1F490BE00091DBB0 /* MTLFilterGroupRecord.swift in Sources */,
 				45AA0CDB1F490BE00091DBB0 /* ToneCurve.swift in Sources */,
 				45AA0CCB1F490BE00091DBB0 /* Convolution.swift in Sources */,
-				45AA0CD11F490BE00091DBB0 /* Mosaic.swift in Sources */,
 				45AA0D481F490BE00091DBB0 /* HarrisCornerDetection.metal in Sources */,
 				45AA0D091F490BE00091DBB0 /* MTLFilterGroupRecord+CoreDataProperties.swift in Sources */,
 				45AA0CC91F490BE00091DBB0 /* LineDetection.swift in Sources */,

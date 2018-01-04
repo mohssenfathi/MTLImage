@@ -190,11 +190,21 @@ extension MTLTexture {
     }
 }
 
+extension MTLSize {
+    var cgSize: CGSize {
+        return CGSize(width: width, height: height)
+    }
+}
+
 public func *(left: CGSize, right: CGFloat) -> CGSize {
     return CGSize(width: left.width * right, height: left.height * right)
 }
 
-
 public func /(left: CGPoint, right: CGSize) -> CGPoint {
     return CGPoint(x: left.x / right.width, y: left.y / right.height)
+}
+
+public func /(left: CGRect, right: CGSize) -> CGRect {
+    return CGRect(x: left.origin.x / right.width, y: left.origin.y / right.height,
+                  width: left.width / right.width, height: left.height / right.height)
 }

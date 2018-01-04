@@ -6,37 +6,52 @@
 //
 //
 
-struct MosaicUniforms: Uniforms {
-    var intensity: Float = 0.5;
-}
+import CoreML
+import Vision
+import AVFoundation
 
+@available(iOS 11.0, *)
 public
-class Mosaic: Filter {
+class Mosaic: CoreMLFilter {
     
-    var uniforms = MosaicUniforms()
+    var model = MLMosaic()
+    var output: CVPixelBuffer?
     
-    @objc public var intensity: Float = 0.5 {
-        didSet {
-            clamp(&intensity, low: 0, high: 1)
-            needsUpdate = true
+    public override init() {
+        super.init()
+        title = "Mosaic"
+    }
+
+    override var processingSize: MTLSize? {
+        return MTLSize(width: 720, height: 720, depth: 1)
+    }
+    
+    public override func process() {
+
+        resize.processIfNeeded()
+        
+        guard let pixelBuffer = processingTexture?.pixelBuffer else {
+            print("Couldn't get pixel buffer")
+            return
+        }
+        
+        do {
+            let out = try self.model.prediction(inputImage: pixelBuffer)
+            self.output = out.outputImage
+        } catch {
+            print(error.localizedDescription)
+        }
+
+    }
+    
+    public override var texture: MTLTexture? {
+        get {
+            return output?.mtlTexture(device: device)
+        }
+        set {
+            super.texture = newValue
         }
     }
-    
-    public init() {
-        super.init(functionName: "mosaic")
-        title = "Mosaic"
-        properties = [Property(key: "intensity", title: "Intensity")]
-        update()
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override public func update() {
-        if self.input == nil { return }
-        uniforms.intensity = intensity * 50
-        updateUniforms(uniforms: uniforms)
-    }
-    
+
 }
+

@@ -55,6 +55,10 @@ class MPS: Filter {
         
         autoreleasepool {
             
+            if #available(iOS 11.0, *) {
+                commandBuffer.pushDebugGroup(title)
+            }
+            
             commandBuffer.label = "Filter: " + title
             
             let inPlaceTexture = UnsafeMutablePointer<MTLTexture>.allocate(capacity: 1)
@@ -65,6 +69,11 @@ class MPS: Filter {
             configureCommandBuffer(commandBuffer)
             
             commandBuffer.addCompletedHandler({ (commandBuffer) in
+                
+                if #available(iOS 11.0, *) {
+                    commandBuffer.popDebugGroup()
+                }
+                
                 if self.input?.continuousUpdate == false {
                     self.needsUpdate = false
                 }

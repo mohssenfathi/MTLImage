@@ -463,7 +463,9 @@ extension CameraBase {
         // Data Output
         dataOutput = AVCaptureVideoDataOutput()
         if let dataOutput = dataOutput {
-            dataOutput.videoSettings = [String(kCVPixelBufferPixelFormatTypeKey) : NSNumber(value: kCMPixelFormat_32BGRA)]
+            dataOutput.videoSettings = [
+                kCVPixelBufferPixelFormatTypeKey as String : kCMPixelFormat_32BGRA
+            ]
             dataOutput.alwaysDiscardsLateVideoFrames = true
             dataOutput.setSampleBufferDelegate(self, queue: dataOutputQueue)
             if session.canAddOutput(dataOutput) {
