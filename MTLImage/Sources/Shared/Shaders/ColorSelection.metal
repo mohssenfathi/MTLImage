@@ -45,6 +45,7 @@ struct Constants {
     float magentaTolerance = 0.4;
 };
 
+
 float3 RGBtoXYZ(float3 color) {
     float r = color.r;
     float g = color.g;
@@ -70,9 +71,14 @@ float3 RGBtoXYZ(float3 color) {
 }
 
 float3 XYZtoLAB(float3 color) {
+
     float x = color.x / 95.047;
     float y = color.y / 100.000;
     float z = color.z / 108.883;
+
+//    float x = color.x - 111.144;
+//    float y = color.y - 100.000;
+//    float z = color.z - 035.200;
     
     if ( x > 0.008856 ) x = pow(x ,(1.0/3.0));
     else                x = (7.787 * x) + (16.0 / 116.0);

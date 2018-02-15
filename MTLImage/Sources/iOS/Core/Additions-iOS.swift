@@ -15,7 +15,7 @@ extension Filter {
      - returns: An image filtered by the parent or the parents sub-filters
      */
     
-    public func filter(_ image: UIImage) -> UIImage? {
+    @objc public func filter(_ image: UIImage) -> UIImage? {
         
         let sourcePicture = Picture(image: image)
         let filterCopy = self.copy() as! Filter
@@ -52,7 +52,6 @@ extension Filter {
         return targets.filter({ $0.id == target.id }).count > 0
     }
 }
-
 
 
 public

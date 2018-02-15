@@ -92,6 +92,11 @@ class Blend: Filter {
         }
     }
     
+    public convenience init(blendMode: BlendMode) {
+        self.init()
+        self.blendMode = blendMode.rawValue
+    }
+    
     public init() {
         super.init(functionName: "blend")
         
@@ -132,6 +137,14 @@ class Blend: Filter {
             if secondaryInput == nil {
                 secondaryInput = source
             }
+        }
+    }
+    
+    func input(at index: Int) -> Input? {
+        switch index {
+        case 0: return primaryInput
+        case 1: return secondaryInput
+        default: return nil
         }
     }
     

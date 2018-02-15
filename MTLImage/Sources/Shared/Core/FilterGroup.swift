@@ -9,19 +9,12 @@
 public
 class FilterGroup: MTLObject, NSCoding {
 
-    
     override public init() {
         super.init()
         title = "Filter Group"
     }
     
     public var filters = [MTLObject]()
-    
-    func updateFilterIndexes() {
-        //        for i in 0 ..< filters.count {
-        //            filters[i].index = i
-        //        }
-    }
     
     public func add(_ filter: MTLObject) {
         
@@ -30,7 +23,7 @@ class FilterGroup: MTLObject, NSCoding {
             last.addTarget(filter)
         } else {
             let currentInput = input
-            input?.removeAllTargets() // Might not want to do this
+            input?.removeAllTargets()
             input = currentInput
             input?.addTarget(filter)
         }
@@ -40,7 +33,6 @@ class FilterGroup: MTLObject, NSCoding {
         }
         
         filters.append(filter)
-        updateFilterIndexes()
     }
     
     public func insert(_ filter: MTLObject, index: Int) {
@@ -63,7 +55,6 @@ class FilterGroup: MTLObject, NSCoding {
         }
         
         filters.insert(filter, at: index)
-        updateFilterIndexes()
     }
     
     public func remove(_ filter: MTLObject) {

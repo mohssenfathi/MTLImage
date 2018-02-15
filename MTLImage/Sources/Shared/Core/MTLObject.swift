@@ -57,7 +57,7 @@ open class MTLObject: NSObject, Output {
     
     public var texture: MTLTexture?
     
-    public func addTarget(_ target: Output) {
+    open func addTarget(_ target: Output) {
         var t = target
         targets.append(t)
         t.input = self

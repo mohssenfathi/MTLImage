@@ -17,11 +17,12 @@ class LanczosScale: MPS {
     @objc public var scale: Float = 0.5 {
         didSet {
             clamp(&scale, low: 0, high: 1)
+            scaleTransform = MPSScaleTransform(scaleX: Double(scale), scaleY: Double(scale), translateX: 0, translateY: 0)
             needsUpdate = true
         }
     }
     
-    init() {
+    public init() {
         super.init(functionName: nil)
         commonInit()
     }

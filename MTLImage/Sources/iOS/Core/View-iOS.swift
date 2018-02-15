@@ -34,6 +34,8 @@ class View: UIView, Output {
     
     func setup() {
         
+        isPaused = false
+        
         scrollView.frame = bounds
         scrollView.delegate = self
         scrollView.minimumZoomScale = 1.0
@@ -54,6 +56,7 @@ class View: UIView, Output {
         mtkView.device = input?.context.device
         mtkView.input = input
         mtkView.reload()
+        isPaused = false
         
         if let input = input {
             mtkView.enableSetNeedsDisplay = !input.continuousUpdate
@@ -105,7 +108,17 @@ class View: UIView, Output {
     public var imageRect: CGRect {
         return Tools.imageFrame(mtkView.drawableSize, rect: mtkView.frame)
     }
+    
+    public var isPaused: Bool {
+        set { mtkView.isPaused = newValue }
+        get { return mtkView.isPaused     }
+    }
+    
+    public var isEnabled: Bool = true
 
+    public var snapshot: UIImage? {
+        return input?.texture?.image
+    }
 }
 
 extension View: UIScrollViewDelegate {
@@ -232,6 +245,9 @@ extension MTLMTKView: MTKViewDelegate {
     }
     
     public func draw(in view: MTKView) {
+
+        // Causing issues
+//        guard !view.isPaused else { return }
         
         notifyOtherTargets()
         
