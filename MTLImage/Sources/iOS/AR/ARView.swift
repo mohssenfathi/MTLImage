@@ -82,10 +82,14 @@ public class ARRenderer: RendererBase {
     
     override var textureSize: CGSize {
         return capturedImageTextureY?.cgSize ?? bounds.size
-    }
+    }    
     
     override func reload() {
-        
+        loadMetal()
+        loadAssets()
+    }
+    
+    func loadMetal() {
         guard let input = input, let device = device else {
             return
         }
@@ -96,7 +100,7 @@ public class ARRenderer: RendererBase {
         depthStencilPixelFormat = .depth32Float_stencil8
         colorPixelFormat = .bgra8Unorm
         sampleCount = 1
-
+        
         // Calculate our uniform buffer sizes. We allocate kMaxBuffersInFlight instances for uniform
         //   storage in a single buffer. This allows us to update uniforms in a ring (i.e. triple
         //   buffer the uniforms) so that the GPU reads from one slot in the ring wil the CPU writes
@@ -105,41 +109,41 @@ public class ARRenderer: RendererBase {
         //   argument in the constant address space of our shading functions.
         let sharedUniformBufferSize = kAlignedSharedUniformsSize * kMaxBuffersInFlight
         let anchorUniformBufferSize = kAlignedInstanceUniformsSize * kMaxBuffersInFlight
-
+        
         // Create and allocate our uniform buffer objects. Indicate shared storage so that both the
         //   CPU can access the buffer
         sharedUniformBuffer = device.makeBuffer(length: sharedUniformBufferSize, options: .storageModeShared)
         sharedUniformBuffer.label = "SharedUniformBuffer"
-
+        
         anchorUniformBuffer = device.makeBuffer(length: anchorUniformBufferSize, options: .storageModeShared)
         anchorUniformBuffer.label = "AnchorUniformBuffer"
-
+        
         // Create a vertex buffer with our image plane vertex data.
         let imagePlaneVertexDataCount = kImagePlaneVertexData.count * MemoryLayout<Float>.size
         imagePlaneVertexBuffer = device.makeBuffer(bytes: kImagePlaneVertexData, length: imagePlaneVertexDataCount, options: [])
         imagePlaneVertexBuffer.label = "ImagePlaneVertexBuffer"
-
+        
         let capturedImageVertexFunction = input.context.library?.makeFunction(name: "capturedImageVertexTransform")
         let capturedImageFragmentFunction = input.context.library?.makeFunction(name: "capturedImageFragmentShader")
-
+        
         // Create a vertex descriptor for our image plane vertex buffer
         let imagePlaneVertexDescriptor = MTLVertexDescriptor()
-
+        
         // Positions.
         imagePlaneVertexDescriptor.attributes[0].format = .float2
         imagePlaneVertexDescriptor.attributes[0].offset = 0
         imagePlaneVertexDescriptor.attributes[0].bufferIndex = BufferIndex.meshPositions.rawValue
-
+        
         // Texture coordinates.
         imagePlaneVertexDescriptor.attributes[1].format = .float2
         imagePlaneVertexDescriptor.attributes[1].offset = 8
         imagePlaneVertexDescriptor.attributes[1].bufferIndex = BufferIndex.meshPositions.rawValue
-
+        
         // Buffer Layout
         imagePlaneVertexDescriptor.layouts[0].stride = 16
         imagePlaneVertexDescriptor.layouts[0].stepRate = 1
         imagePlaneVertexDescriptor.layouts[0].stepFunction = .perVertex
-
+        
         // Create a pipeline state for rendering the captured image
         let capturedImagePipelineStateDescriptor = MTLRenderPipelineDescriptor()
         capturedImagePipelineStateDescriptor.label = "MyCapturedImagePipeline"
@@ -150,52 +154,52 @@ public class ARRenderer: RendererBase {
         capturedImagePipelineStateDescriptor.colorAttachments[0].pixelFormat = colorPixelFormat
         capturedImagePipelineStateDescriptor.depthAttachmentPixelFormat = depthStencilPixelFormat
         capturedImagePipelineStateDescriptor.stencilAttachmentPixelFormat = depthStencilPixelFormat
-
+        
         do {
             try capturedImagePipelineState = device.makeRenderPipelineState(descriptor: capturedImagePipelineStateDescriptor)
         } catch let error {
             print("Failed to created captured image pipeline state, error \(error)")
         }
-
+        
         let capturedImageDepthStateDescriptor = MTLDepthStencilDescriptor()
         capturedImageDepthStateDescriptor.depthCompareFunction = .always
         capturedImageDepthStateDescriptor.isDepthWriteEnabled = false
         capturedImageDepthState = device.makeDepthStencilState(descriptor: capturedImageDepthStateDescriptor)
-
+        
         let anchorGeometryVertexFunction = input.context.library?.makeFunction(name: "anchorGeometryVertexTransform")
         let anchorGeometryFragmentFunction = input.context.library?.makeFunction(name: "anchorGeometryFragmentLighting")
-
+        
         // Create a vertex descriptor for our Metal pipeline. Specifies the layout of vertices the
         //   pipeline should expect. The layout below keeps attributes used to calculate vertex shader
         //   output position separate (world position, skinning, tweening weights) separate from other
         //   attributes (texture coordinates, normals).  This generally maximizes pipeline efficiency
         geometryVertexDescriptor = MTLVertexDescriptor()
-
+        
         // Positions.
         geometryVertexDescriptor.attributes[0].format = .float3
         geometryVertexDescriptor.attributes[0].offset = 0
         geometryVertexDescriptor.attributes[0].bufferIndex = BufferIndex.meshPositions.rawValue
-
+        
         // Texture coordinates.
         geometryVertexDescriptor.attributes[1].format = .float2
         geometryVertexDescriptor.attributes[1].offset = 0
         geometryVertexDescriptor.attributes[1].bufferIndex = BufferIndex.meshGenerics.rawValue
-
+        
         // Normals.
         geometryVertexDescriptor.attributes[2].format = .half3
         geometryVertexDescriptor.attributes[2].offset = 8
         geometryVertexDescriptor.attributes[2].bufferIndex = BufferIndex.meshGenerics.rawValue
-
+        
         // Position Buffer Layout
         geometryVertexDescriptor.layouts[0].stride = 12
         geometryVertexDescriptor.layouts[0].stepRate = 1
         geometryVertexDescriptor.layouts[0].stepFunction = .perVertex
-
+        
         // Generic Attribute Buffer Layout
         geometryVertexDescriptor.layouts[1].stride = 16
         geometryVertexDescriptor.layouts[1].stepRate = 1
         geometryVertexDescriptor.layouts[1].stepFunction = .perVertex
-
+        
         // Create a reusable pipeline state for rendering anchor geometry
         let anchorPipelineStateDescriptor = MTLRenderPipelineDescriptor()
         anchorPipelineStateDescriptor.label = "MyAnchorPipeline"
@@ -206,20 +210,56 @@ public class ARRenderer: RendererBase {
         anchorPipelineStateDescriptor.colorAttachments[0].pixelFormat = colorPixelFormat
         anchorPipelineStateDescriptor.depthAttachmentPixelFormat = depthStencilPixelFormat
         anchorPipelineStateDescriptor.stencilAttachmentPixelFormat = depthStencilPixelFormat
-
+        
         do {
             try anchorPipelineState = device.makeRenderPipelineState(descriptor: anchorPipelineStateDescriptor)
         } catch let error {
             print("Failed to created anchor geometry pipeline state, error \(error)")
         }
-
+        
         let anchorDepthStateDescriptor = MTLDepthStencilDescriptor()
         anchorDepthStateDescriptor.depthCompareFunction = .less
         anchorDepthStateDescriptor.isDepthWriteEnabled = true
         anchorDepthState = device.makeDepthStencilState(descriptor: anchorDepthStateDescriptor)
-
+        
         // Create the command queue
         commandQueue = device.makeCommandQueue()
+    }
+    
+    func loadAssets() {
+        
+        guard let device = device else {
+            return
+        }
+        
+        // Create and load our assets into Metal objects including meshes and textures
+        
+        // Create a MetalKit mesh buffer allocator so that ModelIO will load mesh data directly into
+        //   Metal buffers accessible by the GPU
+        let metalAllocator = MTKMeshBufferAllocator(device: device)
+        
+        // Creata a Model IO vertexDescriptor so that we format/layout our model IO mesh vertices to
+        //   fit our Metal render pipeline's vertex descriptor layout
+        let vertexDescriptor = MTKModelIOVertexDescriptorFromMetal(geometryVertexDescriptor)
+        
+        // Indicate how each Metal vertex descriptor attribute maps to each ModelIO attribute
+        (vertexDescriptor.attributes[VertexAttributes.position.rawValue] as! MDLVertexAttribute).name = MDLVertexAttributePosition
+        (vertexDescriptor.attributes[VertexAttributes.texcoord.rawValue] as! MDLVertexAttribute).name = MDLVertexAttributeTextureCoordinate
+        (vertexDescriptor.attributes[VertexAttributes.normal.rawValue] as! MDLVertexAttribute).name   = MDLVertexAttributeNormal
+        
+        // Use ModelIO to create a box mesh as our object
+        let mesh = MDLMesh(boxWithExtent: vector3(0.075, 0.075, 0.075), segments: vector3(1, 1, 1), inwardNormals: false, geometryType: .triangles, allocator: metalAllocator)
+        
+        // Perform the format/relayout of mesh vertices by setting the new vertex descriptor in our
+        //   Model IO mesh
+        mesh.vertexDescriptor = vertexDescriptor
+        
+        // Create a MetalKit mesh (and submeshes) backed by Metal buffers
+        do {
+            try cubeMesh = MTKMesh(mesh: mesh, device: device)
+        } catch let error {
+            print("Error creating MetalKit mesh, error \(error)")
+        }
     }
     
     override func render(encoder: MTLRenderCommandEncoder) {
@@ -228,6 +268,7 @@ public class ARRenderer: RendererBase {
         updateGameState()
         
         renderImage(encoder: encoder)
+        renderAnchorGeometry(encoder: encoder)
     }
     
     
@@ -238,8 +279,6 @@ public class ARRenderer: RendererBase {
         if let textures = textureGenerator?.textures(from: arFrame) {
             capturedImageTextureY = textures.0
             capturedImageTextureCbCr = textures.1
-            
-            
         }
     }
     
@@ -367,36 +406,36 @@ public class ARRenderer: RendererBase {
         
     }
     
-    func drawAnchorGeometry(renderEncoder: MTLRenderCommandEncoder) {
+    func renderAnchorGeometry(encoder: MTLRenderCommandEncoder) {
         guard anchorInstanceCount > 0 else {
             return
         }
         
         // Push a debug group allowing us to identify render commands in the GPU Frame Capture tool
-        renderEncoder.pushDebugGroup("DrawAnchors")
+        encoder.pushDebugGroup("DrawAnchors")
         
         // Set render command encoder state
-        renderEncoder.setCullMode(.back)
-        renderEncoder.setRenderPipelineState(anchorPipelineState)
-        renderEncoder.setDepthStencilState(anchorDepthState)
+        encoder.setCullMode(.back)
+        encoder.setRenderPipelineState(anchorPipelineState)
+        encoder.setDepthStencilState(anchorDepthState)
         
         // Set any buffers fed into our render pipeline
-        renderEncoder.setVertexBuffer(anchorUniformBuffer, offset: anchorUniformBufferOffset, index: BufferIndex.instanceUniforms.rawValue)
-        renderEncoder.setVertexBuffer(sharedUniformBuffer, offset: sharedUniformBufferOffset, index: BufferIndex.sharedUniforms.rawValue)
-        renderEncoder.setFragmentBuffer(sharedUniformBuffer, offset: sharedUniformBufferOffset, index: BufferIndex.sharedUniforms.rawValue)
+        encoder.setVertexBuffer(anchorUniformBuffer, offset: anchorUniformBufferOffset, index: BufferIndex.instanceUniforms.rawValue)
+        encoder.setVertexBuffer(sharedUniformBuffer, offset: sharedUniformBufferOffset, index: BufferIndex.sharedUniforms.rawValue)
+        encoder.setFragmentBuffer(sharedUniformBuffer, offset: sharedUniformBufferOffset, index: BufferIndex.sharedUniforms.rawValue)
         
         // Set mesh's vertex buffers
         for bufferIndex in 0..<cubeMesh.vertexBuffers.count {
             let vertexBuffer = cubeMesh.vertexBuffers[bufferIndex]
-            renderEncoder.setVertexBuffer(vertexBuffer.buffer, offset: vertexBuffer.offset, index:bufferIndex)
+            encoder.setVertexBuffer(vertexBuffer.buffer, offset: vertexBuffer.offset, index:bufferIndex)
         }
         
         // Draw each submesh of our mesh
         for submesh in cubeMesh.submeshes {
-            renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType, indexCount: submesh.indexCount, indexType: submesh.indexType, indexBuffer: submesh.indexBuffer.buffer, indexBufferOffset: submesh.indexBuffer.offset, instanceCount: anchorInstanceCount)
+            encoder.drawIndexedPrimitives(type: submesh.primitiveType, indexCount: submesh.indexCount, indexType: submesh.indexType, indexBuffer: submesh.indexBuffer.buffer, indexBufferOffset: submesh.indexBuffer.offset, instanceCount: anchorInstanceCount)
         }
         
-        renderEncoder.popDebugGroup()
+        encoder.popDebugGroup()
     }
     
     public override func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {

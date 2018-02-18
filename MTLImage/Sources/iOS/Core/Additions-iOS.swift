@@ -6,6 +6,22 @@
 //
 
 public
+extension MTLObject {
+    
+    /// Returns the last output in the filter chain.
+    /// If the current object contains multiple targets,
+    /// it returns the final output in the first branch of the chain
+    var finalTarget: Output? {
+        var target = targets.first
+        while (target as? Input)?.targets.first != nil {
+            target = (target as? Input)?.targets.first
+        }
+        return target
+    }
+    
+}
+
+public
 extension Filter {
     
     /**

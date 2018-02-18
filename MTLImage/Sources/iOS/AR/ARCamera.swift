@@ -11,15 +11,16 @@ import ARKit
 @available(iOS 11.0, *)
 public class ARCamera: CameraBase, Input {
     
-    public var arMode: ARMode = .face
+    public var arMode: ARMode = .worldTracking
     
-    let arSession = ARSession()
+    public let arSession = ARSession()
     let sessionDelegate = ARCameraSessionDelegate()
     
     public override init() {
         super.init()
         
-        mode = .front
+        // Disable default camera
+        session.stopRunning()
         
         arSession.delegate = sessionDelegate
         sessionDelegate.newFrameAvailable = { frame in
@@ -41,11 +42,14 @@ public class ARCamera: CameraBase, Input {
     
     // MARK: - Mode
     public enum ARMode {
+        
+        case worldTracking
         case face
         
         var configuration: ARConfiguration {
             switch self {
-            case .face: return ARFaceTrackingConfiguration()
+            case .worldTracking: return ARWorldTrackingConfiguration()
+            case .face:          return ARFaceTrackingConfiguration()
             }
         }
     }

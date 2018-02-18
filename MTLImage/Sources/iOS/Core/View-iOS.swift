@@ -207,15 +207,15 @@ class RendererBase: MTKView, MTKViewDelegate {
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
         super.init(frame: frameRect, device: nil)
-        setup()
+        loadView()
     }
     
     required public init(coder: NSCoder) {
         super.init(coder: coder)
-        setup()
+        loadView()
     }
     
-    func setup() {
+    func loadView() {
         
         delegate = self
         clearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0)
