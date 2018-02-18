@@ -69,7 +69,7 @@ class Blend: Filter {
             
             originalBlendImage = blendImage
             
-            guard var image = originalBlendImage, let textureSize = texture?.size() else { return }
+            guard var image = originalBlendImage, let textureSize = texture?.size else { return }
             
             let size = CGSize(width: textureSize.width, height: textureSize.height)
             

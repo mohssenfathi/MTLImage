@@ -19,10 +19,10 @@ class Filter: MTLObject, NSCoding {
     public var uniformsBuffer: MTLBuffer?
     var bufferProvider: BufferProvider? = nil
     
-    func updateUniforms<U: Uniforms>(uniforms: U) {
+    func updateUniforms<U: Uniforms>(uniforms: U, size: Int = MemoryLayout<U>.size) {
         
         if bufferProvider == nil {
-            bufferProvider = BufferProvider(device: context.device, bufferSize: MemoryLayout<U>.size)
+            bufferProvider = BufferProvider(device: context.device, bufferSize: size)
         }
         
         var uni = uniforms
@@ -39,6 +39,7 @@ class Filter: MTLObject, NSCoding {
         var name = functionName ?? "EmptyShader"
         if name == "" { name = "EmptyShader" }
         self.functionName = name
+        reload()
     }
     
     var outputView: View? {

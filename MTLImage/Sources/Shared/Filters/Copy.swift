@@ -31,7 +31,7 @@ class Copy: Filter {
                 sourceSlice: 0,
                 sourceLevel: 0,
                 sourceOrigin: MTLOriginMake(0, 0, 0),
-                sourceSize: inputTexture.size(),
+                sourceSize: inputTexture.size,
                 to: texture,
                 destinationSlice: 0,
                 destinationLevel: 0,

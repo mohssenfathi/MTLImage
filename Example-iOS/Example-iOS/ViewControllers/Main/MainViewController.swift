@@ -10,7 +10,7 @@ import UIKit
 import MTLImage
 import Photos
 
-class MainViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FiltersViewControllerDelegate, MTLViewDelegate {
+class MainViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FiltersViewControllerDelegate {
     
     @IBOutlet weak var selectPhotoButton: UIBarButtonItem!
     @IBOutlet weak var mtlView: View!
@@ -46,7 +46,6 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         sourcePicture = Picture(image: image)
         sourcePicture.setProcessingSize(CGSize(width: 1500, height: 1500), respectAspectRatio: true)
         
-        mtlView.delegate = self
         mtlView.contentMode = .scaleAspectFit
         
         currentInput = sourcePicture
@@ -86,26 +85,6 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
-        
-    }
-    
-    
-//    MARK: - MTLView Delegate
-    
-    func mtlViewTouchesBegan(_ sender: View, touches: Set<UITouch>, event: UIEvent?) {
-        let touch: UITouch = touches.first! as UITouch
-        let location = touch.location(in: sender)
-        filtersViewController.handleTouchAtLocation(location)
-    }
-    
-    func mtlViewTouchesMoved(_ sender: View, touches: Set<UITouch>, event: UIEvent?) {
-        let touch: UITouch = touches.first! as UITouch
-        let location = touch.location(in: sender)
-        filtersViewController.handleTouchAtLocation(location)
-        
-    }
-    
-    func mtlViewTouchesEnded(_ sender: View, touches: Set<UITouch>, event: UIEvent?) {
         
     }
     

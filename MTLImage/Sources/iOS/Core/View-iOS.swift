@@ -10,16 +10,17 @@ import UIKit
 import MetalKit
 
 public
-protocol MTLViewDelegate {
-    func mtlViewTouchesBegan(_ sender: View, touches: Set<UITouch>, event: UIEvent?)
-    func mtlViewTouchesMoved(_ sender: View, touches: Set<UITouch>, event: UIEvent?)
-    func mtlViewTouchesEnded(_ sender: View, touches: Set<UITouch>, event: UIEvent?)
-}
-
-public
 class View: UIView, Output {
-
-    public let mtkView = MTLMTKView()
+    
+    private var renderer = Renderer()
+    public var renderView: RendererBase {
+        get {
+            return renderer
+        }
+        set {
+            if let v = newValue as? Renderer { renderer = v }
+        }
+    }
     let scrollView = UIScrollView()
     
     override init(frame: CGRect) {
@@ -43,47 +44,44 @@ class View: UIView, Output {
         scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         addSubview(scrollView)
         
-        mtkView.hostView = self
-        mtkView.frame = bounds
-        mtkView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        scrollView.addSubview(mtkView)
+        renderView.hostView = self
+        renderView.frame = bounds
+        renderView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        scrollView.addSubview(renderView)
         
         contentMode = .scaleAspectFit
     }
     
     func reload() {
         
-        mtkView.device = input?.context.device
-        mtkView.input = input
-        mtkView.reload()
+        renderView.device = input?.context.device
+        renderView.input = input
+        renderView.reload()
         isPaused = false
         
         if let input = input {
-            mtkView.enableSetNeedsDisplay = !input.continuousUpdate
-            mtkView.isPaused              = !input.continuousUpdate
+            renderView.enableSetNeedsDisplay = !input.continuousUpdate
+            renderView.isPaused              = !input.continuousUpdate
         }
         
-        mtkView.draw()
+        renderView.draw()
     }
     
     public override var contentMode: UIViewContentMode {
         didSet {
-            mtkView.contentMode = contentMode
+            renderView.contentMode = contentMode
         }
     }
     
     public override func setNeedsDisplay() {
         DispatchQueue.main.async {
             super.setNeedsDisplay()
-            self.mtkView.setNeedsDisplay()
+            self.renderView.setNeedsDisplay()
         }
     }
     
+    
     // MARK: - Properties
-        
-    public var delegate: MTLViewDelegate?
-    
-    
     public var input: Input? {
         didSet { reload() }
     }
@@ -101,17 +99,17 @@ class View: UIView, Output {
     
     public var preferredFramesPerSecond: Int = 60 {
         didSet {
-            mtkView.preferredFramesPerSecond = preferredFramesPerSecond
+            renderView.preferredFramesPerSecond = preferredFramesPerSecond
         }
     }
     
     public var imageRect: CGRect {
-        return Tools.imageFrame(mtkView.drawableSize, rect: mtkView.frame)
+        return Tools.imageFrame(renderView.drawableSize, rect: renderView.frame)
     }
     
     public var isPaused: Bool {
-        set { mtkView.isPaused = newValue }
-        get { return mtkView.isPaused     }
+        set { renderView.isPaused = newValue }
+        get { return renderView.isPaused     }
     }
     
     public var isEnabled: Bool = true
@@ -124,13 +122,13 @@ class View: UIView, Output {
 extension View: UIScrollViewDelegate {
     
     public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return isZoomEnabled ? mtkView : nil
+        return isZoomEnabled ? renderView : nil
     }
     
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
         
-        let imageSize = mtkView.drawableSize
-        let imageFrame = Tools.imageFrame(imageSize, rect: mtkView.frame)
+        let imageSize = renderView.drawableSize
+        let imageFrame = Tools.imageFrame(imageSize, rect: renderView.frame)
         
         var y = imageFrame.origin.y - (frame.height/2 - imageFrame.height/2)
         var x = imageFrame.origin.x - (frame.width/2 - imageFrame.width/2)
@@ -143,7 +141,7 @@ extension View: UIScrollViewDelegate {
     public func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         
         if let texture = input?.texture {
-            mtkView.drawableSize = CGSize(width: texture.width, height: texture.height) * scale
+            renderView.drawableSize = CGSize(width: texture.width, height: texture.height) * scale
         }
         
     }
@@ -153,12 +151,59 @@ extension View: UIScrollViewDelegate {
     }
 }
 
-public 
-class MTLMTKView: MTKView {
+
+
+public
+class Renderer: RendererBase {
     
-    public var library: MTLLibrary?
-    public var contentSize: CGSize = .zero
+    override func render(encoder: MTLRenderCommandEncoder) {
+        renderImage(encoder: encoder)
+    }
+    
+    func renderImage(encoder: MTLRenderCommandEncoder) {
+        
+        guard let texture = input?.texture else { return }
+        
+        if texture.cgSize != drawableSize {
+            drawableSize = texture.cgSize
+            return
+        }
+        
+        encoder.setRenderPipelineState(pipeline)
+        encoder.setFragmentTexture(texture, index: 0)
+        encoder.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: 4, instanceCount: 1)
+    }
+    
+}
+
+
+// MARK: - Renderer Base
+public
+class RendererBase: MTKView, MTKViewDelegate {
+    
+    var input: Input?
     weak var hostView: View!
+    public var library: MTLLibrary?
+    
+    let renderSemaphore = DispatchSemaphore(value: 3)
+    var vertexFunction: MTLFunction!
+    var fragmentFunction: MTLFunction!
+    var pipeline: MTLRenderPipelineState!
+    
+    var textureSize: CGSize {
+        return input?.texture?.cgSize ?? bounds.size
+    }
+    
+    var renderTransform: CGAffineTransform = .identity {
+        didSet { updateTransform() }
+    }
+    
+    private let fpsCounter = FPSCounter()
+    public var logFPS: Bool = false {
+        didSet {
+            logFPS ? fpsCounter.startTracking() : fpsCounter.stopTracking()
+        }
+    }
     
     override init(frame frameRect: CGRect, device: MTLDevice?) {
         super.init(frame: frameRect, device: nil)
@@ -170,9 +215,8 @@ class MTLMTKView: MTKView {
         setup()
     }
     
-    
     func setup() {
-
+        
         delegate = self
         clearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0)
         backgroundColor = .clear
@@ -184,13 +228,9 @@ class MTLMTKView: MTKView {
         if logFPS { fpsCounter.startTracking() }
     }
     
-    override public var contentMode: UIViewContentMode {
-        didSet { setNeedsDisplay() }
-    }
-    
     func reload() {
         
-        guard let library = input?.context.library else { return }
+        guard let library = input?.context.library, let device = device else { return }
         
         vertexFunction   = library.makeFunction(name: "vertex_main")
         fragmentFunction = library.makeFunction(name: "fragment_main")
@@ -202,33 +242,24 @@ class MTLMTKView: MTKView {
         pipelineDescriptor.fragmentFunction = fragmentFunction
         
         do {
-            pipeline = try device?.makeRenderPipelineState(descriptor: pipelineDescriptor)
+            pipeline = try device.makeRenderPipelineState(descriptor: pipelineDescriptor)
         } catch {
             print("Failed to create pipeline")
         }
     }
     
-    let renderSemaphore = DispatchSemaphore(value: 3)
-    var input: Input?
-    var vertexFunction: MTLFunction!
-    var fragmentFunction: MTLFunction!
-    var pipeline: MTLRenderPipelineState!
-    
-    private let fpsCounter = FPSCounter()
-    public var logFPS: Bool = false {
-        didSet {
-            logFPS ? fpsCounter.startTracking() : fpsCounter.stopTracking()
-        }
+    func updateTransform() {
+        
+//        let vertexData = imagePlaneVertexBuffer.contents().assumingMemoryBound(to: Float.self)
+//        for index in 0...3 {
+//            let textureCoordIndex = 4 * index + 2
+//            let textureCoord = CGPoint(x: CGFloat(imagePlaneVertexData[textureCoordIndex]), y: CGFloat(imagePlaneVertexData[textureCoordIndex + 1]))
+//            let transformedCoord = textureCoord.applying(renderTransform)
+//            vertexData[textureCoordIndex] = Float(transformedCoord.x)
+//            vertexData[textureCoordIndex + 1] = Float(transformedCoord.y)
+//        }
+        
     }
-}
-
-extension MTLMTKView: FPSCounterDelegate {
-    public func fpsCounter(_ counter: FPSCounter, didUpdateFramesPerSecond fps: Int) {
-        if logFPS { print("\(fps) FPS") }
-    }
-}
-
-extension MTLMTKView: MTKViewDelegate {
     
     func notifyOtherTargets() {
         for var destination in (hostView.source?.destinations ?? []) {
@@ -250,66 +281,50 @@ extension MTLMTKView: MTKViewDelegate {
 //        guard !view.isPaused else { return }
         
         notifyOtherTargets()
-        
         input?.processIfNeeded()
         
+//        if drawableSize != textureSize {
+//            drawableSize = textureSize
+//            return
+//        }
+        
         guard let commandQueue = input?.context.commandQueue,
-            let texture = input?.texture,
             let drawable = view.currentDrawable else {
             return
         }
         
-        if texture.width != Int(drawableSize.width) || texture.height != Int(drawableSize.height) {
-            drawableSize = CGSize(width: texture.width, height: texture.height)
-            contentSize = drawableSize
+        guard let commandBuffer = commandQueue.makeCommandBuffer() else {
             return
         }
         
+        commandBuffer.addCompletedHandler({ _ in
+            self.renderSemaphore.signal()
+        })
+        
         if let renderPassDescriptor = view.currentRenderPassDescriptor,
-            let commandBuffer = commandQueue.makeCommandBuffer(),
-            let commandEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) {
+            let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) {
 
             renderSemaphore.wait()
-            
-            commandEncoder.setRenderPipelineState(pipeline)
-            commandEncoder.setFragmentTexture(texture, index: 0)
-            commandEncoder.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: 4, instanceCount: 1)
-            commandEncoder.endEncoding()
-            
-            commandBuffer.addCompletedHandler({ (buffer) in
-                self.renderSemaphore.signal()
-            })
-
+            render(encoder: renderEncoder)
+            renderEncoder.endEncoding()
             commandBuffer.present(drawable)
-            commandBuffer.commit()
         }
-                
+        
+        commandBuffer.commit()
     }
     
+    func render(encoder: MTLRenderCommandEncoder) {
+        // For subclassing
+    }
     
     public func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         
     }
     
-
 }
 
-extension MTLMTKView {
-    
-    //    MARK: - Touch Events
-
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        hostView.delegate?.mtlViewTouchesBegan(hostView, touches: touches, event: event)
-    }
-    
-    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        hostView.delegate?.mtlViewTouchesMoved(hostView, touches: touches, event: event)
-    }
-    
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        hostView.delegate?.mtlViewTouchesEnded(hostView, touches: touches, event: event)
+extension RendererBase: FPSCounterDelegate {
+    public func fpsCounter(_ counter: FPSCounter, didUpdateFramesPerSecond fps: Int) {
+        if logFPS { print("\(fps) FPS") }
     }
 }

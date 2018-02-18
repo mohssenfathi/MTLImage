@@ -41,7 +41,7 @@ class Mask: Filter {
         
         guard var maskImage = maskImage?.copy() as? UIImage,
             var backgroundImage = backgroundImage?.copy() as? UIImage,
-            let textureSize = texture?.size() else { return }
+            let textureSize = texture?.size else { return }
         
         let size = CGSize(width: textureSize.width, height: textureSize.height)
         

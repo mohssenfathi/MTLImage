@@ -10,7 +10,7 @@ import Metal
 public protocol Input {
     
     var texture: MTLTexture? { get set }
-    var targets: [Output]    { get }
+    var targets: [Output]    { get set }
     var context: Context     { get }
     var device : MTLDevice   { get }
     
@@ -50,5 +50,19 @@ public extension Input {
         return dests
     }
 
+    public mutating func addTarget(_ target: Output) {
+        var t = target
+        targets.append(t)
+        t.input = self
+    }
+    
+    public func removeTarget(_ target: Output) {
+        var t = target
+        t.input = nil
+    }
+    
+    public mutating func removeAllTargets() {
+        targets.removeAll()
+    }
 }
 

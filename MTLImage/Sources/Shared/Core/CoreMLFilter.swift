@@ -20,7 +20,7 @@ class CoreMLFilter: MTLObject {
     }
     
     var processingSize: MTLSize? {
-        return input?.texture?.size()
+        return input?.texture?.size
     }
     
     var processingTexture: MTLTexture? {

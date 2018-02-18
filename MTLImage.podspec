@@ -25,7 +25,12 @@ Pod::Spec.new do |s|
 # s.tvos.deployment_target = '10.0'
   s.requires_arc = true
 
-  s.ios.resources = 'MTLImage/Sources/iOS/CoreData/*.xcdatamodeld', 'MTLImage/Sources/Shared/Shaders/*.metallib'
+  s.private_header_files = 'MTLImage/Sources/Headers/Private/*.h'
+#  s.public_header_files = 'MTLImage/Sources/Headers/Public/*.h'
+#  s.header_dir = 'Headers'
+#  s.header_mappings_dir = 'MTLImage/Sources/Headers'
+
+s.ios.resources = 'MTLImage/Sources/iOS/CoreData/*.xcdatamodeld', 'MTLImage/Sources/Shared/Shaders/*.metallib'
   s.ios.source_files = 'MTLImage/Sources/Shared/**/*.{swift, m, h, mm, hpp, cpp, c}', 'MTLImage/Sources/iOS/**/*.{swift, m, h, mm, hpp, cpp, c}'
 
   s.osx.resources = 'MTLImage/Sources/Shared/Shaders/*.metallib'

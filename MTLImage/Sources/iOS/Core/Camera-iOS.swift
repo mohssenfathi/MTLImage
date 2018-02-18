@@ -68,8 +68,8 @@ class Camera: CameraBase, Input {
     }
     
     func chainLength() -> Int {
-        if internalTargets.count == 0 { return 1 }
-        let c = length(internalTargets.first!)
+        if targets.count == 0 { return 1 }
+        let c = length(targets.first!)
         return c
     }
     
@@ -123,16 +123,16 @@ class Camera: CameraBase, Input {
     }
     
     
-    //    MARK: - MTLInput
+    //    MARK: - Input
     public var texture: MTLTexture?
     public var context: Context { return internalContext }
     public var commandBuffer: MTLCommandBuffer? { return context.commandQueue?.makeCommandBuffer() }
     public var device: MTLDevice { return context.device }
-    public var targets: [Output] { return internalTargets }
+    public var targets: [Output] = []
     
     public func addTarget(_ target: Output) {
         var t = target
-        internalTargets.append(t)
+        targets.append(t)
         t.input = self
         startRunning()
     }
@@ -147,7 +147,7 @@ class Camera: CameraBase, Input {
         //        for var target in internalTargets {
         //            target.input = nil
         //        }
-        internalTargets.removeAll()
+        targets.removeAll()
         stopRunning()
     }
 
@@ -155,7 +155,6 @@ class Camera: CameraBase, Input {
     var currentSampleBuffer: CMSampleBuffer?
     
 //    MARK: - Internal
-    private var internalTargets = [Output]()
     public var videoTexture: MTLTexture?
     var internalContext: Context = Context()
     var pipeline: MTLComputePipelineState!

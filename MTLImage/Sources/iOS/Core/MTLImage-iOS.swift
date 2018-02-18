@@ -220,3 +220,7 @@ extension MTLImage.FilterType {
     }
     
 }
+
+
+/// Constants
+let kMaxBuffersInFlight: Int = 3

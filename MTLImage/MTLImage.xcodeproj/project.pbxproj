@@ -61,6 +61,7 @@
 		450DC8831F583887004ED035 /* Water.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C381F490BE00091DBB0 /* Water.swift */; };
 		450DC8861F583887004ED035 /* Sharpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C3C1F490BE00091DBB0 /* Sharpen.swift */; };
 		450DC8881F583887004ED035 /* Contrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0C3E1F490BE00091DBB0 /* Contrast.swift */; };
+		451550002038E4E80097EDCD /* ShaderTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 45154FFF2038E4E80097EDCD /* ShaderTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45173D031F56F86F0058A6FA /* Additions-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45173D021F56F86F0058A6FA /* Additions-iOS.swift */; };
 		45173D051F5754CB0058A6FA /* MTLImage-macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45173D041F5754CB0058A6FA /* MTLImage-macOS.swift */; };
 		45173D0B1F57559D0058A6FA /* Image-macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45173D0A1F57559D0058A6FA /* Image-macOS.swift */; };
@@ -220,6 +221,12 @@
 		45AA0D491F490BE00091DBB0 /* CrossHatch.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0CA71F490BE00091DBB0 /* CrossHatch.metal */; };
 		45AA0D4A1F490BE00091DBB0 /* SobelEdgeDetection.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0CA81F490BE00091DBB0 /* SobelEdgeDetection.metal */; };
 		45AA0D4B1F490BE00091DBB0 /* DefaultShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45AA0CA91F490BE00091DBB0 /* DefaultShaders.metal */; };
+		45B3B62B2038DEB300B06574 /* YCbCrToRGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B3B62A2038DEB200B06574 /* YCbCrToRGB.swift */; };
+		45B3B62D2038DEBC00B06574 /* YCbCrToRGB.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45B3B62C2038DEBC00B06574 /* YCbCrToRGB.metal */; };
+		45B3B62F2038DEC500B06574 /* ARShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45B3B62E2038DEC500B06574 /* ARShaders.metal */; };
+		45B3B6342038DED700B06574 /* ARCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B3B6312038DED600B06574 /* ARCamera.swift */; };
+		45B3B6352038DED700B06574 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B3B6322038DED600B06574 /* ARView.swift */; };
+		45B3B6362038DED700B06574 /* MTLImage-AR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B3B6332038DED600B06574 /* MTLImage-AR.swift */; };
 		45BD560B1F585C8A00A05233 /* Camera-macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45173D081F5755930058A6FA /* Camera-macOS.swift */; };
 		45BD56141F59B34C00A05233 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD56131F59B34C00A05233 /* Copy.swift */; };
 		45BD56151F59B35E00A05233 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BD56131F59B34C00A05233 /* Copy.swift */; };
@@ -306,6 +313,7 @@
 		4506123C1F5759C500A6640B /* Additions-macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Additions-macOS.swift"; sourceTree = "<group>"; };
 		450DC8291F575CA5004ED035 /* Helpers-macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helpers-macOS.swift"; sourceTree = "<group>"; };
 		450DC84F1F576348004ED035 /* Helpers-iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helpers-iOS.swift"; sourceTree = "<group>"; };
+		45154FFF2038E4E80097EDCD /* ShaderTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
 		45173CF31F56F70D0058A6FA /* MTLImage_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MTLImage_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45173D021F56F86F0058A6FA /* Additions-iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Additions-iOS.swift"; sourceTree = "<group>"; };
 		45173D041F5754CB0058A6FA /* MTLImage-macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MTLImage-macOS.swift"; sourceTree = "<group>"; };
@@ -468,6 +476,12 @@
 		45AA0D4F1F490BE70091DBB0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45AA0D501F490BE70091DBB0 /* MTLImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLImage.h; sourceTree = "<group>"; };
 		45AA0D551F490D360091DBB0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		45B3B62A2038DEB200B06574 /* YCbCrToRGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCbCrToRGB.swift; sourceTree = "<group>"; };
+		45B3B62C2038DEBC00B06574 /* YCbCrToRGB.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = YCbCrToRGB.metal; sourceTree = "<group>"; };
+		45B3B62E2038DEC500B06574 /* ARShaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ARShaders.metal; sourceTree = "<group>"; };
+		45B3B6312038DED600B06574 /* ARCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARCamera.swift; sourceTree = "<group>"; };
+		45B3B6322038DED600B06574 /* ARView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
+		45B3B6332038DED600B06574 /* MTLImage-AR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MTLImage-AR.swift"; sourceTree = "<group>"; };
 		45BD56131F59B34C00A05233 /* Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copy.swift; sourceTree = "<group>"; };
 		45C605B41FE6F7E30020003A /* CoreMLFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMLFilter.swift; sourceTree = "<group>"; };
 		45C605B61FE6FB860020003A /* CVPixelBuffer-MTLTexture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer-MTLTexture.swift"; sourceTree = "<group>"; };
@@ -497,6 +511,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45154FFE2038E4E80097EDCD /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				45154FFF2038E4E80097EDCD /* ShaderTypes.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
 		455CF8F41F60527B00923778 /* MTLImage_macOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -538,6 +560,7 @@
 		45AA0C001F490BE00091DBB0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				45154FFE2038E4E80097EDCD /* Headers */,
 				45BD561A1F59E7EC00A05233 /* macOS */,
 				45BD56191F59E7E700A05233 /* iOS */,
 				45BD56181F59E7DE00A05233 /* Shared */,
@@ -584,6 +607,7 @@
 				45AA0C2E1F490BE00091DBB0 /* NonMaximumSuppression.swift */,
 				45AA0C301F490BE00091DBB0 /* PerlinNoise.swift */,
 				45AA0C231F490BE00091DBB0 /* Pixellate.swift */,
+				45B3B62A2038DEB200B06574 /* YCbCrToRGB.swift */,
 				45AA0C121F490BE00091DBB0 /* PolkaDot.swift */,
 				45AA0C241F490BE00091DBB0 /* Resize.swift */,
 				45AA0C211F490BE00091DBB0 /* RollingAverage.swift */,
@@ -728,6 +752,8 @@
 				45AA0C971F490BE00091DBB0 /* WhiteBalance.metal */,
 				45AA0C931F490BE00091DBB0 /* XYDerivative.metal */,
 				456DD7E91FBC7DC7008DAFE9 /* ColorTransformations.metal */,
+				45B3B62E2038DEC500B06574 /* ARShaders.metal */,
+				45B3B62C2038DEBC00B06574 /* YCbCrToRGB.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -739,6 +765,16 @@
 				45AA0D551F490D360091DBB0 /* XCTest.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		45B3B6302038DED600B06574 /* AR */ = {
+			isa = PBXGroup;
+			children = (
+				45B3B6312038DED600B06574 /* ARCamera.swift */,
+				45B3B6322038DED600B06574 /* ARView.swift */,
+				45B3B6332038DED600B06574 /* MTLImage-AR.swift */,
+			);
+			path = AR;
 			sourceTree = "<group>";
 		};
 		45BD56181F59E7DE00A05233 /* Shared */ = {
@@ -755,6 +791,7 @@
 		45BD56191F59E7E700A05233 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				45B3B6302038DED600B06574 /* AR */,
 				45AA0C5D1F490BE00091DBB0 /* CoreData */,
 				45AA0C5B1F490BE00091DBB0 /* CloudKit */,
 				45BD561D1F59E82600A05233 /* Filters */,
@@ -861,6 +898,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45EC48CB1F633142009837E2 /* MTLImage.h in Headers */,
+				451550002038E4E80097EDCD /* ShaderTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1126,12 +1164,14 @@
 				45AA0CC11F490BE00091DBB0 /* CrossHatch.swift in Sources */,
 				45AA0CB91F490BE00091DBB0 /* Haze.swift in Sources */,
 				45AA0D061F490BE00091DBB0 /* MTLImage.xcdatamodeld in Sources */,
+				45B3B6362038DED700B06574 /* MTLImage-AR.swift in Sources */,
 				45AA0D0C1F490BE00091DBB0 /* MTLFilterRecord.swift in Sources */,
 				45AA0CFE1F490BE00091DBB0 /* Context.swift in Sources */,
 				45AA0D291F490BE00091DBB0 /* ToneCurve.metal in Sources */,
 				45AA0D051F490BE00091DBB0 /* CloudKitManager.swift in Sources */,
 				45AA0CD31F490BE00091DBB0 /* Smudge.swift in Sources */,
 				45AA0D0B1F490BE00091DBB0 /* MTLFilterRecord+CoreDataProperties.swift in Sources */,
+				45B3B62B2038DEB300B06574 /* YCbCrToRGB.swift in Sources */,
 				45AA0CD51F490BE00091DBB0 /* LensFlare.swift in Sources */,
 				45AA0D141F490BE00091DBB0 /* Convolution.metal in Sources */,
 				45AA0D281F490BE00091DBB0 /* Exposure.metal in Sources */,
@@ -1188,6 +1228,8 @@
 				45FA9A171F6ACA59005DF768 /* HighPass.metal in Sources */,
 				45AA0D021F490BE00091DBB0 /* MTLLib.swift in Sources */,
 				45EC48C81F63300D009837E2 /* CameraBase-iOS.swift in Sources */,
+				45B3B6352038DED700B06574 /* ARView.swift in Sources */,
+				45B3B6342038DED700B06574 /* ARCamera.swift in Sources */,
 				45AA0CAE1F490BE00091DBB0 /* Levels.swift in Sources */,
 				45AA0CF51F490BE00091DBB0 /* View-iOS.swift in Sources */,
 				45AA0CF61F490BE00091DBB0 /* Picture-iOS.swift in Sources */,
@@ -1263,6 +1305,8 @@
 				451D3C191F4915A7004A6006 /* DepthRenderer.swift in Sources */,
 				45AA0CDA1F490BE00091DBB0 /* NonMaximumSuppression.swift in Sources */,
 				45AA0CC51F490BE00091DBB0 /* LanczosScale.swift in Sources */,
+				45B3B62D2038DEBC00B06574 /* YCbCrToRGB.metal in Sources */,
+				45B3B62F2038DEC500B06574 /* ARShaders.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

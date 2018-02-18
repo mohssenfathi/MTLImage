@@ -110,9 +110,9 @@ class RenderFilter: MTLObject {
         return "fragment_main"
     }
     
+    var pipeline: MTLRenderPipelineState!
     
     /// Private
-    private var pipeline: MTLRenderPipelineState!
     private var vertexFunction: MTLFunction?
     private var fragmentFunction: MTLFunction?
 

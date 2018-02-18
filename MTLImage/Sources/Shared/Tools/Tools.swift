@@ -185,8 +185,12 @@ class Tools: NSObject {
 
 extension MTLTexture {
     
-    func size() -> MTLSize {
+    var size: MTLSize {
         return MTLSize(width: width, height: height, depth: depth)
+    }
+    
+    var cgSize: CGSize {
+        return CGSize(width: width, height: height)
     }
 }
 

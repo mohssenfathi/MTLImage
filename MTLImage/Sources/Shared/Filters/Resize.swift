@@ -40,9 +40,9 @@ class Resize: MPS {
     override public func update() {
         super.update()
         
-        guard let inputSize = input?.texture?.size(), let outputSize = outputSize else { return }
+        guard let inputSize = input?.texture?.size, let outputSize = outputSize else { return }
         
-        if let currentSize = texture?.size() {
+        if let currentSize = texture?.size {
             if currentSize.width != outputSize.width || currentSize.height != outputSize.height {
                 initTexture()
             }
@@ -113,7 +113,7 @@ class Resize: MPS {
         // Overriding to set texture size to outputSize
         
         if outputSize == nil {
-            outputSize = input?.texture?.size()
+            outputSize = input?.texture?.size
         }
         
         if let inputTexture = input?.texture, let size = outputSize {

@@ -9,6 +9,7 @@
 import Metal
 import MetalKit
 import AVFoundation
+import ARKit
 
 extension CVPixelBuffer {
     
@@ -127,7 +128,7 @@ extension MTLTexture {
         getBytes(
             imageBytes,
             bytesPerRow: bytesPerRow,
-            from: MTLRegion(origin: MTLOrigin(x: 0, y: 0, z: 0), size: size()),
+            from: MTLRegion(origin: MTLOrigin(x: 0, y: 0, z: 0), size: size),
             mipmapLevel: 0
         )
 
@@ -615,5 +616,4 @@ func fixOrientation(_ image: UIImage) -> UIImage? {
     
     return UIImage(cgImage: CGImage)
 }
-
 
