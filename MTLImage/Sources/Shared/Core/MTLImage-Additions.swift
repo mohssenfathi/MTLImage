@@ -72,8 +72,3 @@ public func > (left: Input, right: Output) {
     left.addTarget(right)
 }
 
-
-
-func ==(left: MTLSize, right: MTLSize) -> Bool {
-    return left.width == right.width && left.height == right.height && left.depth == right.depth
-}

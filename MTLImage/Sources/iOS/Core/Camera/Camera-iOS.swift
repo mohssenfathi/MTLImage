@@ -15,6 +15,7 @@ class Camera: CameraBase, Input {
     public var title: String = "Camera"
     public var id: String = UUID().uuidString
     public var continuousUpdate: Bool { return true }
+    public var videoTexture: MTLTexture?
     
     /* MTLFilters added to this group will filter the camera output */
     public var filterGroup = FilterGroup()
@@ -150,23 +151,50 @@ class Camera: CameraBase, Input {
         targets.removeAll()
         stopRunning()
     }
-
     
-    var currentSampleBuffer: CMSampleBuffer?
+    
+    public var depthPixelBuffer: CVPixelBuffer?
     
 //    MARK: - Internal
-    public var videoTexture: MTLTexture?
+    var currentSampleBuffer: CMSampleBuffer?
     var internalContext: Context = Context()
     var pipeline: MTLComputePipelineState!
     var kernelFunction: MTLFunction!
     var pixelBufferConverter: PixelBufferToMTLTexture?
 }
 
+extension Camera: DepthInput { }
 
 extension Camera {
     
     public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        processVideoData(sampleBuffer: sampleBuffer)
+    }
+
+
+    @available(iOS 11.0, *)
+    public override func dataOutputSynchronizer(_ synchronizer: AVCaptureDataOutputSynchronizer, didOutput synchronizedDataCollection: AVCaptureSynchronizedDataCollection) {
         
+        if mode.isDepthMode,
+            let depthDataOutput = depthDataOutput,
+            let syncedDepthData: AVCaptureSynchronizedDepthData = synchronizedDataCollection.synchronizedData(for: depthDataOutput) as? AVCaptureSynchronizedDepthData {
+            if !syncedDepthData.depthDataWasDropped {
+                let depthData = syncedDepthData.depthData
+                processDepthData(depthData)
+            }
+        }
+
+        if let syncedVideoData: AVCaptureSynchronizedSampleBufferData = synchronizedDataCollection.synchronizedData(for: dataOutput) as? AVCaptureSynchronizedSampleBufferData {
+            if !syncedVideoData.sampleBufferWasDropped {
+                processVideoData(sampleBuffer: syncedVideoData.sampleBuffer)
+            }
+        }
+        
+    }
+    
+    func processVideoData(sampleBuffer: CMSampleBuffer) {
+        
+        // TODO: Put on processing thread?
         currentSampleBuffer = sampleBuffer
         
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
@@ -178,9 +206,20 @@ extension Camera {
         DispatchQueue.main.async {
             self.needsUpdate = true
         }
-        
     }
-
+    
+    @available(iOS 11.0, *)
+    func processDepthData(_ depthData: AVDepthData) {
+        
+        // TODO: Sometimes this is failing. Find out why
+        var depthData = depthData.applyingExifOrientation(CGImagePropertyOrientation.right)
+        
+        if depthData.depthDataType != kCVPixelFormatType_DisparityFloat32 {
+            depthData = depthData.converting(toDepthDataType: kCVPixelFormatType_DisparityFloat32)
+        }
+        depthData.depthDataMap.normalize()
+        depthPixelBuffer = depthData.depthDataMap
+    }
 }
 
 public

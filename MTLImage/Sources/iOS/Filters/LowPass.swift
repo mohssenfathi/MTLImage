@@ -20,7 +20,9 @@ class LowPass: FilterGroup {
         add(blend)
         
         blend --> buffer
-        blend.add(input: buffer, at: 1)
+        blend.inputProvider = { [weak self] index in
+            return self?.buffer
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

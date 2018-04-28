@@ -45,7 +45,7 @@ class MPS: Filter {
         
         input?.processIfNeeded()
         
-        if texture == nil {
+        if texture == nil || input?.texture?.size != texture?.size {
             initTexture()
         }
         

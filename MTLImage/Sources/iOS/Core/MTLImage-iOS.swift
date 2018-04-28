@@ -15,15 +15,18 @@ class MTLImage: NSObject {
    
     public enum FilterType: String {
         case blend
+        case bilinearScale = "bilinear scale"
         case boxBlur = "box blur"
         case brightness
         case buffer
         case contrast
+        case colorGenerator = "color generator"
+        case colorClamp = "color clamp"
+        case colorMatrix = "color matrix"
         case colorMask = "color mask"
         case crop
         case crossHatch = "cross hatch"
         case dataOutput = "data output"
-        case depthBlend = "depth blend"
         case depthRenderer = "depth renderer"
         case dilate
         case emboss
@@ -43,6 +46,7 @@ class MTLImage: NSObject {
         case lowPass = "low pass"
         case luminanceThreshold = "luminance threshold"
         case mask
+        case maskBlend = "mask blend"
         case perlinNoise = "perlin noise"
         case pixellate
         case polkaDot = "polka dot"
@@ -152,12 +156,14 @@ extension MTLImage.FilterType {
         case .boxBlur:                  return BoxBlur()
         case .brightness:               return Brightness()
         case .buffer:                   return Buffer()
-        case .contrast:                 return Contrast()
+        case .colorClamp:               return ColorClamp()
+        case .colorGenerator:           return ColorGenerator()
+        case .colorMatrix:              return ColorMatrix()
         case .colorMask:                return ColorMask()
+        case .contrast:                 return Contrast()
         case .crop:                     return Crop()
         case .crossHatch:               return CrossHatch()
         case .dataOutput:               return DataOutput()
-        case .depthBlend:               return DepthBlend()
         case .depthRenderer:            return DepthRenderer()
         case .dilate:                   return Dilate()
         case .emboss:                   return Emboss()
@@ -177,6 +183,7 @@ extension MTLImage.FilterType {
         case .lowPass:                  return LowPass()
         case .luminanceThreshold:       return LuminanceThreshold()
         case .mask:                     return Mask()
+        case .maskBlend:                return MaskBlend()
         case .perlinNoise:              return PerlinNoise()
         case .pixellate:                return Pixellate()
         case .polkaDot:                 return PolkaDot()
@@ -199,6 +206,11 @@ extension MTLImage.FilterType {
         case .water:                    return Water()
         case .whiteBalance:             return WhiteBalance()
         case .xyDerivative:             return XYDerivative()
+            
+        /// iOS 11 only
+        case .bilinearScale:
+            if #available(iOS 11.0, *) { return BilinearScale() }
+            else { return Filter(functionName: nil) }
         }
     }
     
@@ -208,14 +220,14 @@ extension MTLImage.FilterType {
     
     public static var all: [MTLImage.FilterType] {
         return [
-            .soften, .blend, .boxBlur, .brightness, .buffer, .contrast, .colorMask, .crop,
-            .crossHatch, .dataOutput, .depthBlend, .depthRenderer, .dilate, .emboss,
+            .soften, .blend, .boxBlur, .brightness, .buffer, .contrast, .colorGenerator, .colorMatrix,
+            .colorMask, .crop, .crossHatch, .dataOutput, .depthRenderer, .dilate, .emboss,
             .exposure, .gaussianBlur, .haze, .highPass, .highlightShadow, .histogram, .hue,
             .invert, .kuwahara, .lanczosScale, .lensFlare, .levels, .lightLeak, .lowPass,
             .luminanceThreshold, .mask, .perlinNoise, .pixellate, .polkaDot, .resize,
             .rollingAverage, .saturation, .scatter, .selectiveHSL, .sketch, .sobelEdgeDetection,
             .sharpen, .tent, .toneCurve, .toon, .transform, .unsharpMask, .vignette,
-            .voronoi, .water, .whiteBalance, .xyDerivative
+            .voronoi, .water, .whiteBalance, .xyDerivative, .colorClamp, .bilinearScale
         ]
     }
     

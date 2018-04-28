@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 import MetalKit
 
 public
@@ -14,7 +15,7 @@ class Picture: NSObject, Input {
     
     public var id: String = UUID().uuidString
     public var title: String = "Image"
-
+    
     public var continuousUpdate: Bool {
         return false
     }
@@ -76,6 +77,31 @@ class Picture: NSObject, Input {
         self.textureLoader = MTKTextureLoader(device: context.device)
         
         loadTexture()
+        if #available(iOS 11.0, *) { loadDepthData() }
+    }
+    
+    public init(asset: PHAsset) {
+        fatalError("Needs to be implemented")
+    }
+    
+    @available (iOS 11.0, *)
+    func loadDepthData() {
+        
+        return 
+        
+        guard let cgImage = image.cgImage, let imageData = UIImageJPEGRepresentation(image, 1.0) else {
+            return
+        }
+        
+        guard let source = CGImageSourceCreateWithData(imageData as CFData, nil) else {
+            return
+        }
+        
+        guard let auxDataInfo = CGImageSourceCopyAuxiliaryDataInfoAtIndex(source, 0, kCGImageAuxiliaryDataTypeDepth) as? [AnyHashable : Any] else {
+            return
+        }
+        
+        depthData = try? AVDepthData(fromDictionaryRepresentation: auxDataInfo)
     }
     
     func loadTexture() {
@@ -176,5 +202,13 @@ class Picture: NSObject, Input {
     
     public func didFinishProcessing() {
         context.semaphore.signal()
+    }
+    
+    
+    private var _depthData: Any?
+    @available(iOS 11.0, *)
+    public var depthData: AVDepthData? {
+        get { return _depthData as? AVDepthData }
+        set { _depthData = newValue }
     }
 }

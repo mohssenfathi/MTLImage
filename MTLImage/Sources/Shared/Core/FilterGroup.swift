@@ -36,7 +36,11 @@ class FilterGroup: MTLObject, NSCoding {
     }
     
     public func insert(_ filter: MTLObject, index: Int) {
-        assert(index < filters.count)
+        
+        guard filters.count > 0 else {
+            add(filter)
+            return
+        }
         
         if index == 0 {
             filter > filters.first!

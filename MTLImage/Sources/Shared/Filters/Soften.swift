@@ -133,7 +133,10 @@ class MaskGenerator: FilterGroup {
         add(highPass)
         add(highPassSkinSmooth)
         
-        gbBlend.add(input: exposure, at: 1)
+        gbBlend.inputProvider = { [weak self] index in
+            if index == 1 { return self?.exposure}
+            return nil
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

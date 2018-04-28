@@ -53,9 +53,9 @@ class DepthToGrayscale: Filter {
     override public func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
         super.configureCommandEncoder(commandEncoder)
         
-        if let context = (source as? Camera)?.depthContext {
-            if context.minDepth < offset { offset = context.minDepth }
-            if context.maxDepth < range  { range  = context.maxDepth }
-        }
+//        if let context = (source as? Camera)?.depthContext {
+//            if context.minDepth < offset { offset = context.minDepth }
+//            if context.maxDepth < range  { range  = context.maxDepth }
+//        }
     }
 }

@@ -53,4 +53,6 @@ class Context: NSObject {
     func refreshCurrentCommandBuffer() {
         currentCommandBuffer = commandQueue?.makeCommandBuffer()
     }
+    
+    static let device = MTLCreateSystemDefaultDevice()
 }

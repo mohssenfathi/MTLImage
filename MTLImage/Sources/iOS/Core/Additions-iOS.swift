@@ -94,22 +94,41 @@ extension FilterGroup {
         }
     }
 
+    
+    // TODO: This does not require copying, but could potentially cause issues
+    //       with adding/removing targets. Look into this more
+//    public func filter(_ image: UIImage) -> UIImage? {
+//
+//        let picture = Picture(image: image)
+//
+//        picture --> self
+//
+//        picture.needsUpdate = true
+//        filters.last?.processIfNeeded()
+//
+//        let filteredImage = image
+//
+//        picture.removeAllTargets()
+//
+//        return filteredImage
+//    }
+    
     public func filter(_ image: UIImage) -> UIImage? {
-     
+
         let filter = self.copy() as! FilterGroup
         let picture = Picture(image: image)
-        
+
         picture --> filter
-        
+
         picture.needsUpdate = true
         filter.filters.last?.processIfNeeded()
-        
+
         let filteredImage = filter.image
-        
+
         picture.removeAllTargets()
         filter.removeAllTargets()
         filter.removeAll()
-        
+
         return filteredImage?.copy() as? UIImage
     }
     

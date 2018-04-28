@@ -52,7 +52,7 @@ extension CVPixelBuffer {
 
 
 // MARK: - MTLTexture
-extension MTLTexture {
+public extension MTLTexture {
     
     //    func image() -> UIImage? {
     //
@@ -76,7 +76,7 @@ extension MTLTexture {
     //
     //    }
     
-    func bytes() -> UnsafeMutableRawPointer? {
+    public func bytes() -> UnsafeMutableRawPointer? {
         
         //        guard pixelFormat == .rgba8Unorm else { return nil }
         
@@ -90,7 +90,7 @@ extension MTLTexture {
         return imageBytes
     }
 
-    var pixelBuffer: CVPixelBuffer? {
+    public var pixelBuffer: CVPixelBuffer? {
         
         guard let bytes = bytes() else {
             return nil
@@ -119,7 +119,7 @@ extension MTLTexture {
         return pixelBuffer
     }
 
-    var image: UIImage? {
+    public var image: UIImage? {
 
         let bytesPerRow = width * 4
         let imageByteCount: Int = width * height * 4
@@ -133,7 +133,7 @@ extension MTLTexture {
         )
 
         let provider = CGDataProvider(dataInfo: nil, data: imageBytes, size: imageByteCount) { (rawPointer, pointer, i) in
-            pointer.deallocate(bytes: i, alignedTo: 0)
+            pointer.deallocate()
             free(rawPointer)
         }
 
@@ -172,7 +172,7 @@ extension MTLTexture {
         return image;
     }
     
-    func copy(device: MTLDevice) -> MTLTexture {
+    public func copy(device: MTLDevice) -> MTLTexture {
         let data = bytes()!
         let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: pixelFormat, width: width, height: height, mipmapped: false)
         let copy = device.makeTexture(descriptor: descriptor)

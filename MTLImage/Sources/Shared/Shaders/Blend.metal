@@ -56,7 +56,7 @@ float3 setlum(float3 c, float l);
 kernel void blend(texture2d<float, access::read>  inTexture    [[ texture(0) ]],
                   texture2d<float, access::write> outTexture   [[ texture(1) ]],
                   texture2d<float, access::read>  blendTexture [[ texture(2) ]],
-                  constant BlendUniforms &uniforms             [[ buffer(0) ]],
+                  constant BlendUniforms &uniforms             [[ buffer(0)  ]],
                   uint2 gid [[thread_position_in_grid]])
 {
 

@@ -22,6 +22,11 @@ class Saturation: Filter {
         }
     }
     
+    public convenience init(saturation: Float) {
+        self.init()
+        self.saturation = saturation
+    }
+    
     public init() {
         super.init(functionName: "saturation")
         title = "Saturation"

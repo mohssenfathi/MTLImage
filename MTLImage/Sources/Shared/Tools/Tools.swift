@@ -200,6 +200,12 @@ extension MTLSize {
     }
 }
 
+extension MTLSize: Equatable {
+    static public func ==(left: MTLSize, right: MTLSize) -> Bool {
+        return left.width == right.width && left.height == right.height && left.depth == right.depth
+    }
+}
+
 public func *(left: CGSize, right: CGFloat) -> CGSize {
     return CGSize(width: left.width * right, height: left.height * right)
 }

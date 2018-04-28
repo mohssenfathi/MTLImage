@@ -13,18 +13,11 @@ struct BlendUniforms: Uniforms {
 
 public
 class Blend: Filter {
-    
+
     var uniforms = BlendUniforms()
-    
-    private var primaryInput: Input?
-    private var secondaryInput: Input?
-    
-//    var skipFirst: Bool = true
-//    public override func process() {
-//        guard skipFirst == false else { return }
-//        skipFirst = false
-//        super.process()
-//    }
+    public var inputProvider: ((_ index: Int) -> (Input?))?
+    public var textureProvider: ((_ index: Int) -> (MTLTexture?))?
+    public var numberOfAdditionalTextures: Int = 1
     
     lazy private var blendModes: [Int: String] = {
         var dict = [Int : String]()
@@ -59,37 +52,42 @@ class Blend: Filter {
     @objc public var contentMode: UIViewContentMode = .scaleToFill {
         didSet {
             needsUpdate = true
-            blendImage = originalBlendImage
+//            blendImage = originalBlendImage
         }
     }
     
-    private var originalBlendImage: UIImage?
-    @objc public var blendImage: UIImage? {
-        didSet {
-            
-            originalBlendImage = blendImage
-            
-            guard var image = originalBlendImage, let textureSize = texture?.size else { return }
-            
-            let size = CGSize(width: textureSize.width, height: textureSize.height)
-            
-            switch contentMode {
-            case .scaleAspectFit:
-                image = image.scaleToFit(size)
-                break
-            case .scaleAspectFill:
-                image = image.scaleToFill(size)
-                break
-            case .center:
-                image = image.center(size)
-            default: break
-            }
-            
-            let input = Picture(image: image)
-            input.processingSize = context.processingSize
-            add(input: input, at: 1)
-            needsUpdate = true
-        }
+    // TODO: Make this work with new texture providing system
+//    private var originalBlendImage: UIImage?
+//    @objc public var blendImage: UIImage? {
+//        didSet {
+//
+//            originalBlendImage = blendImage
+//
+//            guard var image = originalBlendImage, let textureSize = texture?.size else { return }
+//
+//            let size = CGSize(width: textureSize.width, height: textureSize.height)
+//
+//            switch contentMode {
+//            case .scaleAspectFit:
+//                image = image.scaleToFit(size)
+//                break
+//            case .scaleAspectFill:
+//                image = image.scaleToFill(size)
+//                break
+//            case .center:
+//                image = image.center(size)
+//            default: break
+//            }
+//
+//            let input = Picture(image: image)
+//            input.processingSize = context.processingSize
+//            add(input: input, at: 1)
+//            needsUpdate = true
+//        }
+//    }
+    
+    func inputTexture(at index: Int) -> MTLTexture? {
+        return inputProvider?(index)?.texture ?? textureProvider?(index)
     }
     
     public convenience init(blendMode: BlendMode) {
@@ -126,38 +124,19 @@ class Blend: Filter {
         updateUniforms(uniforms: uniforms)
     }
     
-    override public func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
-        super.configureCommandEncoder(commandEncoder)
-        commandEncoder.setTexture(secondaryInput?.texture, index: 2)
+    override var shouldProcess: Bool {
+        return inputTexture(at: 0) != nil
     }
     
-    public override var input: Input? {
-        didSet {
-            primaryInput = input
-            if secondaryInput == nil {
-                secondaryInput = source
+    override public func configureCommandEncoder(_ commandEncoder: MTLComputeCommandEncoder) {
+        super.configureCommandEncoder(commandEncoder)
+        
+        (0 ..< numberOfAdditionalTextures).forEach {
+            if let texture = inputTexture(at: $0) {
+                commandEncoder.setTexture(texture, index: 2 + $0)
             }
         }
     }
-    
-    func input(at index: Int) -> Input? {
-        switch index {
-        case 0: return primaryInput
-        case 1: return secondaryInput
-        default: return nil
-        }
-    }
-    
-    public func add(input: Input, at index: Int) {
-        if index == 0 {
-            self.input = input
-            primaryInput = input
-        }
-        else if index == 1 {
-            secondaryInput = input
-        }
-    }
-    
     
     
     public enum BlendMode: Int {

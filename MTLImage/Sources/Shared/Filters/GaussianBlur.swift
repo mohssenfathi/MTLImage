@@ -11,11 +11,13 @@ import MetalPerformanceShaders
 public
 class GaussianBlur: MPS {
  
+    public var edgeMode: MPSImageEdgeMode = .clamp
+    
     @objc public var sigma: Float = 0.5 {
         didSet {
             clamp(&sigma, low: 0, high: 1)
             kernel = MPSImageGaussianBlur(device: context.device, sigma: sigma * 80)
-            (kernel as! MPSImageGaussianBlur).edgeMode = .clamp
+            (kernel as! MPSImageGaussianBlur).edgeMode = edgeMode
             needsUpdate = true
         }
     }

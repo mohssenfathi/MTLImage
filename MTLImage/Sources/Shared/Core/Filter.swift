@@ -89,11 +89,21 @@ class Filter: MTLObject, NSCoding {
         
     }
     
+    var shouldProcess: Bool {
+        // For subclasses to override if necessary
+        return true
+    }
+    
     open override func process() {
         
         input?.processIfNeeded()
        
-        if texture == nil {
+        guard shouldProcess else {
+            texture = input?.texture
+            return
+        }
+        
+        if texture == nil || input?.texture?.size != texture?.size {
             initTexture()
         }
         

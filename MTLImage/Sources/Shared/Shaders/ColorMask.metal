@@ -40,7 +40,7 @@ kernel void colorMask(texture2d<float, access::read>  inTexture  [[ texture(0) ]
                       uint2 gid                                  [[thread_position_in_grid]])
 {
 
-    float d;
+//    float d;
     float4 pc = inTexture.read(gid);
     float3 inputColor = float3(uniforms.r, uniforms.g, uniforms.b);
     
@@ -62,7 +62,7 @@ kernel void colorMask(texture2d<float, access::read>  inTexture  [[ texture(0) ]
     // invert for sanity
     matched = abs(matched - 1.0);
 
-    float matchedMult = abs(uniforms.useMask - 1.0);
+//    float matchedMult = abs(uniforms.useMask - 1.0);
 
     // this colors the matched pixels to 1.0 (white)
     float3 out1 = clamp(pc.rgb + matched, float3(0.0), float3(1.0));

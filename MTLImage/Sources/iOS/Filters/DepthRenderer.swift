@@ -17,6 +17,7 @@ public
 class DepthRenderer: Filter {
     
     var uniforms = DepthRendererUniforms()
+    var inputProvider: (() -> (CVPixelBuffer?))?
     
     @objc public var offset: Float = 0.5 {
         didSet { needsUpdate = true }
@@ -26,6 +27,10 @@ class DepthRenderer: Filter {
         didSet { needsUpdate = true }
     }
     
+    public override func reset() {
+        super.reset()
+        resetProcess()
+    }
     
     public init() {
         super.init(functionName: "depthRenderer")
@@ -43,10 +48,10 @@ class DepthRenderer: Filter {
     override open func update() {
         if self.input == nil { return }
         
-        if let context = (source as? Camera)?.depthContext {
-            if context.minDepth < offset { offset = context.minDepth }
-            if context.maxDepth < range  { range  = context.maxDepth }
-        }
+//        if let context = (source as? Camera)?.depthContext {
+//            if context.minDepth < offset { offset = context.minDepth }
+//            if context.maxDepth < range  { range  = context.maxDepth }
+//        }
         
         uniforms.offset = offset
         uniforms.range = range
@@ -58,30 +63,49 @@ class DepthRenderer: Filter {
         outputFormatDescription = nil
         inputFormatDescription = nil
         textureCache = nil
+        isPrepared = false
     }
     
     override public func process() {
         
-        guard let inputPixelBuffer = (input as? Camera)?.depthPixelBuffer else { return }
+        guard let inputPixelBuffer = inputProvider?() ?? depthInput?.depthPixelBuffer,
+            let depthTextureSize = depthTextureSize else {
+            return
+        }
         
         var depthFormatDescription: CMFormatDescription?
         CMVideoFormatDescriptionCreateForImageBuffer(kCFAllocatorDefault, inputPixelBuffer, &depthFormatDescription)
-        prepare(with: depthFormatDescription!, outputRetainedBufferCountHint: 2)
+       
+        if texture?.size.cgSize != textureSize?.cgSize {
+            isPrepared = false
+        }
+        
+        if !isPrepared {
+            var size: CMVideoDimensions?
+            if let textureSize = textureSize {
+                size = CMVideoDimensions(width: Int32(textureSize.width), height: Int32(textureSize.height))
+            }
+            prepare(with: depthFormatDescription!, outputRetainedBufferCountHint: 2, size: size)
+        }
+        
         render(pixelBuffer: inputPixelBuffer)
     }
     
-    func prepare(with formatDescription: CMFormatDescription, outputRetainedBufferCountHint: Int) {
+    func prepare(with formatDescription: CMFormatDescription, outputRetainedBufferCountHint: Int, size: CMVideoDimensions? = nil) {
         
         resetProcess()
         
-        outputPixelBufferPool = DepthRenderer.allocateOutputBufferPool(with: formatDescription, outputRetainedBufferCountHint: outputRetainedBufferCountHint)
+        outputPixelBufferPool = DepthRenderer.allocateOutputBufferPool(with: formatDescription, outputRetainedBufferCountHint: outputRetainedBufferCountHint, size: size)
         if outputPixelBufferPool == nil {
             return
         }
         
         var pixelBuffer: CVPixelBuffer?
         var pixelBufferFormatDescription: CMFormatDescription?
-        _ = CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, outputPixelBufferPool!, &pixelBuffer)
+        guard CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, outputPixelBufferPool!, &pixelBuffer) == kCVReturnSuccess else {
+            return
+        }
+        
         if let pixelBuffer = pixelBuffer {
             CMVideoFormatDescriptionCreateForImageBuffer(kCFAllocatorDefault, pixelBuffer, &pixelBufferFormatDescription)
         }
@@ -111,6 +135,10 @@ class DepthRenderer: Filter {
         isPrepared = true
     }
     
+    var depthTextureSize: CGSize? {
+        return depthInput?.depthTextureSize
+    }
+    
     @discardableResult
     func render(pixelBuffer: CVPixelBuffer) -> CVPixelBuffer? {
         
@@ -118,7 +146,7 @@ class DepthRenderer: Filter {
             assertionFailure("Invalid state: Not prepared")
             return nil
         }
-        
+    
         var newPixelBuffer: CVPixelBuffer?
         CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, outputPixelBufferPool!, &newPixelBuffer)
         guard let outputPixelBuffer = newPixelBuffer else {
@@ -168,9 +196,18 @@ class DepthRenderer: Filter {
         }
         
         return outputPixelBuffer
-        
     }
     
+    override func initTexture() {
+        if let size = textureSize {
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm,
+                                                                             width: size.width,
+                                                                             height: size.height,
+                                                                             mipmapped: false)
+            textureDescriptor.usage = [.shaderRead, .shaderWrite, .renderTarget]
+            texture = context.device?.makeTexture(descriptor: textureDescriptor)
+        }
+    }
     
     private var outputPixelBufferPool: CVPixelBufferPool!
     private var textureCache: CVMetalTextureCache!
@@ -203,13 +240,22 @@ extension DepthRenderer {
         }
         return pixelBufferPool
     }
+    
+    var textureSize: MTLSize? {
+        guard let size = depthInput?.depthTextureSize else { return nil }
+        return MTLSize(width: Int(size.width), height: Int(size.height), depth: 1)
+    }
+    
+    var depthInput: DepthInput? {
+        return input as? DepthInput
+    }
 }
 
 
 extension CVPixelBuffer {
     
     func mtlTexture(textureCache: CVMetalTextureCache, pixelFormat: MTLPixelFormat = .bgra8Unorm) -> MTLTexture? {
-        
+
         var cvMetalTexture : CVMetalTexture?
         let width = CVPixelBufferGetWidth(self);
         let height = CVPixelBufferGetHeight(self);

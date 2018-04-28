@@ -7,62 +7,181 @@
 
 import Foundation
 import AVFoundation
+import Photos
 
 public
 class CameraBase: NSObject {
 
     init(session: AVCaptureSession) {
         self.session = session
+        self.photoOutput = AVCapturePhotoOutput()
+        self.dataOutput = AVCaptureVideoDataOutput()
     }
     
     override init() {
+        self.session = AVCaptureSession()
+        self.photoOutput = AVCapturePhotoOutput()
+        self.dataOutput = AVCaptureVideoDataOutput()
+        
         super.init()
+        
         setupAVDevice()
+    }
+    
+    public var isLivePhotoEnabled: Bool {
+        get { return photoOutput.isLivePhotoCaptureEnabled && !photoOutput.isLivePhotoCaptureSuspended }
+        set {
+            guard photoOutput.isLivePhotoCaptureSupported else {
+                return
+            }
+            
+            if newValue == true, photoOutput.isLivePhotoCaptureEnabled == false {
+                photoOutput.isLivePhotoCaptureEnabled = true
+            }
+            
+            photoOutput.isLivePhotoCaptureSuspended = isLivePhotoEnabled
+        }
+    }
+    
+    public var isDepthDataEnabled: Bool = false {
+        didSet {
+            if #available(iOS 11.0, *) {
+                if isDepthDataEnabled == true,
+                    photoOutput.isDepthDataDeliverySupported {
+                    
+                    isDepthDataEnabled = false
+                    return
+                }
+            } else {
+                isDepthDataEnabled = false
+            }
+        }
+    }
+    
+    func photoSettings() -> AVCapturePhotoSettings {
+        
+        var settings = AVCapturePhotoSettings()
+        
+        if #available(iOS 11.0, *) {
+            if mode.isDepthMode {
+                settings.isDepthDataDeliveryEnabled = mode.isDepthMode
+                settings.isDepthDataFiltered = true
+            }
+            else {
+                if photoOutput.availablePhotoCodecTypes.contains(.hevc) {
+                    settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
+                }
+            }
+        }
+
+        settings.flashMode = flashMode
+        settings.isAutoStillImageStabilizationEnabled = isImageStabilizationEnabled
+        settings.isHighResolutionPhotoEnabled = true
+
+        /// Live Photo
+        if isLivePhotoEnabled {
+            let livePhotoMovieFileName = NSUUID().uuidString
+            let livePhotoMovieFilePath = (NSTemporaryDirectory() as NSString).appendingPathComponent((livePhotoMovieFileName as NSString).appendingPathExtension("mov")!)
+            settings.livePhotoMovieFileURL = URL(fileURLWithPath: livePhotoMovieFilePath)
+        }
+
+        return settings
+    }
+    
+    private func remove(captureProcessor: CaptureProcessor) {
+        if let pair = currentCaptureProcessors.enumerated().filter({
+            $0.element.identifier == captureProcessor.identifier
+        }).first {
+            currentCaptureProcessors.remove(at: pair.offset)
+        }
     }
     
     /* Capture a still photo from the capture device. */
 //    TODO: Add intermediate thumbnail captured photo callback
+//          Also, somehow combine these into one method
     public func takePhoto(_ completion: @escaping CaptureCallback) {
         
-        guard let photoOutput = photoOutput else {
-            completion(nil, nil, nil)
-            return
+        sessionQueue.async {
+    
+            let settings = self.photoSettings()
+            let captureProcessor = CaptureProcessor(settings: settings, livePhotoHandler: { _, _, _ in
+                
+            }, captureHandler: { captureProcessor, imageData, depthMap, metadata, error in
+                
+                self.remove(captureProcessor: captureProcessor)
+                
+                guard let imageData = imageData, let image = UIImage(data: imageData) else {
+                    completion(nil, nil, error)
+                    return
+                }
+                
+                completion(image, metadata, nil)
+            })
+            
+            // Keep reference to captureProcessor so delegate methods are called
+            self.currentCaptureProcessors.append(captureProcessor)
+            
+            self.photoOutput.capturePhoto(with: settings, delegate: captureProcessor)
         }
-        
-        currentCaptureCallback = completion
-        
-        let settings = AVCapturePhotoSettings()
-        settings.isAutoStillImageStabilizationEnabled = isImageStabilizationEnabled
-        settings.flashMode = flashMode
-        //        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
-        //        let previewFormat = [
-        //            kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
-        //            kCVPixelBufferWidthKey as String: 160,
-        //            kCVPixelBufferHeightKey as String: 160
-        //        ]
-        //        settings.previewPhotoFormat = previewFormat
-        
-        photoOutput.capturePhoto(with: settings, delegate: self)
+
     }
     
+    public func takeLivePhoto(_ completion: @escaping LivePhotoCallback) {
+        
+        sessionQueue.async {
+            
+            let settings = self.photoSettings()
+            let captureProcessor = CaptureProcessor(settings: settings, livePhotoHandler: { captureProcessor, asset, error in
+                
+                self.remove(captureProcessor: captureProcessor)
+                
+                guard let asset = asset else {
+                    completion(nil, nil, nil, error)
+                    return
+                }
+                
+                PhotoLibrary.livePhoto(for: asset, completion: { livePhoto, metadata in
+                    completion(livePhoto, asset, metadata, error)
+                })
+                
+            }, captureHandler: { _, _, _, _, _ in
+                
+            })
+            
+            // Keep reference to captureProcessor so delegate methods are called
+            self.currentCaptureProcessors.append(captureProcessor)
+            
+            self.photoOutput.capturePhoto(with: settings, delegate: captureProcessor)
+        }
+        
+    }
+  
     public func startRunning() { session.startRunning() }
     public func stopRunning()  { session.stopRunning() }
     
     public func flip() {
-        mode = (mode == .front) ? .back : .front
+        if mode.isDepthMode {
+            mode = (mode == .depthFront) ? .depthRear : .depthFront
+        } else {
+            mode = (mode == .front) ? .back : .front
+        }
     }
     
     public var orientation: AVCaptureVideoOrientation = .portrait {
         didSet {
-            if let connection = dataOutput?.connection(with: AVMediaType.video) {
-                connection.videoOrientation = orientation
-            }
+            dataOutput.connection(with: AVMediaType.video)?.videoOrientation = orientation
+            photoOutput.connection(with: AVMediaType.video)?.videoOrientation = orientation
         }
     }
     
     public var mode: Mode = .back {
         didSet {
-            session.apply { self.setupInputs() }
+            session.apply {
+                self.setupInputs()
+                if self.mode.isDepthMode {
+                    self.setupOutputs()
+                }
+            }
         }
     }
     
@@ -224,6 +343,30 @@ class CameraBase: NSObject {
             }
         }
     }
+    private func focus(with focusMode: AVCaptureDevice.FocusMode, exposureMode: AVCaptureDevice.ExposureMode, at devicePoint: CGPoint, monitorSubjectAreaChange: Bool) {
+        sessionQueue.async {
+            let device = self.deviceInput.device
+            self.applyCameraSetting {
+                /*
+                 Setting (focus/exposure)PointOfInterest alone does not initiate a (focus/exposure) operation.
+                 Call set(Focus/Exposure)Mode() to apply the new point of interest.
+                 */
+                if device.isFocusPointOfInterestSupported && device.isFocusModeSupported(focusMode) {
+                    device.focusPointOfInterest = devicePoint
+                    device.focusMode = focusMode
+                }
+                
+                if device.isExposurePointOfInterestSupported && device.isExposureModeSupported(exposureMode) {
+                    device.exposurePointOfInterest = devicePoint
+                    device.exposureMode = exposureMode
+                }
+                
+                device.isSubjectAreaChangeMonitoringEnabled = monitorSubjectAreaChange
+            }
+            
+        }
+    }
+    
     
     /* ISO */
     public func setISOAuto() {
@@ -232,6 +375,9 @@ class CameraBase: NSObject {
         }
     }
     
+    public var isISOAuto: Bool {
+        return captureDevice.exposureMode == .autoExpose || captureDevice.exposureMode == .continuousAutoExposure
+    }
     
     public var minISO: Float { return captureDevice.activeFormat.minISO }
     public var maxISO: Float { return captureDevice.activeFormat.maxISO }
@@ -250,14 +396,20 @@ class CameraBase: NSObject {
     
     /* Focus */
     public var focusMode: AVCaptureDevice.FocusMode = .autoFocus
+    
     public func setFocusAuto() {
         applyCameraSetting {
             self.captureDevice.focusMode = .autoFocus
         }
     }
+    
+    public var isFocusAuto: Bool {
+        return captureDevice.focusMode == .autoFocus || captureDevice.focusMode == .continuousAutoFocus
+    }
+    
     public var lensPosition: Float = 0.0 {
         didSet {
-//            if captureDevice.isAdjustingFocus { return }
+            guard captureDevice.isFocusModeSupported(.locked) else { return }
             applyCameraSetting {
                 self.captureDevice.setFocusModeLocked(lensPosition: self.lensPosition, completionHandler: nil)
             }
@@ -265,24 +417,50 @@ class CameraBase: NSObject {
     }
     
     /* White Balance */
-    var whiteBalanceGains: AVCaptureDevice.WhiteBalanceGains!
-    public var tint: UIColor! {
+    public func setWhiteBalanceAuto() {
+        applyCameraSetting {
+            self.captureDevice.whiteBalanceMode = .continuousAutoWhiteBalance
+        }
+    }
+    
+    public var isWhiteBalanceAuto: Bool {
+        return captureDevice.whiteBalanceMode == .autoWhiteBalance || captureDevice.whiteBalanceMode == .continuousAutoWhiteBalance
+    }
+    
+    public var whiteBalanceGains: AVCaptureDevice.WhiteBalanceGains! {
         didSet {
-            if captureDevice.isAdjustingWhiteBalance { return }
+            guard captureDevice.isLockingWhiteBalanceWithCustomDeviceGainsSupported, !captureDevice.isAdjustingWhiteBalance else {
+                return
+            }
             applyCameraSetting {
-                
-                if let components = self.tint.components() {
-                    let max = self.captureDevice.maxWhiteBalanceGain
-                    self.whiteBalanceGains.redGain   = Tools.convert(Float(components.red)  , oldMin: 0, oldMax: 1, newMin: 1, newMax: max)
-                    self.whiteBalanceGains.greenGain = Tools.convert(Float(components.green), oldMin: 0, oldMax: 1, newMin: 1, newMax: max)
-                    self.whiteBalanceGains.blueGain  = Tools.convert(Float(components.blue) , oldMin: 0, oldMax: 1, newMin: 1, newMax: max)
-                }
-                
-                self.captureDevice.setWhiteBalanceModeLocked(with: self.whiteBalanceGains, completionHandler: nil)
+                // TODO: This is causing some weird tint
+//                self.captureDevice.setWhiteBalanceModeLocked(with: self.whiteBalanceGains, completionHandler: nil)
             }
         }
     }
     
+    /// Converts normalized components to whiteBalance values 
+    public func setWhiteBalance(red: Float, green: Float, blue: Float) {
+        guard var whiteBalanceGains = self.whiteBalanceGains else { return }
+        
+        let max = self.captureDevice.maxWhiteBalanceGain
+        whiteBalanceGains.redGain   = Tools.convert(red  , oldMin: 0, oldMax: 1, newMin: 1, newMax: max)
+        whiteBalanceGains.greenGain = Tools.convert(green, oldMin: 0, oldMax: 1, newMin: 1, newMax: max)
+        whiteBalanceGains.blueGain  = Tools.convert(blue , oldMin: 0, oldMax: 1, newMin: 1, newMax: max)
+        self.whiteBalanceGains = whiteBalanceGains
+    }
+    
+    public var tint: UIColor! {
+        didSet {
+            if let components = self.tint.components() {
+                setWhiteBalance(red: Float(components.red), green: Float(components.green), blue: Float(components.blue))
+            }
+        }
+    }
+    
+    public func isModeSupported(_ mode: Mode) -> Bool {
+        return Mode.supportedModes.contains(mode)
+    }
     
     // MARK: - Mode
     public enum Mode: String {
@@ -291,7 +469,8 @@ class CameraBase: NSObject {
         case front
         case telephoto
         case dual
-        case depth
+        case depthRear
+        case depthFront
         
         func device() -> AVCaptureDevice? {
             
@@ -302,15 +481,21 @@ class CameraBase: NSObject {
             switch self {
             case .back:
                 position = .back
+                if #available(iOS 10.2, *) { deviceType = .builtInDualCamera }
+                else                       { deviceType = .builtInDuoCamera }
+                
+                if AVCaptureDevice.default(deviceType, for: .video, position: .back) == nil {
+                    deviceType = .builtInWideAngleCamera
+                }
             case .front:
                 position = .front
-            case .dual, .depth:
+            case .dual, .depthRear:
                 position = .back
-                if #available(iOS 10.2, *) {
-                    deviceType = .builtInDualCamera
-                } else {
-                    deviceType = .builtInDuoCamera
-                }
+                if #available(iOS 10.2, *) { deviceType = .builtInDualCamera }
+                else                       { deviceType = .builtInDuoCamera }
+            case .depthFront:
+                position = .front
+                if #available(iOS 11.1, *) { deviceType = .builtInTrueDepthCamera }
             case .telephoto:
                 position = .back
                 deviceType = .builtInTelephotoCamera
@@ -339,20 +524,24 @@ class CameraBase: NSObject {
             
             let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: additionalTypes, mediaType: .video, position: .back)
             if discoverySession.devices.count > 0 {
-                modes += [.dual, .telephoto, .depth]
+                modes += [.dual, .telephoto, .depthRear, .depthFront]
             }
             
             return modes
         }
         
+        var isDepthMode: Bool {
+            return self == .depthFront || self == .depthRear
+        }
+        
         public static var all: [Mode] {
-            return [.back, .front, .dual, .telephoto, .depth]
+            return [.back, .front, .dual, .telephoto, .depthRear, .depthFront]
         }
         
         public var capturePosition: AVCaptureDevice.Position {
             switch self {
-            case .back, .dual, .telephoto, .depth: return .back
-            case .front: return .front
+            case .back, .dual, .telephoto, .depthRear: return .back
+            case .front, .depthFront: return .front
             }
         }
         
@@ -361,64 +550,26 @@ class CameraBase: NSObject {
         }
     }
     
-    public typealias CaptureCallback = ((_ photo: UIImage?, _ metadata: PhotoMetadata?, _ error: Error?) -> ())
-    
-    // MARK: - Internal
-    var session: AVCaptureSession!
+    /// Internal
+    var session: AVCaptureSession
     var captureDevice: AVCaptureDevice!
-    var photoOutput: AVCapturePhotoOutput?
-    var dataOutput: AVCaptureVideoDataOutput?
+    var photoOutput: AVCapturePhotoOutput
+    var dataOutput: AVCaptureVideoDataOutput
     var dataOutputQueue: DispatchQueue = DispatchQueue(label: "VideoDataOutputQueue")
+    var depthDataOutput: AVCaptureOutput?
     var deviceInput: AVCaptureDeviceInput!
-    fileprivate var currentCaptureCallback: CaptureCallback?
     
-    // Depth
-    private var depthDataOutput: AVCaptureOutput?
-    var depthPixelBuffer: CVPixelBuffer?
-    var depthContext: DepthContext = DepthContext(minDepth: 0, maxDepth: Float.greatestFiniteMagnitude)
-    struct DepthContext {
-        var minDepth: Float
-        var maxDepth: Float
-    }
+    /// Private
+    private let depthDataCallbackQueue = DispatchQueue(label: "DepthDataOutputQueue")
+    private let sessionQueue = DispatchQueue(label: "session queue")
+    fileprivate var currentCaptureProcessors: [CaptureProcessor] = []
     
-}
-
-// MARK: - AVCapturePhotoCaptureDelegate
-extension CameraBase: AVCapturePhotoCaptureDelegate {
-    
+    private var videoOutputSynchronizer: Any?
     @available(iOS 11.0, *)
-    public func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        
-        guard let data = photo.fileDataRepresentation() else {
-            handleTakenPhoto(photo: nil, metadata: nil, error: error)
-            return
-        }
-        let metadata = try? PhotoMetadata(metadata: photo.metadata)
-        handleTakenPhoto(photo: UIImage(data: data), metadata: metadata, error: error)
+    private var videoDataOutputSynchronizer: AVCaptureDataOutputSynchronizer? {
+        get { return videoOutputSynchronizer as? AVCaptureDataOutputSynchronizer }
+        set { videoOutputSynchronizer = newValue }
     }
-    
-    public func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
-        
-        guard let sampleBuffer = photoSampleBuffer,
-            let jpeg = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: sampleBuffer, previewPhotoSampleBuffer: previewPhotoSampleBuffer) else {
-                handleTakenPhoto(photo: nil, metadata: nil, error: error)
-                return
-        }
-        
-        handleTakenPhoto(photo: UIImage(data: jpeg), metadata: nil, error: error)
-    }
-    
-    func handleTakenPhoto(photo: UIImage?, metadata: PhotoMetadata?, error: Error?) {
-        guard let callback = currentCaptureCallback else { return }
-        
-        DispatchQueue.main.async {
-            callback(photo, metadata, error)
-            self.currentCaptureCallback = nil
-        }
-    }
-    
-    
-
 }
 
 
@@ -427,7 +578,6 @@ extension CameraBase {
     
     func setupAVDevice() {
 
-        session = AVCaptureSession()
         session.sessionPreset = preset
         
         session.beginConfiguration()
@@ -454,46 +604,59 @@ extension CameraBase {
             session.addInput(deviceInput)
         }
         
-        dataOutput?.connection(with: .video)?.videoOrientation = .portrait
-        photoOutput?.connection(with: .video)?.videoOrientation = .portrait
+        if mode == .front || mode == .depthFront {
+            dataOutput.connection(with: .video)?.isVideoMirrored = true
+        }
+        
+        orientation = .portrait
     }
     
     func setupOutputs() {
         
+        session.outputs.forEach { self.session.removeOutput($0) }
+        
         // Data Output
-        dataOutput = AVCaptureVideoDataOutput()
-        if let dataOutput = dataOutput {
+        if session.canAddOutput(dataOutput) {
+            session.addOutput(dataOutput)
+            
             dataOutput.videoSettings = [
                 kCVPixelBufferPixelFormatTypeKey as String : kCMPixelFormat_32BGRA
             ]
             dataOutput.alwaysDiscardsLateVideoFrames = true
             dataOutput.setSampleBufferDelegate(self, queue: dataOutputQueue)
-            if session.canAddOutput(dataOutput) {
-                session.addOutput(dataOutput)
-            }
         }
         
         // Capture Photo Output
-        photoOutput = AVCapturePhotoOutput()
-        if let photoOutput = photoOutput {
-            if session.canAddOutput(photoOutput) {
-                session.addOutput(photoOutput)
+        if session.canAddOutput(photoOutput) {
+            session.addOutput(photoOutput)
+            
+            if #available(iOS 11.0, *) { photoOutput.isDepthDataDeliveryEnabled = mode.isDepthMode }
+            photoOutput.isHighResolutionCaptureEnabled = true
+            if photoOutput.isLivePhotoCaptureSupported {
+                photoOutput.isLivePhotoCaptureEnabled = true
+                photoOutput.isLivePhotoAutoTrimmingEnabled = true
             }
         }
         
         // Depth Data Output
-        if #available(iOS 11.0, *), mode == .depth {
+        if #available(iOS 11.0, *), mode.isDepthMode {
+            
             depthDataOutput = AVCaptureDepthDataOutput()
-            (depthDataOutput as! AVCaptureDepthDataOutput).setDelegate(self, callbackQueue: DispatchQueue(label: "DepthDataOutputQueue"))
-            (depthDataOutput as! AVCaptureDepthDataOutput).alwaysDiscardsLateDepthData = true
-            (depthDataOutput as! AVCaptureDepthDataOutput).isFilteringEnabled = true
-            if session.canAddOutput(depthDataOutput!) {
-                session.addOutput(depthDataOutput!)
+            
+            let output = depthDataOutput as! AVCaptureDepthDataOutput
+            output.setDelegate(self, callbackQueue: depthDataCallbackQueue)
+            output.alwaysDiscardsLateDepthData = true
+            output.isFilteringEnabled = true
+            
+            if session.canAddOutput(output) {
+                session.addOutput(output)
+                
+                videoOutputSynchronizer = AVCaptureDataOutputSynchronizer(dataOutputs: [dataOutput, output])
+                videoDataOutputSynchronizer?.setDelegate(self, queue: depthDataCallbackQueue)
             }
         }
         
-        dataOutput?.connection(with: .video)?.videoOrientation = .portrait
-        photoOutput?.connection(with: .video)?.videoOrientation = .portrait
+        orientation = .portrait
     }
 }
 
@@ -528,30 +691,30 @@ extension CameraBase {
 
 extension CameraBase: AVCaptureVideoDataOutputSampleBufferDelegate { }
 
+extension CameraBase: AVCaptureDataOutputSynchronizerDelegate {
+    
+    @available(iOS 11.0, *)
+    public func dataOutputSynchronizer(_ synchronizer: AVCaptureDataOutputSynchronizer, didOutput synchronizedDataCollection: AVCaptureSynchronizedDataCollection) {
+
+    }
+}
+
+
 // MARK: - Depth
 // MARK: AVCaptureDepthDataOutputDelegate
 extension CameraBase: AVCaptureDepthDataOutputDelegate {
     
     @available(iOS 11.0, *)
     public func depthDataOutput(_ output: AVCaptureDepthDataOutput, didOutput depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection) {
-        
-        guard mode == .depth else { return }
-        
-        guard let textureFormat = depthData.depthDataMap.mtlPixelFormat_Depth else { return }
-        
-        (depthContext.minDepth, depthContext.maxDepth) = minMax(from: depthData.depthDataMap, format: textureFormat)
-        
-        let depthData = depthData.applyingExifOrientation(CGImagePropertyOrientation.right).converting(toDepthDataType: kCVPixelFormatType_DepthFloat32)
-        depthPixelBuffer = depthData.depthDataMap
+
     }
     
     @available(iOS 11.0, *)
     public func depthDataOutput(_ output: AVCaptureDepthDataOutput, didDrop depthData: AVDepthData, timestamp: CMTime, connection: AVCaptureConnection, reason: AVCaptureOutput.DataDroppedReason) {
         
     }
-    
-}
 
+}
 
 extension AVCaptureSession {
     
@@ -562,3 +725,6 @@ extension AVCaptureSession {
     }
     
 }
+
+public typealias LivePhotoCallback = ((_ livePhoto: PHLivePhoto?, _ asset: PHAsset?, _ metadata: [AnyHashable:Any]?, _ error: Error?) -> ())
+public typealias CaptureCallback = ((_ photo: UIImage?, _ metadata: PhotoMetadata?, _ error: Error?) -> ())

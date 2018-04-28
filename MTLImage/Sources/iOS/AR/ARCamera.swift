@@ -11,7 +11,7 @@ import ARKit
 @available(iOS 11.0, *)
 public class ARCamera: CameraBase, Input {
     
-    public var arMode: ARMode = .worldTracking
+    public var arMode: ARMode = .face
     
     public let arSession = ARSession()
     let sessionDelegate = ARCameraSessionDelegate()
