@@ -39,11 +39,9 @@ class MainViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let image = #imageLiteral(resourceName: "test")
-        
         self.navigationItem.leftBarButtonItems = nil
         
-        sourcePicture = Picture(image: image)
+        sourcePicture = Picture(image: #imageLiteral(resourceName: "test"))
         sourcePicture.setProcessingSize(CGSize(width: 1500, height: 1500), respectAspectRatio: true)
         
         mtlView.delegate = self

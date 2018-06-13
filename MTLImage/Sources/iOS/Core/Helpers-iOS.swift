@@ -132,7 +132,7 @@ extension MTLTexture {
         )
 
         let provider = CGDataProvider(dataInfo: nil, data: imageBytes, size: imageByteCount) { (rawPointer, pointer, i) in
-            pointer.deallocate(bytes: i, alignedTo: 0)
+            pointer.deallocate()
             free(rawPointer)
         }
 

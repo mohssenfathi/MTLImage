@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "frog1-1.jpg",
+      "filename" : "frog1.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "frog1.jpg",
+      "filename" : "frog1-1.jpg",
       "scale" : "2x"
     },
     {

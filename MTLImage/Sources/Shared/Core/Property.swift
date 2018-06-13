@@ -59,8 +59,8 @@ class Property: NSObject, NSCoding {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init()
-        key = aDecoder.decodeObject(forKey: "key") as! String
-        title = aDecoder.decodeObject(forKey: "title") as! String
+        key = aDecoder.decodeObject(forKey: "key") as? String
+        title = aDecoder.decodeObject(forKey: "title") as? String
         minimumValue = aDecoder.decodeFloat(forKey: "minimumValue")
         maximumValue = aDecoder.decodeFloat(forKey: "maximumValue")
         defaultValue = aDecoder.decodeFloat(forKey: "defaultValue")

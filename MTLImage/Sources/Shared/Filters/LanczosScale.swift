@@ -39,7 +39,7 @@ class LanczosScale: MPS {
 //                      Property(key: "width", title: "Width"),
 //                      Property(key: "height", title: "Height")]
         
-        transformPointer = withUnsafePointer(to: &scaleTransform, { (pointer: UnsafePointer<MPSScaleTransform>) -> UnsafePointer<MPSScaleTransform>! in
+        transformPointer = withUnsafePointer(to: &scaleTransform, { (pointer: UnsafePointer<MPSScaleTransform>) -> UnsafePointer<MPSScaleTransform>? in
             return pointer
         })
         

@@ -378,7 +378,7 @@ class FilterGroupViewController: UIViewController, UITableViewDataSource, UITabl
         }
         else if segue.identifier == "filterGroup" {
             let filterGroupViewController = segue.destination as! FilterGroupViewController
-            filterGroupViewController.filterGroup = selectedFilter as! FilterGroup
+            filterGroupViewController.filterGroup = selectedFilter as? FilterGroup
         }
     }
 

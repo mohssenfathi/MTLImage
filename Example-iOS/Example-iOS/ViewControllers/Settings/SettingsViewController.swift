@@ -25,7 +25,7 @@ SettingsCellDelegate, PickerCellDelegate, ToggleCellDelegate, UIImagePickerContr
         navigationItem.title = filter.title
         tableView.estimatedRowHeight = 80
         
-        mainViewController = self.navigationController?.parent as! MainViewController
+        mainViewController = self.navigationController?.parent as? MainViewController
     
         for property: Property in filter.properties {
             if property.propertyType == .point {

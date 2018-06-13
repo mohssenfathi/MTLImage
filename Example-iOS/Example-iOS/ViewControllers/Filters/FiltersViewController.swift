@@ -240,7 +240,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         else if segue.identifier == "filterGroup" {
             filterGroupViewController = segue.destination as? FilterGroupViewController
             if selectedFilter is FilterGroup {
-                filterGroupViewController?.filterGroup = selectedFilter as! FilterGroup
+                filterGroupViewController?.filterGroup = selectedFilter as? FilterGroup ?? FilterGroup()
             } else {
                 filterGroupViewController?.filterGroup = filterGroup
                 filterGroupViewController?.isNewFilter = newFilterSeleced

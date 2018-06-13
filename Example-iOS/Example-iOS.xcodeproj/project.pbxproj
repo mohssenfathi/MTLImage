@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45CF04A120D15DB50044A8BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45F60DB51F491E6B00318B52 /* Assets.xcassets */; };
 		45F60D8F1F491DFB00318B52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F60D8E1F491DFB00318B52 /* AppDelegate.swift */; };
 		45F60DB61F491E6B00318B52 /* AddFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F60DA21F491E6B00318B52 /* AddFilterViewController.swift */; };
 		45F60DB71F491E6B00318B52 /* FilterGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F60DA31F491E6B00318B52 /* FilterGroupViewController.swift */; };
@@ -21,7 +22,6 @@
 		45F60DC01F491E6B00318B52 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F60DAF1F491E6B00318B52 /* MainViewController.swift */; };
 		45F60DC11F491E6B00318B52 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F60DB11F491E6B00318B52 /* LaunchScreen.storyboard */; };
 		45F60DC21F491E6B00318B52 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F60DB31F491E6B00318B52 /* Main.storyboard */; };
-		45F60DC31F491E6B00318B52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45F60DB51F491E6B00318B52 /* Assets.xcassets */; };
 		45F60DCA1F49224800318B52 /* MTLImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F60DC51F4921D900318B52 /* MTLImage.framework */; };
 		45F60DCB1F49224800318B52 /* MTLImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45F60DC51F4921D900318B52 /* MTLImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -197,7 +197,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = mohssenfathi;
 				TargetAttributes = {
 					45F60D8A1F491DFB00318B52 = {
@@ -229,7 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45F60DC11F491E6B00318B52 /* LaunchScreen.storyboard in Resources */,
-				45F60DC31F491E6B00318B52 /* Assets.xcassets in Resources */,
+				45CF04A120D15DB50044A8BF /* Assets.xcassets in Resources */,
 				45F60DC21F491E6B00318B52 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,6 +292,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -299,6 +300,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -349,6 +351,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -356,6 +359,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

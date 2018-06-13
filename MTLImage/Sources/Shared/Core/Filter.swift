@@ -6,6 +6,9 @@
 //
 //
 
+import Foundation
+import Metal
+
 open
 class Filter: MTLObject, NSCoding {
     
@@ -214,7 +217,7 @@ class Filter: MTLObject, NSCoding {
     public required init?(coder aDecoder: NSCoder) {
         super.init()
         
-        functionName = aDecoder.decodeObject(forKey: "functionName") as! String
+        functionName = aDecoder.decodeObject(forKey: "functionName") as? String ?? ""
         id           = aDecoder.decodeObject(forKey: "identifier") as! String
         properties   = aDecoder.decodeObject(forKey: "properties") as! [Property]
         propertyValues = aDecoder.decodeObject(forKey: "propertyValues") as! [String : AnyObject]
