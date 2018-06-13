@@ -192,7 +192,7 @@ func dataProviderRef(from texture: MTLTexture) -> CGDataProvider {
 // MARK: - UIImage
 extension UIImage {
     
-    convenience init(texture: MTLTexture) {
+    convenience public init(texture: MTLTexture) {
         
         let bitsPerComponent = 8
         let bitsPerPixel = 32

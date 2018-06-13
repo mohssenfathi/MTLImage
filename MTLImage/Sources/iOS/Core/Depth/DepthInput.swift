@@ -7,11 +7,13 @@
 
 import Foundation
 
+@available(iOS 11.0, *)
 public protocol DepthInput {
     var depthPixelBuffer: CVPixelBuffer? { get }
     var depthTextureSize: CGSize? { get }
 }
 
+@available(iOS 11.0, *)
 extension DepthInput {
     
     public var depthTextureSize: CGSize? {

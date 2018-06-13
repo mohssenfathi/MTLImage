@@ -74,6 +74,10 @@ class Histogram: MPS {
 //        newHistogramAvailable?((red, green, blue, alpha))
     }
     
+    override var shouldProcess: Bool {
+        return input?.texture != nil
+    }
+    
     public override func process() {
         texture = input?.texture
         super.process()
@@ -85,7 +89,7 @@ class Histogram: MPS {
         guard let inputTexture = input?.texture else { return }
         
         let bufferLength = (kernel as! MPSImageHistogram).histogramSize(forSourceFormat: inputTexture.pixelFormat)/MemoryLayout<UInt32>.size
-        histogramBuffer = device.makeBuffer(length: bufferLength, options: [.storageModePrivate])
+        histogramBuffer = device.makeBuffer(length: bufferLength, options: [.storageModeShared])
         
         (kernel as! MPSImageHistogram).encode(
             to: commandBuffer,

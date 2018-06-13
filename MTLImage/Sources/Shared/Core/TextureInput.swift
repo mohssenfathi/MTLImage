@@ -25,13 +25,13 @@ class TextureInput: Input {
         set {  }
     }
     
-    init(textureProvider: @escaping (() -> (MTLTexture?))) {
+    public init(textureProvider: @escaping (() -> (MTLTexture?))) {
         self.textureProvider = textureProvider
         context = Context()
         device = context.device
     }
     
-    init(textureProvider: @escaping (() -> (MTLTexture?)), pixelBufferProvider: @escaping (() -> (CVPixelBuffer?))) {
+    public init(textureProvider: @escaping (() -> (MTLTexture?)), pixelBufferProvider: @escaping (() -> (CVPixelBuffer?))) {
         self.textureProvider = textureProvider
         self.pixelBufferProvider = pixelBufferProvider
         context = Context()

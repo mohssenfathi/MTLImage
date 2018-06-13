@@ -13,8 +13,8 @@ struct DepthRendererUniforms: Uniforms {
     var range: Float = 1.0
 }
 
-public
-class DepthRenderer: Filter {
+@available(iOS 11.0, *)
+public class DepthRenderer: Filter {
     
     var uniforms = DepthRendererUniforms()
     var inputProvider: (() -> (CVPixelBuffer?))?
@@ -68,8 +68,7 @@ class DepthRenderer: Filter {
     
     override public func process() {
         
-        guard let inputPixelBuffer = inputProvider?() ?? depthInput?.depthPixelBuffer,
-            let depthTextureSize = depthTextureSize else {
+        guard let inputPixelBuffer = inputProvider?() ?? depthInput?.depthPixelBuffer else {
             return
         }
         
@@ -218,6 +217,7 @@ class DepthRenderer: Filter {
 }
 
 // Depth
+@available(iOS 11.0, *)
 extension DepthRenderer {
     
     static private func allocateOutputBufferPool(with formatDescription: CMFormatDescription, outputRetainedBufferCountHint: Int, size: CMVideoDimensions? = nil) -> CVPixelBufferPool? {
@@ -246,6 +246,7 @@ extension DepthRenderer {
         return MTLSize(width: Int(size.width), height: Int(size.height), depth: 1)
     }
     
+    @available(iOS 11.0, *)
     var depthInput: DepthInput? {
         return input as? DepthInput
     }

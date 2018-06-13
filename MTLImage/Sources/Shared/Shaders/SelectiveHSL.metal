@@ -56,17 +56,14 @@ kernel void selectiveHSL(texture2d<float, access::read>  inTexture   [[ texture(
                          constant ColorSelectionUniforms &uniforms   [[ buffer(0) ]],
                          uint2    gid                                [[thread_position_in_grid]])
 {
-    
-    Constants c = Constants();
-    
     float4 color = inTexture.read(gid);
     float3 hsv = RGBToHSL(color.rgb);
     
     if (hsv.x < c.orange) {
-        hsv = smoothTreatment(hsv, 0.0, c.orange, uniforms.red, uniforms.orange);
+        hsv = smoothTreatment(hsv, 0.0, orange, uniforms.red, uniforms.orange);
     }
     else if (hsv.x >= c.orange && hsv.x < c.yellow) {
-        hsv = smoothTreatment(hsv, c.orange, c.yellow, uniforms.orange, uniforms.yellow);
+        hsv = smoothTreatment(hsv, c.orange, yellow, uniforms.orange, uniforms.yellow);
     }
     else if (hsv.x >= c.yellow && hsv.x < c.green) {
         hsv = smoothTreatment(hsv, c.yellow, c.green, uniforms.yellow, uniforms.green);

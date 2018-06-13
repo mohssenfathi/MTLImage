@@ -218,3 +218,19 @@ public func /(left: CGRect, right: CGSize) -> CGRect {
     return CGRect(x: left.origin.x / right.width, y: left.origin.y / right.height,
                   width: left.width / right.width, height: left.height / right.height)
 }
+
+
+
+// MARK: - Mathable
+//protocol Mathable: Equatable {
+//    associatedtype M
+//    func isInBounds(bounds: (M, M)) -> Bool
+//}
+//
+//extension Mathable {
+//    func isInBounds(bounds: (Mathable, Mathable)) -> Bool {
+//        return self > bounds.0 && self < bounds.1
+//    }
+//}
+//
+//extension Double: Mathable { }

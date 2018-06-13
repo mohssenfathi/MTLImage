@@ -56,7 +56,7 @@ extension CaptureProcessor: AVCapturePhotoCaptureDelegate {
         
         process(photo: photo) { [weak self] imageData in
             guard let weakSelf = self else { return }
-            weakSelf.captureHandler(weakSelf, photoData, depthMap, try? PhotoMetadata(metadata: photo.metadata), error)
+            weakSelf.captureHandler(weakSelf, weakSelf.photoData, weakSelf.depthMap, try? PhotoMetadata(metadata: photo.metadata), error)
         }
         
     }
@@ -178,7 +178,7 @@ extension CaptureProcessor {
 //    }
     
     @available(iOS 11.0, *)
-    func process(photo: AVCapturePhoto, completion: ((Data?) -> ())) {
+    func process(photo: AVCapturePhoto, completion: @escaping ((Data?) -> ())) {
 
         if let depthData = photo.depthData {
             
@@ -187,7 +187,8 @@ extension CaptureProcessor {
             let image = UIImage(data: data)!
             depthProcessor.filter(image: image, depthMap: depthData.depthDataMap) { texture in
                 let im = UIImage(texture: texture!)
-                print(im.size)
+                let dat = UIImageJPEGRepresentation(im, 1.0)
+                completion(dat)
             }
         }
         return

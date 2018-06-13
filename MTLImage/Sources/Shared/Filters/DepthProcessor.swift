@@ -44,9 +44,31 @@ public class DepthProcessor: FilterGroup {
         configure()
     }
     
+    public func filter(depthMap: CVPixelBuffer, completion: @escaping ((MTLTexture?) -> ())) {
+        
+        let depthProvider = TextureInput(textureProvider: { () -> (MTLTexture?) in
+            return nil
+        })
+        
+        depthProvider.pixelBufferProvider = { () -> (CVPixelBuffer?) in
+            return depthMap
+        }
+        
+        depthProvider --> depthRenderer
+        
+        DispatchQueue.global(qos: .background).async {
+            self.bilinearScale.process()
+            
+            DispatchQueue.main.async {
+                completion(self.texture)
+            }
+        }
+    }
+    
     public func filter(image: UIImage, depthMap: CVPixelBuffer, completion: @escaping ((MTLTexture?) -> ())) {
 
         let picture = Picture(image: image)
+        bilinearScale.outputSize = MTLSize(width: Int(image.size.width), height: Int(image.size.height), depth: 1)
 
         let depthProvider = TextureInput(textureProvider: { () -> (MTLTexture?) in
             return picture.texture

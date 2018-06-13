@@ -11,24 +11,29 @@ public struct ColorGeneratorUniforms: Uniforms {
     var color: float4 = float4(x: 0, y: 0, z: 0, w: 1)
 }
 
-class ColorGenerator: Filter {
+public class ColorGenerator: Filter {
 
     var uniforms = ColorGeneratorUniforms()
     
-    var color: UIColor = .black {
+    public var color: UIColor = .black {
         didSet { needsUpdate = true }
     }
     
-    init() {
+    public init() {
         super.init(functionName: "colorGenerator")
         title = "Color Generator"
+    }
+    
+    public convenience init(color: UIColor) {
+        self.init()
+        self.color = color
     }
     
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func update() {
+    override public func update() {
         super.update()
         if let components = color.components() {
             uniforms.color = float4(Float(components.red), Float(components.green), Float(components.blue), Float(components.alpha))

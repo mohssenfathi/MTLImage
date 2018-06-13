@@ -9,7 +9,7 @@ import Foundation
 import AVFoundation
 import Photos
 
-public
+@objc public
 class CameraBase: NSObject {
 
     init(session: AVCaptureSession) {
@@ -29,7 +29,14 @@ class CameraBase: NSObject {
     }
     
     public var isLivePhotoEnabled: Bool {
-        get { return photoOutput.isLivePhotoCaptureEnabled && !photoOutput.isLivePhotoCaptureSuspended }
+        get {
+            guard photoOutput.isLivePhotoCaptureSupported,
+                photoOutput.isLivePhotoCaptureEnabled,
+                !photoOutput.isLivePhotoCaptureSuspended else {
+                return false
+            }
+            return true
+        }
         set {
             guard photoOutput.isLivePhotoCaptureSupported else {
                 return
@@ -39,7 +46,7 @@ class CameraBase: NSObject {
                 photoOutput.isLivePhotoCaptureEnabled = true
             }
             
-            photoOutput.isLivePhotoCaptureSuspended = isLivePhotoEnabled
+            photoOutput.isLivePhotoCaptureSuspended = !newValue
         }
     }
     
@@ -156,6 +163,7 @@ class CameraBase: NSObject {
         
     }
   
+    public var isRunning: Bool { return session.isRunning }
     public func startRunning() { session.startRunning() }
     public func stopRunning()  { session.stopRunning() }
     
@@ -178,9 +186,7 @@ class CameraBase: NSObject {
         didSet {
             session.apply {
                 self.setupInputs()
-                if self.mode.isDepthMode {
-                    self.setupOutputs()
-                }
+                self.setupOutputs()
             }
         }
     }
@@ -288,7 +294,7 @@ class CameraBase: NSObject {
             let str = rawValue.replacingOccurrences(of: "ed_", with: "")
             let components = str.components(separatedBy: "_")
             let seconds = Int64(components.first ?? "1") ?? 1
-            let timescale = CMTimeScale(components.last ?? "1") ?? 1
+            let timescale: Int32 = components.count > 1 ? CMTimeScale(components.last ?? "1") ?? 1 : CMTimeScale(1)
             return CMTimeMake(seconds, timescale)
         }
     }
@@ -300,17 +306,23 @@ class CameraBase: NSObject {
         1.5, 2.0, 3.0, 4.0, 6.0, 8.0, 12.0, 15.0, 24.0, 30.0
     ]
     
+    @objc dynamic
     public var exposureValue: Double {
         get { return ev(from: exposureDuration) }
         set { exposureDuration = ed(from: newValue) }
     }
     
-    public var currentExposureDuration: ExposureDuration?
+    public var currentExposureDuration: ExposureDuration = .ed_1_60
     
     // Normalized
+    @objc dynamic
     public var exposureDuration: Double = 0.5 {
         didSet {
 
+            guard captureDevice.isExposureModeSupported(.custom) else {
+                return
+            }
+            
             Tools.clamp(&exposureDuration, low: 0, high: 1)
             
             let i = Int(exposureDuration * Double(exposureDurations.count - 1))
@@ -322,16 +334,17 @@ class CameraBase: NSObject {
             let cmTime = expDuration.cmTime
             
             guard !captureDevice.isAdjustingExposure,
-            cmTime.seconds >= minExposureDuration,
-            cmTime.seconds <= maxExposureDuration
+                cmTime.seconds >= minExposureDuration,
+                cmTime.seconds <= maxExposureDuration
             else { return }
             
             applyCameraSetting {
-                self.captureDevice.setExposureModeCustom(duration: cmTime, iso: AVCaptureDevice.currentISO, completionHandler: nil)
+                self.captureDevice.setExposureModeCustom(duration: cmTime, iso: iso, completionHandler: nil)
             }
         }
     }
     
+    @objc dynamic
     public var exposurePointOfInterest: CGPoint = CGPoint(x: 0.5, y: 0.5) {
         didSet {
             guard captureDevice.isExposurePointOfInterestSupported,
@@ -369,50 +382,67 @@ class CameraBase: NSObject {
     
     
     /* ISO */
-    public func setISOAuto() {
-        applyCameraSetting {
-            self.captureDevice.exposureMode = .autoExpose
-        }
-    }
-    
     public var isISOAuto: Bool {
-        return captureDevice.exposureMode == .autoExpose || captureDevice.exposureMode == .continuousAutoExposure
+        get {
+            return captureDevice.exposureMode == .autoExpose || captureDevice.exposureMode == .continuousAutoExposure
+        }
+        set {
+            applyCameraSetting {
+                self.captureDevice.exposureMode = .continuousAutoExposure
+            }
+        }
     }
     
     public var minISO: Float { return captureDevice.activeFormat.minISO }
     public var maxISO: Float { return captureDevice.activeFormat.maxISO }
-    public var currentISO: Float {
-        return Tools.convert(iso, oldMin: 0, oldMax: 1, newMin: minISO, newMax: maxISO)
-    }
-    public var iso: Float = 0.5 {
-        didSet {
-            if captureDevice.isAdjustingExposure { return }
-            applyCameraSetting {
-                let value = Tools.convert(self.iso, oldMin: 0, oldMax: 1, newMin: self.minISO, newMax: self.maxISO)
-                self.captureDevice.setExposureModeCustom(duration: AVCaptureDevice.currentExposureDuration, iso: value, completionHandler: nil)
+    
+    @objc dynamic
+    public var iso: Float {
+        set {
+            guard !captureDevice.isAdjustingExposure,
+                captureDevice.isExposureModeSupported(.custom) else {
+                return
             }
+
+//            guard newValue
+            
+//            var newValue = newValue
+//            Tools.clamp(&newValue, low: minISO, high: maxISO)
+            
+            applyCameraSetting {
+                self.captureDevice.setExposureModeCustom(duration: AVCaptureDevice.currentExposureDuration, iso: newValue, completionHandler: nil)
+            }
+        }
+        get {
+            return captureDevice.iso
         }
     }
     
     /* Focus */
     public var focusMode: AVCaptureDevice.FocusMode = .autoFocus
     
-    public func setFocusAuto() {
-        applyCameraSetting {
-            self.captureDevice.focusMode = .autoFocus
+    public var isFocusAuto: Bool {
+        set {
+            applyCameraSetting {
+                self.captureDevice.focusMode = .autoFocus
+            }
+        }
+        get {
+            return captureDevice.focusMode == .autoFocus || captureDevice.focusMode == .continuousAutoFocus
         }
     }
     
-    public var isFocusAuto: Bool {
-        return captureDevice.focusMode == .autoFocus || captureDevice.focusMode == .continuousAutoFocus
-    }
-    
-    public var lensPosition: Float = 0.0 {
-        didSet {
+    public var lensPosition: Float {
+        set {
             guard captureDevice.isFocusModeSupported(.locked) else { return }
+            var newValue = newValue
+            Tools.clamp(&newValue, low: 0, high: 1)
             applyCameraSetting {
-                self.captureDevice.setFocusModeLocked(lensPosition: self.lensPosition, completionHandler: nil)
+                self.captureDevice.setFocusModeLocked(lensPosition: newValue, completionHandler: nil)
             }
+        }
+        get {
+            return captureDevice.lensPosition
         }
     }
     
@@ -481,12 +511,13 @@ class CameraBase: NSObject {
             switch self {
             case .back:
                 position = .back
-                if #available(iOS 10.2, *) { deviceType = .builtInDualCamera }
-                else                       { deviceType = .builtInDuoCamera }
-                
-                if AVCaptureDevice.default(deviceType, for: .video, position: .back) == nil {
-                    deviceType = .builtInWideAngleCamera
-                }
+                deviceType = .builtInWideAngleCamera
+//                if #available(iOS 10.2, *) { deviceType = .builtInDualCamera }
+//                else                       { deviceType = .builtInDuoCamera }
+//
+//                if AVCaptureDevice.default(deviceType, for: .video, position: .back) == nil {
+//                    deviceType = .builtInWideAngleCamera
+//                }
             case .front:
                 position = .front
             case .dual, .depthRear:
@@ -550,9 +581,10 @@ class CameraBase: NSObject {
         }
     }
     
+    public var captureDevice: AVCaptureDevice!
+    
     /// Internal
     var session: AVCaptureSession
-    var captureDevice: AVCaptureDevice!
     var photoOutput: AVCapturePhotoOutput
     var dataOutput: AVCaptureVideoDataOutput
     var dataOutputQueue: DispatchQueue = DispatchQueue(label: "VideoDataOutputQueue")
@@ -570,6 +602,10 @@ class CameraBase: NSObject {
         get { return videoOutputSynchronizer as? AVCaptureDataOutputSynchronizer }
         set { videoOutputSynchronizer = newValue }
     }
+    
+    
+    private var captureDeviceObserver: Observer<AVCaptureDevice>?
+    
 }
 
 
@@ -632,10 +668,7 @@ extension CameraBase {
             
             if #available(iOS 11.0, *) { photoOutput.isDepthDataDeliveryEnabled = mode.isDepthMode }
             photoOutput.isHighResolutionCaptureEnabled = true
-            if photoOutput.isLivePhotoCaptureSupported {
-                photoOutput.isLivePhotoCaptureEnabled = true
-                photoOutput.isLivePhotoAutoTrimmingEnabled = true
-            }
+            isLivePhotoEnabled = true
         }
         
         // Depth Data Output
@@ -658,9 +691,10 @@ extension CameraBase {
         
         orientation = .portrait
     }
+
 }
 
-//MARK: -  Editing
+// MARK: -  Editing
 extension CameraBase {
     
     /*  Locks camera, applies settings change, then unlocks.
@@ -728,3 +762,37 @@ extension AVCaptureSession {
 
 public typealias LivePhotoCallback = ((_ livePhoto: PHLivePhoto?, _ asset: PHAsset?, _ metadata: [AnyHashable:Any]?, _ error: Error?) -> ())
 public typealias CaptureCallback = ((_ photo: UIImage?, _ metadata: PhotoMetadata?, _ error: Error?) -> ())
+
+
+
+open class Observer<T: NSObject> {
+    
+    public typealias ChangeHandler = ((_ observee: T, _ keyPath: PartialKeyPath<T>) -> ())
+    
+    public let observee: T
+    public let keyPaths: [AnyKeyPath]
+    
+    deinit {
+        observers.forEach { $0.invalidate() }
+    }
+    
+    public init(observee: T, keyPaths: [AnyKeyPath], changeHandler: @escaping ChangeHandler) {
+        self.observee = observee
+        self.keyPaths = keyPaths
+        
+        for kp in keyPaths {
+            if let keyPath = kp as? KeyPath<T, Float> {
+                observers.append(observee.observe(keyPath, changeHandler: { (captureDevice, change) in
+                    changeHandler(observee, keyPath)
+                }))
+            }
+            else if let keyPath = kp as? KeyPath<T, Double> {
+                observers.append(observee.observe(keyPath, changeHandler: { (captureDevice, change) in
+                    changeHandler(observee, keyPath)
+                }))
+            }
+        }
+    }
+    
+    private var observers: [NSKeyValueObservation] = []
+}

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 import Photos
 
 extension PHAsset {
@@ -29,6 +30,45 @@ extension PHAsset {
             }
         }
     }
+    
+    func image(size: CGSize = PHImageManagerMaximumSize) -> UIImage? {
+        var img: UIImage?
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        image(size: size, deliveryMode: .highQualityFormat, synchronous: false, progress: nil) { (im, _) in
+            img = im
+            semaphore.signal()
+        }
+        
+        _ = semaphore.wait()
+        
+        return img
+    }
+    
+//    @available(iOS 11.0, *)
+//    public func depthData(completion: @escaping (AVDepthData?) -> ()) {
+//        
+//        let options = PHImageRequestOptions()
+//        options.deliveryMode = .opportunistic
+//        options.isSynchronous = false
+//        options.isNetworkAccessAllowed = true
+//        
+//        PhotoLibrary.shared.manager.requestImageData(for: self, options: options) { (data, dataType, orientation, info) in
+//            
+//            guard let data = data, let source = CGImageSourceCreateWithData(data as CFData, nil) else {
+//                completion(nil)
+//                return
+//            }
+//            
+//            
+//            guard let auxDataInfo = CGImageSourceCopyAuxiliaryDataInfoAtIndex(source, 0, kCGImageAuxiliaryDataTypeDisparity) as? [AnyHashable : Any] else {
+//                completion(nil)
+//                return
+//            }
+//            
+//            completion(try? AVDepthData(fromDictionaryRepresentation: auxDataInfo))
+//        }
+//    }
     
 }
 

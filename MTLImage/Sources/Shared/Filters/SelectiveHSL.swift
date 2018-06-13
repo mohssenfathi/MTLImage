@@ -121,6 +121,7 @@ class SelectiveHSL: Filter {
         switch mode {
         case 0:
             if let value = values[color]?.x {
+                // TODO: Check this
                 return Tools.convert(value, oldMin: -(30.0/60.0), oldMax: (30.0/60.0), newMin: 0, newMax: 1)
             } else {
                 return 0.5

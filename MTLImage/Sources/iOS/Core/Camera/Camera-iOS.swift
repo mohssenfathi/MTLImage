@@ -132,10 +132,14 @@ class Camera: CameraBase, Input {
     public var targets: [Output] = []
     
     public func addTarget(_ target: Output) {
+        
         var t = target
         targets.append(t)
         t.input = self
-        startRunning()
+
+        if !isRunning {
+            startRunning()
+        }
     }
     
     public func removeTarget(_ target: Output) {

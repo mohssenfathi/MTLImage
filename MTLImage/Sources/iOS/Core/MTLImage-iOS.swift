@@ -164,7 +164,6 @@ extension MTLImage.FilterType {
         case .crop:                     return Crop()
         case .crossHatch:               return CrossHatch()
         case .dataOutput:               return DataOutput()
-        case .depthRenderer:            return DepthRenderer()
         case .dilate:                   return Dilate()
         case .emboss:                   return Emboss()
         case .exposure:                 return Exposure()
@@ -208,6 +207,10 @@ extension MTLImage.FilterType {
         case .xyDerivative:             return XYDerivative()
             
         /// iOS 11 only
+        case .depthRenderer:
+            if #available(iOS 11.0, *) { return DepthRenderer() }
+            else { return Filter(functionName: nil) }
+            
         case .bilinearScale:
             if #available(iOS 11.0, *) { return BilinearScale() }
             else { return Filter(functionName: nil) }

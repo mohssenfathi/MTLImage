@@ -81,46 +81,31 @@ class Picture: NSObject, Input {
     }
     
     public init(asset: PHAsset) {
-        fatalError("Needs to be implemented")
+        super.init()
+        
+        self.title = "Image"
+        self.asset = asset
+        self.textureLoader = MTKTextureLoader(device: context.device)
+        self.image = asset.image()
+        self.processingSize = image.size
+        self.loadTexture()
+        if #available(iOS 11.0, *) { self.loadDepthData() }
     }
     
     @available (iOS 11.0, *)
     func loadDepthData() {
         
-        return 
-        
-        guard let cgImage = image.cgImage, let imageData = UIImageJPEGRepresentation(image, 1.0) else {
-            return
-        }
-        
-        guard let source = CGImageSourceCreateWithData(imageData as CFData, nil) else {
-            return
-        }
-        
-        guard let auxDataInfo = CGImageSourceCopyAuxiliaryDataInfoAtIndex(source, 0, kCGImageAuxiliaryDataTypeDepth) as? [AnyHashable : Any] else {
-            return
-        }
-        
-        depthData = try? AVDepthData(fromDictionaryRepresentation: auxDataInfo)
-    }
-    
-    func loadTexture() {
-
-//        guard let cgImage = image.cgImage?.copy() else {
+//        guard let asset = asset else {
 //            return
 //        }
 //        
-//        let textureLoader = MTKTextureLoader(device: device)
-//        textureLoader.newTexture(cgImage: cgImage, options: nil) { texture, error in
-//            self.texture = texture
+//        asset.depthData { (depthData) in
+//            self.depthData = depthData
 //        }
-        
+    }
+    
+    func loadTexture() {
         texture = image.texture(device, flip: false, size: processingSize)
-        
-//        if let texture = image.texture(device, flip: false, size: processingSize) {
-//            self.texture = texture.makeTextureView(pixelFormat: texture.pixelFormat)
-//        }
-        
     }
     
     func chainLength() -> Int {
@@ -204,11 +189,19 @@ class Picture: NSObject, Input {
         context.semaphore.signal()
     }
     
+    var asset: PHAsset?
     
     private var _depthData: Any?
     @available(iOS 11.0, *)
     public var depthData: AVDepthData? {
         get { return _depthData as? AVDepthData }
         set { _depthData = newValue }
+    }
+}
+
+@available(iOS 11.0, *)
+extension Picture: DepthInput {
+    public var depthPixelBuffer: CVPixelBuffer? {
+        return depthData?.depthDataMap
     }
 }
