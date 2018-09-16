@@ -46,54 +46,6 @@ struct Constants {
 };
 
 
-float3 RGBtoXYZ(float3 color) {
-    float r = color.r;
-    float g = color.g;
-    float b = color.b;
-    
-    if ( r > 0.04045 ) r = pow((( r + 0.055 ) / 1.055), 2.4);
-    else               r = r / 12.92;
-    if ( g > 0.04045 ) g = pow((( g + 0.055 ) / 1.055 ), 2.4);
-    else               g = g / 12.92;
-    if ( b > 0.04045 ) b = pow(((b + 0.055 ) / 1.055 ), 2.4);
-    else               b = b / 12.92;
-    
-    r = r * 100.0;
-    g = g * 100.0;
-    b = b * 100.0;
-    
-    //Observer. = 2°, Illuminant = D65
-    float X = r * 0.4124 + g * 0.3576 + b * 0.1805;
-    float Y = r * 0.2126 + g * 0.7152 + b * 0.0722;
-    float Z = r * 0.0193 + g * 0.1192 + b * 0.9505;
-    
-    return float3(X, Y, Z);
-}
-
-float3 XYZtoLAB(float3 color) {
-
-    float x = color.x / 95.047;
-    float y = color.y / 100.000;
-    float z = color.z / 108.883;
-
-//    float x = color.x - 111.144;
-//    float y = color.y - 100.000;
-//    float z = color.z - 035.200;
-    
-    if ( x > 0.008856 ) x = pow(x ,(1.0/3.0));
-    else                x = (7.787 * x) + (16.0 / 116.0);
-    if ( y > 0.008856 ) y = pow(y ,(1.0/3.0));
-    else                y = (7.787 * y) + (16.0 / 116.0);
-    if ( z > 0.008856 ) z = pow(z ,(1.0/3.0));
-    else                z = (7.787 * z) + (16.0 / 116.0);
-    
-    float L = (116.0 * y) - 16.0;
-    float A = 500.0 * (x - y);
-    float B = 200.0 * (y - z);
-    
-    return float3(L, A, B);
-}
-
 float convertValue(float value, float oldMin, float oldMax, float newMin, float newMax) {
     float normalizedValue = (value - oldMin)/(oldMax - oldMin);
     float newValue = newMin + (normalizedValue * (newMax - newMin));

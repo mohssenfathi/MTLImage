@@ -18,10 +18,10 @@ float3 RGBToHSL(float3 color);
 float3 HSLToRGB(float3 hsl);
 float HueToRGB(float f1, float f2, float hue);
 float RGBToL(float3 color);
-
 float3 RGBtoHSV(float3 rgb);
-
-
+float3 RGBtoXYZ(float3 color);
+float3 XYZtoLAB(float3 color);
+float3 RGBtoLAB(float3 color);
 
 
 //    rgb<-->hsv functions by Sam Hocevar
@@ -194,4 +194,74 @@ float3 RGBtoHSV(float3 rgb) {
         hsv.r = (171.0/255.0) + (43.0/255.0) * (rgb.r - rgb.g) / (rgbMax - rgbMin);
     
     return hsv;
+}
+
+float3 RGBtoXYZ(float3 color) {
+    
+    float3 tmp;
+    tmp.x = ( color.r > 0.04045 ) ? pow( ( color.r + 0.055 ) / 1.055, 2.4 ) : color.r / 12.92;
+    tmp.y = ( color.g > 0.04045 ) ? pow( ( color.g + 0.055 ) / 1.055, 2.4 ) : color.g / 12.92,
+    tmp.z = ( color.b > 0.04045 ) ? pow( ( color.b + 0.055 ) / 1.055, 2.4 ) : color.b / 12.92;
+    const float3x3 mat = float3x3(float3(0.4124, 0.3576, 0.1805),
+                                  float3(0.2126, 0.7152, 0.0722),
+                                  float3(0.0193, 0.1192, 0.9505));
+    return 100.0 * (tmp * mat);
+    
+//    float r = color.r;
+//    float g = color.g;
+//    float b = color.b;
+//
+//    if ( r > 0.04045 ) r = pow((( r + 0.055 ) / 1.055), 2.4);
+//    else               r = r / 12.92;
+//    if ( g > 0.04045 ) g = pow((( g + 0.055 ) / 1.055 ), 2.4);
+//    else               g = g / 12.92;
+//    if ( b > 0.04045 ) b = pow(((b + 0.055 ) / 1.055 ), 2.4);
+//    else               b = b / 12.92;
+//
+//    r = r * 100.0;
+//    g = g * 100.0;
+//    b = b * 100.0;
+//
+//    //Observer. = 2°, Illuminant = D65
+//    float X = r * 0.4124 + g * 0.3576 + b * 0.1805;
+//    float Y = r * 0.2126 + g * 0.7152 + b * 0.0722;
+//    float Z = r * 0.0193 + g * 0.1192 + b * 0.9505;
+//
+//    return float3(X, Y, Z);
+}
+
+float3 XYZtoLAB(float3 color) {
+    
+    float3 n = color / float3(95.047, 100, 108.883);
+    float3 v;
+    v.x = ( n.x > 0.008856 ) ? pow( n.x, 1.0 / 3.0 ) : ( 7.787 * n.x ) + ( 16.0 / 116.0 );
+    v.y = ( n.y > 0.008856 ) ? pow( n.y, 1.0 / 3.0 ) : ( 7.787 * n.y ) + ( 16.0 / 116.0 );
+    v.z = ( n.z > 0.008856 ) ? pow( n.z, 1.0 / 3.0 ) : ( 7.787 * n.z ) + ( 16.0 / 116.0 );
+    return float3(( 116.0 * v.y ) - 16.0, 500.0 * ( v.x - v.y ), 200.0 * ( v.y - v.z ));
+    
+//    float x = color.x / 95.047;
+//    float y = color.y / 100.000;
+//    float z = color.z / 108.883;
+//
+//    //    float x = color.x - 111.144;
+//    //    float y = color.y - 100.000;
+//    //    float z = color.z - 035.200;
+//
+//    if ( x > 0.008856 ) x = pow(x ,(1.0/3.0));
+//    else                x = (7.787 * x) + (16.0 / 116.0);
+//    if ( y > 0.008856 ) y = pow(y ,(1.0/3.0));
+//    else                y = (7.787 * y) + (16.0 / 116.0);
+//    if ( z > 0.008856 ) z = pow(z ,(1.0/3.0));
+//    else                z = (7.787 * z) + (16.0 / 116.0);
+//
+//    float L = (116.0 * y) - 16.0;
+//    float A = 500.0 * (x - y);
+//    float B = 200.0 * (y - z);
+//
+//    return float3(L, A, B);
+}
+
+float3 RGBtoLAB(float3 color) {
+    float3 lab = XYZtoLAB( RGBtoXYZ(color) );
+    return float3( lab.x / 100.0, 0.5 + 0.5 * ( lab.y / 127.0 ), 0.5 + 0.5 * ( lab.z / 127.0 ));
 }

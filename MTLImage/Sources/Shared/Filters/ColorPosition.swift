@@ -16,37 +16,36 @@ class ColorPosition: Filter {
     var uniforms = ColorPositionUniforms()
     
     public var outputRect: CGRect {
-        
+
         /* rect: [minX, maxX, minY, maxY] */
-        
+
         var r = CGRect(
             x: CGFloat(outputRectArray[0]),
             y: CGFloat(outputRectArray[2]),
             width: CGFloat(outputRectArray[1]),
             height: CGFloat(outputRectArray[3])
         )
-        
+
         r.size.height = r.height - r.origin.y
         r.size.width = r.width - r.origin.x
-        
-        // Normalize
-//        if let tex = texture {
-//            r.origin.x /= CGFloat(tex.width)
-//            r.origin.y /= CGFloat(tex.height)
-//            r.size.width /= CGFloat(tex.width)
-//            r.size.height /= CGFloat(tex.height)
-//        } else {
-//            return CGRect.zero
-//        }
-        
-        r = average(newRect: r)
-        
+
+//        r = average(newRect: r)
+
         return r
+    }
+    
+    public var normalizedRect: CGRect {
+        guard let inputSize = input?.texture?.size().cgSize else {
+            return .zero
+        }
+        
+        return outputRect / inputSize
     }
     
     public var color: UIColor = .clear
     public var threshold: Float = 1.0
     public var smoothing = 1
+    public var newRectAvailable: ((ColorPosition) -> ())?
     
     public init() {
         super.init(functionName: "colorPosition")
@@ -61,8 +60,9 @@ class ColorPosition: Filter {
         
         if let contents = outputRectBuffer?.contents() {
             let count = 4
-            let result = contents.bindMemory(to: Float.self, capacity: count)
-            for i in 0 ..< count { outputRectArray[i] = result[i] }
+            let result = contents.bindMemory(to: UInt32.self, capacity: count)
+            for i in 0 ..< count { outputRectArray[i] = Float(result[i]) }
+            newRectAvailable?(self)
         }
         
         uniformsBuffer = context.device.makeBuffer(bytes: &uniforms,

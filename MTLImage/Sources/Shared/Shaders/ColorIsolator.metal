@@ -8,8 +8,7 @@
 #include <metal_stdlib>
 using namespace metal;
 
-float3 RGBtoXYZ(float3 color);
-float3 XYZtoLAB(float3 color);
+float3 RGBtoLAB(float3 color);
 float deltaE(float3 labA, float3 labB);
 
 struct ColorIsolatorUniforms {
@@ -25,17 +24,11 @@ kernel void colorIsolator(texture2d<float, access::read>  inTexture    [[ textur
     
     float4 col = inTexture.read(gid);
     
-    float3 labA = RGBtoXYZ(XYZtoLAB(col.rgb));
-    float3 labB = RGBtoXYZ(XYZtoLAB(uniforms.color.rgb));
-    
-    float delta = deltaE(labA, labB);
+    float3 labA = RGBtoLAB(col.rgb);
+    float3 labB = RGBtoLAB(uniforms.color.rgb);
 
-//    float delta = sqrt(pow(labB.r - labA.r, 2) + pow(labB.g - labA.g, 2) + pow(labB.b - labA.b, 2))/1000.0;
+    float delta = sqrt(pow(labB.r - labA.r, 2) + pow(labB.g - labA.g, 2) + pow(labB.b - labA.b, 2));
 
-    outTexture.write(float4(labB/255.0, 1.0), gid);
-//    outTexture.write(float4(float3(delta), 1.0), gid);
-    return;
-    
     if (delta < uniforms.threshold) {
         outTexture.write(col, gid);
         return;
